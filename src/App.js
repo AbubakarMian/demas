@@ -3,11 +3,12 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Navbar, Container } from 'react-bootstrap'
 import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import Single_trip from './js/single_trip';
 import Login from './js/login_page';
-import Home from './home';
-import About from './about';
-import Users from './users';
-import Starting from './starting';
+import Home from './js/home';
+import About from './js/about';
+import Users from './js/users';
+import Starting from './js/starting';
 import Button from 'react-bootstrap/Button';
 // import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -36,6 +37,7 @@ function App() {
           </Row>
         </Container>
         <Routes>
+          <Route Component={Single_trip} path='/single_trip'></Route>
           <Route Component={Login} path='/js/login'></Route>
           <Route Component={Starting} path='/starting'></Route>
           <Route Component={About} path='/about'></Route>
@@ -66,7 +68,7 @@ const Offcanvas_colapsable_nav = () => {
             <Offcanvas.Header>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
                 <div>
-                <img className="collapse_logo" src="./images/1.png"></img>
+                <img className="collapse_logo" src="./../images/1.png"></img>
 
                 </div>
                 <div>
@@ -80,7 +82,8 @@ const Offcanvas_colapsable_nav = () => {
                 <div className='nav_bottom'><Nav.Link href="/about"><FontAwesomeIcon icon={faAddressCard} /> About</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="users"><FontAwesomeIcon icon={faUsers} /> Users</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="starting"><FontAwesomeIcon icon={faUsers} /> starting page</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="js/login"><FontAwesomeIcon icon={faUsers} /> login</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="login"><FontAwesomeIcon icon={faUsers} /> login</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="single_trip"><FontAwesomeIcon icon={faUsers} /> single_trip</Nav.Link></div>
                 <NavDropdown
                   title="Dropdown"
                   id={`offcanvasNavbarDropdown-expand-lg`}
