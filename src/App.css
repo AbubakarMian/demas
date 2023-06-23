@@ -1,0 +1,89 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+.navbar a{
+  color: white;
+  margin: 10px;
+}
+.navbar a:hover{
+  color: gold;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.navbar {
+  padding: 0 !important;
+}
+input.me-2.form-control {
+  height: 50px;
+  margin-top: 4px;
+}
+button.search_btn.btn.btn-outline-success {
+  height: 48px;
+  margin-top: 6px;
+  background-color: white;
+  color: #996418;
+  border: solid 1px #996418;
+  font-weight: bold;
+}
+button.search_btn.btn.btn-outline-success {
+  height: 48px;
+  margin-top: 6px;
+  background-color: #996418;
+  color: #ffffff;
+}
+.offcanvas, .offcanvas-lg, .offcanvas-md, .offcanvas-sm, .offcanvas-xl, .offcanvas-xxl {
+  --bs-offcanvas-width: 280px !important;
+  --bs-offcanvas-bg: #996418 !important;
+  --bs-offcanvas-color: white !important;
+  
+}
+.collapse_logo {
+  width: 100%;
+  margin-top: 0px;
+}
+.offcanvas-header .btn-close {
+
+  margin-bottom: calc(11.5 * var(--bs-offcanvas-padding-y)) !important;
+}
+.nav_bottom {
+  border-bottom: none;
+  height: auto;
+}
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+  .nav_bottom {
+    border-bottom: solid 1px;
+    height: 60px;
+  }
+}
