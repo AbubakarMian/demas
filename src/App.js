@@ -30,7 +30,7 @@ import { faUsers } from '@fortawesome/free-solid-svg-icons'
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router basename='/demas/build'>
         <Container fluid>
           <Row>
             <Offcanvas_colapsable_nav />
