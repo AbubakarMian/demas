@@ -16,6 +16,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
+import Collapse from 'react-bootstrap/Collapse';
 
 
 
@@ -65,7 +66,7 @@ export default function home_page_style() {
         </Row>
         <Row>
           <Col md={1}></Col>
-          <Col md={10}><h5 className="comment">Comments</h5></Col>
+          <Col md={10}><h5 className="comment">Comments</h5><Comment/></Col>
           <Col md={1}></Col>
         </Row>
         <Row>
@@ -372,5 +373,32 @@ const Proceed_buttons = () => {
 
     <Button variant="primary" className="Proceed_button">PROCEED TO NEXT</Button>
   );
+}
+
+
+const Comment = () => {
+    const [open, setOpen] = useState(false);
+  
+    return (
+      <>
+        <Button
+          onClick={() => setOpen(!open)}
+          aria-controls="example-collapse-text"
+          aria-expanded={open}
+        >
+          click
+        </Button>
+        <Collapse in={open}>
+          <div id="example-collapse-text">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+            terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
+            labore wes anderson cred nesciunt sapiente ea proident.
+          </div>
+        </Collapse>
+      </>
+    );
+  
+  
+  
 }
 

@@ -18,9 +18,23 @@ import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 
-
+function get_trip() {
+    return [
+        {
+            from_address: 'Makka Hotel',
+            to_address: 'Madina Hotel',
+            date_time: '15-12-2023'
+        },
+        {
+            from_address: 'Maddina Hotel',
+            to_address: 'Makka Hotel',
+            date_time: '01-01-2024'
+        }
+    ];
+}
 
 export default function home_page_style() {
+    let trips = get_trip();
     return (
         <div>
             <Row>
@@ -32,49 +46,111 @@ export default function home_page_style() {
                     <Col><SingleTrip_buttons /></Col>
                     <Col><Packages_button /></Col>
                 </Row>
+                <div className="for_large_screen">
+                    <Row>
+                        <Col md={1}></Col>
+                        <Col md={10}>
+                            <div className="singletrip_card ">
 
-                <Row>
-                    <Col md={1}></Col>
-                    <Col md={10}>
-                        <div className="singletrip_card">
+                                <div className="smallcard">
+                                    <Row>
+                                        <Col md={2}>
+                                            <div className="lociconarea"><img
+                                                src="./images/listicon.png"
+                                            /></div>
+                                        </Col>
+                                        <Col md={9}>
+                                            <div className="cardtxtarea">
+                                                <p>Jeddah Airport to Jeddah Airport</p>
+                                                <p>Jeddah Airport - Makkah Hote</p>
+                                                <p>Makkah Hotel - Medina Hotel, Medina</p>
+                                                <p>Hotel - Jeddah Airport</p>
 
-                            <div className="smallcard">
-                                <Row>
-                                    <div className="lociconarea"><FontAwesomeIcon icon={faLocationDot} /></div>
-                                    <div className="cardtxtarea">
-                                        <p>Jeddah Airport to Jeddah Airport</p>
-                                        <p>Jeddah Airport - Makkah Hote</p>
-                                        <p>Makkah Hotel - Medina Hotel, Medina</p>
-                                        <p>Hotel - Jeddah Airport</p>
+                                            </div>
+                                        </Col>
+                                        <Col md={1}>
+                                            <div className="crossarea"><Button>X</Button></div>
+                                        </Col>
+                                    </Row>
+                                </div>
 
-                                    </div>
-                                    <div className="crossarea"><Button>X</Button></div>
-                                </Row>
+
+                                <div className="smallcard">
+                                    <Row>
+                                    <Col md={2}>
+                                            <div className="lociconarea"><img
+                                                src="./images/listicon.png"
+                                            /></div>
+                                        </Col>
+                                        <Col md={9}>
+                                            <div className="cardtxtarea">
+                                                <p>Jeddah Airport to Jeddah Airport</p>
+                                                <p>Jeddah Airport - Makkah Hote</p>
+                                                <p>Makkah Hotel - Medina Hotel, Medina</p>
+                                                <p>Hotel - Jeddah Airport</p>
+
+                                            </div>
+                                        </Col>
+                                        <Col md={1}>
+                                            <div className="crossarea"><Button>X</Button></div>
+                                        </Col>
+                                    </Row>
+                                </div>
+
+
+
+
+                                <div className="add_btn_card"><Button>ADD</Button></div>
+
+                            </div></Col>
+                        <Col md={1}></Col>
+
+
+
+                    </Row>
+                </div>
+
+
+
+                <div className="for_small_screen">
+                    <Row>
+                        <Col md={1}></Col>
+                        <Col md={10}>
+
+                            <div className="singletrip_card">
+
+
+
+
+                                {(trips).map((item) => {
+                                    return (
+                                        <div className="smallcard">
+                                            <Row>
+                                                <div className="lociconarea"><img
+                                                    src="./images/listicon.png"
+                                                /></div>
+                                                <div className="cardtxtarea">
+                                                    <p>{item.from_address}</p>
+                                                    <p>{item.to_address}</p>
+                                                    <p>{item.date_time}</p>
+
+                                                </div>
+                                                <div className="crossarea"><Button>X</Button></div>
+                                            </Row>
+                                        </div>)
+
+                                })}
+
+                                <div className="add_btn_card"><Button>ADD</Button></div>
+
                             </div>
-
-
-                            <div className="smallcard">
-                                <Row>
-                                    <div className="lociconarea"><FontAwesomeIcon icon={faLocationDot} /></div>
-                                    <div className="cardtxtarea">
-                                        <p>Jeddah Airport to Jeddah Airport</p>
-                                        <p>Jeddah Airport - Makkah Hote</p>
-                                        <p>Makkah Hotel - Medina Hotel, Medina</p>
-                                        <p>Hotel - Jeddah Airport</p>
-
-                                    </div>
-                                    <div className="crossarea"><Button>X</Button></div>
-                                </Row>
-                            </div>
-
-                            <div className="add_btn_card"><Button>ADD</Button></div>
-
-                        </div></Col>
-                    <Col md={1}></Col>
+                        </Col>
+                        <Col md={1}></Col>
 
 
 
-                </Row>
+                    </Row>
+                </div>
                 <Row>
                     <Col md={1}></Col>
                     <Col md={10}><Book_button /></Col>
