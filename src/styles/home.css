@@ -21,7 +21,6 @@ button.singtripbtn.btn.btn-primary:hover {
     color: #996418;
     border: solid 1px #996418;
     background: white;
-    font-weight: bold;
 }
 h3.headin {
     margin-top: 17px;
@@ -92,5 +91,8 @@ button.pic_btn_modal.btn.btn-primary:hover {
         width: 85%;
         margin-top: 173px;
         margin-left: 30px;
+    }
+    .singtripbtn {
+        width: 154px;
     }
 }
