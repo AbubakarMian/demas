@@ -1,0 +1,19 @@
+.inpup_box {
+    border: solid 1px gray;
+    padding: 10px;
+    margin-top: 34px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 0px;
+}
+input.inputboxes.form-control {
+    background-color: #f2f2f2;
+    text-align: center;
+    font-weight: bold;
+}
+button.bill_btn.btn.btn-primary {
+    width: 100%;
+    background-color: #996418;
+    margin: 20px 0px;
+    height: 40px;
+    border: solid 1px #996418;
+}

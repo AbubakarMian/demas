@@ -12,6 +12,9 @@ import Users from './js/users';
 import Starting from './js/starting';
 import AvailableCars from './js/AvailableCars';
 import Sedan from './js/Sedan';
+import ManageBookings from './js/ManageBookings';
+import BookingInfoPackages from './js/BookingInfoPackages';
+import BookingInfoSingle from './js/BookingInfoSingle';
 
 
 
@@ -24,6 +27,9 @@ function App() {
     
             {/* <Offcanvas_colapsable_nav /> */}
         <Routes>
+          <Route Component={BookingInfoSingle} path='/bookinginfosingle'></Route>
+          <Route Component={BookingInfoPackages} path='/bookinginfopackages'></Route>
+          <Route Component={ManageBookings} path='/managebookings'></Route>
           <Route Component={Sedan} path='/sedan'></Route>
           <Route Component={AvailableCars} path='/availablecars'></Route>
           <Route Component={Single_trip} path='/single_trip'></Route>
