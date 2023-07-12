@@ -50,6 +50,9 @@ export default function Nav_bar_area() {
                 <div className='nav_bottom'><Nav.Link href="single_trip"><FontAwesomeIcon icon={faUsers} /> single_trip</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="availablecars"><FontAwesomeIcon icon={faUsers} /> AvailableCars</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="sedan"><FontAwesomeIcon icon={faUsers} /> Sedan</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="managebookings"><FontAwesomeIcon icon={faUsers} /> Manage Bookings</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="bookinginfopackages"><FontAwesomeIcon icon={faUsers} /> Booking Info Packages</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="bookinginfosingle"><FontAwesomeIcon icon={faUsers} /> Booking Info Single</Nav.Link></div>
                 <NavDropdown
                   title="Dropdown"
                   id={`offcanvasNavbarDropdown-expand-lg`}
