@@ -118,7 +118,12 @@ button.bookbtn.btn.btn-primary:hover {
     color: #996418;
     border: solid 1px #996418;
 }
-
+.img_flag {
+    width: 30px;
+}
+.img_flag img {
+    width: 100%;
+}
 @media only screen and (max-width : 780px) {
     .cardtxtarea {
         font-size: 17px;

@@ -80,6 +80,16 @@ button.pic_btn_modal.btn.btn-primary:hover {
     padding-left: 3.5em !important;
     margin-bottom: 0.125rem !important;
 }
+button.commentsbtn.btn.btn-primary {
+    background: transparent;
+    border: 0px;
+    color: #86b7fe;
+    float: left;
+    margin-top: 16px;
+    margin-left: 3px;
+    font-weight: 500;
+    font-size: 18px;
+}
 /* Extra Small Devices, Phones */ 
 @media only screen and (max-width : 480px) {
     button.Proceed_button.btn.btn-primary {

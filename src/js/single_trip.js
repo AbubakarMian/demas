@@ -17,6 +17,10 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import InputGroup from 'react-bootstrap/InputGroup';
+import Nav_bar_area from './NavBar';
+
 
 function get_trip() {
     return [
@@ -33,18 +37,24 @@ function get_trip() {
     ];
 }
 
-export default function home_page_style() {
+export default function Home_page_style(props) {
     let trips = get_trip();
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <div>
+                  <Nav_bar_area/>
+
             <Row>
                 <Home_crousel />
             </Row>
             <Container>
 
                 <Row>
-                    <Col><SingleTrip_buttons /></Col>
-                    <Col><Packages_button /></Col>
+                    <Col><Button href="./single_trip" variant="primary" className="singtripbtn">Single Trip    <FontAwesomeIcon className="icon_btn" icon={faLocationDot} beat /></Button></Col>
+                    <Col><Button variant="primary" className="singtripbtn">Packages   <FontAwesomeIcon className="icon_btn" icon={faArrowRightArrowLeft} /></Button></Col>
                 </Row>
                 <div className="for_large_screen">
                     <Row>
@@ -77,7 +87,7 @@ export default function home_page_style() {
 
                                 <div className="smallcard">
                                     <Row>
-                                    <Col md={2}>
+                                        <Col md={2}>
                                             <div className="lociconarea"><img
                                                 src="./images/listicon.png"
                                             /></div>
@@ -153,7 +163,54 @@ export default function home_page_style() {
                 </div>
                 <Row>
                     <Col md={1}></Col>
-                    <Col md={10}><Book_button /></Col>
+                    <Col md={10}>
+                        <Button variant="primary" onClick={handleShow} className="bookbtn">Book</Button>
+
+                        <div className="modal_plac">
+                            <Modal
+                                show={show}
+                                onHide={handleClose}
+                                {...props}
+                                size="lg"
+                                aria-labelledby="contained-modal-title-vcenter"
+                                centered
+                            >
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Enter Otp to Login</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <Form.Label htmlFor="basic-url">Mobile Number</Form.Label>
+                                    <InputGroup className="mb-3">
+                                        <InputGroup.Text id="basic-addon3">
+                                            <div className="img_flag">
+                                                <img src="./images/saudi-arabia.png" />
+                                            </div>
+                                        </InputGroup.Text>
+                                        <Form.Control id="basic-url" aria-describedby="basic-addon3"
+                                            placeholder="01234567" />
+                                    </InputGroup>
+
+
+                                    <Form.Label htmlFor="basic-url">OTP</Form.Label>
+                                    <InputGroup className="mb-3">
+
+                                        <Form.Control id="basic-url" aria-describedby="basic-addon3"
+                                            placeholder="otp" />
+                                    </InputGroup>
+
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <CreatePaymentModal />
+                                    {/* <Button variant="primary" className="bookbtn" onClick={handleClose}>
+                                        Book
+                                    </Button> */}
+                                    {/* <Button variant="secondary" onClick={handleClose}>
+                                        Close
+                                    </Button> */}
+                                </Modal.Footer>
+                            </Modal>
+                        </div>
+                    </Col>
                     <Col md={1}></Col>
                 </Row>
 
@@ -164,21 +221,85 @@ export default function home_page_style() {
 }
 
 
-const SingleTrip_buttons = () => {
-    return (
 
-        <Button href="./single_trip" variant="primary" className="singtripbtn">Single Trip    <FontAwesomeIcon className="icon_btn" icon={faLocationDot} beat /></Button>
-    );
-}
-const Packages_button = () => {
-    return (
+const CreatePaymentModal = () => {
+    const [show, setShow] = useState(false);
+    const navigate = useNavigate();
 
-        <Button variant="primary" className="singtripbtn">Packages   <FontAwesomeIcon className="icon_btn" icon={faArrowRightArrowLeft} /></Button>
-    );
-}
-const Book_button = () => {
+  const navigateToPath = (path) => {
+    navigate(path);
+  };
     return (
+        <>
+            {/* <Button className="modal_btn" onClick={() => setShow(true)}>
+          {" "}
+          collaboration
+        </Button> */}
+            <Button variant="primary" className="bookbtn" onClick={() => setShow(true)}>
+                Book
+            </Button>
+            <Modal
+                show={show}
+                onHide={() => setShow(false)}
+                dialogClassName="modal-90w"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="example-custom-modal-styling-title">
+                        Payment
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Container>
+                        <Row>
+                            <Col>
+                            <Form.Label htmlFor="basic-url">Card Number</Form.Label>
+                                <InputGroup className="mb-3">
+                                    <Form.Control
+                                        placeholder="Card No"
+                                        aria-label="Recipient's username"
+                                        aria-describedby="basic-addon2"
+                                    />
+                                    <InputGroup.Text id="basic-addon2"> <div className="img_flag">
+                                                <img src="./images/visa.png" />
+                                            </div></InputGroup.Text>
+                                </InputGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                            <Form.Label htmlFor="basic-url">Expiry</Form.Label>
+                                <InputGroup className="mb-3">
+                                    <Form.Control
+                                        placeholder="Date"
+                                        aria-label="Recipient's username"
+                                        aria-describedby="basic-addon2"
+                                    />
+                                </InputGroup>
+                            </Col>
+                            <Col>
+                            <Form.Label htmlFor="basic-url">Security</Form.Label>
+                                <InputGroup className="mb-3">
+                                    <Form.Control
+                                        placeholder="CVC"
+                                        aria-label="Recipient's username"
+                                        aria-describedby="basic-addon2"
+                                    />
+                                </InputGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                        <Button variant="primary" className="bookbtn" onClick={() => {
+                navigate("/");
+              }}>
+                                        Pay 250SAR
+                                    </Button>
+                        </Row>
+                    </Container>
 
-        <Button variant="primary" className="bookbtn">Book</Button>
+                </Modal.Body>
+            </Modal>
+        </>
     );
-}
+};
