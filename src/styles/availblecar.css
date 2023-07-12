@@ -1,0 +1,79 @@
+.car-head {
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+    color: gray;
+    margin: 10px 10px;
+}
+
+button.sett_btn.btn.btn-primary {
+    color: gray;
+    float: right;
+    margin: 10px 10px;
+    background: transparent;
+    border: solid 1px gray;
+}
+.bar_clr.row {
+    background-color: #e8e8e8;
+}
+.car_typ {
+    float: left;
+    margin: 10px;
+    font-weight: 600;
+}
+.rates {
+    float: right;
+    margin: 10px;
+    font-weight: 600;
+}
+.car_nme {
+    font-size: 17px;
+    font-weight: bold;
+    color: gray;
+    float: left;
+}
+.similr {
+    float: right;
+    font-size: 15px;
+}
+.back_row.row {
+    background: #996418;
+}
+button.back_btn.btn.btn-primary {
+    background: transparent;
+    border: 0px;
+    font-size: 22px;
+    float: left;
+}
+.slider_bdr.carousel.slide {
+    border-top: solid 1px;
+    margin-top: 15px;
+}
+.detail_icn {
+    color: #996418;
+    margin: 0px 7px;
+}
+.icn_ara.row {
+    border-bottom: 1px solid;
+    padding: 10px;
+}
+.filter_area.container {
+    text-align: left;
+    border-bottom: solid 1px black;
+}
+button.filter_btn.btn.btn-primary {
+    margin: 10px;
+    border-radius: 21px;
+    background-color: #d6d1d1;
+    border: 0px;
+    color: #4a4545;
+    font-weight: bold;
+}
+button.filter_btn.btn.btn-primary:hover {
+    background: #a4610d;
+    color: white;
+}
+h3.filter_hed {
+    margin: 6px 0px;
+    color: gray;
+}
