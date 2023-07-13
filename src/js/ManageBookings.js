@@ -91,28 +91,3 @@ export default function Manage_Bookings() {
     </div>
   );
 }
-
-const Sedan_crousel = () => {
-  return (
-    <Carousel className="slider_bdr">
-      <Carousel.Item>
-        <img className="d-block w-100" src="./images/a.jpg" alt="First slide" />
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="./images/h.jpg"
-          alt="Second slide"
-        />
-
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img className="d-block w-100" src="./images/g.jpg" alt="Third slide" />
-
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-  );
-};

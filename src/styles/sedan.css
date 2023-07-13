@@ -95,3 +95,15 @@ svg.svg-inline--fa.fa-check.succ_icon {
     font-size: 42px;
     margin-bottom: 14px;
 }
+span.carousel-control-next-icon {
+    border: solid;
+    border-block-color: black;
+    border-radius: 51px;
+    background-color: #a4610d;
+}
+.carousel-control-prev-icon{
+    border: solid;
+    border-block-color: black;
+    border-radius: 51px;
+    background-color: #a4610d;
+}

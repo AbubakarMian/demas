@@ -43,7 +43,6 @@ export default function Nav_bar_area() {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 <div className='nav_bottom'><Nav.Link href="/"><FontAwesomeIcon icon={faHouse} /> Home</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="/about"><FontAwesomeIcon icon={faAddressCard} /> About</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="users"><FontAwesomeIcon icon={faUsers} /> Users</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="starting"><FontAwesomeIcon icon={faUsers} /> starting page</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="login"><FontAwesomeIcon icon={faUsers} /> login</Nav.Link></div>
@@ -53,7 +52,14 @@ export default function Nav_bar_area() {
                 <div className='nav_bottom'><Nav.Link href="managebookings"><FontAwesomeIcon icon={faUsers} /> Manage Bookings</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="bookinginfopackages"><FontAwesomeIcon icon={faUsers} /> Booking Info Packages</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="bookinginfosingle"><FontAwesomeIcon icon={faUsers} /> Booking Info Single</Nav.Link></div>
-                <NavDropdown
+                <div className='nav_bottom'><Nav.Link href="contactus"><FontAwesomeIcon icon={faUsers} /> ContactUs</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="profiletravel"><FontAwesomeIcon icon={faUsers} /> Travel Agent</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="profilesale"><FontAwesomeIcon icon={faUsers} /> Sale Agent</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="privacy"><FontAwesomeIcon icon={faUsers} /> Privacy</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="faq"><FontAwesomeIcon icon={faUsers} /> FAQ's</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="refund"><FontAwesomeIcon icon={faUsers} /> refund</Nav.Link></div>
+          
+                {/* <NavDropdown
                   title="Dropdown"
                   id={`offcanvasNavbarDropdown-expand-lg`}
                 >
@@ -65,9 +71,9 @@ export default function Nav_bar_area() {
                   <NavDropdown.Item href="#action5">
                     Something else here
                   </NavDropdown.Item>
-                </NavDropdown>
+                </NavDropdown> */}
               </Nav>
-              <Form className="d-flex">
+              {/* <Form className="d-flex">
                 <Form.Control
                   type="search"
                   placeholder="Search"
@@ -75,7 +81,7 @@ export default function Nav_bar_area() {
                   aria-label="Search"
                 />
                 <Button className='search_btn' variant="outline-success"><FontAwesomeIcon icon={faMagnifyingGlass} /></Button>
-              </Form>
+              </Form> */}
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>

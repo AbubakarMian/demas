@@ -1,0 +1,18 @@
+.img_area img {
+    width: 50%;
+    margin-top: 35px;
+}
+.info_area_bx {
+    text-align: left;
+    padding: 17px;
+    border: solid 1px #a4610d;
+    box-shadow: 1px 1px 5px 1px;
+    margin: 10px;
+    border-radius: 10px;
+}
+.inp_bx {
+    background-color: #e8e8e8;
+}
+.info_area_bx h4 {
+    color: #a4610d;
+}

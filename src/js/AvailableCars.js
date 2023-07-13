@@ -122,6 +122,9 @@ export default function AvailableCars() {
         </div>
       </Collapse>
         </Row>
+        <div onClick={() => {
+                navigate("/sedan");
+              }}>
         <Row className="">
           <Col>
             <div className="car_typ">Type - Sedan</div>
@@ -152,6 +155,10 @@ export default function AvailableCars() {
             <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
           </Col>
         </Row>
+        </div>
+        <div onClick={() => {
+                navigate("/sedan");
+              }}>
         <Row className="">
           <Col>
             <div className="car_typ">Type - Mini-Bus</div>
@@ -212,6 +219,8 @@ export default function AvailableCars() {
             <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
           </Col>
         </Row>
+        </div>
+      
       </Container>
     </div>
   );

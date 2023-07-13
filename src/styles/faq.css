@@ -1,0 +1,17 @@
+button.collap_btn.btn.btn-primary {
+    width: 100%;
+    margin: 10px 0px;
+    background: #e8e8e8;
+    height: 60px;
+    text-align: left;
+    color: black;
+    border: solid 1px #c2b9b9;
+}
+button.collap_btn.btn.btn-primary:hover {
+    background-color: #a4610d;
+    color: white;
+    font-weight: bold;
+}
+.top_mar {
+    margin-top: 30px;
+}
