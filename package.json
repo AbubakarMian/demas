@@ -1,5 +1,6 @@
 {
   "name": "maavia_app",
+  "homepage": "https://demas.stagging.hatinco.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
