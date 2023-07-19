@@ -37,3 +37,9 @@ a.otpbtn.btn.btn-primary:hover {
     border: #996418 solid 1px;
     color: #996418;
 }
+
+
+@media only screen and (max-width : 480px) {
+
+    
+}
