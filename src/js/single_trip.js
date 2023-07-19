@@ -22,6 +22,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Nav_bar_area from "./NavBar";
 import Table from "react-bootstrap/Table";
 
+
 function get_trip() {
   return [
     {
@@ -83,6 +84,7 @@ export default function Home_page_style(props) {
         </Row>
         <div className="for_large_scrasdeen">
           <Row>
+
             <Col>
               <div className="singletrip_card ">
                 <div className="smallcasdfrd">
@@ -141,7 +143,7 @@ export default function Home_page_style(props) {
                   <Button>ADD</Button>
                 </div>
               </div>
-            </Col>
+
           </Row>
         </div>
 

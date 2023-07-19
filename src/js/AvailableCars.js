@@ -225,10 +225,12 @@ const Sedan_crousel = () => {
   return (
     <Carousel className="slider_bdr">
       <Carousel.Item>
+        
         <img className="d-block w-100" src="./images/a.jpg" alt="First slide" />
         <Carousel.Caption></Carousel.Caption>
+        
       </Carousel.Item>
-      <Carousel.Item>
+      <Carousel.Item className="">
         <img
           className="d-block w-100"
           src="./images/h.jpg"
@@ -248,6 +250,7 @@ const Sedan_crousel = () => {
 
 const Coaster_crousel = () => {
   return (
+    <div className="slider-section">
     <Carousel className="slider_bdr">
       <Carousel.Item>
         <img className="d-block w-100" src="./images/b.jpg" alt="First slide" />
@@ -268,6 +271,7 @@ const Coaster_crousel = () => {
         <Carousel.Caption></Carousel.Caption>
       </Carousel.Item>
     </Carousel>
+    </div>
   );
 };
 

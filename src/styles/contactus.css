@@ -16,3 +16,9 @@ button.sub_btn.btn.btn-primary {
     border: solid 1px #a4610d;
     margin-top: 40px;
 }
+
+
+@media only screen and (max-width : 480px) {
+
+    
+}
