@@ -41,10 +41,10 @@ function App() {
           <Route Component={ManageBookings} path='/managebookings'></Route>
           <Route Component={Sedan} path='/sedan'></Route>
           <Route Component={AvailableCars} path='/availablecars'></Route>
-          <Route Component={Single_trip} path='/single_trip'></Route>
-          <Route Component={Login} path='/js/login'></Route>
-          <Route Component={Starting} path='/starting'></Route>
-          <Route Component={Home} path='/'></Route>
+          <Route Component={Single_trip} path='/packages'></Route>
+          <Route Component={Login} path='/login'></Route>
+          <Route Component={Starting} path='/'></Route>
+          <Route Component={Home} path='/home'></Route>
         </Routes>
       </Router>
     </div>

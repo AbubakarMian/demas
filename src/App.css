@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 .App {
   text-align: center;
 }
@@ -13,6 +14,7 @@
 .navbar a:hover{
   color: gold;
 }
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -70,6 +72,9 @@ button.search_btn.btn.btn-outline-success {
 }
 .App-link {
   color: #61dafb;
+}
+a.brand_tx.navbar-brand {
+  font-family: 'Lobster', cursive;
 }
 
 @keyframes App-logo-spin {

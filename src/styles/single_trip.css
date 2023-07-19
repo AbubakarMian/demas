@@ -30,6 +30,12 @@
     height: 80px;
 } */
 
+button.cross_btn.btn.btn-primary {
+    margin-top: 33px;
+    border-radius: 50px;
+    background-color: gray;
+}
+
 
 .crossarea {
     /* width: 4px; */
@@ -39,10 +45,9 @@
 
 
 .cardtxtarea {
-    font-size: 17px;
-    width:auto;
+    font-size: 18px;
+
     text-align: left;
-    margin-top: 13px;
 }
 
 .cardtxtarea p {
@@ -72,15 +77,7 @@
     box-shadow: 2px 2px 7px 4px #d6cccc;
 }
 
-.add_btn_card button:hover {
 
-    border: solid #fff;
-}
-
-button.btn.btn-primary:hover {
-    background: #996418;
-    /* border: solid; */
-}
 
 button.bookbtn.btn.btn-primary {
     margin-top: 127px;
@@ -97,10 +94,15 @@ button.bookbtn.btn.btn-primary {
 .add_btn_card {
     margin-top: 30px;
 }
-.lociconarea img {
-    width: 130px;
+.lociconarea_new img {
+    width: 100px;
+    margin: 0px -29px;
 }
 
+.lociconarea_new {
+    display: flex;
+    justify-content: center;
+}
 a.singtripbtn.btn.btn-primary:hover {
     color: #996418;
     border: solid 1px #996418;
@@ -148,73 +150,20 @@ button.procced_btn.btn.btn-secondary {
     border: solid 1px#996418;
 }
 
-.d-none.d-md-flex.row {
-    margin: 0px 20px 0px 20px;
-}
-@media only screen and (max-width : 780px) {
-
-    button.btn.btn-primary:hover {
-        background: #996418;
-        border: solid;
-    }
+@media only screen and (max-width: 480px){
     .cardtxtarea {
-        width: 226px;
-        text-align: center;
+        font-size: 17px;
+        width: auto;
+        margin-top: 0px;
     }
-
-    .smallcard {
-        width: 100%;
-        height: 100px;
-        border: solid 1px #d9d9d9;
-        border-radius: 10px;
-        background-color: #d9d9d9;
-        margin-top: 10px;
-    }
-
-    .lociconarea {
-
-        width: 70px;
-        border-radius: 53px;
-        margin-top: 9px;
-        height: 50px;
-    }
-    .lociconarea img {
-        width: 85px;
-    }
-    .singtripbtn {
-        width: 143px;
-    }
-
-    img.sadas {
-        width: 15px;
-    }
-
-    .crossarea {
-        width: 70px;
-       
-        float: right;
-    }
-
-    .for_large_screen {
-        display: none;
-    }
-
-    .for_small_screen {
-        display: block;
-    }
-
-    .crossarea button {
-        margin-top: 3px;
-    }
-    button.bookbtn.btn.btn-primary {
-        width: 100%;
-        height: 51px;
-        
-    }
-    button.btn.btn-primary:hov
-er {
-        background: #996418;
-        border: solid;
-    }
-
+.lociconarea_new img {
+    margin: 0px -20px;
+}
+button.cross_btn.btn.btn-primary {
+   
+}
+button.bookbtn.btn.btn-primary {
+    width: 100%;
+    float: none;
+}
 }

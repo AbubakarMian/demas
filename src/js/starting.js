@@ -1,11 +1,19 @@
 import React from "react";
 import { Nav, Navbar, Container, Row, Col } from 'react-bootstrap'
 import './../styles/starting.css';
+import { useNavigate } from "react-router-dom";
+
 
 
 
 export default function Home(){
+    const navigate = useNavigate();
+
+    const navigateToPath = (path) => {
+      navigate(path);
+    };
      return(
+        <div className="bodybg" onClick={()=>navigateToPath('/home')}>
         <body className="bodybg">
 
         <div className="sasd">
@@ -14,5 +22,6 @@ export default function Home(){
         </div>
 
         </body>
+        </div>
      )
 }

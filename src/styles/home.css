@@ -28,6 +28,7 @@ h3.headin {
     font-weight: bold;
     float: left;
     margin-left: 3px;
+    font-size: 16px;
 }
 input#input5 {
     height: 55px;

@@ -77,7 +77,13 @@ h3.filter_hed {
     margin: 6px 0px;
     color: gray;
 }
-
-@media only screen and (max-width : 480px) {
-    
+.carousel-control-prev,
+.carousel-control-next {
+    background: #000;
+    width: 10%;
 }
+button.bcbtn.btn.btn-primary {
+    background: transparent;
+    border: 0;
+}
+
