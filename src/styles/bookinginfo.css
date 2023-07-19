@@ -11,9 +11,16 @@ input.inputboxes.form-control {
     font-weight: bold;
 }
 button.bill_btn.btn.btn-primary {
-    width: 100%;
+    width: 40%;
     background-color: #996418;
     margin: 20px 0px;
     height: 40px;
     border: solid 1px #996418;
 }
+@media only screen and (max-width : 480px) {
+    button.bill_btn.btn.btn-primary {
+        width: 100%;
+    }
+    
+}
+

@@ -9,7 +9,15 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { faHouse } from '@fortawesome/free-solid-svg-icons'
+import { faHouse ,
+  faRightToBracket,
+  faPhoneVolume,
+  faBarsProgress,
+  faShieldHalved,
+  faFileCircleQuestion,
+  faCommentsDollar,
+  faBookBookmark,
+  faCar } from '@fortawesome/free-solid-svg-icons'
 import { faAddressCard } from '@fortawesome/free-solid-svg-icons'
 import { faUsers } from '@fortawesome/free-solid-svg-icons'
 
@@ -23,7 +31,9 @@ export default function Nav_bar_area() {
       <Navbar key='xl' expand='lg' className="bg-body-tertiary" variant="dark">
         <Container fluid className="nav_back">
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
-          <Navbar.Brand href="#">De Mass</Navbar.Brand>
+          <Navbar.Brand className='brand_tx' href="#">DeMas
+          {/* <img className="nav_im" src="./images/1.png"></img> */}
+          </Navbar.Brand>
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-lg`}
             aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
@@ -42,22 +52,16 @@ export default function Nav_bar_area() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <div className='nav_bottom'><Nav.Link href="/"><FontAwesomeIcon icon={faHouse} /> Home</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="users"><FontAwesomeIcon icon={faUsers} /> Users</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="starting"><FontAwesomeIcon icon={faUsers} /> starting page</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="login"><FontAwesomeIcon icon={faUsers} /> login</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="single_trip"><FontAwesomeIcon icon={faUsers} /> single_trip</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="availablecars"><FontAwesomeIcon icon={faUsers} /> AvailableCars</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="sedan"><FontAwesomeIcon icon={faUsers} /> Sedan</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="managebookings"><FontAwesomeIcon icon={faUsers} /> Manage Bookings</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="bookinginfopackages"><FontAwesomeIcon icon={faUsers} /> Booking Info Packages</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="bookinginfosingle"><FontAwesomeIcon icon={faUsers} /> Booking Info Single</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="contactus"><FontAwesomeIcon icon={faUsers} /> ContactUs</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="profiletravel"><FontAwesomeIcon icon={faUsers} /> Travel Agent</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="profilesale"><FontAwesomeIcon icon={faUsers} /> Sale Agent</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="privacy"><FontAwesomeIcon icon={faUsers} /> Privacy</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="faq"><FontAwesomeIcon icon={faUsers} /> FAQ's</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="refund"><FontAwesomeIcon icon={faUsers} /> refund</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="home"><FontAwesomeIcon icon={faHouse} /> Home</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="availablecars"><FontAwesomeIcon icon={faCar} /> AvailCars</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="managebookings"><FontAwesomeIcon icon={faBookBookmark} /> Bookings</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="contactus"><FontAwesomeIcon icon={faPhoneVolume} /> ContactUs</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="profiletravel"><FontAwesomeIcon icon={faBarsProgress} /> Travel Agent</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="profilesale"><FontAwesomeIcon icon={faBarsProgress} /> Sale Agent</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="privacy"><FontAwesomeIcon icon={faShieldHalved} /> Privacy</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="faq"><FontAwesomeIcon icon={faFileCircleQuestion} /> FAQ's</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="refund"><FontAwesomeIcon icon={faCommentsDollar} /> Refund</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="login"><FontAwesomeIcon icon={faRightToBracket} /> Login</Nav.Link></div>
           
                 {/* <NavDropdown
                   title="Dropdown"

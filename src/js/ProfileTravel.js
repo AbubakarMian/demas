@@ -36,18 +36,14 @@ export default function Profile() {
   return (
     <div>
       <Container fluid>
-        <Row className="back_row">
-          <Col>
-            <Button
-              className="back_btn"
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              <FontAwesomeIcon icon={faArrowLeft} /> Profile
-            </Button>
-          </Col>
-        </Row>
+      <Row>
+        <div className="login_head">
+          <div className="backicon"><Button className="bcbtn" onClick={() => {
+              navigate(-1);
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1> Profile</h1>
+        </div>
+      </Row>
+       
       </Container>
       <Container fluid>
         <div className="">

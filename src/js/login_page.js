@@ -23,7 +23,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 
 
-export default function home_page_style() {
+export default function Login_page_style() {
   return (
     <div>
 
@@ -113,7 +113,7 @@ const Otp_button = () => {
           type="number"
         />
       </InputGroup>
-      <Button  href="/" variant="primary" className="otpbtn">Login</Button>
+      <Button  href="/home" variant="primary" className="otpbtn">Login</Button>
         </Modal.Body>
       </Modal>
 

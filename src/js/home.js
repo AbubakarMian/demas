@@ -28,9 +28,7 @@ export default function home_page_style() {
   return (
     <div>
       <Nav_bar_area/>
-      <Row>
         <Home_crousel />
-      </Row>
       <Container fluid>
         <Row>
           <Col><SingleTrip_buttons /></Col>
@@ -175,13 +173,13 @@ const Home_crousel = () => {
 const SingleTrip_buttons = () => {
   return (
 
-    <Button href="./single_trip" variant="primary" className="singtripbtn">Single Trip    <FontAwesomeIcon className="icon_btn" icon={faLocationDot} beat /></Button>
+    <Button variant="primary" className="singtripbtn">Single Trip    <FontAwesomeIcon className="icon_btn" icon={faLocationDot} beat /></Button>
   );
 }
 const Packages_button = () => {
   return (
 
-    <Button variant="primary" className="singtripbtn">Packages   <FontAwesomeIcon className="icon_btn" icon={faArrowRightArrowLeft} /></Button>
+    <Button  href="./packages" variant="primary" className="singtripbtn">Packages   <FontAwesomeIcon className="icon_btn" icon={faArrowRightArrowLeft} /></Button>
   );
 }
 

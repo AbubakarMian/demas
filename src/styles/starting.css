@@ -1,8 +1,20 @@
 .bodybg {
     background-color: rgba(153, 100, 24, 1);
+    height: auto;
+}
+.logocls {
+    width: auto;
+    margin-top: 0px;
     height: 100vh;
 }
-.logocls{
-    width: 100%;
-    margin-top: 35%;
+
+@media only screen and (max-width : 480px) {
+    .bodybg {
+        height: 100vh ;
+    }
+    .logocls {
+        width: 100%;
+        margin-top: 35%;
+        height: auto;
+    }
 }

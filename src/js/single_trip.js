@@ -20,6 +20,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputGroup from "react-bootstrap/InputGroup";
 import Nav_bar_area from "./NavBar";
+import Table from "react-bootstrap/Table";
 
 function get_trip() {
   return [
@@ -57,9 +58,7 @@ export default function Home_page_style(props) {
     <div>
       <Nav_bar_area />
 
-      <Row>
         <Home_crousel />
-      </Row>
       <Container>
         <Row>
           <Col>
@@ -82,67 +81,71 @@ export default function Home_page_style(props) {
             </Button>
           </Col>
         </Row>
-        <div className="for_large_screen">
+        <div className="for_large_scrasdeen">
           <Row>
-            <Col md={1}></Col>
-            <Col md={10}>
+            <Col>
               <div className="singletrip_card ">
-                <div className="smallcard">
-                  <Row>
-                    <Col md={2}>
-                      <div className="lociconarea">
-                        <img src="./images/listicon.png" />
-                      </div>
-                    </Col>
-                    <Col md={9}>
-                      <div className="cardtxtarea">
-                        <p>Jeddah Airport to Jeddah Airport</p>
-                        <p>Jeddah Airport - Makkah Hote</p>
-                        <p>Makkah Hotel - Medina Hotel, Medina</p>
-                        <p>Hotel - Jeddah Airport</p>
-                      </div>
-                    </Col>
-                    <Col md={1}>
-                      <div className="crossarea">
-                        <Button>X</Button>
-                      </div>
-                    </Col>
-                  </Row>
+                <div className="smallcasdfrd">
+                  <Table className="package_table" striped bordered hover>
+                    <tbody>
+                      <tr className="border">
+                        <td>
+                          <div className="lociconarea_new">
+                            <img src="./images/listicon.png" />
+                          </div>
+                        </td>
+                        <td>
+                          <div className="cardtxtarea">
+                            <p>Jeddah Airport to Jeddah Airport</p>
+                            <p>Jeddah Airport - Makkah Hote</p>
+                          </div>
+                        </td>
+                        <td className="crossareatable">
+                          {" "}
+                          <div className="">
+                            <Button className="cross_btn">X</Button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </div>
+                <div className="smallcasdfrd">
+                  <Table className="package_table" striped bordered hover>
+                    <tbody>
+                      <tr className="border">
+                        <td>
+                          <div className="lociconarea_new">
+                            <img src="./images/listicon.png" />
+                          </div>
+                        </td>
+                        <td>
+                          <div className="cardtxtarea">
+                            <p>Jeddah Airport to Jeddah Airport</p>
+                            <p>Jeddah Airport - Makkah Hote</p>
+                          </div>
+                        </td>
+                        <td className="crossareatable">
+                          {" "}
+                          <div className="">
+                            <Button className="cross_btn">X</Button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
                 </div>
 
-                <div className="smallcard">
-                  <Row>
-                    <Col md={2}>
-                      <div className="lociconarea">
-                        <img src="./images/listicon.png" />
-                      </div>
-                    </Col>
-                    <Col md={9}>
-                      <div className="cardtxtarea">
-                        <p>Jeddah Airport to Jeddah Airport</p>
-                        <p>Jeddah Airport - Makkah Hote</p>
-                        <p>Makkah Hotel - Medina Hotel, Medina</p>
-                        <p>Hotel - Jeddah Airport</p>
-                      </div>
-                    </Col>
-                    <Col md={1}>
-                      <div className="crossarea">
-                        <Button>X</Button>
-                      </div>
-                    </Col>
-                  </Row>
-                </div>
 
                 <div className="add_btn_card">
                   <Button>ADD</Button>
                 </div>
               </div>
             </Col>
-            <Col md={1}></Col>
           </Row>
         </div>
 
-        <div className="for_small_screen">
+        {/* <div className="for_small_screen">
           <Row>
             <Col md={1}></Col>
             <Col md={10}>
@@ -211,7 +214,7 @@ export default function Home_page_style(props) {
             </Col>
             <Col md={1}></Col>
           </Row>
-        </div>
+        </div> */}
         <Row>
           <Col md={1}></Col>
           <Col md={10}>

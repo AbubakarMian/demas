@@ -30,6 +30,12 @@
     height: 80px;
 } */
 
+button.cross_btn.btn.btn-primary {
+    margin-top: 33px;
+    border-radius: 50px;
+    background-color: gray;
+}
+
 
 .crossarea {
     width: 4px;
@@ -39,9 +45,7 @@
 
 .cardtxtarea {
     font-size: 18px;
-    width: 700px;
     text-align: left;
-    margin-top: 13px;
 }
 
 .cardtxtarea p {
@@ -71,10 +75,7 @@
     box-shadow: 2px 2px 7px 4px #d6cccc;
 }
 
-button.btn.btn-primary:hover {
-    background: #996418;
-    border: solid;
-}
+
 
 button.bookbtn.btn.btn-primary {
     margin-top: 127px;
@@ -91,10 +92,15 @@ button.bookbtn.btn.btn-primary {
 .add_btn_card {
     margin-top: 30px;
 }
-.lociconarea img {
-    width: 130px;
+.lociconarea_new img {
+    width: 100px;
+    margin: 0px -29px;
 }
 
+.lociconarea_new {
+    display: flex;
+    justify-content: center;
+}
 a.singtripbtn.btn.btn-primary:hover {
     color: #996418;
     border: solid 1px #996418;
@@ -141,7 +147,7 @@ button.procced_btn.btn.btn-secondary {
     background-color: #996418;
     border: solid 1px#996418;
 }
-@media only screen and (max-width : 780px) {
+/* @media only screen and (max-width : 780px) {
     .cardtxtarea {
         font-size: 17px;
         width: 226px;
@@ -199,4 +205,24 @@ button.procced_btn.btn.btn-secondary {
         
     }
 
+} */
+
+
+
+@media only screen and (max-width: 480px){
+    .cardtxtarea {
+        font-size: 17px;
+        width: auto;
+        margin-top: 0px;
+    }
+.lociconarea_new img {
+    margin: 0px -20px;
+}
+button.cross_btn.btn.btn-primary {
+   
+}
+button.bookbtn.btn.btn-primary {
+    width: 100%;
+    float: none;
+}
 }

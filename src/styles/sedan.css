@@ -11,20 +11,24 @@ p.car_details {
 .car_card {
     border: solid 1px #847a7a;
     border-radius: 10px;
-    margin: 0px;
+    margin: 20px 0px;
     background-color: #ededed;
 }
 .car_icn1 {
     font-size: 23px;
-    margin-right: 60px;
+    /* margin-right: 60px; */
+    float: left;
 }
 .car_icn2 {
     font-size: 23px;
-    margin-right: 45px;
+    /* margin-right: 45px; */
+    float: left;
 }
 .car_icn3 {
     font-size: 23px;
-    margin-right: 55px;
+    /* margin-right: 55px; */
+    float: left;
+
 }
 .car_hd {
     font-size: 14px;
@@ -37,9 +41,10 @@ button.car_fea.btn.btn-primary {
     border: 0px ;
     float: right;
     font-size: 19px;
+    width: 100%;
 }
 svg.svg-inline--fa.fa-bars {
-    margin-left: 60px;
+    float: right;
 }
 .car_c_btn{
     border: solid 1px #847a7a;
@@ -95,15 +100,4 @@ svg.svg-inline--fa.fa-check.succ_icon {
     font-size: 42px;
     margin-bottom: 14px;
 }
-span.carousel-control-next-icon {
-    border: solid;
-    border-block-color: black;
-    border-radius: 51px;
-    background-color: #a4610d;
-}
-.carousel-control-prev-icon{
-    border: solid;
-    border-block-color: black;
-    border-radius: 51px;
-    background-color: #a4610d;
-}
+

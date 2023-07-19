@@ -36,18 +36,13 @@ export default function AvailableCars() {
   return (
     <div>
       <Container fluid>
-        <Row className="back_row">
-          <Col>
-            <Button
-              className="back_btn"
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              <FontAwesomeIcon icon={faArrowLeft} />
-            </Button>
-          </Col>
-        </Row>
+      <Row>
+        <div className="login_head">
+          <div className="backicon"><Button className="bcbtn" onClick={() => {
+              navigate(-1);
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1>Available Cars</h1>
+        </div>
+      </Row>
       </Container>
       <Container fluid>
         <Row className="bar_clr">
