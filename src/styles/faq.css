@@ -15,3 +15,9 @@ button.collap_btn.btn.btn-primary:hover {
 .top_mar {
     margin-top: 30px;
 }
+.drp_dn {
+    font-size: 23px;
+}
+.fqa-box {
+    display: flex;
+}
