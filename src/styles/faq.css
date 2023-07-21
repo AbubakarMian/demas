@@ -20,4 +20,5 @@ button.collap_btn.btn.btn-primary:hover {
 }
 .fqa-box {
     display: flex;
+    justify-content: space-between;
 }
