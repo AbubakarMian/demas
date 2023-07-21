@@ -31,7 +31,7 @@
 } */
 
 button.cross_btn.btn.btn-primary {
-    margin-top: 33px;
+    margin-top: 30px;
     border-radius: 50px;
     background-color: gray;
 }
@@ -46,8 +46,9 @@ button.cross_btn.btn.btn-primary {
 
 .cardtxtarea {
     font-size: 18px;
-
     text-align: left;
+    display: grid;
+    justify-content: center;
 }
 
 .cardtxtarea p {
@@ -111,7 +112,7 @@ a.singtripbtn.btn.btn-primary:hover {
 }
 
 .crossarea button {
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 .for_large_screen {
