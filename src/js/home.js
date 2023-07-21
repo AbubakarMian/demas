@@ -28,11 +28,12 @@ export default function Package_style() {
       <Nav_bar_area />
       <Home_crousel />
       <Container fluid>
+        <div className="big_screen_adj">
         <Row>
           <Col>
             <Button variant="primary" className="singtripbtn">
               Single Trip{" "}
-              <FontAwesomeIcon className="icon_btn" icon={faLocationDot} beat />
+              <FontAwesomeIcon className="icon_btn" icon={faLocationDot}  />
             </Button>
           </Col>
           <Col>
@@ -227,6 +228,7 @@ export default function Package_style() {
           </Col>
           <Col md={1}></Col>
         </Row>
+        </div>
       </Container>
     </div>
   );

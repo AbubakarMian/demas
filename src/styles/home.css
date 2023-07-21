@@ -7,8 +7,8 @@
 .singtripbtn {
     background-color: #996418;
     border: #996418;
-    margin-top: 40px;
-    height: 49px;
+    margin-top: 15px;
+    height: 50px;
     width: 170px;
     font-size: 20px;
 }
@@ -91,6 +91,9 @@ button.commentsbtn.btn.btn-primary {
     font-weight: 500;
     font-size: 18px;
 }
+.big_screen_adj {
+    padding: 0px 320px;
+}
 /* Extra Small Devices, Phones */ 
 @media only screen and (max-width : 480px) {
     button.Proceed_button.btn.btn-primary {
@@ -105,5 +108,8 @@ button.commentsbtn.btn.btn-primary {
     }
     .singtripbtn {
         width: 154px;
+    }
+    .big_screen_adj {
+        padding: 0px 0px;
     }
 }

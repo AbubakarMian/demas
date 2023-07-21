@@ -14,6 +14,7 @@ import {
   faUser,
   faSuitcaseRolling,
   faDoorquest1,
+  faCaretDown,
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
@@ -44,14 +45,21 @@ export default function Faqs() {
   return (
     <div>
       <Container fluid>
-    
         <Row>
-        <div className="login_head">
-          <div className="backicon"><Button className="bcbtn" onClick={() => {
-              navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1>FAQ's</h1>
-        </div>
-      </Row>
+          <div className="login_head">
+            <div className="backicon">
+              <Button
+                className="bcbtn"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+               
+              </Button>
+            </div>{" "}
+            <h1>FAQ's</h1>
+          </div>
+        </Row>
       </Container>
       <Container fluid>
         <div className="top_mar">
@@ -63,10 +71,15 @@ export default function Faqs() {
                 aria-expanded={quest1}
                 className="collap_btn"
               >
-                Why Demas Taxi?{" "}
+                <FontAwesomeIcon
+                  className="drp_dn"
+                  icon={faCaretDown}
+                />
+                Why Demas Taxi?
               </Button>
               <Collapse in={quest1}>
                 <div id="example-collapse-text">
+                  
                   Anim pariatur cliche reprehenderit, enim eiusmod high life
                   accusamus terry richardson ad squid. Nihil anim keffiyeh
                   helvetica, craft beer labore wes anderson cred nesciunt
@@ -83,7 +96,12 @@ export default function Faqs() {
                 aria-expanded={quest2}
                 className="collap_btn"
               >
+                  <FontAwesomeIcon
+                  className="drp_dn"
+                  icon={faCaretDown}
+                />
                 How I can book myself?{" "}
+               
               </Button>
               <Collapse in={quest2}>
                 <div id="example-collapse-text">
@@ -103,7 +121,12 @@ export default function Faqs() {
                 aria-expanded={quest3}
                 className="collap_btn"
               >
+                  <FontAwesomeIcon
+              className="drp_dn"
+              icon={faCaretDown}
+            />
                 How might I find my driver?{" "}
+               
               </Button>
               <Collapse in={quest3}>
                 <div id="example-collapse-text">
@@ -123,7 +146,12 @@ export default function Faqs() {
                 aria-expanded={quest4}
                 className="collap_btn"
               >
+                  <FontAwesomeIcon
+                  className="drp_dn"
+                  icon={faCaretDown}
+                />
                 How Do I modify my booking?{" "}
+               
               </Button>
               <Collapse in={quest4}>
                 <div id="example-collapse-text">
@@ -143,7 +171,12 @@ export default function Faqs() {
                 aria-expanded={quest5}
                 className="collap_btn"
               >
+                  <FontAwesomeIcon
+                  className="drp_dn"
+                  icon={faCaretDown}
+                />
                 What if I have bulky luggage?{" "}
+               
               </Button>
               <Collapse in={quest5}>
                 <div id="example-collapse-text">
@@ -163,7 +196,12 @@ export default function Faqs() {
                 aria-expanded={quest6}
                 className="collap_btn"
               >
+                  <FontAwesomeIcon
+                  className="drp_dn"
+                  icon={faCaretDown}
+                />
                 Through what medium I can cancel my booking?{" "}
+                
               </Button>
               <Collapse in={quest6}>
                 <div id="example-collapse-text">
@@ -183,7 +221,18 @@ export default function Faqs() {
                 aria-expanded={quest7}
                 className="collap_btn"
               >
+                  <div className="fqa-box">
+                    <div style={{float:"left"}}>
                 Why Local sim is necessery for airport terminal pickup?{" "}
+                </div>
+                <div  style={{float:"right"}}>
+                <FontAwesomeIcon
+                  className="drp_dn"
+                  icon={faCaretDown}
+                />
+                </div>
+                </div>
+                
               </Button>
               <Collapse in={quest7}>
                 <div id="example-collapse-text">
@@ -203,7 +252,12 @@ export default function Faqs() {
                 aria-expanded={quest8}
                 className="collap_btn"
               >
+                  <FontAwesomeIcon
+                  className="drp_dn"
+                  icon={faCaretDown}
+                />
                 Circumstances of flight delayed or cancellation?{" "}
+                
               </Button>
               <Collapse in={quest8}>
                 <div id="example-collapse-text">
@@ -223,7 +277,12 @@ export default function Faqs() {
                 aria-expanded={quest9}
                 className="collap_btn"
               >
+                  <FontAwesomeIcon
+                  className="drp_dn"
+                  icon={faCaretDown}
+                />
                 How might I find my driver?{" "}
+                
               </Button>
               <Collapse in={quest9}>
                 <div id="example-collapse-text">

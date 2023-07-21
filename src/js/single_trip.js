@@ -69,7 +69,7 @@ export default function Home_page_style(props) {
               className="singtripbtn"
             >
               Single Trip{" "}
-              <FontAwesomeIcon className="icon_btn" icon={faLocationDot} beat />
+              <FontAwesomeIcon className="icon_btn" icon={faLocationDot} />
             </Button>
           </Col>
           <Col>
