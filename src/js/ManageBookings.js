@@ -35,7 +35,7 @@ export default function Manage_Bookings() {
 
   return (
     <div>
-      <Container >
+      <Container fluid >
 
         <Row>
           <div className="login_head">
