@@ -47,16 +47,17 @@ export default function SedanCars(props) {
 
   return (
     <div>
+      
       <Container fluid>
-
         <Row>
           <div className="login_head">
             <div className="backicon"><Button className="bcbtn" onClick={() => {
               navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1>  SEDAN</h1>
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">SEDAN</h3>
           </div>
         </Row>
       </Container>
+     
       <Container fluid>
         <Row className="">
           <Col>

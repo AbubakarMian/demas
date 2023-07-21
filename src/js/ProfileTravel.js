@@ -35,16 +35,16 @@ export default function Profile() {
 
   return (
     <div>
-      <Container fluid>
-      <Row>
-        <div className="login_head">
-          <div className="backicon"><Button className="bcbtn" onClick={() => {
+       <Container fluid>
+        <Row>
+          <div className="login_head">
+            <div className="backicon"><Button className="bcbtn" onClick={() => {
               navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1> Profile</h1>
-        </div>
-      </Row>
-       
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">Profile</h3>
+          </div>
+        </Row>
       </Container>
+      
       <Container fluid>
         <div className="">
           <Row className="">

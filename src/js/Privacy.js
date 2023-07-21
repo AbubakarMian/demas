@@ -37,13 +37,14 @@ export default function Privacy() {
     <div>
       <Container fluid>
         <Row>
-        <div className="login_head">
-          <div className="backicon"><Button className="bcbtn" onClick={() => {
+          <div className="login_head">
+            <div className="backicon"><Button className="bcbtn" onClick={() => {
               navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1>PRIVACY POLICY</h1>
-        </div>
-      </Row>
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">PRIVACY POLICY</h3>
+          </div>
+        </Row>
       </Container>
+
       <Container fluid>
         <div className="policy_area">
           <Row className="">
