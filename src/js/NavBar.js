@@ -56,8 +56,8 @@ export default function Nav_bar_area() {
                 <div className='nav_bottom'><Nav.Link href="availablecars"><FontAwesomeIcon icon={faCar} /> AvailCars</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="managebookings"><FontAwesomeIcon icon={faBookBookmark} /> Bookings</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="contactus"><FontAwesomeIcon icon={faPhoneVolume} /> ContactUs</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="profiletravel"><FontAwesomeIcon icon={faBarsProgress} /> Travel Agent</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="profilesale"><FontAwesomeIcon icon={faBarsProgress} /> Sale Agent</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="profiletravel"><FontAwesomeIcon icon={faBarsProgress} /> TravelAgent</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="profilesale"><FontAwesomeIcon icon={faBarsProgress} /> SaleAgent</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="privacy"><FontAwesomeIcon icon={faShieldHalved} /> Privacy</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="faq"><FontAwesomeIcon icon={faFileCircleQuestion} /> FAQ's</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="refund"><FontAwesomeIcon icon={faCommentsDollar} /> Refund</Nav.Link></div>
