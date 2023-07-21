@@ -66,8 +66,10 @@ export default function Manage_Bookings() {
         <Row className="det_box">
           <Col>
             <div className="det_area">
+              <div>
               <h4>DETAIL</h4>
               <p>Jeddah Airport to Jeddah Airport</p>
+              </div>
               <Button className="mange_btn"
                 onClick={() => {
                   navigate("/bookinginfopackages");
