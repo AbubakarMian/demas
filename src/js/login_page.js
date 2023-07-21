@@ -17,6 +17,8 @@ import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
+import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -24,14 +26,25 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 
 export default function Login_page_style() {
+  const navigate = useNavigate();
+
+  const navigateToPath = (path) => {
+    navigate(path);
+  };
+  const [open, setOpen] = useState(false);
+
   return (
     <div>
-
-      <Row>
-        <div className="login_head">
-          <div className="backicon"><Button className="bcbtn" href="/" ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1>LOGIN</h1>
-        </div>
-      </Row>
+<Container fluid>
+        <Row>
+          <div className="login_head">
+            <div className="backicon"><Button className="bcbtn" onClick={() => {
+              navigate(-1);
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">LOGIN</h3>
+          </div>
+        </Row>
+      </Container>
+      
       <Container>
         <Row>
         <div className="input_area"> 

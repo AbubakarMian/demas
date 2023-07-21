@@ -150,6 +150,9 @@ button.procced_btn.btn.btn-secondary {
     background-color: #996418;
     border: solid 1px#996418;
 }
+h5.md_head {
+    margin: 14px 4px;
+}
 
 @media only screen and (max-width: 480px){
     .cardtxtarea {

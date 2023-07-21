@@ -35,13 +35,13 @@ export default function Manage_Bookings() {
 
   return (
     <div>
-      <Container fluid >
-
+      
+      <Container fluid>
         <Row>
           <div className="login_head">
             <div className="backicon"><Button className="bcbtn" onClick={() => {
               navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1> MANAGE BOOKINGS</h1>
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">MANAGE BOOKINGS</h3>
           </div>
         </Row>
       </Container>
