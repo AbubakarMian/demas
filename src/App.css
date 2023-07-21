@@ -76,6 +76,9 @@ button.search_btn.btn.btn-outline-success {
 a.brand_tx.navbar-brand {
   font-family: 'Lobster', cursive;
 }
+img.nav_im {
+  width: 45px;
+}
 
 @keyframes App-logo-spin {
   from {

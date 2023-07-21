@@ -31,8 +31,8 @@ export default function Nav_bar_area() {
       <Navbar key='xl' expand='lg' className="bg-body-tertiary" variant="dark">
         <Container fluid className="nav_back">
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
-          <Navbar.Brand className='brand_tx' href="#">DeMas
-          {/* <img className="nav_im" src="./images/1.png"></img> */}
+          <Navbar.Brand className='brand_tx' href="#">
+          <img className="nav_im" src="./images/12.png"></img>
           </Navbar.Brand>
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-lg`}

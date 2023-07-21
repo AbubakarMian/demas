@@ -64,7 +64,7 @@ export default function Home_page_style(props) {
         <Row>
           <Col>
             <Button
-              href="./single_trip"
+              href="./home"
               variant="primary"
               className="singtripbtn"
             >
@@ -140,40 +140,7 @@ export default function Home_page_style(props) {
 
 
                 <div className="add_btn_card">
-                  <Button>ADD</Button>
-                </div>
-              </div>
-
-          </Row>
-        </div>
-
-        {/* <div className="for_small_screen">
-          <Row>
-            <Col md={1}></Col>
-            <Col md={10}>
-              <div className="singletrip_card">
-                {trips.map((item) => {
-                  return (
-                    <div className="smallcard">
-                      <Row>
-                        <div className="lociconarea">
-                          <img src="./images/listicon.png" />
-                        </div>
-                        <div className="cardtxtarea">
-                          <p>{item.from_address}</p>
-                          <p>{item.to_address}</p>
-                          <p>{item.date_time}</p>
-                        </div>
-                        <div className="crossarea">
-                          <Button>X</Button>
-                        </div>
-                      </Row>
-                    </div>
-                  );
-                })}
-
-                <div className="add_btn_card">
-                  <Button onClick={handleShow}>ADD</Button>
+<Button onClick={handleShow}>ADD</Button>
 
                   <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton></Modal.Header>
@@ -210,13 +177,46 @@ export default function Home_page_style(props) {
                         PROCEED TO NEXT
                       </Button>
                     </Modal.Footer>
-                  </Modal>
+                  </Modal>                </div>
+              </div>
+              </Col>
+
+          </Row>
+        </div>
+
+        <div className="for_small_screen">
+          <Row>
+            <Col md={1}></Col>
+            <Col md={10}>
+              <div className="singletrip_card">
+                {/* {trips.map((item) => {
+                  return (
+                    <div className="smallcard">
+                      <Row>
+                        <div className="lociconarea">
+                          <img src="./images/listicon.png" />
+                        </div>
+                        <div className="cardtxtarea">
+                          <p>{item.from_address}</p>
+                          <p>{item.to_address}</p>
+                          <p>{item.date_time}</p>
+                        </div>
+                        <div className="crossarea">
+                          <Button>X</Button>
+                        </div>
+                      </Row>
+                    </div>
+                  );
+                })} */}
+
+                <div className="add_btn_card">
+                  
                 </div>
               </div>
             </Col>
             <Col md={1}></Col>
           </Row>
-        </div> */}
+        </div>
         <Row>
           <Col md={1}></Col>
           <Col md={10}>
