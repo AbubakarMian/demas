@@ -6,6 +6,7 @@
     background-color: #e8e8e8;
     border-radius: 10px;
     margin-top: 40px;
+    display: flow-root;
 }
 .det_area button {
     width: 100%;
