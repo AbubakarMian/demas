@@ -1,5 +1,6 @@
+
 .img_area img {
-    width: 50%;
+    width: 15%;
     margin: 35px 0px;
 }
 .info_area_bx {
@@ -20,5 +21,8 @@
 
 @media only screen and (max-width : 480px) {
 
-    
+    .img_area img {
+        width: 50%;
+    }
+  
 }

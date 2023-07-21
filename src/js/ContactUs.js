@@ -45,7 +45,7 @@ export default function Contact_Us() {
       </Row>
        
       </Container>
-      <Container fluid>
+      <Container fluid className="cont_pading">
       <div className="inp_area">
 
         <Row className="input_row">
