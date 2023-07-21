@@ -24,13 +24,15 @@ a.bcbtn.btn.btn-primary:hover {
 .input_area {
     margin-top: 55px;
 }
+
 .otpbtn {
     background-color: #996418;
     border: #996418;
     margin-top: 40px;
     height: 49px;
-    width: 100%;
+    width: 40%;
     font-size: 20px;
+    float: right;
 }
 a.otpbtn.btn.btn-primary:hover {
     background-color: white;
@@ -40,6 +42,13 @@ a.otpbtn.btn.btn-primary:hover {
 
 
 @media only screen and (max-width : 480px) {
-
+    .otpbtn {
+        background-color: #996418;
+        border: #996418;
+        margin-top: 40px;
+        height: 49px;
+        width: 100%;
+        font-size: 20px;
+    }
     
 }
