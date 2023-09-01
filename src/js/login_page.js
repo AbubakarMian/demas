@@ -17,6 +17,11 @@ import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
+import { Constant } from "../common/Constants";
+import { ContextApiContext } from "../context/ContextApi";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import Common, { googleTranslate, SendRequest } from "../common/Common";
 
 
 
@@ -24,6 +29,76 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 
 export default function Login_page_style() {
+  const navigate = useNavigate();
+
+  const navigateToPath = (path) => {
+    navigate(path);
+  };
+  const [show, setShow] = useState(false);
+  const { contextState, updateContextState } = useContext(ContextApiContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  
+const attempt_login = async () => {
+  try {
+    // Create the formData and append the email and password
+    var formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+
+    // Call SendRequest with the necessary parameters
+    let cs = contextState;
+    cs.user.access_token = Constant.basic_token;
+    const res = await SendRequest(cs, "POST", Constant.login, formData);
+
+    if (res.status) {
+      updateContextState(res.response, "update_user");
+
+      let role_id = res.response.role_id;
+      if (role_id === 2) {
+        try {
+          const access_token = contextState.user.access_token;
+          const user = contextState.user.id;
+          const headers = {
+            Accept: "application/json",
+            Authorization: access_token,
+            "Authorization-secure": access_token,
+            "client-id": "demas-app-mobile",
+          };
+
+          const response = await fetch(`${Constant.login}/${user}`, {
+            method: "GET",
+            headers: headers,
+          });
+
+          const data = await response.json();
+          console.log('datadd',data);
+
+          if (response.ok) {
+            if (data.response  ==  'available') {
+              navigateToPath("/home");
+            } else {
+              console.error("NO AVAILABLE ORDERS.");
+            }
+          } else {
+            console.error("NO AVAILABLE ORDERS.");
+          }
+        } catch (error) {
+          console.error("Error checking available orders:", error);
+        }
+      } else if (role_id === 3) {
+        navigateToPath("/orderlist");
+      }
+    } else {
+      setError("Login failed. Please check your credentials.");
+    }
+  } catch (error) {
+    console.error("Error during login:", error);
+    setError("An error occurred while logging in. Please try again.");
+  }
+};
+
   return (
     <div>
 
@@ -35,31 +110,14 @@ export default function Login_page_style() {
       <Container>
         <Row>
         <div className="input_area"> 
-          <Inp_fields />
-        </div>
-
-        </Row>
-        <Row>
-        <div className="otp_bt_area"> 
-          <Otp_button />
-        </div>
-
-        </Row>
-      </Container>
-
-    </div>
-  );
-}
-
-const Inp_fields = () => {
-  return (
-    <>
-      <InputGroup className="mb-3">
+        <InputGroup className="mb-3">
         <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
         <Form.Control
           placeholder="Email Address"
           aria-label="Email"
           aria-describedby="basic-addon1"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email} // Bind the email state to the input value
         />
       </InputGroup>
       <InputGroup className="mb-3">
@@ -68,30 +126,21 @@ const Inp_fields = () => {
           placeholder="Whatsapp Number"
           aria-label="Whatsapp"
           aria-describedby="basic-addon1"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password} // Bind the password state to the input value
         />
-      </InputGroup>
+      </InputGroup>        </div>
 
-    </>
-
-
-  );
-}
-// const Otp_button = () => {
-//   return (
-
-//     <Button  href="/" variant="primary" className="otpbtn">SEND OTP</Button>
-//   );
-// }
-
-const Otp_button = () => {
-  const [show, setShow] = useState(false);
-  return (
-
-    <>
-
-      <Button className="otpbtn" onClick={() => setShow(true)}>
+        </Row>
+        <Row>
+        <div className="otp_bt_area"> 
+        <Button className="otpbtn"   onClick={() => attempt_login()}
+>
       SEND OTP 
       </Button>
+        {/* <Button className="otpbtn" onClick={() => setShow(true)}>
+      SEND OTP 
+      </Button> */}
       <Modal
         show={show}
         onHide={() => setShow(false)}
@@ -116,8 +165,19 @@ const Otp_button = () => {
       <Button  href="/home" variant="primary" className="otpbtn">Login</Button>
         </Modal.Body>
       </Modal>
+        </div>
 
+        </Row>
+      </Container>
 
-    </>
+    </div>
   );
 }
+
+// const Otp_button = () => {
+//   return (
+
+//     <Button  href="/" variant="primary" className="otpbtn">SEND OTP</Button>
+//   );
+// }
+

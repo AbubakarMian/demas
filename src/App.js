@@ -18,6 +18,7 @@ import ProfileTravel from './js/ProfileTravel';
 import Privacy from './js/Privacy';
 import FAQ from './js/FAQ';
 import Refund from './js/Refund';
+import ContexApiProvider from './context/ContextApi';
 
 
 
@@ -26,7 +27,10 @@ function App() {
   return (
     <div className="App">
       {/* <Router basename='/demas/build'> */}
+      <ContexApiProvider>
+
       <Router>
+        
     
             {/* <Offcanvas_colapsable_nav /> */}
         <Routes>
@@ -47,6 +51,8 @@ function App() {
           <Route Component={Home} path='/home'></Route>
         </Routes>
       </Router>
+      </ContexApiProvider>
+
     </div>
   );
 }
