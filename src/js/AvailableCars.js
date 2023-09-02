@@ -36,13 +36,13 @@ export default function AvailableCars() {
   return (
     <div>
       <Container fluid>
-      <Row>
-        <div className="login_head">
-          <div className="backicon"><Button className="bcbtn" onClick={() => {
+        <Row>
+          <div className="login_head">
+            <div className="backicon"><Button className="bcbtn" onClick={() => {
               navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1>Available Cars</h1>
-        </div>
-      </Row>
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">Available Cars</h3>
+          </div>
+        </Row>
       </Container>
       <Container fluid>
         <Row className="bar_clr">
@@ -52,170 +52,173 @@ export default function AvailableCars() {
           <Col>
             {/* <Filters /> */}
             <Button
-        onClick={() => setOpen(!open)}
-        aria-controls="example-collapse-text"
-        aria-expanded={open}
-        className="sett_btn"
-      >
-        <FontAwesomeIcon icon={faSliders} />
-      </Button>
-      
+              onClick={() => setOpen(!open)}
+              aria-controls="example-collapse-text"
+              aria-expanded={open}
+              className="sett_btn"
+            >
+              <FontAwesomeIcon icon={faSliders} />
+            </Button>
+
 
 
 
           </Col>
         </Row>
         <Row>
-        <Collapse in={open}>
-        <div id="example-collapse-text">
-          <Container className="filter_area">
-            <Row>
-              <Col>
-                <h3 className="filter_hed">CAR TYPE</h3>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Button className="filter_btn">Sedan</Button>
-                <Button className="filter_btn">Mini-Bus</Button>
-                <Button className="filter_btn">SUV</Button>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Button className="filter_btn">People Carrier Van</Button>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <h3 className="filter_hed">CAR SEATS</h3>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Button className="filter_btn">4</Button>
-                <Button className="filter_btn">15</Button>
-                <Button className="filter_btn">5</Button>
-                <Button className="filter_btn">8</Button>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <h3 className="filter_hed">SUIT CASES</h3>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Button className="filter_btn">6</Button>
-                <Button className="filter_btn">17</Button>
-                <Button className="filter_btn">7</Button>
-                <Button className="filter_btn">10</Button>
-              </Col>
-            </Row>
-            
+          <Collapse in={open}>
+            <div id="example-collapse-text">
+              <Container className="filter_area">
+                <Row>
+                  <Col>
+                    <h3 className="filter_hed">CAR TYPE</h3>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Button className="filter_btn">Sedan</Button>
+                    <Button className="filter_btn">Mini-Bus</Button>
+                    <Button className="filter_btn">SUV</Button>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Button className="filter_btn">People Carrier Van</Button>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <h3 className="filter_hed">CAR SEATS</h3>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Button className="filter_btn">4</Button>
+                    <Button className="filter_btn">15</Button>
+                    <Button className="filter_btn">5</Button>
+                    <Button className="filter_btn">8</Button>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <h3 className="filter_hed">SUIT CASES</h3>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Button className="filter_btn">6</Button>
+                    <Button className="filter_btn">17</Button>
+                    <Button className="filter_btn">7</Button>
+                    <Button className="filter_btn">10</Button>
+                  </Col>
+                </Row>
+
+              </Container>
+            </div>
+          </Collapse>
+        </Row>
+        
+          <Row className="">
+            <Col>
+              <div className="car_typ">Type - Sedan</div>
+            </Col>
+            <Col>
+              <div className="rates">250 SAR (per trip)</div>
+            </Col>
+          </Row>
+          <Row className="">
+            <Col>
+              <div className="car_nme">Sedan Car or Similar</div>
+            </Col>
+            <Col>
+              <div className="similr">(or Similar)</div>
+            </Col>
+          </Row>
           </Container>
-        </div>
-      </Collapse>
-        </Row>
-        <div onClick={() => {
-                navigate("/sedan");
-              }}>
-        <Row className="">
-          <Col>
-            <div className="car_typ">Type - Sedan</div>
-          </Col>
-          <Col>
-            <div className="rates">250 SAR (per trip)</div>
-          </Col>
-        </Row>
-        <Row className="">
-          <Col>
-            <div className="car_nme">Sedan Car or Similar</div>
-          </Col>
-          <Col>
-            <div className="similr">(or Similar)</div>
-          </Col>
-        </Row>
-        <Row>
+          <div onClick={() => {
+          navigate("/sedan");
+          }}>
           <Sedan_crousel />
-        </Row>
-        <Row className="icn_ara">
-          <Col>
-            <FontAwesomeIcon className="detail_icn" icon={faUser} />3
-          </Col>
-          <Col>
-            <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} />5
-          </Col>
-          <Col>
-            <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
-          </Col>
-        </Row>
-        </div>
+          </div>
+          <Container fluid>
+
+          <Row className="icn_ara">
+            <Col>
+              <FontAwesomeIcon className="detail_icn" icon={faUser} />3
+            </Col>
+            <Col>
+              <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} />5
+            </Col>
+            <Col>
+              <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
+            </Col>
+          </Row>
+       
         <div onClick={() => {
-                navigate("/sedan");
-              }}>
-        <Row className="">
-          <Col>
-            <div className="car_typ">Type - Mini-Bus</div>
-          </Col>
-          <Col>
-            <div className="rates">250 SAR (per trip)</div>
-          </Col>
-        </Row>
-        <Row className="">
-          <Col>
-            <div className="car_nme">Coaster or Similar</div>
-          </Col>
-          <Col>
-            <div className="similr">(or Similar)</div>
-          </Col>
-        </Row>
-        <Row>
-          <Coaster_crousel />
-        </Row>
-        <Row className="icn_ara">
-          <Col>
-            <FontAwesomeIcon className="detail_icn" icon={faUser} />3
-          </Col>
-          <Col>
-            <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} />5
-          </Col>
-          <Col>
-            <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
-          </Col>
-        </Row>
-        <Row className="">
-          <Col>
-            <div className="car_typ">Type - SUV</div>
-          </Col>
-          <Col>
-            <div className="rates">400 SAR (per trip)</div>
-          </Col>
-        </Row>
-        <Row className="">
-          <Col>
-            <div className="car_nme">GMC or Similar</div>
-          </Col>
-          <Col>
-            <div className="similr">(or Similar)</div>
-          </Col>
-        </Row>
-        <Row>
-          <Suv_crousel />
-        </Row>
-        <Row className="icn_ara">
-          <Col>
-            <FontAwesomeIcon className="detail_icn" icon={faUser} />3
-          </Col>
-          <Col>
-            <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} />5
-          </Col>
-          <Col>
-            <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
-          </Col>
-        </Row>
+          navigate("/sedan");
+        }}>
+          <Row className="">
+            <Col>
+              <div className="car_typ">Type - Mini-Bus</div>
+            </Col>
+            <Col>
+              <div className="rates">250 SAR (per trip)</div>
+            </Col>
+          </Row>
+          <Row className="">
+            <Col>
+              <div className="car_nme">Coaster or Similar</div>
+            </Col>
+            <Col>
+              <div className="similr">(or Similar)</div>
+            </Col>
+          </Row>
+          <Row>
+            <Coaster_crousel />
+          </Row>
+          <Row className="icn_ara">
+            <Col>
+              <FontAwesomeIcon className="detail_icn" icon={faUser} />3
+            </Col>
+            <Col>
+              <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} />5
+            </Col>
+            <Col>
+              <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
+            </Col>
+          </Row>
+          <Row className="">
+            <Col>
+              <div className="car_typ">Type - SUV</div>
+            </Col>
+            <Col>
+              <div className="rates">400 SAR (per trip)</div>
+            </Col>
+          </Row>
+          <Row className="">
+            <Col>
+              <div className="car_nme">GMC or Similar</div>
+            </Col>
+            <Col>
+              <div className="similr">(or Similar)</div>
+            </Col>
+          </Row>
+          <Row>
+            <Suv_crousel />
+          </Row>
+          <Row className="icn_ara">
+            <Col>
+              <FontAwesomeIcon className="detail_icn" icon={faUser} />3
+            </Col>
+            <Col>
+              <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} />5
+            </Col>
+            <Col>
+              <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
+            </Col>
+          </Row>
         </div>
-      
+
       </Container>
     </div>
   );
@@ -225,10 +228,10 @@ const Sedan_crousel = () => {
   return (
     <Carousel className="slider_bdr">
       <Carousel.Item>
-        
+
         <img className="d-block w-100" src="./images/a.jpg" alt="First slide" />
         <Carousel.Caption></Carousel.Caption>
-        
+
       </Carousel.Item>
       <Carousel.Item className="">
         <img
@@ -251,26 +254,26 @@ const Sedan_crousel = () => {
 const Coaster_crousel = () => {
   return (
     <div className="slider-section">
-    <Carousel className="slider_bdr">
-      <Carousel.Item>
-        <img className="d-block w-100" src="./images/b.jpg" alt="First slide" />
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="./images/d.jpg"
-          alt="Second slide"
-        />
+      <Carousel className="slider_bdr">
+        <Carousel.Item>
+          <img className="d-block w-100" src="./images/b.jpg" alt="First slide" />
+          <Carousel.Caption></Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="./images/d.jpg"
+            alt="Second slide"
+          />
 
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img className="d-block w-100" src="./images/f.jpg" alt="Third slide" />
+          <Carousel.Caption></Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img className="d-block w-100" src="./images/f.jpg" alt="Third slide" />
 
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+          <Carousel.Caption></Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
     </div>
   );
 };

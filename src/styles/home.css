@@ -8,7 +8,7 @@
     background-color: #996418;
     border: #996418;
     margin-top: 15px;
-    height: 50px;
+    height: 42px;
     width: 170px;
     font-size: 20px;
 }
@@ -46,7 +46,7 @@ h5.comment {
 button.Proceed_button.btn.btn-primary {
     width: 231px;
     margin-top: 28px;
-    height: 50px;
+    height: 42px;
     background-color: #996418;
     border: #996418;
     font-size: 20px;
@@ -92,13 +92,13 @@ button.commentsbtn.btn.btn-primary {
     font-size: 18px;
 }
 .big_screen_adj {
-    padding: 0px 320px;
+    padding: 0px 150px;
 }
 /* Extra Small Devices, Phones */ 
 @media only screen and (max-width : 480px) {
     button.Proceed_button.btn.btn-primary {
         width: 100%;
-        font-size: 23px;
+        font-size: 19px;
 
     }
     .modal-content {

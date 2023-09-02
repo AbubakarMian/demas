@@ -47,16 +47,17 @@ export default function SedanCars(props) {
 
   return (
     <div>
+      
       <Container fluid>
-       
         <Row>
-        <div className="login_head">
-          <div className="backicon"><Button className="bcbtn" onClick={() => {
+          <div className="login_head">
+            <div className="backicon"><Button className="bcbtn" onClick={() => {
               navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1>  SEDAN</h1>
-        </div>
-      </Row>
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">SEDAN</h3>
+          </div>
+        </Row>
       </Container>
+     
       <Container fluid>
         <Row className="">
           <Col>
@@ -74,9 +75,11 @@ export default function SedanCars(props) {
             <div className="similr">(or Similar)</div>
           </Col> */}
         </Row>
-        <Row>
-            <Sedan_crousel />
-        </Row>
+        </Container>
+
+        <Sedan_crousel />
+        <Container fluid>
+
         <Row className="icn_ara_sedan">
           <Col>
             <FontAwesomeIcon className="detail_icn" icon={faUser} />3
@@ -115,19 +118,19 @@ export default function SedanCars(props) {
           <Row>
             <Collapse in={car_feature}>
               <div id="example-collapse-text" className="coll_p">
-                <p>
-                  <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                <p className="para_sedan">
+                  <FontAwesomeIcon icon={faArrowRight}  className="arr_icn" />
                   Exterior parking camera rear
                 </p>
-                <p>
+                <p className="para_sedan">
                   <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
                   Heated door mirrors
                 </p>
-                <p>
+                <p className="para_sedan">
                   <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Low tire pressure waring
+                  Low tire pressure warning
                 </p>
-                <p>
+                <p className="para_sedan">
                   <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
                   Turn signal indicator mirrors
                 </p>
@@ -153,19 +156,20 @@ export default function SedanCars(props) {
           <Row>
             <Collapse in={book}>
               <div id="example-collapse-text" className="coll_p">
-                <p>
+              <p className="para_sedan">
                   <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
                   Exterior parking camera rear
                 </p>
-                <p>
+                <p className="para_sedan">
                   <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
                   Heated door mirrors
                 </p>
-                <p>
+                <p className="para_sedan">
                   <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Low tire pressure waring
+                  Low tire pressure warning
                 </p>
-                <p>
+                
+                <p className="para_sedan">
                   <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
                   Turn signal indicator mirrors
                 </p>
@@ -191,19 +195,19 @@ export default function SedanCars(props) {
           <Row>
             <Collapse in={open}>
               <div id="example-collapse-text" className="coll_p">
-                <p>
+              <p className="para_sedan">
                   <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
                   Exterior parking camera rear
                 </p>
-                <p>
+                <p className="para_sedan">
                   <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
                   Heated door mirrors
                 </p>
-                <p>
+                <p className="para_sedan">
                   <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
                   Low tire pressure waring
                 </p>
-                <p>
+                <p className="para_sedan">
                   <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
                   Turn signal indicator mirrors
                 </p>
@@ -233,7 +237,7 @@ export default function SedanCars(props) {
                   <div className="mdl_btn">
                     {/* <CreatePaymentModal /> */}
                     <CreateOTPModal />
-                    <CreateSuccessModal/>
+                    <CreateSuccessModal />
                   </div>
                 </Modal.Body>
                 <Modal.Footer>
@@ -255,29 +259,29 @@ export default function SedanCars(props) {
 }
 
 const Sedan_crousel = () => {
-    return (
-      <Carousel className="slider_bdr">
-        <Carousel.Item>
-          <img className="d-block w-100" src="./images/a.jpg" alt="First slide" />
-          <Carousel.Caption></Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="./images/h.jpg"
-            alt="Second slide"
-          />
-  
-          <Carousel.Caption></Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img className="d-block w-100" src="./images/g.jpg" alt="Third slide" />
-  
-          <Carousel.Caption></Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-    );
-  };
+  return (
+    <Carousel className="slider_bdr">
+      <Carousel.Item>
+        <img className="d-block w-100" src="./images/a.jpg" alt="First slide" />
+        <Carousel.Caption></Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="./images/h.jpg"
+          alt="Second slide"
+        />
+
+        <Carousel.Caption></Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img className="d-block w-100" src="./images/g.jpg" alt="Third slide" />
+
+        <Carousel.Caption></Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
+  );
+};
 
 const CreateOTPModal = (props) => {
   const [show, setShow] = useState(false);
@@ -414,8 +418,8 @@ const CreatePaymentModal = () => {
               </Col>
             </Row>
             <Row>
-              
-              <CreatePaymentSuccessModal/>
+
+              <CreatePaymentSuccessModal />
             </Row>
           </Container>
         </Modal.Body>
@@ -433,10 +437,10 @@ const CreateSuccessModal = () => {
   };
   return (
     <>
-      
+
       <Button className="pay_btn" onClick={() => setShow(true)}>
-                      Pay Later
-                    </Button>
+        Pay Later
+      </Button>
 
       <Modal
         show={show}
@@ -452,20 +456,20 @@ const CreateSuccessModal = () => {
         </Modal.Header>
         <Modal.Body>
           <Container>
-           <div className="cent">
-            <Row>
-              <Col>
-              <FontAwesomeIcon icon={faCheck} className="succ_icon" />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-             <p className="succ">Trip has been added</p>
-             <p className="succ">successfully</p>
-             <p className="succ">You will be notified with</p>
-             <p className="succ">confimation shortly.</p>
-              </Col>
-            </Row>
+            <div className="cent">
+              <Row>
+                <Col>
+                  <FontAwesomeIcon icon={faCheck} className="succ_icon" />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p className="succ">Trip has been added</p>
+                  <p className="succ">successfully</p>
+                  <p className="succ">You will be notified with</p>
+                  <p className="succ">confimation shortly.</p>
+                </Col>
+              </Row>
             </div>
           </Container>
         </Modal.Body>
@@ -484,13 +488,13 @@ const CreatePaymentSuccessModal = () => {
   return (
     <>
       <Button
-                variant="primary"
-                className="bookbtn"
-                onClick={() => setShow(true)}
-              >
-                Pay 250SAR
-              </Button>
-      
+        variant="primary"
+        className="bookbtn"
+        onClick={() => setShow(true)}
+      >
+        Pay 250SAR
+      </Button>
+
 
       <Modal
         show={show}
@@ -506,20 +510,20 @@ const CreatePaymentSuccessModal = () => {
         </Modal.Header>
         <Modal.Body>
           <Container>
-           <div className="cent">
-            <Row>
-              <Col>
-              <FontAwesomeIcon icon={faCheck} className="succ_icon" />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-             <p className="succ">Trip has been added</p>
-             <p className="succ">successfully</p>
-             <p className="succ">You will be notified with</p>
-             <p className="succ">confimation shortly.</p>
-              </Col>
-            </Row>
+            <div className="cent">
+              <Row>
+                <Col>
+                  <FontAwesomeIcon icon={faCheck} className="succ_icon" />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p className="succ">Trip has been added</p>
+                  <p className="succ">successfully</p>
+                  <p className="succ">You will be notified with</p>
+                  <p className="succ">confimation shortly.</p>
+                </Col>
+              </Row>
             </div>
           </Container>
         </Modal.Body>

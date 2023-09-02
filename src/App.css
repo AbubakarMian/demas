@@ -79,6 +79,9 @@ a.brand_tx.navbar-brand {
 img.nav_im {
   width: 45px;
 }
+.nav_ico_sp {
+  margin-right: 10px;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -92,6 +95,6 @@ img.nav_im {
 @media only screen and (max-width : 480px) {
   .nav_bottom {
     border-bottom: solid 1px;
-    height: 60px;
+    height: 47px;
   }
 }

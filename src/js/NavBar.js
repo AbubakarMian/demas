@@ -52,16 +52,16 @@ export default function Nav_bar_area() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <div className='nav_bottom'><Nav.Link href="home"><FontAwesomeIcon icon={faHouse} /> Home</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="availablecars"><FontAwesomeIcon icon={faCar} /> AvailCars</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="managebookings"><FontAwesomeIcon icon={faBookBookmark} /> Bookings</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="contactus"><FontAwesomeIcon icon={faPhoneVolume} /> ContactUs</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="profiletravel"><FontAwesomeIcon icon={faBarsProgress} /> Travel Agent</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="profilesale"><FontAwesomeIcon icon={faBarsProgress} /> Sale Agent</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="privacy"><FontAwesomeIcon icon={faShieldHalved} /> Privacy</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="faq"><FontAwesomeIcon icon={faFileCircleQuestion} /> FAQ's</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="refund"><FontAwesomeIcon icon={faCommentsDollar} /> Refund</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="login"><FontAwesomeIcon icon={faRightToBracket} /> Login</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="home"><FontAwesomeIcon className='nav_ico_sp' icon={faHouse} /> Home</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="availablecars"><FontAwesomeIcon icon={faCar}  className='nav_ico_sp'  /> AvailCars</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="managebookings"><FontAwesomeIcon icon={faBookBookmark}  className='nav_ico_sp' /> Bookings</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="contactus"><FontAwesomeIcon icon={faPhoneVolume}  className='nav_ico_sp' /> ContactUs</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="profiletravel"><FontAwesomeIcon icon={faBarsProgress} className='nav_ico_sp'  /> TravelAgent</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="profilesale"><FontAwesomeIcon icon={faBarsProgress} className='nav_ico_sp'  /> SaleAgent</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="privacy"><FontAwesomeIcon icon={faShieldHalved} className='nav_ico_sp'  /> Privacy</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="faq"><FontAwesomeIcon icon={faFileCircleQuestion} className='nav_ico_sp'  /> FAQ's</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="refund"><FontAwesomeIcon icon={faCommentsDollar} className='nav_ico_sp'  /> Refund</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="login"><FontAwesomeIcon icon={faRightToBracket} className='nav_ico_sp'  /> Login</Nav.Link></div>
           
                 {/* <NavDropdown
                   title="Dropdown"

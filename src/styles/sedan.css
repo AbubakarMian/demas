@@ -40,8 +40,9 @@ button.car_fea.btn.btn-primary {
     color: #a4610d;
     border: 0px ;
     float: right;
-    font-size: 19px;
+    font-size: 14px;
     width: 100%;
+    font-weight: bold;
 }
 svg.svg-inline--fa.fa-bars {
     float: right;
@@ -99,4 +100,9 @@ p.succ {
 svg.svg-inline--fa.fa-check.succ_icon {
     font-size: 42px;
     margin-bottom: 14px;
+}
+.para_sedan{
+    font-weight: bold;
+    font-size: 14px;
+    color: gray;
 }

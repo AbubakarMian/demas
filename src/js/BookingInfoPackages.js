@@ -37,18 +37,13 @@ export default function Booking_info_pack() {
 
   return (
     <div>
-      <Container fluid>
-        <Row className="back_row">
-          <Col>
-            <Button
-              className="back_btn"
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              <FontAwesomeIcon icon={faArrowLeft} /> BOOKING INFO
-            </Button>
-          </Col>
+       <Container fluid>
+        <Row>
+          <div className="login_head">
+            <div className="backicon"><Button className="bcbtn" onClick={() => {
+              navigate(-1);
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">BOOKING INFO</h3>
+          </div>
         </Row>
       </Container>
       <Container fluid>

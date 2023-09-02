@@ -47,17 +47,9 @@ export default function Faqs() {
       <Container fluid>
         <Row>
           <div className="login_head">
-            <div className="backicon">
-              <Button
-                className="bcbtn"
-                onClick={() => {
-                  navigate(-1);
-                }}
-              >
-               
-              </Button>
-            </div>{" "}
-            <h1>FAQ's</h1>
+            <div className="backicon"><Button className="bcbtn" onClick={() => {
+              navigate(-1);
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">FAQ's</h3>
           </div>
         </Row>
       </Container>
@@ -71,15 +63,23 @@ export default function Faqs() {
                 aria-expanded={quest1}
                 className="collap_btn"
               >
-                <FontAwesomeIcon
-                  className="drp_dn"
-                  icon={faCaretDown}
-                />
-                Why Demas Taxi?
+                <div className="fqa-box">
+                  <div className="faq_txt"  >
+                    Why Demas Taxi?
+                  </div>
+                  <div className="faq_icn">
+                    <FontAwesomeIcon
+                      className="drp_dn"
+                      icon={faCaretDown}
+                    />
+                  </div>
+                </div>
+
               </Button>
+
               <Collapse in={quest1}>
                 <div id="example-collapse-text">
-                  
+
                   Anim pariatur cliche reprehenderit, enim eiusmod high life
                   accusamus terry richardson ad squid. Nihil anim keffiyeh
                   helvetica, craft beer labore wes anderson cred nesciunt
@@ -96,13 +96,21 @@ export default function Faqs() {
                 aria-expanded={quest2}
                 className="collap_btn"
               >
-                  <FontAwesomeIcon
-                  className="drp_dn"
-                  icon={faCaretDown}
-                />
-                How I can book myself?{" "}
-               
+
+                <div className="fqa-box">
+                  <div className="faq_txt"  >
+                    How I can book myself?
+                  </div>
+                  <div className="faq_icn">
+                    <FontAwesomeIcon
+                      className="drp_dn"
+                      icon={faCaretDown}
+                    />
+                  </div>
+                </div>
+
               </Button>
+
               <Collapse in={quest2}>
                 <div id="example-collapse-text">
                   Anim pariatur cliche reprehenderit, enim eiusmod high life
@@ -121,12 +129,19 @@ export default function Faqs() {
                 aria-expanded={quest3}
                 className="collap_btn"
               >
-                  <FontAwesomeIcon
-              className="drp_dn"
-              icon={faCaretDown}
-            />
-                How might I find my driver?{" "}
-               
+
+                <div className="fqa-box">
+                  <div className="faq_txt"  >
+                    How might I find my driver?
+                  </div>
+                  <div className="faq_icn">
+                    <FontAwesomeIcon
+                      className="drp_dn"
+                      icon={faCaretDown}
+                    />
+                  </div>
+                </div>
+
               </Button>
               <Collapse in={quest3}>
                 <div id="example-collapse-text">
@@ -146,12 +161,20 @@ export default function Faqs() {
                 aria-expanded={quest4}
                 className="collap_btn"
               >
-                  <FontAwesomeIcon
-                  className="drp_dn"
-                  icon={faCaretDown}
-                />
-                How Do I modify my booking?{" "}
-               
+
+
+                <div className="fqa-box">
+                  <div className="faq_txt"  >
+                    How Do I modify my booking?
+                  </div>
+                  <div className="faq_icn">
+                    <FontAwesomeIcon
+                      className="drp_dn"
+                      icon={faCaretDown}
+                    />
+                  </div>
+                </div>
+
               </Button>
               <Collapse in={quest4}>
                 <div id="example-collapse-text">
@@ -171,12 +194,20 @@ export default function Faqs() {
                 aria-expanded={quest5}
                 className="collap_btn"
               >
-                  <FontAwesomeIcon
-                  className="drp_dn"
-                  icon={faCaretDown}
-                />
-                What if I have bulky luggage?{" "}
-               
+
+
+                <div className="fqa-box">
+                  <div className="faq_txt"  >
+                    What if I have bulky luggage?
+                  </div>
+                  <div className="faq_icn">
+                    <FontAwesomeIcon
+                      className="drp_dn"
+                      icon={faCaretDown}
+                    />
+                  </div>
+                </div>
+
               </Button>
               <Collapse in={quest5}>
                 <div id="example-collapse-text">
@@ -196,13 +227,22 @@ export default function Faqs() {
                 aria-expanded={quest6}
                 className="collap_btn"
               >
-                  <FontAwesomeIcon
-                  className="drp_dn"
-                  icon={faCaretDown}
-                />
-                Through what medium I can cancel my booking?{" "}
-                
+
+
+                <div className="fqa-box">
+                  <div className="faq_txt"  >
+                    Through what medium I can cancel my booking?
+                  </div>
+                  <div className="faq_icn">
+                    <FontAwesomeIcon
+                      className="drp_dn"
+                      icon={faCaretDown}
+                    />
+                  </div>
+                </div>
+
               </Button>
+
               <Collapse in={quest6}>
                 <div id="example-collapse-text">
                   Anim pariatur cliche reprehenderit, enim eiusmod high life
@@ -221,19 +261,21 @@ export default function Faqs() {
                 aria-expanded={quest7}
                 className="collap_btn"
               >
-                  <div className="fqa-box">
-                    <div style={{float:"left"}}>
-                Why Local sim is necessery for airport terminal pickup?{" "}
+
+
+              <div className="fqa-box">
+                <div className="faq_txt"  >
+                Why Local sim is necessery for airport terminal pickup?
                 </div>
-                <div  style={{float:"right"}}>
-                <FontAwesomeIcon
-                  className="drp_dn"
-                  icon={faCaretDown}
-                />
+                <div className="faq_icn">
+                  <FontAwesomeIcon
+                    className="drp_dn"
+                    icon={faCaretDown}
+                  />
                 </div>
-                </div>
-                
-              </Button>
+              </div>
+
+            </Button>
               <Collapse in={quest7}>
                 <div id="example-collapse-text">
                   Anim pariatur cliche reprehenderit, enim eiusmod high life
@@ -252,13 +294,22 @@ export default function Faqs() {
                 aria-expanded={quest8}
                 className="collap_btn"
               >
+
+
+              <div className="fqa-box">
+                <div className="faq_txt"  >
+                Circumstances of flight delayed or cancellation?
+                </div>
+                <div className="faq_icn">
                   <FontAwesomeIcon
-                  className="drp_dn"
-                  icon={faCaretDown}
-                />
-                Circumstances of flight delayed or cancellation?{" "}
+                    className="drp_dn"
+                    icon={faCaretDown}
+                  />
+                </div>
+              </div>
+
+            </Button>
                 
-              </Button>
               <Collapse in={quest8}>
                 <div id="example-collapse-text">
                   Anim pariatur cliche reprehenderit, enim eiusmod high life
@@ -277,13 +328,21 @@ export default function Faqs() {
                 aria-expanded={quest9}
                 className="collap_btn"
               >
+
+
+              <div className="fqa-box">
+                <div className="faq_txt"  >
+                How might I find my driver?
+                </div>
+                <div className="faq_icn">
                   <FontAwesomeIcon
-                  className="drp_dn"
-                  icon={faCaretDown}
-                />
-                How might I find my driver?{" "}
-                
-              </Button>
+                    className="drp_dn"
+                    icon={faCaretDown}
+                  />
+                </div>
+              </div>
+
+            </Button>
               <Collapse in={quest9}>
                 <div id="example-collapse-text">
                   Anim pariatur cliche reprehenderit, enim eiusmod high life

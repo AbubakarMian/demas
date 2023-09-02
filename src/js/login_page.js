@@ -28,6 +28,7 @@ import Common, { googleTranslate, SendRequest } from "../common/Common";
 
 
 
+
 export default function Login_page_style() {
   const navigate = useNavigate();
 
@@ -98,15 +99,20 @@ const attempt_login = async () => {
     setError("An error occurred while logging in. Please try again.");
   }
 };
+  const [open, setOpen] = useState(false);
 
   return (
     <div>
-
-      <Row>
-        <div className="login_head">
-          <div className="backicon"><Button className="bcbtn" href="/" ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1>LOGIN</h1>
-        </div>
-      </Row>
+<Container fluid>
+        <Row>
+          <div className="login_head">
+            <div className="backicon"><Button className="bcbtn" onClick={() => {
+              navigate(-1);
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">LOGIN</h3>
+          </div>
+        </Row>
+      </Container>
+      
       <Container>
         <Row>
         <div className="input_area"> 

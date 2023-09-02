@@ -36,16 +36,15 @@ export default function Contact_Us() {
   return (
     <div>
       <Container fluid>
-      <Row>
-        <div className="login_head">
-          <div className="backicon"><Button className="bcbtn" onClick={() => {
+        <Row>
+          <div className="login_head">
+            <div className="backicon"><Button className="bcbtn" onClick={() => {
               navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1> Contact Us</h1>
-        </div>
-      </Row>
-       
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">Contact Us</h3>
+          </div>
+        </Row>
       </Container>
-      <Container fluid>
+      <Container fluid className="cont_pading">
       <div className="inp_area">
 
         <Row className="input_row">

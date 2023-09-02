@@ -35,13 +35,16 @@ export default function Manage_Bookings() {
 
   return (
     <div>
-      <Row>
-        <div className="login_head">
-          <div className="backicon"><Button className="bcbtn" onClick={() => {
+      
+      <Container fluid>
+        <Row>
+          <div className="login_head">
+            <div className="backicon"><Button className="bcbtn" onClick={() => {
               navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1> MANAGE BOOKINGS</h1>
-        </div>
-      </Row>
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">MANAGE BOOKINGS</h3>
+          </div>
+        </Row>
+      </Container>
       <Container fluid>
         <Row className="det_box">
           <Col>
@@ -66,8 +69,10 @@ export default function Manage_Bookings() {
         <Row className="det_box">
           <Col>
             <div className="det_area">
-              <h4>DETAIL</h4>
-              <p>Jeddah Airport to Jeddah Airport</p>
+              <div>
+                <h4>DETAIL</h4>
+                <p>Jeddah Airport to Jeddah Airport</p>
+              </div>
               <Button className="mange_btn"
                 onClick={() => {
                   navigate("/bookinginfopackages");
