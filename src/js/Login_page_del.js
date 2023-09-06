@@ -19,10 +19,6 @@ import { useState } from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 
-
-
-
-
 export default function Login_page_style() {
   return (
     <div>
@@ -76,12 +72,6 @@ const Inp_fields = () => {
 
   );
 }
-// const Otp_button = () => {
-//   return (
-
-//     <Button  href="/" variant="primary" className="otpbtn">SEND OTP</Button>
-//   );
-// }
 
 const Otp_button = () => {
   const [show, setShow] = useState(false);

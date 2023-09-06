@@ -300,36 +300,6 @@ const Home_crousel = () => {
   );
 };
 
-const Input_area_pick = () => {
-  const [show, setShow] = useState(false);
-  return (
-    <>
-    </>
-  );
-};
-
-const Input_area_drop = () => {
-  const [show, setShow] = useState(false);
-  return (
-    <>
-    </>
-  );
-  // return (
-  //   <>
-  //     <Form.Control
-  //       type="text"
-  //       id="input5"
-  //       aria-describedby="passwordHelpBlock"
-  //       placeholder="Select Drop Off Location"
-  //       className="input_bx"
-  //     />
-  //     {/* <Form.Text id="passwordHelpBlock" muted>
-  //       Your password must be 8-20 characters long, contain letters and numbers,
-  //       and must not contain spaces, special characters, or emoji.
-  //     </Form.Text> */}
-  //   </>
-  // );
-};
 
 const Input_area_time = () => {
   return (
