@@ -25,10 +25,6 @@ import Common, { googleTranslate, SendRequest } from "../common/Common";
 
 
 
-
-
-
-
 export default function Login_page_style() {
   const navigate = useNavigate();
 

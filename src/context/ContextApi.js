@@ -2,7 +2,14 @@ import React, { createContext, useState } from "react";
 
 export const ContextApiContext = React.createContext()
 
-
+let guest_user = {
+    id: "0",
+    name: "Guest",
+    access_token: "Basic cmVlbHNwcm8tYXBwLW1vYmlsZTogY21WbGJITndjbTh0WVhCd0xXMXZZbWxzWlE9PQ==",
+    role_id: 2,
+    rememberme:false,
+    is_loggedin:false,
+};
 let initState = {
     "avalible_languages": [
         {
@@ -33,12 +40,7 @@ let initState = {
     //     access_token: "Basic cmVlbHNwcm8tYXBwLW1vYmlsZTogY21WbGJITndjbTh0WVhCd0xXMXZZbWxzWlE9PQ==",
     //     role_id: 2,
     // })),
-    "user": localStorage.getItem('user')===null? {
-        id: "0",
-        name: "Guest",
-        access_token: "Basic cmVlbHNwcm8tYXBwLW1vYmlsZTogY21WbGJITndjbTh0WVhCd0xXMXZZbWxzWlE9PQ==",
-        role_id: 2,
-    }:JSON.parse(localStorage.getItem('user')),
+    "user": localStorage.getItem('user')===null? guest_user:JSON.parse(localStorage.getItem('user')),
     // "user": {
     //     id: "0",
     //     name: "Guest",
@@ -77,6 +79,11 @@ export const ContexApiProvider = (props) => {
                 case 'update_user':
                     objContextState['user'] = update_obj;
                     localStorage.setItem('user', JSON.stringify(update_obj));
+                    setContextState({...contextState,objContextState})
+                break;
+                case 'logout_user':
+                    objContextState['user'] = guest_user;
+                    localStorage.setItem('user', JSON.stringify(guest_user));
                     setContextState({...contextState,objContextState})
                 break;
 
