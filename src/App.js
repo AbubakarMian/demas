@@ -1,3 +1,4 @@
+
 import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -5,8 +6,8 @@ import { Nav, Navbar, Container } from "react-bootstrap";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Single_trip from "./js/Single_trip";
 import Login from "./js/Login_page";
-import Home from "./js/home";
-import Starting from "./js/starting";
+import Home from "./js/Home";
+import Starting from "./js/Starting";
 import AvailableCars from "./js/AvailableCars";
 import Sedan from "./js/Sedan";
 import ManageBookings from "./js/ManageBookings";
@@ -19,6 +20,7 @@ import Privacy from "./js/Privacy";
 import FAQ from "./js/FAQ";
 import Refund from "./js/Refund";
 import ContexApiProvider from "./context/ContextApi";
+
 
 function App() {
   return (

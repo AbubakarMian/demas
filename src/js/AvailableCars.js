@@ -40,7 +40,7 @@ export default function AvailableCars() {
           <div className="login_head">
             <div className="backicon"><Button className="bcbtn" onClick={() => {
               navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1>Available Cars</h1>
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">Available Cars</h3>
           </div>
         </Row>
       </Container>

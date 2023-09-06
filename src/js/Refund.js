@@ -35,16 +35,14 @@ export default function Refunds() {
 
   return (
     <div>
-      <Container fluid>
-        
+       <Container fluid>
         <Row>
-        <div className="login_head">
-          <div className="backicon"><Button className="bcbtn" onClick={() => {
+          <div className="login_head">
+            <div className="backicon"><Button className="bcbtn" onClick={() => {
               navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h1>REFUND POLICY</h1>
-        </div>
-      </Row>
-       
+            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">REFUND POLICY</h3>
+          </div>
+        </Row>
       </Container>
       <Container fluid>
         <div className="policy_area">

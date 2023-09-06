@@ -54,6 +54,12 @@ export default function Home_page_style(props) {
   const bookingClose = () => setShow(false);
   const bookingShow = () => setShow(true);
   const handleClose = () => setShow(false);
+  const navigate = useNavigate();
+
+  const navigateToPath = (path) => {
+    navigate(path);
+  };
+  const [open, setOpen] = useState(false);
 
   return (
     <div>
@@ -146,7 +152,7 @@ export default function Home_page_style(props) {
                     <Modal.Header closeButton></Modal.Header>
                     <Modal.Body>
                       <div>
-                        <h4>PICKUP</h4>
+                        <h5 className="md_head">PICKUP</h5>
                         <Button className="pick_drop">
                           <FontAwesomeIcon
                             className="icon_btn_loc"
@@ -154,7 +160,7 @@ export default function Home_page_style(props) {
                           />
                           Select Pickup location
                         </Button>
-                        <h4>DROP OFF</h4>
+                        <h5 className="md_head">DROP OFF</h5>
                         <Button className="pick_drop">
                           <FontAwesomeIcon
                             className="icon_btn_loc"
@@ -162,7 +168,7 @@ export default function Home_page_style(props) {
                           />
                           Select Pickup location
                         </Button>
-                        <h4>PICKUP DATE & TIME</h4>
+                        <h5 className="md_head">PICKUP DATE & TIME</h5>
                         <Form.Control
                           type="datetime-local"
                           id="input5"
@@ -265,7 +271,10 @@ export default function Home_page_style(props) {
                   </InputGroup>
                 </Modal.Body>
                 <Modal.Footer>
-                  <CreatePaymentModal closeOtp={handleOtpClose} />
+                  {/* <CreatePaymentModal closeOtp={handleOtpClose} /> */}
+                  <CreatePaymentModal onClick={() => {
+              navigate('/availablecars');
+            }}/>
                   {/* <Button variant="primary" className="bookbtn" onClick={handleClose}>
                                         Book
                                     </Button> */}
@@ -290,10 +299,10 @@ const CreatePaymentModal = (props) => {
   const navigateToPath = (path) => {
     navigate(path);
   };
-  const paymentOptionDone = () => {
-    props.closeOtp();
-    setPaymentModalShow(true);
-  };
+  // const paymentOptionDone = () => {
+  //   props.closeOtp();
+  //   setPaymentModalShow(true);
+  // };
 
   return (
     <>
@@ -301,7 +310,10 @@ const CreatePaymentModal = (props) => {
           {" "}
           collaboration
         </Button> */}
-      <Button variant="primary" className="bookbtn" onClick={paymentOptionDone}>
+      {/* <Button variant="primary" className="bookbtn" onClick={paymentOptionDone}> */}
+      <Button variant="primary" className="bookbtn" onClick={() => {
+              navigate('/availablecars');
+            }}>
         Book
       </Button>
       <Modal

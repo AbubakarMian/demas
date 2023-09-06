@@ -19,9 +19,17 @@ import { useState } from "react";
 import Collapse from "react-bootstrap/Collapse";
 import InputGroup from "react-bootstrap/InputGroup";
 import Nav_bar_area from "./NavBar";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Package_style() {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+
+  const navigateToPath = (path) => {
+    navigate(path);
+  };
+  const [open, setOpen] = useState(false);
 
   return (
     <div>
@@ -29,205 +37,209 @@ export default function Package_style() {
       <Home_crousel />
       <Container fluid>
         <div className="big_screen_adj">
-        <Row>
-          <Col>
-            <Button variant="primary" className="singtripbtn">
-              Single Trip{" "}
-              <FontAwesomeIcon className="icon_btn" icon={faLocationDot}  />
-            </Button>
-          </Col>
-          <Col>
-            <Button href="./packages" variant="primary" className="singtripbtn">
-              Packages{" "}
-              <FontAwesomeIcon
-                className="icon_btn"
-                icon={faArrowRightArrowLeft}
-              />
-            </Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={1}></Col>
-          <Col md={10}>
-            <h3 className="headin">PICKUP</h3>
-          </Col>
-          <Col md={1}></Col>
-        </Row>
-        <Row>
-          <Col md={1}></Col>
-          <Col md={10}>
-            
-      <Button className="pic_btn_modal" onClick={() => setShow(true)}>
-        <FontAwesomeIcon className="icon_btn" icon={faLocationDot} /> Select
-        PickUp Location{" "}
-        <div className="caret_down">
-          <FontAwesomeIcon icon={faAngleDown} />
-        </div>
-      </Button>
-      <Modal
-        show={show}
-        onHide={() => setShow(false)}
-        dialogClassName="modal-90w"
-        aria-labelledby="example-custom-modal-styling-title"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">
-            Select Pickup location
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form className="asdasd">
-            {["radio"].map((type) => (
-              <div key={`reverse-${type}`} className="mb-3">
-                <Form.Check
-                  label="Madina Hotel"
-                  name="group1"
-                  type={type}
-                  id={`reverse-${type}-1`}
+          <Row>
+            <Col>
+              <Button variant="primary" className="singtripbtn">
+                Single Trip{" "}
+                <FontAwesomeIcon className="icon_btn" icon={faLocationDot} />
+              </Button>
+            </Col>
+            <Col>
+              <Button href="./packages" variant="primary" className="singtripbtn">
+                Packages{" "}
+                <FontAwesomeIcon
+                  className="icon_btn"
+                  icon={faArrowRightArrowLeft}
                 />
-                <Form.Check
-                  label="Madina AirPort"
-                  name="group1"
-                  type={type}
-                  id={`reverse-${type}-2`}
-                />
-                <Form.Check
-                  label="Jaddah AirPort"
-                  name="group1"
-                  type={type}
-                  id={`reverse-${type}-3`}
-                />{" "}
-                <Form.Check
-                  label="Jaddah Hotel"
-                  name="group1"
-                  type={type}
-                  id={`reverse-${type}-4`}
-                />
-                <Form.Check
-                  label="Makkah Hotel"
-                  name="group1"
-                  type={type}
-                  id={`reverse-${type}-5`}
-                />
-                <Form.Check
-                  label="Train Station"
-                  name="group1"
-                  type={type}
-                  id={`reverse-${type}-6`}
-                />
-              </div>
-            ))}
-          </Form>
-        </Modal.Body>
-      </Modal>
-          </Col>
-          <Col md={1}></Col>
-        </Row>
-        <Row>
-          <Col md={1}></Col>
-          <Col md={10}>
-            <h3 className="headin">DROP OFF</h3>
-          </Col>
-          <Col md={1}></Col>
-        </Row>
-        <Row>
-          <Col md={1}></Col>
-          <Col md={10}>
-            
-      <Button className="pic_btn_modal" onClick={() => setShow(true)}>
-        <FontAwesomeIcon className="icon_btn" icon={faLocationDot} /> Select
-        Drop Off Location
-        <div className="caret_down">
-          <FontAwesomeIcon icon={faAngleDown} />
-        </div>
-      </Button>
-      <Modal
-        show={show}
-        onHide={() => setShow(false)}
-        dialogClassName="modal-90w"
-        aria-labelledby="example-custom-modal-styling-title"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">
-            Select Drop Off Location
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form className="asdasd">
-            {["radio"].map((type) => (
-              <div key={`reverse-${type}`} className="mb-3">
-                <Form.Check
-                  label="Madina Hotel"
-                  name="group1"
-                  type={type}
-                  id={`reverse-${type}-1`}
-                />
-                <Form.Check
-                  label="Madina AirPort"
-                  name="group1"
-                  type={type}
-                  id={`reverse-${type}-2`}
-                />
-                <Form.Check
-                  label="Jaddah AirPort"
-                  name="group1"
-                  type={type}
-                  id={`reverse-${type}-3`}
-                />{" "}
-                <Form.Check
-                  label="Jaddah Hotel"
-                  name="group1"
-                  type={type}
-                  id={`reverse-${type}-4`}
-                />
-                <Form.Check
-                  label="Makkah Hotel"
-                  name="group1"
-                  type={type}
-                  id={`reverse-${type}-5`}
-                />
-                <Form.Check
-                  label="Train Station"
-                  name="group1"
-                  type={type}
-                  id={`reverse-${type}-6`}
-                />
-              </div>
-            ))}
-          </Form>
-        </Modal.Body>
-      </Modal>
-          </Col>
-          <Col md={1}></Col>
-        </Row>
-        <Row>
-          <Col md={1}></Col>
-          <Col md={10}>
-            <h3 className="headin">PICKUP DATE & TIME</h3>
-          </Col>
-          <Col md={1}></Col>
-        </Row>
-        <Row>
-          <Col md={1}></Col>
-          <Col md={10}>
-            <Input_area_time />
-          </Col>
-          <Col md={1}></Col>
-        </Row>
-        <Row>
-          <Col md={1}></Col>
-          <Col md={10}>
-            <Comment />
-          </Col>
-          <Col md={1}></Col>
-        </Row>
-        <Row>
-          <Col md={1}></Col>
-          <Col md={10}>
-            <Proceed_buttons />
-          </Col>
-          <Col md={1}></Col>
-        </Row>
+              </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={1}></Col>
+            <Col md={10}>
+              <h3 className="headin">PICKUP</h3>
+            </Col>
+            <Col md={1}></Col>
+          </Row>
+          <Row>
+            <Col md={1}></Col>
+            <Col md={10}>
+
+              <Button className="pic_btn_modal" onClick={() => setShow(true)}>
+                <FontAwesomeIcon className="icon_btn" icon={faLocationDot} /> Select
+                PickUp Location{" "}
+                <div className="caret_down">
+                  <FontAwesomeIcon icon={faAngleDown} />
+                </div>
+              </Button>
+              <Modal
+                show={show}
+                onHide={() => setShow(false)}
+                dialogClassName="modal-90w"
+                aria-labelledby="example-custom-modal-styling-title"
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title id="example-custom-modal-styling-title">
+                    Select Pickup location
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form className="asdasd">
+                    {["radio"].map((type) => (
+                      <div key={`reverse-${type}`} className="mb-3">
+                        <Form.Check
+                          label="Madina Hotel"
+                          name="group1"
+                          type={type}
+                          id={`reverse-${type}-1`}
+                        />
+                        <Form.Check
+                          label="Madina AirPort"
+                          name="group1"
+                          type={type}
+                          id={`reverse-${type}-2`}
+                        />
+                        <Form.Check
+                          label="Jaddah AirPort"
+                          name="group1"
+                          type={type}
+                          id={`reverse-${type}-3`}
+                        />{" "}
+                        <Form.Check
+                          label="Jaddah Hotel"
+                          name="group1"
+                          type={type}
+                          id={`reverse-${type}-4`}
+                        />
+                        <Form.Check
+                          label="Makkah Hotel"
+                          name="group1"
+                          type={type}
+                          id={`reverse-${type}-5`}
+                        />
+                        <Form.Check
+                          label="Train Station"
+                          name="group1"
+                          type={type}
+                          id={`reverse-${type}-6`}
+                        />
+                      </div>
+                    ))}
+                  </Form>
+                </Modal.Body>
+              </Modal>
+            </Col>
+            <Col md={1}></Col>
+          </Row>
+          <Row>
+            <Col md={1}></Col>
+            <Col md={10}>
+              <h3 className="headin">DROP OFF</h3>
+            </Col>
+            <Col md={1}></Col>
+          </Row>
+          <Row>
+            <Col md={1}></Col>
+            <Col md={10}>
+
+              <Button className="pic_btn_modal" onClick={() => setShow(true)}>
+                <FontAwesomeIcon className="icon_btn" icon={faLocationDot} /> Select
+                Drop Off Location
+                <div className="caret_down">
+                  <FontAwesomeIcon icon={faAngleDown} />
+                </div>
+              </Button>
+              <Modal
+                show={show}
+                onHide={() => setShow(false)}
+                dialogClassName="modal-90w"
+                aria-labelledby="example-custom-modal-styling-title"
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title id="example-custom-modal-styling-title">
+                    Select Drop Off Location
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form className="asdasd">
+                    {["radio"].map((type) => (
+                      <div key={`reverse-${type}`} className="mb-3">
+                        <Form.Check
+                          label="Madina Hotel"
+                          name="group1"
+                          type={type}
+                          id={`reverse-${type}-1`}
+                        />
+                        <Form.Check
+                          label="Madina AirPort"
+                          name="group1"
+                          type={type}
+                          id={`reverse-${type}-2`}
+                        />
+                        <Form.Check
+                          label="Jaddah AirPort"
+                          name="group1"
+                          type={type}
+                          id={`reverse-${type}-3`}
+                        />{" "}
+                        <Form.Check
+                          label="Jaddah Hotel"
+                          name="group1"
+                          type={type}
+                          id={`reverse-${type}-4`}
+                        />
+                        <Form.Check
+                          label="Makkah Hotel"
+                          name="group1"
+                          type={type}
+                          id={`reverse-${type}-5`}
+                        />
+                        <Form.Check
+                          label="Train Station"
+                          name="group1"
+                          type={type}
+                          id={`reverse-${type}-6`}
+                        />
+                      </div>
+                    ))}
+                  </Form>
+                </Modal.Body>
+              </Modal>
+            </Col>
+            <Col md={1}></Col>
+          </Row>
+          <Row>
+            <Col md={1}></Col>
+            <Col md={10}>
+              <h3 className="headin">PICKUP DATE & TIME</h3>
+            </Col>
+            <Col md={1}></Col>
+          </Row>
+          <Row>
+            <Col md={1}></Col>
+            <Col md={10}>
+              <Input_area_time />
+            </Col>
+            <Col md={1}></Col>
+          </Row>
+          <Row>
+            <Col md={1}></Col>
+            <Col md={10}>
+              <Comment />
+            </Col>
+            <Col md={1}></Col>
+          </Row>
+          <Row>
+            <Col md={1}></Col>
+            <Col md={10}>
+              <Button variant="primary" onClick={() => {
+              navigate('/availablecars');
+            }}className="Proceed_button">
+                PROCEED TO NEXT
+              </Button>
+            </Col>
+            <Col md={1}></Col>
+          </Row>
         </div>
       </Container>
     </div>
@@ -319,13 +331,7 @@ const Input_area_time = () => {
   );
 };
 
-const Proceed_buttons = () => {
-  return (
-    <Button variant="primary" className="Proceed_button">
-      PROCEED TO NEXT
-    </Button>
-  );
-};
+
 
 const Comment = () => {
   const [open, setOpen] = useState(false);
