@@ -1,3 +1,6 @@
+.homeslider{
+    display: none;
+}
 .nav_back{
     background-color: rgba(153, 100, 24, 1);
 }
@@ -53,6 +56,13 @@ button.Proceed_button.btn.btn-primary {
     margin-bottom: 10px;
     float: right;
 }
+.back_banner{
+    background-image: url(../../public/images/BACK_BAN.jpeg);
+    /* filter: brightness(0.30); */
+}
+.back_banner.background-image{
+    filter: brightness(0.30);
+}
 
 button.Proceed_button.btn.btn-primary:hover {
     color: #996418;
@@ -94,8 +104,66 @@ button.commentsbtn.btn.btn-primary {
 .big_screen_adj {
     padding: 0px 150px;
 }
+.product-slide img {
+    width: 100%;
+}
+.slick-slide > div:first-child{
+    margin: 15px;
+}
+/* Tab container */
+.tab-buttons {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+.tab-buttons button {
+    color: #996418;
+    font-weight: 700;
+    width: 150px;
+}
+  /* Tab button style */
+  .tab-buttons button {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Active tab button style */
+  .tab-buttons button.active {
+    background-color: #996418;
+    color: #fff;
+    border: 1px solid #996418;
+  }
+  .tab-buttons .active {
+    background: radial-gradient(black, transparent);
+}
+  /* Tab content style */
+  .tab-content {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+  }
+  
+  /* Hide inactive tab content */
+  /* .tab-content:not(.active) {
+    display: none;
+  } */
+  
 /* Extra Small Devices, Phones */ 
+section.tab_area_bt {
+    margin-top: 15px;
+}
+section.tab_area_bt h2 {
+    color: #996418;
+}
+
+
 @media only screen and (max-width : 480px) {
+    .homeslider{
+        display: block;
+    }
     button.Proceed_button.btn.btn-primary {
         width: 100%;
         font-size: 19px;

@@ -135,7 +135,7 @@ export default function AvailableCars() {
             </Col>
           </Row>
           </Container>
-          <div onClick={() => {
+          <div className="asdas" onClick={() => {
           navigate("/sedan");
           }}>
           <Sedan_crousel />
