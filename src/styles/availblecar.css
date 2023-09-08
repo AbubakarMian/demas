@@ -92,8 +92,46 @@ button.bcbtn.btn.btn-primary {
 .login_head h3 {
     margin-top: 5px;
 }
+.slider_bdr.slide_availcars.carousel.slide .carousel-control-prev {
+    display: none;
+}
+.slider_bdr.slide_availcars.carousel.slide .carousel-control-next {
+    display: none;
+}
+.bar_clr.row {
+    padding: 0px 15%;
+}
+.const_padding{
+    padding: 0px 15%;
+}
+.asdas.const_paddingaa {
+    padding: 0px 33%;
+}
+.icn_ara.row .detail_icn {
+    font-size: 37px;
+}
+
+.icn_ara span {
+    font-size: 37px;
+}
+
 /* Extra Small Devices, Phones */ 
 @media only screen and (max-width : 480px) {
+    .icn_ara.row .detail_icn {
+        font-size: 16px;
+    }
+    .icn_ara span {
+        font-size: 16px;
+    }
+    .bar_clr.row {
+        padding: 0px 0px;
+    }
+    .const_padding{
+        padding: 0px 0px;
+        }
+        .asdas.const_paddingaa {
+            padding: 0px 0px;
+        }
 .carousel-control-prev, .carousel-control-next {
     background: transparent;
     width: 10%;

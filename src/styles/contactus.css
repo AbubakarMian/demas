@@ -21,7 +21,18 @@ button.sub_btn.btn.btn-primary {
     padding: 0px 150px;
 }
 
-
+.inp_area {
+    padding: 0px 27%;
+    padding-top: 45px;
+    text-align: left;
+}
+.cont_back{
+    background-image: url(../../public/images/contact_back.jpg);
+    background-size: cover; /* Optional: Adjust how the image is displayed */
+    background-repeat: no-repeat; /* Optional: Prevent image repetition */
+    height: 100vh;
+    background-position-y: -355px;
+}
 @media only screen and (max-width : 480px) {
 
     .cont_pading.container-fluid {
@@ -30,6 +41,10 @@ button.sub_btn.btn.btn-primary {
     button.sub_btn.btn.btn-primary {
         width: 100%;
         float: none;
+    }
+    .inp_area {
+        padding: 0px 0px;
+       
     }
     
 }

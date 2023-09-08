@@ -47,12 +47,13 @@ button.car_fea.btn.btn-primary {
 svg.svg-inline--fa.fa-bars {
     float: right;
 }
-.car_c_btn{
+.car_c_btn {
     border: solid 1px #847a7a;
     border-radius: 10px;
     margin: 0px;
     padding: 10px;
     background-color: white;
+    border-bottom: 0px;
 }
 svg.svg-inline--fa.fa-arrow-right.arr_icn {
     color: #a4610d;
@@ -65,14 +66,16 @@ div#example-collapse-text {
     font-size: 16px;
     margin-top: 20px;
 }
+
 button.book_btn.btn.btn-primary {
     margin-top: 20px;
-    width: 100%;
+    width: 227px;
     height: 40px;
     background: #a4610d;
     border: 1px solid #a4610d;
     color: white;
     border-radius: 10px;
+    float: right;
 }
 button.book_btn.btn.btn-primary:hover{
     background: white;
@@ -105,4 +108,12 @@ svg.svg-inline--fa.fa-check.succ_icon {
     font-weight: bold;
     font-size: 14px;
     color: gray;
+}
+@media only screen and (max-width : 480px) {
+
+    
+
+button.book_btn.btn.btn-primary {
+    width: 100%;
+}
 }

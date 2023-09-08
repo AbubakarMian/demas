@@ -47,6 +47,8 @@ export default function Booking_info_pack() {
         </Row>
       </Container>
       <Container fluid>
+      <div className="whole_bx">
+
         <Row className="">
           <Col>
             <Form.Label htmlFor="basic-url">Booking ID</Form.Label>
@@ -236,7 +238,9 @@ export default function Booking_info_pack() {
             <Button className="bill_btn">Total Price 650 SAR</Button>
             </Col>
         </Row>
+        </div>
       </Container>
+    
     </div>
   );
 }

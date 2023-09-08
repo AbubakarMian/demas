@@ -1,18 +1,10 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.policy_area {
+    padding: 0px 20%;
+}
 @media only screen and (max-width : 480px) {
 
+    .policy_area {
+        padding: 0px 0px;
+    }
     
 }

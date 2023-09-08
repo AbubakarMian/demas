@@ -44,9 +44,9 @@ export default function Profile() {
           </div>
         </Row>
       </Container>
-      
+      <div className="profile_back">
       <Container fluid>
-        <div className="">
+        <div className="agnt_prof">
           <Row className="">
             <Col>
               <div className="img_area">
@@ -108,6 +108,7 @@ export default function Profile() {
           </div>
         </div>
       </Container>
+      </div>
     </div>
   );
 }

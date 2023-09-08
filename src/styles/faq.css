@@ -14,11 +14,20 @@ button.collap_btn.btn.btn-primary:hover {
 }
 .top_mar {
     margin-top: 30px;
+    padding: 0px 20%;
 }
+
+
 .drp_dn {
     font-size: 23px;
 }
 .fqa-box {
     display: flex;
     justify-content: space-between;
+}
+
+@media only screen and (max-width : 480px) {
+    .top_mar {
+        padding: 0px 0px;
+    }
 }
