@@ -34,7 +34,7 @@ export default function Profile() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div>
+    <div className="sale_back">
         <Container fluid>
         <Row>
           <div className="login_head">
@@ -46,7 +46,7 @@ export default function Profile() {
       </Container>
 
       <Container fluid>
-        <div className="">
+        <div className="agnt_prof">
           <Row className="">
             <Col>
               <div className="img_area">

@@ -39,7 +39,16 @@ a.otpbtn.btn.btn-primary:hover {
     border: #996418 solid 1px;
     color: #996418;
 }
-
+.whl_login {
+    padding: 0px 30%;
+}
+.login_back{
+    background-image: url(../../public/images/login_back3.jpg);
+    background-size: cover; /* Optional: Adjust how the image is displayed */
+    background-repeat: no-repeat; /* Optional: Prevent image repetition */
+    height: 100vh;
+    /* background-position-y: -355px; */
+}
 
 @media only screen and (max-width : 480px) {
     .otpbtn {
@@ -49,6 +58,9 @@ a.otpbtn.btn.btn-primary:hover {
         height: 49px;
         width: 100%;
         font-size: 20px;
+    }
+    .whl_login {
+        padding: 0px 0px;
     }
     
 }

@@ -1,13 +1,12 @@
 
 
-
-
-
-
-
-
+.whole_bx {
+    padding: 0px 20%;
+}
 
 @media only screen and (max-width : 480px) {
 
-    
+    .whole_bx {
+        padding: 0px 0%;
+    }
 }

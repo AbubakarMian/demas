@@ -47,19 +47,26 @@ export default function SedanCars(props) {
 
   return (
     <div>
-      
       <Container fluid>
         <Row>
           <div className="login_head">
-            <div className="backicon"><Button className="bcbtn" onClick={() => {
-              navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">SEDAN</h3>
+            <div className="backicon">
+              <Button
+                className="bcbtn"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </Button>
+            </div>{" "}
+            <h3 className="top_heading_page">SEDAN</h3>
           </div>
         </Row>
       </Container>
-     
+
       <Container fluid>
-        <Row className="">
+        <Row className="const_padding">
           <Col>
             <div className="car_typ">Type - Sedan</div>
           </Col>
@@ -67,7 +74,7 @@ export default function SedanCars(props) {
             <div className="rates">250 SAR (per trip)</div>
           </Col>
         </Row>
-        <Row className="">
+        <Row className="const_padding">
           <Col>
             <div className="car_nme">Sedan Car or Similar</div>
           </Col>
@@ -75,12 +82,13 @@ export default function SedanCars(props) {
             <div className="similr">(or Similar)</div>
           </Col> */}
         </Row>
-        </Container>
-
+      </Container>
+      <Row className="const_padding">
         <Sedan_crousel />
-        <Container fluid>
+      </Row>
 
-        <Row className="icn_ara_sedan">
+      <Container fluid>
+        <Row className="icn_ara_sedan const_padding">
           <Col>
             <FontAwesomeIcon className="detail_icn" icon={faUser} />3
           </Col>
@@ -91,8 +99,8 @@ export default function SedanCars(props) {
             <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
           </Col>
         </Row>
-        <Row>
-          <p className="car_details">
+        <Row className="const_padding">
+          <p className="car_details ">
             DEMAS Offers Sedan shape vehical that is greate for a small family
             of 2-3 People. It comes with the standard host of safely features
             and Impressive features of sharp steering,confident cornering, a
@@ -101,121 +109,127 @@ export default function SedanCars(props) {
             for luggage and themselves.
           </p>
         </Row>
-        <div className="car_card">
-          <Row className="car_c_btn">
-            <Col>
-              <Button
-                onClick={() => setcar_featureOpen(!car_feature)}
-                aria-controls="example-collapse-text"
-                aria-expanded={car_feature}
-                className="car_fea"
-              >
-                <FontAwesomeIcon className="car_icn1" icon={faCar} />
-                CAR FEATURES <FontAwesomeIcon icon={faBars} />
-              </Button>
-            </Col>
-          </Row>
-          <Row>
-            <Collapse in={car_feature}>
-              <div id="example-collapse-text" className="coll_p">
-                <p className="para_sedan">
-                  <FontAwesomeIcon icon={faArrowRight}  className="arr_icn" />
-                  Exterior parking camera rear
-                </p>
-                <p className="para_sedan">
-                  <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Heated door mirrors
-                </p>
-                <p className="para_sedan">
-                  <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Low tire pressure warning
-                </p>
-                <p className="para_sedan">
-                  <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Turn signal indicator mirrors
-                </p>
-              </div>
-            </Collapse>
-          </Row>
+        <div className="const_padding">
+          <div className="car_card ">
+            <Row className="car_c_btn">
+              <Col>
+                <Button
+                  onClick={() => setcar_featureOpen(!car_feature)}
+                  aria-controls="example-collapse-text"
+                  aria-expanded={car_feature}
+                  className="car_fea"
+                >
+                  <FontAwesomeIcon className="car_icn1" icon={faCar} />
+                  CAR FEATURES <FontAwesomeIcon icon={faBars} />
+                </Button>
+              </Col>
+            </Row>
+            <Row>
+              <Collapse in={car_feature}>
+                <div id="example-collapse-text" className="coll_p">
+                  <p className="para_sedan">
+                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                    Exterior parking camera rear
+                  </p>
+                  <p className="para_sedan">
+                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                    Heated door mirrors
+                  </p>
+                  <p className="para_sedan">
+                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                    Low tire pressure warning
+                  </p>
+                  <p className="para_sedan">
+                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                    Turn signal indicator mirrors
+                  </p>
+                </div>
+              </Collapse>
+            </Row>
+          </div>
         </div>
-        <div className="car_card">
-          <Row className="car_c_btn">
-            <Col>
-              <Button
-                onClick={() => setbookOpen(!book)}
-                aria-controls="example-collapse-text"
-                aria-expanded={book}
-                className="car_fea"
-              >
-                <FontAwesomeIcon className="car_icn2" icon={faCircleInfo} />
-                Booking Includes
-                <FontAwesomeIcon icon={faBars} />
-              </Button>
-            </Col>
-          </Row>
-          <Row>
-            <Collapse in={book}>
-              <div id="example-collapse-text" className="coll_p">
-              <p className="para_sedan">
-                  <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Exterior parking camera rear
-                </p>
-                <p className="para_sedan">
-                  <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Heated door mirrors
-                </p>
-                <p className="para_sedan">
-                  <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Low tire pressure warning
-                </p>
-                
-                <p className="para_sedan">
-                  <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Turn signal indicator mirrors
-                </p>
-              </div>
-            </Collapse>
-          </Row>
+        <div className="const_padding">
+          <div className="car_card">
+            <Row className="car_c_btn">
+              <Col>
+                <Button
+                  onClick={() => setbookOpen(!book)}
+                  aria-controls="example-collapse-text"
+                  aria-expanded={book}
+                  className="car_fea"
+                >
+                  <FontAwesomeIcon className="car_icn2" icon={faCircleInfo} />
+                  Booking Includes
+                  <FontAwesomeIcon icon={faBars} />
+                </Button>
+              </Col>
+            </Row>
+            <Row>
+              <Collapse in={book}>
+                <div id="example-collapse-text" className="coll_p">
+                  <p className="para_sedan">
+                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                    Exterior parking camera rear
+                  </p>
+                  <p className="para_sedan">
+                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                    Heated door mirrors
+                  </p>
+                  <p className="para_sedan">
+                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                    Low tire pressure warning
+                  </p>
+
+                  <p className="para_sedan">
+                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                    Turn signal indicator mirrors
+                  </p>
+                </div>
+              </Collapse>
+            </Row>
+          </div>
         </div>
-        <div className="car_card">
-          <Row className="car_c_btn">
-            <Col>
-              <Button
-                onClick={() => setOpen(!open)}
-                aria-controls="example-collapse-text"
-                aria-expanded={open}
-                className="car_fea"
-              >
-                <FontAwesomeIcon className="car_icn3" icon={faFingerprint} />
-                DON’T FORGOT
-                <FontAwesomeIcon icon={faBars} />
-              </Button>
-            </Col>
-          </Row>
-          <Row>
-            <Collapse in={open}>
-              <div id="example-collapse-text" className="coll_p">
-              <p className="para_sedan">
-                  <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Exterior parking camera rear
-                </p>
-                <p className="para_sedan">
-                  <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Heated door mirrors
-                </p>
-                <p className="para_sedan">
-                  <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Low tire pressure waring
-                </p>
-                <p className="para_sedan">
-                  <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                  Turn signal indicator mirrors
-                </p>
-              </div>
-            </Collapse>
-          </Row>
+        <div className="const_padding">
+          <div className="car_card">
+            <Row className="car_c_btn">
+              <Col>
+                <Button
+                  onClick={() => setOpen(!open)}
+                  aria-controls="example-collapse-text"
+                  aria-expanded={open}
+                  className="car_fea"
+                >
+                  <FontAwesomeIcon className="car_icn3" icon={faFingerprint} />
+                  DON’T FORGOT
+                  <FontAwesomeIcon icon={faBars} />
+                </Button>
+              </Col>
+            </Row>
+            <Row>
+              <Collapse in={open}>
+                <div id="example-collapse-text" className="coll_p">
+                  <p className="para_sedan">
+                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                    Exterior parking camera rear
+                  </p>
+                  <p className="para_sedan">
+                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                    Heated door mirrors
+                  </p>
+                  <p className="para_sedan">
+                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                    Low tire pressure waring
+                  </p>
+                  <p className="para_sedan">
+                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
+                    Turn signal indicator mirrors
+                  </p>
+                </div>
+              </Collapse>
+            </Row>
+          </div>
         </div>
-        <Row>
+        <Row className="const_padding">
           <Col>
             <Button className="book_btn" onClick={handleShow}>
               BOOK CAR
@@ -418,7 +432,6 @@ const CreatePaymentModal = () => {
               </Col>
             </Row>
             <Row>
-
               <CreatePaymentSuccessModal />
             </Row>
           </Container>
@@ -437,7 +450,6 @@ const CreateSuccessModal = () => {
   };
   return (
     <>
-
       <Button className="pay_btn" onClick={() => setShow(true)}>
         Pay Later
       </Button>
@@ -494,7 +506,6 @@ const CreatePaymentSuccessModal = () => {
       >
         Pay 250SAR
       </Button>
-
 
       <Modal
         show={show}

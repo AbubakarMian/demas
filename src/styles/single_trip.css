@@ -49,6 +49,7 @@ button.cross_btn.btn.btn-primary {
     text-align: left;
     display: grid;
     justify-content: center;
+    justify-items: center;
 }
 
 .cardtxtarea p {

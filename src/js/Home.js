@@ -9,7 +9,9 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import "./../styles/home.css";
 import Carousel from "react-bootstrap/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightArrowLeft,
+  faUsers,
+  faSuitcaseRolling } from "@fortawesome/free-solid-svg-icons";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
@@ -55,224 +57,237 @@ export default function Package_style() {
       <section className="back_banner">
         <Container fluid>
           <div className="big_screen_adj">
-            <Row>
-              <Col>
-                <Button variant="primary" className="singtripbtn">
-                  Single Trip{" "}
-                  <FontAwesomeIcon className="icon_btn" icon={faLocationDot} />
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  href="./packages"
-                  variant="primary"
-                  className="singtripbtn"
-                >
-                  Packages{" "}
-                  <FontAwesomeIcon
-                    className="icon_btn"
-                    icon={faArrowRightArrowLeft}
-                  />
-                </Button>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={1}></Col>
-              <Col md={10}>
-                <h3 className="headin">PICKUP</h3>
-              </Col>
-              <Col md={1}></Col>
-            </Row>
-            <Row>
-              <Col md={1}></Col>
-              <Col md={10}>
-                <Button className="pic_btn_modal" onClick={() => setShow(true)}>
-                  <FontAwesomeIcon className="icon_btn" icon={faLocationDot} />{" "}
-                  Select PickUp Location{" "}
-                  <div className="caret_down">
-                    <FontAwesomeIcon icon={faAngleDown} />
-                  </div>
-                </Button>
-                <Modal
-                  show={show}
-                  onHide={() => setShow(false)}
-                  dialogClassName="modal-90w"
-                  aria-labelledby="example-custom-modal-styling-title"
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title id="example-custom-modal-styling-title">
-                      Select Pickup location
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <Form className="asdasd">
-                      {["radio"].map((type) => (
-                        <div key={`reverse-${type}`} className="mb-3">
-                          <Form.Check
-                            label="Madina Hotel"
-                            name="group1"
-                            type={type}
-                            id={`reverse-${type}-1`}
-                          />
-                          <Form.Check
-                            label="Madina AirPort"
-                            name="group1"
-                            type={type}
-                            id={`reverse-${type}-2`}
-                          />
-                          <Form.Check
-                            label="Jaddah AirPort"
-                            name="group1"
-                            type={type}
-                            id={`reverse-${type}-3`}
-                          />{" "}
-                          <Form.Check
-                            label="Jaddah Hotel"
-                            name="group1"
-                            type={type}
-                            id={`reverse-${type}-4`}
-                          />
-                          <Form.Check
-                            label="Makkah Hotel"
-                            name="group1"
-                            type={type}
-                            id={`reverse-${type}-5`}
-                          />
-                          <Form.Check
-                            label="Train Station"
-                            name="group1"
-                            type={type}
-                            id={`reverse-${type}-6`}
-                          />
-                        </div>
-                      ))}
-                    </Form>
-                  </Modal.Body>
-                </Modal>
-              </Col>
-              <Col md={1}></Col>
-            </Row>
-            <Row>
-              <Col md={1}></Col>
-              <Col md={10}>
-                <h3 className="headin">DROP OFF</h3>
-              </Col>
-              <Col md={1}></Col>
-            </Row>
-            <Row>
-              <Col md={1}></Col>
-              <Col md={10}>
-                <Button className="pic_btn_modal" onClick={() => setShow(true)}>
-                  <FontAwesomeIcon className="icon_btn" icon={faLocationDot} />{" "}
-                  Select Drop Off Location
-                  <div className="caret_down">
-                    <FontAwesomeIcon icon={faAngleDown} />
-                  </div>
-                </Button>
-                <Modal
-                  show={show}
-                  onHide={() => setShow(false)}
-                  dialogClassName="modal-90w"
-                  aria-labelledby="example-custom-modal-styling-title"
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title id="example-custom-modal-styling-title">
-                      Select Drop Off Location
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <Form className="asdasd">
-                      {["radio"].map((type) => (
-                        <div key={`reverse-${type}`} className="mb-3">
-                          <Form.Check
-                            label="Madina Hotel"
-                            name="group1"
-                            type={type}
-                            id={`reverse-${type}-1`}
-                          />
-                          <Form.Check
-                            label="Madina AirPort"
-                            name="group1"
-                            type={type}
-                            id={`reverse-${type}-2`}
-                          />
-                          <Form.Check
-                            label="Jaddah AirPort"
-                            name="group1"
-                            type={type}
-                            id={`reverse-${type}-3`}
-                          />{" "}
-                          <Form.Check
-                            label="Jaddah Hotel"
-                            name="group1"
-                            type={type}
-                            id={`reverse-${type}-4`}
-                          />
-                          <Form.Check
-                            label="Makkah Hotel"
-                            name="group1"
-                            type={type}
-                            id={`reverse-${type}-5`}
-                          />
-                          <Form.Check
-                            label="Train Station"
-                            name="group1"
-                            type={type}
-                            id={`reverse-${type}-6`}
-                          />
-                        </div>
-                      ))}
-                    </Form>
-                  </Modal.Body>
-                </Modal>
-              </Col>
-              <Col md={1}></Col>
-            </Row>
-            <Row>
-              <Col md={1}></Col>
-              <Col md={10}>
-                <h3 className="headin">PICKUP DATE & TIME</h3>
-              </Col>
-              <Col md={1}></Col>
-            </Row>
-            <Row>
-              <Col md={1}></Col>
-              <Col md={10}>
-                <Input_area_time />
-              </Col>
-              <Col md={1}></Col>
-            </Row>
-            <Row>
-              <Col md={1}></Col>
-              <Col md={10}>
-                <Comment />
-              </Col>
-              <Col md={1}></Col>
-            </Row>
-            <Row>
-              <Col md={1}></Col>
-              <Col md={10}>
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    navigate("/availablecars");
-                  }}
-                  className="Proceed_button"
-                >
-                  PROCEED TO NEXT
-                </Button>
-              </Col>
-              <Col md={1}></Col>
-            </Row>
+            <div className="big_screen_adj_back">
+              <Row>
+                <Col>
+                  <Button variant="primary" className="singtripbtn">
+                    Single Trip{" "}
+                    <FontAwesomeIcon
+                      className="icon_btn"
+                      icon={faLocationDot}
+                    />
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    href="./packages"
+                    variant="primary"
+                    className="singtripbtn"
+                  >
+                    Packages{" "}
+                    <FontAwesomeIcon
+                      className="icon_btn"
+                      icon={faArrowRightArrowLeft}
+                    />
+                  </Button>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={1}></Col>
+                <Col md={10}>
+                  <h3 className="headin">PICKUP</h3>
+                </Col>
+                <Col md={1}></Col>
+              </Row>
+              <Row>
+                <Col md={1}></Col>
+                <Col md={10}>
+                  <Button
+                    className="pic_btn_modal"
+                    onClick={() => setShow(true)}
+                  >
+                    <FontAwesomeIcon
+                      className="icon_btn"
+                      icon={faLocationDot}
+                    />{" "}
+                    Select PickUp Location{" "}
+                    <div className="caret_down">
+                      <FontAwesomeIcon icon={faAngleDown} />
+                    </div>
+                  </Button>
+                  <Modal
+                    show={show}
+                    onHide={() => setShow(false)}
+                    dialogClassName="modal-90w"
+                    aria-labelledby="example-custom-modal-styling-title"
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title id="example-custom-modal-styling-title">
+                        Select Pickup location
+                      </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <Form className="asdasd">
+                        {["radio"].map((type) => (
+                          <div key={`reverse-${type}`} className="mb-3">
+                            <Form.Check
+                              label="Madina Hotel"
+                              name="group1"
+                              type={type}
+                              id={`reverse-${type}-1`}
+                            />
+                            <Form.Check
+                              label="Madina AirPort"
+                              name="group1"
+                              type={type}
+                              id={`reverse-${type}-2`}
+                            />
+                            <Form.Check
+                              label="Jaddah AirPort"
+                              name="group1"
+                              type={type}
+                              id={`reverse-${type}-3`}
+                            />{" "}
+                            <Form.Check
+                              label="Jaddah Hotel"
+                              name="group1"
+                              type={type}
+                              id={`reverse-${type}-4`}
+                            />
+                            <Form.Check
+                              label="Makkah Hotel"
+                              name="group1"
+                              type={type}
+                              id={`reverse-${type}-5`}
+                            />
+                            <Form.Check
+                              label="Train Station"
+                              name="group1"
+                              type={type}
+                              id={`reverse-${type}-6`}
+                            />
+                          </div>
+                        ))}
+                      </Form>
+                    </Modal.Body>
+                  </Modal>
+                </Col>
+                <Col md={1}></Col>
+              </Row>
+              <Row>
+                <Col md={1}></Col>
+                <Col md={10}>
+                  <h3 className="headin">DROP OFF</h3>
+                </Col>
+                <Col md={1}></Col>
+              </Row>
+              <Row>
+                <Col md={1}></Col>
+                <Col md={10}>
+                  <Button
+                    className="pic_btn_modal"
+                    onClick={() => setShow(true)}
+                  >
+                    <FontAwesomeIcon
+                      className="icon_btn"
+                      icon={faLocationDot}
+                    />{" "}
+                    Select Drop Off Location
+                    <div className="caret_down">
+                      <FontAwesomeIcon icon={faAngleDown} />
+                    </div>
+                  </Button>
+                  <Modal
+                    show={show}
+                    onHide={() => setShow(false)}
+                    dialogClassName="modal-90w"
+                    aria-labelledby="example-custom-modal-styling-title"
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title id="example-custom-modal-styling-title">
+                        Select Drop Off Location
+                      </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <Form className="asdasd">
+                        {["radio"].map((type) => (
+                          <div key={`reverse-${type}`} className="mb-3">
+                            <Form.Check
+                              label="Madina Hotel"
+                              name="group1"
+                              type={type}
+                              id={`reverse-${type}-1`}
+                            />
+                            <Form.Check
+                              label="Madina AirPort"
+                              name="group1"
+                              type={type}
+                              id={`reverse-${type}-2`}
+                            />
+                            <Form.Check
+                              label="Jaddah AirPort"
+                              name="group1"
+                              type={type}
+                              id={`reverse-${type}-3`}
+                            />{" "}
+                            <Form.Check
+                              label="Jaddah Hotel"
+                              name="group1"
+                              type={type}
+                              id={`reverse-${type}-4`}
+                            />
+                            <Form.Check
+                              label="Makkah Hotel"
+                              name="group1"
+                              type={type}
+                              id={`reverse-${type}-5`}
+                            />
+                            <Form.Check
+                              label="Train Station"
+                              name="group1"
+                              type={type}
+                              id={`reverse-${type}-6`}
+                            />
+                          </div>
+                        ))}
+                      </Form>
+                    </Modal.Body>
+                  </Modal>
+                </Col>
+                <Col md={1}></Col>
+              </Row>
+              <Row>
+                <Col md={1}></Col>
+                <Col md={10}>
+                  <h3 className="headin">PICKUP DATE & TIME</h3>
+                </Col>
+                <Col md={1}></Col>
+              </Row>
+              <Row>
+                <Col md={1}></Col>
+                <Col md={10}>
+                  <Input_area_time />
+                </Col>
+                <Col md={1}></Col>
+              </Row>
+              <Row>
+                <Col md={1}></Col>
+                <Col md={10}>
+                  <Comment />
+                </Col>
+                <Col md={1}></Col>
+              </Row>
+              <Row>
+                <Col md={1}></Col>
+                <Col md={10}>
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      navigate("/availablecars");
+                    }}
+                    className="Proceed_button"
+                  >
+                    PROCEED TO NEXT
+                  </Button>
+                </Col>
+                <Col md={1}></Col>
+              </Row>
+            </div>
           </div>
         </Container>
       </section>
-      <section>
+      <section className="back_vehicles_section">
         <div>
-          <div className="homeslider">
-            <Home_crousel />
-          </div>
-
           <section className="back_banner">
             {/* ... Rest of your code ... */}
           </section>
@@ -293,7 +308,6 @@ export default function Package_style() {
                 </div>
                 <div className="tab-content">{tabs[activeTab].content}</div>
               </div>
-              
             </section>
           </Container>
         </div>
@@ -321,7 +335,7 @@ const Home_crousel = () => {
 
         <Carousel.Caption>
           {/* <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> */}
+          <p> 4 Passengers 2 Luggages</p> */}
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -396,63 +410,80 @@ const settings = {
 const suv = [
   {
     id: 1,
-    name: "Product 1",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    name: "Acura",
+    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+    </div>,
     price: 49.99,
-    image: "./images/c.jpg", // Replace with the actual image URL
+    image: "./images/acura.jpg", // Replace with the actual image URL
   },
   {
     id: 2,
-    name: "Product 2",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    price: 59.99,
-    image: "./images/e.jpg", // Replace with the actual image URL
+    name: "BRV",
+    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+    </div>,
+     price: 59.99,
+    image: "./images/brv.jpg", 
   },
   {
     id: 3,
-    name: "Product 3",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    name: "CRV",
+    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+    </div>,
     price: 59.99,
-    image: "./images/i.jpg", // Replace with the actual image URL
-  },
+    image: "./images/crv.jpg",
+    },
   {
     id: 4,
-    name: "Product 4",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    name: "RAV4",
+    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+    </div>,
     price: 59.99,
-    image: "./images/e.jpg", // Replace with the actual image URL
-  },
+    image: "./images/rav4.jpg", // Replace with the actual image URL
+    },
   // Add more products as needed
 ];
 
 const sedan = [
   {
     id: 1,
-    name: "Product 1",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    name: "Civic",
+    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+    </div>,
     price: 49.99,
     image: "./images/a.jpg", // Replace with the actual image URL
   },
   {
     id: 2,
-    name: "Product 2",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    name: "Corolla",
+    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+    </div>,
     price: 59.99,
-    image: "./images/h.jpg", // Replace with the actual image URL
-  },
+    image: "./images/corolla.jpg", 
+    },
   {
     id: 3,
-    name: "Product 3",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    name: "Elantra",
+    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+    </div>,
     price: 59.99,
-    image: "./images/g.jpg", // Replace with the actual image URL
-  },
+    image: "./images/elantra.jpg",
+    },
   {
     id: 4,
-    name: "Product 4",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    name: "Sonata",
+    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+    </div>,
     price: 59.99,
-    image: "./images/h.jpg", // Replace with the actual image URL
+    image: "./images/sonata.jpg", // Replace with the actual image URL
+
   },
   // Add more products as needed
 ];
@@ -460,31 +491,39 @@ const sedan = [
 const coaster = [
   {
     id: 1,
-    name: "Product 1",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    name: "Toyota",
+    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 29
+    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />10
+    </div>,
     price: 49.99,
-    image: "./images/b.jpg", // Replace with the actual image URL
+    image: "./images/toyocoaster.jpg", // Replace with the actual image URL
   },
   {
     id: 2,
-    name: "Product 2",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    name: "Coaster",
+    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 35
+    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />20
+    </div>,
     price: 59.99,
-    image: "./images/f.jpg", // Replace with the actual image URL
+    image: "./images/coaster.jpg", 
   },
   {
     id: 3,
-    name: "Product 3",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    name: "Saloon",
+    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+    </div>,
     price: 59.99,
-    image: "./images/d.jpg", // Replace with the actual image URL
+    image: "./images/coastersaloon.jpg", // Replace with the actual image URL
   },
   {
     id: 4,
-    name: "Product 4",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    name: "Coaster",
+    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+    </div>,
     price: 59.99,
-    image: "./images/f.jpg", // Replace with the actual image URL
+    image: "./images/csss.jpeg", // Replace with the actual image URL
   },
   // Add more products as needed
 ];
@@ -494,62 +533,61 @@ const tabs = [
     label: "SEDAN",
     content: (
       <div className="slid">
-                <div className="product-slider">
-                  <Slider {...settings}>
-                    {sedan.map((product) => (
-                      <div key={product.id} className="product-slide">
-                        <img src={product.image} alt={product.name} />
-                        <h3>{product.name}</h3>
-                        <p>{product.description}</p>
-                        <span>${product.price}</span>
-                      </div>
-                    ))}
-                  </Slider>
-                </div>
+        <div className="product-slider">
+          <Slider {...settings}>
+            {sedan.map((product) => (
+              <div key={product.id} className="product-slide">
+                <img src={product.image} alt={product.name} />
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+                <span>${product.price}</span>
               </div>
+            ))}
+          </Slider>
+        </div>
+      </div>
     ),
   },
   {
     label: "SUV",
     content: (
       <div className="slid">
-      <div className="product-slider">
-        <Slider {...settings}>
-          {suv.map((product) => (
-            <div key={product.id} className="product-slide">
-              <img src={product.image} alt={product.name} />
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <span>${product.price}</span>
-            </div>
-          ))}
-        </Slider>
+        <div className="product-slider">
+          <Slider {...settings}>
+            {suv.map((product) => (
+              <div key={product.id} className="product-slide">
+                <img src={product.image} alt={product.name} />
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+                <span>${product.price}</span>
+              </div>
+            ))}
+          </Slider>
+        </div>
       </div>
-    </div>
     ),
   },
   {
     label: "COASTER",
     content: (
       <div className="slid">
-      <div className="product-slider">
-        <Slider {...settings}>
-          {coaster.map((product) => (
-            <div key={product.id} className="product-slide">
-              <img src={product.image} alt={product.name} />
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <span>${product.price}</span>
-            </div>
-          ))}
-        </Slider>
+        <div className="product-slider">
+          <Slider {...settings}>
+            {coaster.map((product) => (
+              <div key={product.id} className="product-slide">
+                <img src={product.image} alt={product.name} />
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+                <span>${product.price}</span>
+              </div>
+            ))}
+          </Slider>
+        </div>
       </div>
-    </div>
     ),
   },
   // Add more tabs as needed
 ];
-
 
 const Comment = () => {
   const [open, setOpen] = useState(false);
@@ -567,7 +605,7 @@ const Comment = () => {
       <Collapse in={open}>
         <div id="example-collapse-text">
           <InputGroup>
-            <Form.Control as="textarea" aria-label="With textarea" />
+            <Form.Control as="textarea" aria-label="With textarea" className="comnt_txt"/>
           </InputGroup>
         </div>
       </Collapse>

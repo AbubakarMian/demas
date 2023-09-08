@@ -17,12 +17,30 @@
 .info_area_bx h4 {
     color: #a4610d;
 }
-
+.agnt_prof {
+    padding: 0px 25%;
+}
+.profile_back{
+    background-image: url(../../public/images/profileback.jpg);
+    background-size: cover; /* Optional: Adjust how the image is displayed */
+    background-repeat: no-repeat; /* Optional: Prevent image repetition */
+    height: 100vh;
+    background-position-y: -355px;
+}
+.sale_back{
+    background-image: url(../../public/images/sal_bck.jpg);
+    background-size: cover; /* Optional: Adjust how the image is displayed */
+    background-repeat: no-repeat; /* Optional: Prevent image repetition */
+    height: 100vh;
+    background-position-y: -355px;
+}
 
 @media only screen and (max-width : 480px) {
 
     .img_area img {
         width: 50%;
     }
-  
+    .agnt_prof {
+        padding: 0px 0px;
+    }
 }

@@ -44,6 +44,7 @@ export default function AvailableCars() {
           </div>
         </Row>
       </Container>
+      <div className="cont_type">
       <Container fluid>
         <Row className="bar_clr">
           <Col>
@@ -118,7 +119,7 @@ export default function AvailableCars() {
           </Collapse>
         </Row>
         
-          <Row className="">
+          <Row className="const_padding">
             <Col>
               <div className="car_typ">Type - Sedan</div>
             </Col>
@@ -126,7 +127,7 @@ export default function AvailableCars() {
               <div className="rates">250 SAR (per trip)</div>
             </Col>
           </Row>
-          <Row className="">
+          <Row className="const_padding">
             <Col>
               <div className="car_nme">Sedan Car or Similar</div>
             </Col>
@@ -135,29 +136,31 @@ export default function AvailableCars() {
             </Col>
           </Row>
           </Container>
-          <div className="asdas" onClick={() => {
+          <div className="asdas const_paddingaa" onClick={() => {
           navigate("/sedan");
           }}>
           <Sedan_crousel />
           </div>
           <Container fluid>
 
-          <Row className="icn_ara">
-            <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faUser} />3
+          <Row className="icn_ara ">
+          
+            <Col className="sss">
+              <FontAwesomeIcon className="detail_icn align" icon={faUser} /><span>3</span>
             </Col>
-            <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} />5
+            <Col className="sad">
+              <FontAwesomeIcon className="detail_icn align" icon={faSuitcaseRolling} /><span>5</span>
             </Col>
-            <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
+            <Col className="aaa">
+              <FontAwesomeIcon className="detail_icn align" icon={faDoorOpen} /><span>4</span>
             </Col>
+        
           </Row>
        
         <div onClick={() => {
           navigate("/sedan");
         }}>
-          <Row className="">
+          <Row className="const_padding">
             <Col>
               <div className="car_typ">Type - Mini-Bus</div>
             </Col>
@@ -165,7 +168,7 @@ export default function AvailableCars() {
               <div className="rates">250 SAR (per trip)</div>
             </Col>
           </Row>
-          <Row className="">
+          <Row className="const_padding">
             <Col>
               <div className="car_nme">Coaster or Similar</div>
             </Col>
@@ -173,21 +176,21 @@ export default function AvailableCars() {
               <div className="similr">(or Similar)</div>
             </Col>
           </Row>
-          <Row>
+          <Row className="asdas const_paddingaa">
             <Coaster_crousel />
           </Row>
           <Row className="icn_ara">
             <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faUser} />3
+              <FontAwesomeIcon className="detail_icn" icon={faUser} /><span>32</span>
             </Col>
             <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} />5
+              <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} /><span>25</span>
             </Col>
             <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
+              <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} /><span>3</span>
             </Col>
           </Row>
-          <Row className="">
+          <Row className="const_padding">
             <Col>
               <div className="car_typ">Type - SUV</div>
             </Col>
@@ -195,7 +198,7 @@ export default function AvailableCars() {
               <div className="rates">400 SAR (per trip)</div>
             </Col>
           </Row>
-          <Row className="">
+          <Row className="const_padding">
             <Col>
               <div className="car_nme">GMC or Similar</div>
             </Col>
@@ -203,30 +206,31 @@ export default function AvailableCars() {
               <div className="similr">(or Similar)</div>
             </Col>
           </Row>
-          <Row>
+          <Row className="asdas const_paddingaa">
             <Suv_crousel />
           </Row>
           <Row className="icn_ara">
             <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faUser} />3
+              <FontAwesomeIcon className="detail_icn" icon={faUser} /><span>7</span>
             </Col>
             <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} />5
+              <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} /><span>4</span>
             </Col>
             <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
+              <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} /><span>5</span>
             </Col>
           </Row>
         </div>
 
       </Container>
+      </div>
     </div>
   );
 }
 
 const Sedan_crousel = () => {
   return (
-    <Carousel className="slider_bdr">
+    <Carousel className="slider_bdr slide_availcars">
       <Carousel.Item>
 
         <img className="d-block w-100" src="./images/a.jpg" alt="First slide" />
@@ -254,7 +258,7 @@ const Sedan_crousel = () => {
 const Coaster_crousel = () => {
   return (
     <div className="slider-section">
-      <Carousel className="slider_bdr">
+      <Carousel className="slider_bdr slide_availcars">
         <Carousel.Item>
           <img className="d-block w-100" src="./images/b.jpg" alt="First slide" />
           <Carousel.Caption></Carousel.Caption>
@@ -280,7 +284,7 @@ const Coaster_crousel = () => {
 
 const Suv_crousel = () => {
   return (
-    <Carousel className="slider_bdr">
+    <Carousel className="slider_bdr slide_availcars">
       <Carousel.Item>
         <img className="d-block w-100" src="./images/c.jpg" alt="First slide" />
         <Carousel.Caption></Carousel.Caption>

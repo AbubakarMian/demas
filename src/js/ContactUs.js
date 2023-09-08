@@ -38,54 +38,79 @@ export default function Contact_Us() {
       <Container fluid>
         <Row>
           <div className="login_head">
-            <div className="backicon"><Button className="bcbtn" onClick={() => {
-              navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">Contact Us</h3>
+            <div className="backicon">
+              <Button
+                className="bcbtn"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </Button>
+            </div>{" "}
+            <h3 className="top_heading_page">Contact Us</h3>
           </div>
         </Row>
       </Container>
-      <Container fluid className="cont_pading">
-      <div className="inp_area">
-
-        <Row className="input_row">
-          <Col>
-            <Form.Label htmlFor="basic-url">Full Name</Form.Label>
-            <InputGroup className="mb-3">
-              <Form.Control  className="input_txt" id="basic-url" aria-describedby="basic-addon3" />
-            </InputGroup>
-          </Col>
-        </Row>
-        <Row className="input_row">
-          <Col>
-            <Form.Label htmlFor="basic-url">Email Address</Form.Label>
-            <InputGroup className="mb-3">
-              <Form.Control  className="input_txt" id="basic-url" aria-describedby="basic-addon3" />
-            </InputGroup>
-          </Col>
-        </Row>
-        <Row className="input_row">
-          <Col>
-            <Form.Label htmlFor="basic-url">Whatsapp Number</Form.Label>
-            <InputGroup className="mb-3">
-              <Form.Control  className="input_txt" id="basic-url" aria-describedby="basic-addon3" />
-            </InputGroup>
-          </Col>
-        </Row>
-        <Row className="input_row">
-          <Col>
-            <Form.Label htmlFor="basic-url">Message</Form.Label>
-            <InputGroup className="mb-3">
-            <Form.Control  className="input_txt" as="textarea" aria-label="With textarea" />
-            </InputGroup>
-          </Col>
-        </Row>
-        <Row className="input_row">
-          <Col>
-            <Button className="sub_btn">SUBMIT</Button>
-          </Col>
-        </Row>
-        </div>
-      </Container>
+      <div className="cont_back">
+        <Container fluid className="cont_pading ">
+          <div className="inp_area">
+            <Row className="input_row">
+              <Col>
+                <Form.Label htmlFor="basic-url">Full Name</Form.Label>
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    className="input_txt"
+                    id="basic-url"
+                    aria-describedby="basic-addon3"
+                  />
+                </InputGroup>
+              </Col>
+            </Row>
+            <Row className="input_row">
+              <Col>
+                <Form.Label htmlFor="basic-url">Email Address</Form.Label>
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    className="input_txt"
+                    id="basic-url"
+                    aria-describedby="basic-addon3"
+                  />
+                </InputGroup>
+              </Col>
+            </Row>
+            <Row className="input_row">
+              <Col>
+                <Form.Label htmlFor="basic-url">Whatsapp Number</Form.Label>
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    className="input_txt"
+                    id="basic-url"
+                    aria-describedby="basic-addon3"
+                  />
+                </InputGroup>
+              </Col>
+            </Row>
+            <Row className="input_row">
+              <Col>
+                <Form.Label htmlFor="basic-url">Message</Form.Label>
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    className="input_txt"
+                    as="textarea"
+                    aria-label="With textarea"
+                  />
+                </InputGroup>
+              </Col>
+            </Row>
+            <Row className="input_row">
+              <Col>
+                <Button className="sub_btn">SUBMIT</Button>
+              </Col>
+            </Row>
+          </div>
+        </Container>
+      </div>
     </div>
   );
 }

@@ -3,6 +3,8 @@
 
 # dependencies
 
+/node_modules/.cache/default-development/6.pack
+/node_modules/.cache/default-development/*
 /node_modules
 /node_modules
 
