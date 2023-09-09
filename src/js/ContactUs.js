@@ -55,59 +55,61 @@ export default function Contact_Us() {
       <div className="cont_back">
         <Container fluid className="cont_pading ">
           <div className="inp_area">
-            <Row className="input_row">
-              <Col>
-                <Form.Label htmlFor="basic-url">Full Name</Form.Label>
-                <InputGroup className="mb-3">
-                  <Form.Control
-                    className="input_txt"
-                    id="basic-url"
-                    aria-describedby="basic-addon3"
-                  />
-                </InputGroup>
-              </Col>
-            </Row>
-            <Row className="input_row">
-              <Col>
-                <Form.Label htmlFor="basic-url">Email Address</Form.Label>
-                <InputGroup className="mb-3">
-                  <Form.Control
-                    className="input_txt"
-                    id="basic-url"
-                    aria-describedby="basic-addon3"
-                  />
-                </InputGroup>
-              </Col>
-            </Row>
-            <Row className="input_row">
-              <Col>
-                <Form.Label htmlFor="basic-url">Whatsapp Number</Form.Label>
-                <InputGroup className="mb-3">
-                  <Form.Control
-                    className="input_txt"
-                    id="basic-url"
-                    aria-describedby="basic-addon3"
-                  />
-                </InputGroup>
-              </Col>
-            </Row>
-            <Row className="input_row">
-              <Col>
-                <Form.Label htmlFor="basic-url">Message</Form.Label>
-                <InputGroup className="mb-3">
-                  <Form.Control
-                    className="input_txt"
-                    as="textarea"
-                    aria-label="With textarea"
-                  />
-                </InputGroup>
-              </Col>
-            </Row>
-            <Row className="input_row">
-              <Col>
-                <Button className="sub_btn">SUBMIT</Button>
-              </Col>
-            </Row>
+            <div className="inp_area_back">
+              <Row className="input_row">
+                <Col>
+                  <Form.Label htmlFor="basic-url">Full Name</Form.Label>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      className="input_txt"
+                      id="basic-url"
+                      aria-describedby="basic-addon3"
+                    />
+                  </InputGroup>
+                </Col>
+              </Row>
+              <Row className="input_row">
+                <Col>
+                  <Form.Label htmlFor="basic-url">Email Address</Form.Label>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      className="input_txt"
+                      id="basic-url"
+                      aria-describedby="basic-addon3"
+                    />
+                  </InputGroup>
+                </Col>
+              </Row>
+              <Row className="input_row">
+                <Col>
+                  <Form.Label htmlFor="basic-url">Whatsapp Number</Form.Label>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      className="input_txt"
+                      id="basic-url"
+                      aria-describedby="basic-addon3"
+                    />
+                  </InputGroup>
+                </Col>
+              </Row>
+              <Row className="input_row">
+                <Col>
+                  <Form.Label htmlFor="basic-url">Message</Form.Label>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      className="input_txt"
+                      as="textarea"
+                      aria-label="With textarea"
+                    />
+                  </InputGroup>
+                </Col>
+              </Row>
+              <Row className="input_row">
+                <Col>
+                  <Button className="sub_btn">SUBMIT</Button>
+                </Col>
+              </Row>
+            </div>
           </div>
         </Container>
       </div>

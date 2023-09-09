@@ -9,6 +9,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import "./../styles/profile.css";
 import Carousel from "react-bootstrap/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// node_modules/.cache/default-development/6.pack
 import {
   faSliders,
   faUser,
