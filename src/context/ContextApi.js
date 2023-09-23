@@ -5,7 +5,7 @@ export const ContextApiContext = React.createContext()
 let guest_user = {
     id: "0",
     name: "Guest",
-    access_token: "Basic cmVlbHNwcm8tYXBwLW1vYmlsZTogY21WbGJITndjbTh0WVhCd0xXMXZZbWxzWlE9PQ==",
+    access_token: "Basic ZGVtYXMtYXBwLW1vYmlsZTtaR1Z0WVhNdFlYQndMVzF2WW1sc1pRPT0=",
     role_id: 2,
     rememberme:false,
     is_loggedin:false,
@@ -27,6 +27,9 @@ let initState = {
         "id": 1,
         "name": "English",
         "prefix": "_en"
+    },
+    "booking":{
+        
     },
     // "language":{
     //     "id":'2',

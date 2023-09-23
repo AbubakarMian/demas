@@ -64,7 +64,7 @@ export function change_time_stamp(start_time) {
   //       Authorization: contextState.user.access_token,
   //       'Authorization-secure': contextState.user.access_token,
   //       'Authorization-secure': contextState.user.access_token,
-  //       'client-id': 'reelspro-app-mobile',
+  //       'client-id': 'demas-app-mobile',
   //     },
   //   };
   

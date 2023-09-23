@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -9,9 +9,11 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import "./../styles/home.css";
 import Carousel from "react-bootstrap/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightArrowLeft,
+import {
+  faArrowRightArrowLeft,
   faUsers,
-  faSuitcaseRolling } from "@fortawesome/free-solid-svg-icons";
+  faSuitcaseRolling,
+} from "@fortawesome/free-solid-svg-icons";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
@@ -27,14 +29,18 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default function Package_style() {
-  const [show, setShow] = useState(false);
+  const [showPickup, setShowPickup] = useState(false);
+  const [showDropOff, setShowDropoff] = useState(false);
   const navigate = useNavigate();
 
   const navigateToPath = (path) => {
     navigate(path);
   };
-  const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+
+  const [locations, setLocations] = useState([]);
+  const [selectPickup, setselectPickup] = useState("");
+  const [selectDropoff, setselectDropoff] = useState("");
 
   const handleTabClick = (index) => {
     setActiveTab(index);
@@ -47,6 +53,38 @@ export default function Package_style() {
     slidesToScroll: 1, // Number of slides to scroll at a time
   };
 
+  useEffect(() => {
+    getLocations();
+  }, []);
+
+  const getLocations = () => {
+    // fetchapi
+console.log('get locations');
+    const responseLocation = [
+      {
+        id: 1,
+        name: "Madina Hotel",
+        type: "hotel",
+      },
+      {
+        id: 2,
+        name: "Madina Airport",
+        type: "airport",
+      },
+      {
+        id: 3,
+        name: "Macca Hotel",
+        type: "hotel",
+      },
+      {
+        id: 4,
+        name: "Macca Airport",
+        type: "airport",
+      },
+    ];
+    console.log('my locations ',responseLocation);
+    setLocations(responseLocation);
+  };
   return (
     <div>
       <Nav_bar_area />
@@ -94,7 +132,7 @@ export default function Package_style() {
                 <Col md={10}>
                   <Button
                     className="pic_btn_modal"
-                    onClick={() => setShow(true)}
+                    onClick={() => setShowPickup(true)}
                   >
                     <FontAwesomeIcon
                       className="icon_btn"
@@ -106,8 +144,8 @@ export default function Package_style() {
                     </div>
                   </Button>
                   <Modal
-                    show={show}
-                    onHide={() => setShow(false)}
+                    show={showPickup}
+                    onHide={() => setShowPickup(false)}
                     dialogClassName="modal-90w"
                     aria-labelledby="example-custom-modal-styling-title"
                   >
@@ -118,46 +156,21 @@ export default function Package_style() {
                     </Modal.Header>
                     <Modal.Body>
                       <Form className="asdasd">
-                        {["radio"].map((type) => (
-                          <div key={`reverse-${type}`} className="mb-3">
-                            <Form.Check
-                              label="Madina Hotel"
+                        {/* <div className="mb-3"> */}
+                          {locations.map((location) => {
+                            if(location.id != selectDropoff){
+                            return ( <Form.Check
+                              onClick={(e)=>{console.log('pick up ',e.target.value);
+                              setselectPickup(e.target.value)}}
+                              label={location.name}
                               name="group1"
-                              type={type}
-                              id={`reverse-${type}-1`}
-                            />
-                            <Form.Check
-                              label="Madina AirPort"
-                              name="group1"
-                              type={type}
-                              id={`reverse-${type}-2`}
-                            />
-                            <Form.Check
-                              label="Jaddah AirPort"
-                              name="group1"
-                              type={type}
-                              id={`reverse-${type}-3`}
-                            />{" "}
-                            <Form.Check
-                              label="Jaddah Hotel"
-                              name="group1"
-                              type={type}
-                              id={`reverse-${type}-4`}
-                            />
-                            <Form.Check
-                              label="Makkah Hotel"
-                              name="group1"
-                              type={type}
-                              id={`reverse-${type}-5`}
-                            />
-                            <Form.Check
-                              label="Train Station"
-                              name="group1"
-                              type={type}
-                              id={`reverse-${type}-6`}
-                            />
-                          </div>
-                        ))}
+                              type="radio"
+                              id={location.id}
+                            />)
+                            }
+                            
+                          })}
+                        {/* </div> */}
                       </Form>
                     </Modal.Body>
                   </Modal>
@@ -176,7 +189,7 @@ export default function Package_style() {
                 <Col md={10}>
                   <Button
                     className="pic_btn_modal"
-                    onClick={() => setShow(true)}
+                    onClick={() => setShowDropoff(true)}
                   >
                     <FontAwesomeIcon
                       className="icon_btn"
@@ -188,8 +201,8 @@ export default function Package_style() {
                     </div>
                   </Button>
                   <Modal
-                    show={show}
-                    onHide={() => setShow(false)}
+                    show={showDropOff}
+                    onHide={() => setShowDropoff(false)}
                     dialogClassName="modal-90w"
                     aria-labelledby="example-custom-modal-styling-title"
                   >
@@ -200,46 +213,21 @@ export default function Package_style() {
                     </Modal.Header>
                     <Modal.Body>
                       <Form className="asdasd">
-                        {["radio"].map((type) => (
-                          <div key={`reverse-${type}`} className="mb-3">
-                            <Form.Check
-                              label="Madina Hotel"
-                              name="group1"
-                              type={type}
-                              id={`reverse-${type}-1`}
-                            />
-                            <Form.Check
-                              label="Madina AirPort"
-                              name="group1"
-                              type={type}
-                              id={`reverse-${type}-2`}
-                            />
-                            <Form.Check
-                              label="Jaddah AirPort"
-                              name="group1"
-                              type={type}
-                              id={`reverse-${type}-3`}
-                            />{" "}
-                            <Form.Check
-                              label="Jaddah Hotel"
-                              name="group1"
-                              type={type}
-                              id={`reverse-${type}-4`}
-                            />
-                            <Form.Check
-                              label="Makkah Hotel"
-                              name="group1"
-                              type={type}
-                              id={`reverse-${type}-5`}
-                            />
-                            <Form.Check
-                              label="Train Station"
-                              name="group1"
-                              type={type}
-                              id={`reverse-${type}-6`}
-                            />
-                          </div>
-                        ))}
+                          
+                      {locations.map((location) => {
+                            if(location.id != selectPickup){
+                            return ( <Form.Check
+                              onClick={(e,location)=>{console.log('drop off ',e.target.value,e.target.checked);
+                              setselectDropoff(e.target.value)}}
+                              label={location.name}
+                              name="group2"
+                              type="radio"
+                              value={location.id}
+                              id={location.id}
+                            />)
+                            }
+                            
+                          })}
                       </Form>
                     </Modal.Body>
                   </Modal>
@@ -392,10 +380,6 @@ const Input_area_time = () => {
         placeholder="Select Pickup Date & Time"
         className="input_bx"
       />
-      {/* <Form.Text id="passwordHelpBlock" muted>
-        Your password must be 8-20 characters long, contain letters and numbers,
-        and must not contain spaces, special characters, or emoji.
-      </Form.Text> */}
     </>
   );
 };
@@ -411,39 +395,51 @@ const suv = [
   {
     id: 1,
     name: "Acura",
-    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-    </div>,
+    description: (
+      <div className="disc_info">
+        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+      </div>
+    ),
     price: 49.99,
     image: "./images/acura.jpg", // Replace with the actual image URL
   },
   {
     id: 2,
     name: "BRV",
-    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-    </div>,
-     price: 59.99,
-    image: "./images/brv.jpg", 
+    description: (
+      <div className="disc_info">
+        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+      </div>
+    ),
+    price: 59.99,
+    image: "./images/brv.jpg",
   },
   {
     id: 3,
     name: "CRV",
-    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-    </div>,
+    description: (
+      <div className="disc_info">
+        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+      </div>
+    ),
     price: 59.99,
     image: "./images/crv.jpg",
-    },
+  },
   {
     id: 4,
     name: "RAV4",
-    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-    </div>,
+    description: (
+      <div className="disc_info">
+        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+      </div>
+    ),
     price: 59.99,
     image: "./images/rav4.jpg", // Replace with the actual image URL
-    },
+  },
   // Add more products as needed
 ];
 
@@ -451,39 +447,50 @@ const sedan = [
   {
     id: 1,
     name: "Civic",
-    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-    </div>,
+    description: (
+      <div className="disc_info">
+        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+      </div>
+    ),
     price: 49.99,
     image: "./images/a.jpg", // Replace with the actual image URL
   },
   {
     id: 2,
     name: "Corolla",
-    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-    </div>,
+    description: (
+      <div className="disc_info">
+        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+      </div>
+    ),
     price: 59.99,
-    image: "./images/corolla.jpg", 
-    },
+    image: "./images/corolla.jpg",
+  },
   {
     id: 3,
     name: "Elantra",
-    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-    </div>,
+    description: (
+      <div className="disc_info">
+        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+      </div>
+    ),
     price: 59.99,
     image: "./images/elantra.jpg",
-    },
+  },
   {
     id: 4,
     name: "Sonata",
-    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-    </div>,
+    description: (
+      <div className="disc_info">
+        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+      </div>
+    ),
     price: 59.99,
     image: "./images/sonata.jpg", // Replace with the actual image URL
-
   },
   // Add more products as needed
 ];
@@ -492,36 +499,50 @@ const coaster = [
   {
     id: 1,
     name: "Toyota",
-    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 29
-    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />10
-    </div>,
+    description: (
+      <div className="disc_info">
+        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 29
+        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />
+        10
+      </div>
+    ),
     price: 49.99,
     image: "./images/toyocoaster.jpg", // Replace with the actual image URL
   },
   {
     id: 2,
     name: "Coaster",
-    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 35
-    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />20
-    </div>,
+    description: (
+      <div className="disc_info">
+        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 35
+        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />
+        20
+      </div>
+    ),
     price: 59.99,
-    image: "./images/coaster.jpg", 
+    image: "./images/coaster.jpg",
   },
   {
     id: 3,
     name: "Saloon",
-    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-    </div>,
+    description: (
+      <div className="disc_info">
+        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+      </div>
+    ),
     price: 59.99,
     image: "./images/coastersaloon.jpg", // Replace with the actual image URL
   },
   {
     id: 4,
     name: "Coaster",
-    description: <div className="disc_info"><FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-    <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-    </div>,
+    description: (
+      <div className="disc_info">
+        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
+        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
+      </div>
+    ),
     price: 59.99,
     image: "./images/csss.jpeg", // Replace with the actual image URL
   },
@@ -605,7 +626,11 @@ const Comment = () => {
       <Collapse in={open}>
         <div id="example-collapse-text">
           <InputGroup>
-            <Form.Control as="textarea" aria-label="With textarea" className="comnt_txt"/>
+            <Form.Control
+              as="textarea"
+              aria-label="With textarea"
+              className="comnt_txt"
+            />
           </InputGroup>
         </div>
       </Collapse>

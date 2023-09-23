@@ -2,7 +2,14 @@ import React, { createContext, useState } from "react";
 
 export const ContextApiContext = React.createContext()
 
-
+let guest_user = {
+    id: "0",
+    name: "Guest",
+    access_token: "Basic cmVlbHNwcm8tYXBwLW1vYmlsZTogY21WbGJITndjbTh0WVhCd0xXMXZZbWxzWlE9PQ==",
+    role_id: 2,
+    rememberme:false,
+    is_loggedin:false,
+};
 let initState = {
     "avalible_languages": [
         {
@@ -26,38 +33,27 @@ let initState = {
     //     "name":"Russian",
     //     "prefix":"_ru"
     // },
+                    
+    // "user":JSON.parse (localStorage.getItem('user', {
+    //     id: "0",
+    //     name: "Guest",
+    //     access_token: "Basic cmVlbHNwcm8tYXBwLW1vYmlsZTogY21WbGJITndjbTh0WVhCd0xXMXZZbWxzWlE9PQ==",
+    //     role_id: 2,
+    // })),
+    "user": localStorage.getItem('user')===null? guest_user:JSON.parse(localStorage.getItem('user')),
     // "user": {
     //     id: "0",
     //     name: "Guest",
     //     access_token: "Basic cmVlbHNwcm8tYXBwLW1vYmlsZTogY21WbGJITndjbTh0WVhCd0xXMXZZbWxzWlE9PQ==",
     //     role_id: 2,
     // },
-
-    "user":JSON.parse(localStorage.getItem('user'),{
-        id: "0",
-        name: "Guest",
-        access_token: "Basic cmVlbHNwcm8tYXBwLW1vYmlsZTogY21WbGJITndjbTh0WVhCd0xXMXZZbWxzWlE9PQ==",
-        role_id: 2,
-    })
 }
 
 export const ContexApiProvider = (props) => {
 
 
-    const [contextState, setContextState] = useState(initState);
+    const [contextState, setContextState] = useState(initState)
 
-    let objContextState_init = contextState;
-
-    // console.log('test',{
-    //     id: "0",
-    //     name: "Guest",
-    //     access_token: "Basic cmVlbHNwcm8tYXBwLW1vYmlsZTogY21WbGJITndjbTh0WVhCd0xXMXZZbWxzWlE9PQ==",
-    //     role_id: 2,
-    // });
-    // const user_localstorage = JSON.parse(localStorage.getItem('user'));
-
-    // objContextState_init['user'] = user_localstorage;
-    // setContextState({...contextState,objContextState_init})
     
     const updateContextState = (update_obj, obj_name) => {
 
@@ -80,26 +76,16 @@ export const ContexApiProvider = (props) => {
                 //   console.log('contextState ',contextState);
                 //   console.log('contextState lang',contextState[obj_name]);
                 break;
-
-                case 'logout':
-                    objContextState['user'] = {
-                        id: "0",
-                        name: "Guest",
-                        access_token: "Basic cmVlbHNwcm8tYXBwLW1vYmlsZTogY21WbGJITndjbTh0WVhCd0xXMXZZbWxzWlE9PQ==",
-                        role_id: 2,
-                    };
+                case 'update_user':
+                    objContextState['user'] = update_obj;
                     localStorage.setItem('user', JSON.stringify(update_obj));
-    
                     setContextState({...contextState,objContextState})
-                    break;
-
-            case 'user':
-                objContextState['user'] = update_obj;
-                localStorage.setItem('user', JSON.stringify(update_obj));
-
-                setContextState({...contextState,objContextState})
                 break;
-            break;
+                case 'logout_user':
+                    objContextState['user'] = guest_user;
+                    localStorage.setItem('user', JSON.stringify(guest_user));
+                    setContextState({...contextState,objContextState})
+                break;
 
             default:
                 objContextState[obj_name] = update_obj;
