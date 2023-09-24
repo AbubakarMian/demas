@@ -29,7 +29,18 @@ let initState = {
         "prefix": "_en"
     },
     "booking":{
-        
+        "type":"single",
+        "details":[
+            {
+                "pickup":0,
+                "pick_extrainfo":"ticket_number",
+                "dropoff":0,
+                "dropoff_extrainfo":"ticket_number",
+                "pickupdate_time":0,
+                "comment":0,
+                "transport_id":0,
+            }
+        ]
     },
     // "language":{
     //     "id":'2',
@@ -70,14 +81,7 @@ export const ContexApiProvider = (props) => {
                 });
                 objContextState[obj_name] = lang;
                 setContextState({...contextState,objContextState})
-                console.log('updated context', contextState);
-
-                //   console.log('update_obj ',update_obj);
-                //   console.log('found  contextState[avalible_languages ',contextState['avalible_languages']);
-                console.log('found  lang ', lang);
-                //   console.log('contextState obj_name ',obj_name);
-                //   console.log('contextState ',contextState);
-                //   console.log('contextState lang',contextState[obj_name]);
+                console.log('updated context', contextState);console.log('found  lang ', lang);
                 break;
                 case 'update_user':
                     objContextState['user'] = update_obj;
@@ -93,6 +97,9 @@ export const ContexApiProvider = (props) => {
             default:
                 objContextState[obj_name] = update_obj;
                 setContextState({...contextState,objContextState})
+                setTimeout(() => {
+                    console.log('is updated ',contextState[obj_name])
+                }, 2000);
                 break;
 
         }
