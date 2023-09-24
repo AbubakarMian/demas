@@ -1,4 +1,4 @@
-import React,{ useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -19,7 +19,6 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
-import { useState } from "react";
 import Collapse from "react-bootstrap/Collapse";
 import InputGroup from "react-bootstrap/InputGroup";
 import Nav_bar_area from "./NavBar";
@@ -27,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { ContextApiContext } from "../context/ContextApi";
 
 export default function Package_style() {
   const [showPickup, setShowPickup] = useState(false);
@@ -37,14 +37,37 @@ export default function Package_style() {
     navigate(path);
   };
   const [activeTab, setActiveTab] = useState(0);
+  const [openComment, setopenComment] = useState(false);
 
+  const { contextState, updateContextState } = useContext(ContextApiContext);
   const [locations, setLocations] = useState([]);
   const [selectPickup, setselectPickup] = useState("");
   const [selectDropoff, setselectDropoff] = useState("");
+  const [pickupTime, setpickupTime] = useState(0);
+  const [comments, setComments] = useState("");
+
+
 
   const handleTabClick = (index) => {
-    setActiveTab(index);
+    // setActiveTab(index);
   };
+  const handleProceedToNext = () =>{
+    let booking_obj = {
+      type:"single",
+      details:[
+        {
+            "pickup":selectPickup,
+            "pick_extrainfo":"ticket_number",
+            "dropoff":selectDropoff,
+            "dropoff_extrainfo":"ticket_number",
+            "pickupdate_time":pickupTime,
+            "comment":comments,
+        }
+      ]
+    };
+    updateContextState(booking_obj, "booking");
+    // navigate("/availablecars");
+  }
   const settings = {
     dots: true, // Show navigation dots
     infinite: true, // Loop through the slides
@@ -59,7 +82,7 @@ export default function Package_style() {
 
   const getLocations = () => {
     // fetchapi
-console.log('get locations');
+    console.log("get locations");
     const responseLocation = [
       {
         id: 1,
@@ -82,8 +105,32 @@ console.log('get locations');
         type: "airport",
       },
     ];
-    console.log('my locations ',responseLocation);
+    console.log("my locations ", responseLocation);
     setLocations(responseLocation);
+  };
+
+  const changeLocationPoints = (e, point) => {
+    let new_val = 0;
+    if (e.target.checked) {
+      new_val = e.target.value;
+    }
+    if (point == "pickup") {
+      console.log("pick up location point ", point, new_val);
+
+      setselectPickup(new_val);
+    } else {
+      // dropoff
+      console.log("dropoff location point ", point, new_val);
+
+      setselectDropoff(new_val);
+    }
+  };
+
+  const handleDateTimeChange = (dateString) => {
+    console.log("dateString ", dateString);
+    const timestamp = Math.floor(new Date(dateString).getTime() / 1000);
+    console.log("datetime ", timestamp);
+    setpickupTime(timestamp);
   };
   return (
     <div>
@@ -157,19 +204,22 @@ console.log('get locations');
                     <Modal.Body>
                       <Form className="asdasd">
                         {/* <div className="mb-3"> */}
-                          {locations.map((location) => {
-                            if(location.id != selectDropoff){
-                            return ( <Form.Check
-                              onClick={(e)=>{console.log('pick up ',e.target.value);
-                              setselectPickup(e.target.value)}}
-                              label={location.name}
-                              name="group1"
-                              type="radio"
-                              id={location.id}
-                            />)
-                            }
-                            
-                          })}
+                        {locations.map((location) => {
+                          if (location.id != selectDropoff) {
+                            return (
+                              <Form.Check
+                                onClick={(e) => {
+                                  changeLocationPoints(e, "pickup");
+                                }}
+                                label={location.name}
+                                value={location.id}
+                                name="group1"
+                                type="radio"
+                                id={location.id}
+                              />
+                            );
+                          }
+                        })}
                         {/* </div> */}
                       </Form>
                     </Modal.Body>
@@ -213,21 +263,22 @@ console.log('get locations');
                     </Modal.Header>
                     <Modal.Body>
                       <Form className="asdasd">
-                          
-                      {locations.map((location) => {
-                            if(location.id != selectPickup){
-                            return ( <Form.Check
-                              onClick={(e,location)=>{console.log('drop off ',e.target.value,e.target.checked);
-                              setselectDropoff(e.target.value)}}
-                              label={location.name}
-                              name="group2"
-                              type="radio"
-                              value={location.id}
-                              id={location.id}
-                            />)
-                            }
-                            
-                          })}
+                        {locations.map((location) => {
+                          if (location.id != selectPickup) {
+                            return (
+                              <Form.Check
+                                onClick={(e) => {
+                                  changeLocationPoints(e, "dropoff");
+                                }}
+                                label={location.name}
+                                name="group2"
+                                type="radio"
+                                value={location.id}
+                                id={location.id}
+                              />
+                            );
+                          }
+                        })}
                       </Form>
                     </Modal.Body>
                   </Modal>
@@ -244,14 +295,44 @@ console.log('get locations');
               <Row>
                 <Col md={1}></Col>
                 <Col md={10}>
-                  <Input_area_time />
+                  {/* <Input_area_time /> */}
+                  <Form.Control
+                    type="datetime-local"
+                    id="input5"
+                    aria-describedby="passwordHelpBlock"
+                    placeholder="Select Pickup Date & Time"
+                    className="input_bx"
+                    onChange={(e) => {
+                      handleDateTimeChange(e.target.value);
+                    }}
+                  />
                 </Col>
                 <Col md={1}></Col>
               </Row>
               <Row>
                 <Col md={1}></Col>
                 <Col md={10}>
-                  <Comment />
+                  {/* <Comment /> */}
+                  <Button
+                    onClick={() => setopenComment(!openComment)}
+                    aria-controls="example-collapse-text"
+                    aria-expanded={openComment}
+                    className="commentsbtn"
+                  >
+                    Comment
+                  </Button>
+                  <Collapse in={openComment}>
+                    <div id="example-collapse-text">
+                      <InputGroup>
+                        <Form.Control
+                          as="textarea"
+                          aria-label="With textarea"
+                          className="comnt_txt"
+                          onChange={(e)=>{setComments(e.target.value)}}
+                        />
+                      </InputGroup>
+                    </div>
+                  </Collapse>
                 </Col>
                 <Col md={1}></Col>
               </Row>
@@ -261,6 +342,7 @@ console.log('get locations');
                   <Button
                     variant="primary"
                     onClick={() => {
+                      handleProceedToNext();
                       navigate("/availablecars");
                     }}
                     className="Proceed_button"
@@ -279,7 +361,7 @@ console.log('get locations');
           <section className="back_banner">
             {/* ... Rest of your code ... */}
           </section>
-          <Container>
+          {/* <Container>
             <section className="tab_area_bt">
               <h2>Vehicles to Ride</h2>
               <div className="tab_center">
@@ -297,7 +379,7 @@ console.log('get locations');
                 <div className="tab-content">{tabs[activeTab].content}</div>
               </div>
             </section>
-          </Container>
+          </Container> */}
         </div>
       </section>
     </div>
@@ -370,19 +452,6 @@ const Home_crousel = () => {
   );
 };
 
-const Input_area_time = () => {
-  return (
-    <>
-      <Form.Control
-        type="datetime-local"
-        id="input5"
-        aria-describedby="passwordHelpBlock"
-        placeholder="Select Pickup Date & Time"
-        className="input_bx"
-      />
-    </>
-  );
-};
 const settings = {
   dots: true, // Show navigation dots
   infinite: true, // Loop through the slides
@@ -609,31 +678,3 @@ const tabs = [
   },
   // Add more tabs as needed
 ];
-
-const Comment = () => {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <>
-      <Button
-        onClick={() => setOpen(!open)}
-        aria-controls="example-collapse-text"
-        aria-expanded={open}
-        className="commentsbtn"
-      >
-        Comment
-      </Button>
-      <Collapse in={open}>
-        <div id="example-collapse-text">
-          <InputGroup>
-            <Form.Control
-              as="textarea"
-              aria-label="With textarea"
-              className="comnt_txt"
-            />
-          </InputGroup>
-        </div>
-      </Collapse>
-    </>
-  );
-};
