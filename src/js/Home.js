@@ -41,8 +41,8 @@ export default function Package_style() {
 
   const { contextState, updateContextState } = useContext(ContextApiContext);
   const [locations, setLocations] = useState([]);
-  const [selectPickup, setselectPickup] = useState("");
-  const [selectDropoff, setselectDropoff] = useState("");
+  const [selectPickup, setselectPickup] = useState({});
+  const [selectDropoff, setselectDropoff] = useState({});
   const [pickupTime, setpickupTime] = useState(0);
   const [comments, setComments] = useState("");
 
@@ -56,9 +56,9 @@ export default function Package_style() {
       type:"single",
       details:[
         {
-            "pickup":selectPickup,
+            "pickup":selectPickup.id,
             "pick_extrainfo":"ticket_number",
-            "dropoff":selectDropoff,
+            "dropoff":selectDropoff.id,
             "dropoff_extrainfo":"ticket_number",
             "pickupdate_time":pickupTime,
             "comment":comments,
@@ -109,13 +109,15 @@ export default function Package_style() {
     setLocations(responseLocation);
   };
 
-  const changeLocationPoints = (e, point) => {
-    let new_val = 0;
+  const changeLocationPoints = (e, point,location) => {
+    let new_val = {};
     if (e.target.checked) {
-      new_val = e.target.value;
+      new_val = location;
     }
     if (point == "pickup") {
       console.log("pick up location point ", point, new_val);
+      console.log( location.id);
+      console.log( location.name);
 
       setselectPickup(new_val);
     } else {
@@ -124,6 +126,8 @@ export default function Package_style() {
 
       setselectDropoff(new_val);
     }
+    setShowPickup(false);
+    setShowDropoff(false);
   };
 
   const handleDateTimeChange = (dateString) => {
@@ -184,8 +188,7 @@ export default function Package_style() {
                     <FontAwesomeIcon
                       className="icon_btn"
                       icon={faLocationDot}
-                    />{" "}
-                    Select PickUp Location{" "}
+                    /> {selectPickup.name ?? " Select PickUp Location"}
                     <div className="caret_down">
                       <FontAwesomeIcon icon={faAngleDown} />
                     </div>
@@ -205,14 +208,14 @@ export default function Package_style() {
                       <Form className="asdasd">
                         {/* <div className="mb-3"> */}
                         {locations.map((location) => {
-                          if (location.id != selectDropoff) {
+                          if (location.id != selectDropoff.id) {
                             return (
                               <Form.Check
                                 onClick={(e) => {
-                                  changeLocationPoints(e, "pickup");
+                                  changeLocationPoints(e, "pickup",location);
                                 }}
                                 label={location.name}
-                                value={location.id}
+                                value={location}
                                 name="group1"
                                 type="radio"
                                 id={location.id}
@@ -244,8 +247,7 @@ export default function Package_style() {
                     <FontAwesomeIcon
                       className="icon_btn"
                       icon={faLocationDot}
-                    />{" "}
-                    Select Drop Off Location
+                    /> {selectDropoff.name ?? " Select Drop Off Location"}
                     <div className="caret_down">
                       <FontAwesomeIcon icon={faAngleDown} />
                     </div>
@@ -264,11 +266,11 @@ export default function Package_style() {
                     <Modal.Body>
                       <Form className="asdasd">
                         {locations.map((location) => {
-                          if (location.id != selectPickup) {
+                          if (location.id != selectPickup.id) {
                             return (
                               <Form.Check
                                 onClick={(e) => {
-                                  changeLocationPoints(e, "dropoff");
+                                  changeLocationPoints(e, "dropoff",location);
                                 }}
                                 label={location.name}
                                 name="group2"
