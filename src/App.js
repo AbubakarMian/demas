@@ -4,12 +4,12 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Single_trip from "./js/Single_trip";
+import Packages from "./js/Packages";
 import Login from "./js/Login_page";
 import Home from "./js/Home";
 import Starting from "./js/Starting";
 import AvailableCars from "./js/AvailableCars";
-import Sedan from "./js/Sedan";
+import TransportDetails from "./js/TransportDetails";
 import ManageBookings from "./js/ManageBookings";
 import BookingInfoPackages from "./js/BookingInfoPackages";
 import BookingInfoSingle from "./js/BookingInfoSingle";
@@ -45,9 +45,9 @@ function App() {
               path="/bookinginfopackages"
             ></Route>
             <Route Component={ManageBookings} path="/managebookings"></Route>
-            <Route Component={Sedan} path="/sedan"></Route>
+            <Route Component={TransportDetails} path="/transport_details"></Route>
             <Route Component={AvailableCars} path="/availablecars"></Route>
-            <Route Component={Single_trip} path="/packages"></Route>
+            <Route Component={Packages} path="/packages"></Route>
             <Route Component={Login} path="/login"></Route>
             <Route Component={Starting} path="/"></Route>
             <Route Component={Home} path="/home"></Route>

@@ -1,27 +1,26 @@
-import React from "react";
+import React, { useState,useEffect,useContext } from "react";
 import Row from "react-bootstrap/Row";
 import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
 import Home_crousel from "./Home_crousel";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Offcanvas from "react-bootstrap/Offcanvas";
+// import Nav from "react-bootstrap/Nav";
+// import Navbar from "react-bootstrap/Navbar";
+// import NavDropdown from "react-bootstrap/NavDropdown";
+// import Offcanvas from "react-bootstrap/Offcanvas";
 import "./../styles/single_trip.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+// import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputGroup from "react-bootstrap/InputGroup";
 import Nav_bar_area from "./NavBar";
+import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
-
 
 function get_trip() {
   return [
@@ -38,8 +37,100 @@ function get_trip() {
   ];
 }
 
-export default function Home_page_style(props) {
+export default function Packages(props) {
   let trips = get_trip();
+  const [showPickup, setShowPickup] = useState(false);
+  const [showDropOff, setShowDropoff] = useState(false);
+
+  const [openComment, setopenComment] = useState(false);
+  const [package_details, setPackage_details] = useState([]);
+  const [locations, setLocations] = useState([]);
+  const [selectPickup, setselectPickup] = useState({});
+  const [selectDropoff, setselectDropoff] = useState({});
+  const [pickupTime, setpickupTime] = useState(0);
+  const [comments, setComments] = useState("");
+
+  useEffect(() => {
+    getLocations();
+  }, []);
+
+  const getLocations = () => {
+    // fetchapi
+    console.log("get locations");
+    const responseLocation = [
+      {
+        id: 1,
+        name: "Madina Hotel",
+        type: "hotel",
+      },
+      {
+        id: 2,
+        name: "Madina Airport",
+        type: "airport",
+      },
+      {
+        id: 3,
+        name: "Macca Hotel",
+        type: "hotel",
+      },
+      {
+        id: 4,
+        name: "Macca Airport",
+        type: "airport",
+      },
+    ];
+    console.log("my locations ", responseLocation);
+    setLocations(responseLocation);
+  };
+
+  
+  const handleProceedToNext = () =>{
+    let package_details_arr = package_details;
+    package_details_arr.push({
+        "pickup":selectPickup.id,
+        "pick_extrainfo":"ticket_number",
+        "dropoff":selectDropoff.id,
+        "dropoff_extrainfo":"ticket_number",
+        "pickupdate_time":pickupTime,
+        "comment":comments,
+    });
+    let booking_obj = {
+      type:"package",
+      details:package_details_arr
+    };
+    setPackage_details(package_details_arr);
+    // updateContextState(booking_obj, "booking");
+    navigateToPath("/availablecars",{booking_obj});
+  }
+
+  const changeLocationPoints = (e, point,location) => {
+    let new_val = {};
+    if (e.target.checked) {
+      new_val = location;
+    }
+    if (point == "pickup") {
+      console.log("pick up location point ", point, new_val);
+      console.log( location.id);
+      console.log( location.name);
+
+      setselectPickup(new_val);
+    } else {
+      // dropoff
+      console.log("dropoff location point ", point, new_val);
+
+      setselectDropoff(new_val);
+    }
+    setShowPickup(false);
+    setShowDropoff(false);
+  };
+
+  const handleDateTimeChange = (dateString) => {
+    console.log("dateString ", dateString);
+    const timestamp = Math.floor(new Date(dateString).getTime() / 1000);
+    console.log("datetime ", timestamp);
+    setpickupTime(timestamp);
+  };
+
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -56,8 +147,8 @@ export default function Home_page_style(props) {
   const handleClose = () => setShow(false);
   const navigate = useNavigate();
 
-  const navigateToPath = (path) => {
-    navigate(path);
+  const navigateToPath = (path,props) => {
+    navigate(path,{state:props});
   };
   const [open, setOpen] = useState(false);
 
@@ -65,15 +156,11 @@ export default function Home_page_style(props) {
     <div>
       <Nav_bar_area />
 
-        <Home_crousel />
+      <Home_crousel />
       <Container>
         <Row>
           <Col>
-            <Button
-              href="./home"
-              variant="primary"
-              className="singtripbtn"
-            >
+            <Button href="./home" variant="primary" className="singtripbtn">
               Single Trip{" "}
               <FontAwesomeIcon className="icon_btn" icon={faLocationDot} />
             </Button>
@@ -90,7 +177,6 @@ export default function Home_page_style(props) {
         </Row>
         <div className="for_large_scrasdeen">
           <Row>
-
             <Col>
               <div className="singletrip_card ">
                 <div className="smallcasdfrd">
@@ -144,29 +230,30 @@ export default function Home_page_style(props) {
                   </Table>
                 </div>
 
-
                 <div className="add_btn_card">
-<Button onClick={handleShow}>ADD</Button>
-
+                  <Button onClick={handleShow}>ADD</Button>
                   <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton></Modal.Header>
                     <Modal.Body>
                       <div>
                         <h5 className="md_head">PICKUP</h5>
-                        <Button className="pick_drop">
+                        <Button className="pick_drop" onClick={() => setShowPickup(true)}>
                           <FontAwesomeIcon
                             className="icon_btn_loc"
                             icon={faLocationDot}
                           />
-                          Select Pickup location
+                          {selectPickup.name ?? " Select Pickup location"}
                         </Button>
-                        <h5 className="md_head">DROP OFF</h5>
-                        <Button className="pick_drop">
+                        <h5 className="md_head">Dropoff</h5>
+                        <Button
+                          className="pick_drop"
+                          onClick={() => setShowDropoff(true)}
+                        >
                           <FontAwesomeIcon
                             className="icon_btn_loc"
                             icon={faLocationDot}
                           />
-                          Select Pickup location
+                          {selectDropoff.name ?? " Select Dropoff location"}
                         </Button>
                         <h5 className="md_head">PICKUP DATE & TIME</h5>
                         <Form.Control
@@ -175,18 +262,118 @@ export default function Home_page_style(props) {
                           aria-describedby="passwordHelpBlock"
                           placeholder="Select Pickup Date & Time"
                           className="input_bx"
-                        />{" "}
+                          onChange={(e) => {
+                            handleDateTimeChange(e.target.value);
+                          }}
+                        />{" "}{/* <Comment /> */}
+                        <Button
+                          onClick={() => setopenComment(!openComment)}
+                          aria-controls="example-collapse-text"
+                          aria-expanded={openComment}
+                          className="commentsbtn"
+                        >
+                          Comment
+                        </Button>
+                        <Collapse in={openComment}>
+                          <div id="example-collapse-text">
+                            <InputGroup>
+                              <Form.Control
+                                as="textarea"
+                                aria-label="With textarea"
+                                className="comnt_txt"
+                                onChange={(e)=>{setComments(e.target.value)}}
+                              />
+                            </InputGroup>
+                          </div>
+                        </Collapse>
                       </div>
                     </Modal.Body>
                     <Modal.Footer>
-                      <Button variant="secondary" className="procced_btn" onClick={handleClose}>
+                      <Button
+                        variant="secondary"
+                        className="procced_btn"
+                        onClick={()=>handleProceedToNext()}
+                      >
                         PROCEED TO NEXT
                       </Button>
                     </Modal.Footer>
-                  </Modal>                </div>
-              </div>
-              </Col>
+                  </Modal>{" "}
 
+                  
+                  <Modal
+                    show={showPickup}
+                    onHide={() => setShowPickup(false)}
+                    dialogClassName="modal-90w"
+                    aria-labelledby="example-custom-modal-styling-title"
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title id="example-custom-modal-styling-title">
+                        Select Pickup location
+                      </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <Form className="asdasd">
+                        {/* <div className="mb-3"> */}
+                        {locations.map((location) => {
+                          if (location.id != selectDropoff.id) {
+                            return (
+                              <Form.Check
+                                onClick={(e) => {
+                                  changeLocationPoints(e, "pickup",location);
+                                }}
+                                label={location.name}
+                                value={location}
+                                name="group1"
+                                type="radio"
+                                id={location.id}
+                              />
+                            );
+                          }
+                        })}
+                        {/* </div> */}
+                      </Form>
+                    </Modal.Body>
+                  </Modal>
+                  
+                  <Modal
+                    show={showDropOff}
+                    onHide={() => setShowDropoff(false)}
+                    dialogClassName="modal-90w"
+                    aria-labelledby="example-custom-modal-styling-title"
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title id="example-custom-modal-styling-title">
+                        Select Dropoff location
+                      </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <Form className="asdasd">
+                        {/* <div className="mb-3"> */}
+                        {locations.map((location) => {
+                          if (location.id != selectPickup.id) {
+                            return (
+                              <Form.Check
+                                onClick={(e) => {
+                                  changeLocationPoints(e, "dropoff",location);
+                                }}
+                                label={location.name}
+                                value={location}
+                                name="group1"
+                                type="radio"
+                                id={location.id}
+                              />
+                            );
+                          }
+                        })}
+                        {/* </div> */}
+                      </Form>
+                    </Modal.Body>
+                  </Modal>
+
+
+                </div>
+              </div>
+            </Col>
           </Row>
         </div>
 
@@ -215,9 +402,7 @@ export default function Home_page_style(props) {
                   );
                 })} */}
 
-                <div className="add_btn_card">
-                  
-                </div>
+                <div className="add_btn_card"></div>
               </div>
             </Col>
             <Col md={1}></Col>
@@ -272,9 +457,11 @@ export default function Home_page_style(props) {
                 </Modal.Body>
                 <Modal.Footer>
                   {/* <CreatePaymentModal closeOtp={handleOtpClose} /> */}
-                  <CreatePaymentModal onClick={() => {
-              navigate('/availablecars');
-            }}/>
+                  <CreatePaymentModal
+                    onClick={() => {
+                      navigate("/availablecars");
+                    }}
+                  />
                   {/* <Button variant="primary" className="bookbtn" onClick={handleClose}>
                                         Book
                                     </Button> */}
@@ -311,9 +498,13 @@ const CreatePaymentModal = (props) => {
           collaboration
         </Button> */}
       {/* <Button variant="primary" className="bookbtn" onClick={paymentOptionDone}> */}
-      <Button variant="primary" className="bookbtn" onClick={() => {
-              navigate('/availablecars');
-            }}>
+      <Button
+        variant="primary"
+        className="bookbtn"
+        onClick={() => {
+          navigate("/availablecars");
+        }}
+      >
         Book
       </Button>
       <Modal
