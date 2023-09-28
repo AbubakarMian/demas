@@ -33,8 +33,8 @@ export default function Package_style() {
   const [showDropOff, setShowDropoff] = useState(false);
   const navigate = useNavigate();
 
-  const navigateToPath = (path) => {
-    navigate(path);
+  const navigateToPath = (path,props) => {
+    navigate(path,{state:props});
   };
   const [activeTab, setActiveTab] = useState(0);
   const [openComment, setopenComment] = useState(false);
@@ -47,10 +47,6 @@ export default function Package_style() {
   const [comments, setComments] = useState("");
 
 
-
-  const handleTabClick = (index) => {
-    // setActiveTab(index);
-  };
   const handleProceedToNext = () =>{
     let booking_obj = {
       type:"single",
@@ -65,8 +61,8 @@ export default function Package_style() {
         }
       ]
     };
-    updateContextState(booking_obj, "booking");
-    // navigate("/availablecars");
+    // updateContextState(booking_obj, "booking");
+    navigateToPath("/availablecars",{booking_obj});
   }
   const settings = {
     dots: true, // Show navigation dots
@@ -345,7 +341,7 @@ export default function Package_style() {
                     variant="primary"
                     onClick={() => {
                       handleProceedToNext();
-                      navigate("/availablecars");
+                      // navigate("/availablecars");
                     }}
                     className="Proceed_button"
                   >

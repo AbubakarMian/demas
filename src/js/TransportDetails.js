@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -7,9 +7,11 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import "./../styles/availblecar.css";
-import "./../styles/sedan.css";
+import "./../styles/transport_details.css";
 import Carousel from "react-bootstrap/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import {
   faArrowRight,
   faUser,
@@ -29,13 +31,27 @@ import { useState } from "react";
 import Collapse from "react-bootstrap/Collapse";
 import InputGroup from "react-bootstrap/InputGroup";
 import Nav_bar_area from "./NavBar";
-import { useNavigate } from "react-router-dom";
 
-export default function SedanCars(props) {
+export default function TransportDetails(props) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [transportDetail, setTransportDetail] = useState({});
 
   const navigateToPath = (path) => {
     navigate(path);
+  };
+
+  useEffect(() => {
+    console.log(
+      "props from previous screen Transport details ",
+      location.state
+    );
+    set_transport_details();
+  }, []);
+
+  const set_transport_details = () => {
+    const transport_detail = location.state.transport;
+    setTransportDetail(transport_detail);
   };
   const [car_feature, setcar_featureOpen] = useState(false);
   const [book, setbookOpen] = useState(false);
@@ -60,7 +76,7 @@ export default function SedanCars(props) {
                 <FontAwesomeIcon icon={faArrowLeft} />
               </Button>
             </div>{" "}
-            <h3 className="top_heading_page">SEDAN</h3>
+            <h3 className="top_heading_page">{transportDetail.name}</h3>
           </div>
         </Row>
       </Container>
@@ -68,7 +84,9 @@ export default function SedanCars(props) {
       <Container fluid>
         <Row className="const_padding">
           <Col>
-            <div className="car_typ">Type - Sedan</div>
+            <div className="car_typ">
+              Type - {transportDetail.transport_type.name}
+            </div>
           </Col>
           <Col>
             <div className="rates">250 SAR (per trip)</div>
@@ -76,7 +94,9 @@ export default function SedanCars(props) {
         </Row>
         <Row className="const_padding">
           <Col>
-            <div className="car_nme">Sedan Car or Similar</div>
+            <div className="car_nme">
+              {transportDetail.transport_type.name} Type or Similar
+            </div>
           </Col>
           {/* <Col>
             <div className="similr">(or Similar)</div>
@@ -84,30 +104,40 @@ export default function SedanCars(props) {
         </Row>
       </Container>
       <Row className="const_padding">
-        <Sedan_crousel />
+        {/*  */}
+        <Carousel className="slider_bdr">
+          {transportDetail.images.map(image=>{
+            return (
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src={image}
+                  // alt="First slide"
+                />
+                <Carousel.Caption></Carousel.Caption>
+              </Carousel.Item>)
+          })}
+        </Carousel>
+        {/*  */}
       </Row>
 
       <Container fluid>
         <Row className="icn_ara_sedan const_padding">
           <Col>
-            <FontAwesomeIcon className="detail_icn" icon={faUser} />3
+            <FontAwesomeIcon className="detail_icn" icon={faUser} />
+            {transportDetail.transport_type.seats}
           </Col>
           <Col>
-            <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} />5
+            <FontAwesomeIcon className="detail_icn" icon={faSuitcaseRolling} />
+            {transportDetail.transport_type.luggage}
           </Col>
           <Col>
-            <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />4
+            <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />
+            {transportDetail.transport_type.doors}
           </Col>
         </Row>
         <Row className="const_padding">
-          <p className="car_details ">
-            DEMAS Offers Sedan shape vehical that is greate for a small family
-            of 2-3 People. It comes with the standard host of safely features
-            and Impressive features of sharp steering,confident cornering, a
-            large trunk, and premium cabin. The excellent and astounding choice
-            for the explorer who needs an economy vehicle with maximizing space
-            for luggage and themselves.
-          </p>
+          <p className="car_details ">{transportDetail.details}</p>
         </Row>
         <div className="const_padding">
           <div className="car_card ">
@@ -127,22 +157,17 @@ export default function SedanCars(props) {
             <Row>
               <Collapse in={car_feature}>
                 <div id="example-collapse-text" className="coll_p">
-                  <p className="para_sedan">
-                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                    Exterior parking camera rear
-                  </p>
-                  <p className="para_sedan">
-                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                    Heated door mirrors
-                  </p>
-                  <p className="para_sedan">
-                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                    Low tire pressure warning
-                  </p>
-                  <p className="para_sedan">
-                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                    Turn signal indicator mirrors
-                  </p>
+                  {transportDetail.features.map((txt) => {
+                    return (
+                      <p className="para_sedan">
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="arr_icn"
+                        />
+                        {txt}
+                      </p>
+                    );
+                  })}
                 </div>
               </Collapse>
             </Row>
@@ -167,23 +192,17 @@ export default function SedanCars(props) {
             <Row>
               <Collapse in={book}>
                 <div id="example-collapse-text" className="coll_p">
-                  <p className="para_sedan">
-                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                    Exterior parking camera rear
-                  </p>
-                  <p className="para_sedan">
-                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                    Heated door mirrors
-                  </p>
-                  <p className="para_sedan">
-                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                    Low tire pressure warning
-                  </p>
-
-                  <p className="para_sedan">
-                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                    Turn signal indicator mirrors
-                  </p>
+                  {transportDetail.booking.map((txt) => {
+                    return (
+                      <p className="para_sedan">
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="arr_icn"
+                        />
+                        {txt}
+                      </p>
+                    );
+                  })}
                 </div>
               </Collapse>
             </Row>
@@ -208,22 +227,17 @@ export default function SedanCars(props) {
             <Row>
               <Collapse in={open}>
                 <div id="example-collapse-text" className="coll_p">
-                  <p className="para_sedan">
-                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                    Exterior parking camera rear
-                  </p>
-                  <p className="para_sedan">
-                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                    Heated door mirrors
-                  </p>
-                  <p className="para_sedan">
-                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                    Low tire pressure waring
-                  </p>
-                  <p className="para_sedan">
-                    <FontAwesomeIcon icon={faArrowRight} className="arr_icn" />
-                    Turn signal indicator mirrors
-                  </p>
+                  {transportDetail.dontforget.map((txt) => {
+                    return (
+                      <p className="para_sedan">
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="arr_icn"
+                        />
+                        {txt}
+                      </p>
+                    );
+                  })}
                 </div>
               </Collapse>
             </Row>
@@ -272,7 +286,7 @@ export default function SedanCars(props) {
   );
 }
 
-const Sedan_crousel = () => {
+const Car_crousel = () => {
   return (
     <Carousel className="slider_bdr">
       <Carousel.Item>
