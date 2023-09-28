@@ -181,7 +181,7 @@ export default function AvailableCars() {
         <div
           className="asdas const_paddingaa"
           onClick={() => {
-            navigate("/transport_details");
+            // navigate("/transport_details");
           }}
         >
           <Sedan_crousel />
@@ -383,32 +383,6 @@ const Sedan_crousel = () => {
   );
 };
 
-const Transport_crousel = (props) => {
-  let item = props.item;
-  return (
-    <div
-      className="slider-section"
-      onClick={() => {
-        // navigateToPath("/transport_details",{item});
-      }}
-    >
-      <Carousel className="slider_bdr slide_availcars">
-        {item.images.map((image) => {
-          return (
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src={image}
-                // alt="First slide"
-              />
-              <Carousel.Caption></Carousel.Caption>
-            </Carousel.Item>
-          );
-        })}
-      </Carousel>
-    </div>
-  );
-};
 
 const Coaster_crousel = () => {
   return (

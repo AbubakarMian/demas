@@ -35,19 +35,26 @@ import Nav_bar_area from "./NavBar";
 export default function TransportDetails(props) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [transportDetail, setTransportDetail] = useState({});
+  const [transportDetail, setTransportDetail] = useState(null);
+  // const [transportDetail, setTransportDetail] = useState({transport_type:{},
+  //   images:[],
+  //   features:[],
+  //   booking:[],
+  //   dontforget:[],
+  // });
 
   const navigateToPath = (path) => {
     navigate(path);
   };
 
   useEffect(() => {
+
     console.log(
       "props from previous screen Transport details ",
       location.state
     );
     set_transport_details();
-  }, []);
+  }, [location.state]);
 
   const set_transport_details = () => {
     const transport_detail = location.state.transport;
@@ -60,7 +67,9 @@ export default function TransportDetails(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+if(!transportDetail){
+    return null;
+}
   return (
     <div>
       <Container fluid>
