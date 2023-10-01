@@ -93,6 +93,7 @@ export default function Packages(props) {
         "dropoff_extrainfo":"ticket_number",
         "pickupdate_time":pickupTime,
         "comment":comments,
+        "transport_id":0,
     });
     let booking_obj = {
       type:"package",
