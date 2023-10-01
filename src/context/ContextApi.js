@@ -101,9 +101,7 @@ export const ContexApiProvider = (props) => {
                     console.log('is updated ',contextState[obj_name])
                 }, 2000);
                 break;
-
         }
-
     }
 
     return (

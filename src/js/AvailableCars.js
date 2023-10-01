@@ -35,6 +35,7 @@ export default function AvailableCars() {
   const location = useLocation();
   const { contextState, updateContextState } = useContext(ContextApiContext);
   const [transportlist, setTransportList] = useState([]);
+  const [bookingDetails, setBookingDetails] = useState([]);
   const [error, setError] = useState(null);
 
   const navigateToPath = (path, props) => {
@@ -64,6 +65,14 @@ export default function AvailableCars() {
       setError("An error occurred while logging in. Please try again.");
     }
   };
+
+  const selectTransport = (transport) =>{
+    let booking_obj = location.state.booking_obj;
+    let transport_id = transport.id;
+    booking_obj.details[booking_obj.details.length - 1].transport_id = transport_id;
+    setBookingDetails({...location.state.booking_obj,booking_obj});
+    navigateToPath("/transport_details",{transport,booking_obj});
+  }
 
   const [open, setOpen] = useState(false);
 
@@ -238,7 +247,7 @@ export default function AvailableCars() {
     <div
       className="slider-section"
       onClick={() => {
-        navigateToPath("/transport_details",{transport:item});
+        selectTransport(item);
       }}
     >
       <Carousel className="slider_bdr slide_availcars">
