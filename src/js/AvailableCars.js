@@ -66,13 +66,19 @@ export default function AvailableCars() {
     }
   };
 
-  const selectTransport = (transport) =>{
-    let booking_obj = location.state.booking_obj;
+  const selectTransport = (transport) => {
     let transport_id = transport.id;
-    booking_obj.details[booking_obj.details.length - 1].transport_id = transport_id;
-    setBookingDetails({...location.state.booking_obj,booking_obj});
-    navigateToPath("/transport_details",{transport,booking_obj});
-  }
+    if (location.state) {
+      let booking_obj = location.state.booking_obj;
+      booking_obj.details[booking_obj.details.length - 1].transport_id =
+        transport_id;
+      setBookingDetails({ ...location.state.booking_obj, booking_obj });
+      navigateToPath("/transport_details", { transport, booking_obj });
+    }
+    else{
+      navigateToPath("/home");
+    }
+  };
 
   const [open, setOpen] = useState(false);
 
@@ -215,9 +221,7 @@ export default function AvailableCars() {
           </Col>
         </Row>
 
-        <div
-          
-        >
+        <div>
           {/* start map*/}
           {transportlist.map((item) => {
             return (
@@ -243,28 +247,27 @@ export default function AvailableCars() {
                   </Col>
                 </Row>
                 <Row className="asdas const_paddingaa">
-                  
-    <div
-      className="slider-section"
-      onClick={() => {
-        selectTransport(item);
-      }}
-    >
-      <Carousel className="slider_bdr slide_availcars">
-        {item.images.map((image) => {
-          return (
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src={image}
-                // alt="First slide"
-              />
-              <Carousel.Caption></Carousel.Caption>
-            </Carousel.Item>
-          );
-        })}
-      </Carousel>
-    </div>
+                  <div
+                    className="slider-section"
+                    onClick={() => {
+                      selectTransport(item);
+                    }}
+                  >
+                    <Carousel className="slider_bdr slide_availcars">
+                      {item.images.map((image) => {
+                        return (
+                          <Carousel.Item>
+                            <img
+                              className="d-block w-100"
+                              src={image}
+                              // alt="First slide"
+                            />
+                            <Carousel.Caption></Carousel.Caption>
+                          </Carousel.Item>
+                        );
+                      })}
+                    </Carousel>
+                  </div>
                 </Row>
                 <Row className="icn_ara">
                   <Col>
@@ -391,7 +394,6 @@ const Sedan_crousel = () => {
     </Carousel>
   );
 };
-
 
 const Coaster_crousel = () => {
   return (
