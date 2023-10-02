@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -33,8 +33,8 @@ export default function Package_style() {
   const [showDropOff, setShowDropoff] = useState(false);
   const navigate = useNavigate();
 
-  const navigateToPath = (path,props) => {
-    navigate(path,{state:props});
+  const navigateToPath = (path, props) => {
+    navigate(path, { state: props });
   };
   const [activeTab, setActiveTab] = useState(0);
   const [openComment, setopenComment] = useState(false);
@@ -45,25 +45,25 @@ export default function Package_style() {
   const [selectDropoff, setselectDropoff] = useState({});
   const [pickupTime, setpickupTime] = useState(0);
   const [comments, setComments] = useState("");
+  const [transportTypeList, setTransportTypeList] = useState([]);
 
-
-  const handleProceedToNext = () =>{
+  const handleProceedToNext = () => {
     let booking_obj = {
-      type:"single",
-      details:[
+      type: "single",
+      details: [
         {
-            "pickup":selectPickup.id,
-            "pick_extrainfo":"ticket_number",
-            "dropoff":selectDropoff.id,
-            "dropoff_extrainfo":"ticket_number",
-            "pickupdate_time":pickupTime,
-            "comment":comments,
-        }
-      ]
+          pickup: selectPickup.id,
+          pick_extrainfo: "ticket_number",
+          dropoff: selectDropoff.id,
+          dropoff_extrainfo: "ticket_number",
+          pickupdate_time: pickupTime,
+          comment: comments,
+        },
+      ],
     };
     // updateContextState(booking_obj, "booking");
-    navigateToPath("/availablecars",{booking_obj});
-  }
+    navigateToPath("/availablecars", { booking_obj });
+  };
   const settings = {
     dots: true, // Show navigation dots
     infinite: true, // Loop through the slides
@@ -74,7 +74,99 @@ export default function Package_style() {
 
   useEffect(() => {
     getLocations();
+    getTransportTypeTransportList();
   }, []);
+
+  const handleTabClick = (index) => {
+    setActiveTab(index);
+  };
+  const getTransportTypeTransportList = () => {
+    let transportType = [
+      {
+        id: 1,
+        name: "Sedan",
+        details: [
+          {
+            id: 1,
+            image: "./images/a.jpg",
+            name: "Civic",
+            passengers: 3,
+            luggage: 3,
+          },
+          {
+            id: 1,
+            image: "./images/corolla.jpg",
+            name: "Elantra",
+            passengers: 4,
+            luggage: 3,
+          },
+          {
+            id: 3,
+            image: "./images/elantra.jpg",
+            name: "Corolla",
+            passengers: 2,
+            luggage: 5,
+          },
+        ],
+      },
+      {
+        id: 2,
+        name: "SUV",
+        details: [
+          {
+            id: 1,
+            image: "./images/acura.jpg",
+            name: "Acura",
+            passengers: 13,
+            luggage: 43,
+          },
+          {
+            id: 1,
+            image: "./images/corolla.jpg",
+            name: "Elantra",
+            passengers: 4,
+            luggage: 3,
+          },
+          {
+            id: 3,
+            image: "./images/elantra.jpg",
+            name: "Corolla",
+            passengers: 2,
+            luggage: 5,
+          },
+        ],
+      },
+      {
+        id: 3,
+        name: "Coaster",
+        details: [
+          {
+            id: 1,
+            image: "./images/toyocoaster.jpg",
+            name: "Coaster",
+            passengers: 13,
+            luggage: 9,
+          },
+          {
+            id: 1,
+            image: "./images/corolla.jpg",
+            name: "Elantra",
+            passengers: 4,
+            luggage: 3,
+          },
+          {
+            id: 3,
+            image: "./images/elantra.jpg",
+            name: "Corolla",
+            passengers: 2,
+            luggage: 5,
+          },
+        ],
+      },
+    ];
+    console.log("transport type ", transportType);
+    setTransportTypeList(transportType);
+  };
 
   const getLocations = () => {
     // fetchapi
@@ -105,15 +197,15 @@ export default function Package_style() {
     setLocations(responseLocation);
   };
 
-  const changeLocationPoints = (e, point,location) => {
+  const changeLocationPoints = (e, point, location) => {
     let new_val = {};
     if (e.target.checked) {
       new_val = location;
     }
     if (point == "pickup") {
       console.log("pick up location point ", point, new_val);
-      console.log( location.id);
-      console.log( location.name);
+      console.log(location.id);
+      console.log(location.name);
 
       setselectPickup(new_val);
     } else {
@@ -184,7 +276,8 @@ export default function Package_style() {
                     <FontAwesomeIcon
                       className="icon_btn"
                       icon={faLocationDot}
-                    /> {selectPickup.name ?? " Select PickUp Location"}
+                    />{" "}
+                    {selectPickup.name ?? " Select PickUp Location"}
                     <div className="caret_down">
                       <FontAwesomeIcon icon={faAngleDown} />
                     </div>
@@ -208,7 +301,7 @@ export default function Package_style() {
                             return (
                               <Form.Check
                                 onClick={(e) => {
-                                  changeLocationPoints(e, "pickup",location);
+                                  changeLocationPoints(e, "pickup", location);
                                 }}
                                 label={location.name}
                                 value={location}
@@ -243,7 +336,8 @@ export default function Package_style() {
                     <FontAwesomeIcon
                       className="icon_btn"
                       icon={faLocationDot}
-                    /> {selectDropoff.name ?? " Select Drop Off Location"}
+                    />{" "}
+                    {selectDropoff.name ?? " Select Drop Off Location"}
                     <div className="caret_down">
                       <FontAwesomeIcon icon={faAngleDown} />
                     </div>
@@ -266,7 +360,7 @@ export default function Package_style() {
                             return (
                               <Form.Check
                                 onClick={(e) => {
-                                  changeLocationPoints(e, "dropoff",location);
+                                  changeLocationPoints(e, "dropoff", location);
                                 }}
                                 label={location.name}
                                 name="group2"
@@ -326,7 +420,9 @@ export default function Package_style() {
                           as="textarea"
                           aria-label="With textarea"
                           className="comnt_txt"
-                          onChange={(e)=>{setComments(e.target.value)}}
+                          onChange={(e) => {
+                            setComments(e.target.value);
+                          }}
                         />
                       </InputGroup>
                     </div>
@@ -359,25 +455,62 @@ export default function Package_style() {
           <section className="back_banner">
             {/* ... Rest of your code ... */}
           </section>
-          {/* <Container>
+          <Container>
             <section className="tab_area_bt">
               <h2>Vehicles to Ride</h2>
               <div className="tab_center">
                 <div className="tab-buttons">
-                  {tabs.map((tab, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleTabClick(index)}
-                      className={index === activeTab ? "active" : ""}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
+                  {transportTypeList.map((transportType, index) => {
+                    console.log("transportTypeList", transportTypeList);
+                    return (
+                      <button
+                        key={index}
+                        onClick={() => handleTabClick(index)}
+                        className={index === activeTab ? "active" : ""}
+                      >
+                        {transportType.name}
+                      </button>
+                    );
+                  })}
                 </div>
-                <div className="tab-content">{tabs[activeTab].content}</div>
+                <div className="tab-content">
+                  <div className="product-slide">
+                    <Slider {...settings}>
+                      {!transportTypeList.length
+                        ? null
+                        : transportTypeList[activeTab].details.map(
+                            (transport_detail, index) => {
+                              return (
+                                <>
+                                  <img
+                                    src={transport_detail.image}
+                                    alt={transport_detail.name}
+                                  />
+                                  <h3>{transport_detail.name}</h3>
+                                  <p>
+                                    <div className="disc_info">
+                                      <FontAwesomeIcon
+                                        className="info_icn"
+                                        icon={faUsers}
+                                      />{" "}
+                                      {transport_detail.passengers}
+                                      <FontAwesomeIcon
+                                        className="info_icn"
+                                        icon={faSuitcaseRolling}
+                                      />
+                                      {transport_detail.luggage}
+                                    </div>
+                                  </p>
+                                </>
+                              );
+                            }
+                          )}
+                    </Slider>
+                  </div>
+                </div>
               </div>
             </section>
-          </Container> */}
+          </Container>
         </div>
       </section>
     </div>
