@@ -184,10 +184,3 @@ export default function Login_page_style() {
     </div>
   );
 }
-
-// const Otp_button = () => {
-//   return (
-
-//     <Button  href="/" variant="primary" className="otpbtn">SEND OTP</Button>
-//   );
-// }

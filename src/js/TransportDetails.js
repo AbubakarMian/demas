@@ -289,7 +289,7 @@ export default function TransportDetails(props) {
                 // handleShow
               }
             >
-              BOOK CAR
+              PAY 250 SAR
             </Button>
 
             <div className="modal_plac">
@@ -408,15 +408,15 @@ const CreateOTPModal = (props) => {
               />
             </InputGroup>
 
-            <Button onClick={() => getOtp()}>GetOtp</Button>
+            <Button onClick={() => getOtp()}>Send OTP</Button>
             {!showValidateOtp ? null : (
               <>
-                <Form.Label htmlFor="basic-url">OTP</Form.Label>
+                <Form.Label htmlFor="basic-url"></Form.Label>
                 <InputGroup className="mb-3">
                   <Form.Control
                     id="basic-url"
                     aria-describedby="basic-addon3"
-                    placeholder="otp"
+                    placeholder="OTP"
                   />
                 </InputGroup>
                 <Button onClick={() => validateOtp()}>Login</Button>
@@ -580,13 +580,13 @@ const CreatePaymentSuccessModal = (props) => {
   };
   return (
     <>
-      <Button
+      {/* <Button
         variant="primary"
         className="bookbtn"
         onClick={() => setShow(true)}
       >
         Pay 250SAR
-      </Button>
+      </Button> */}
 
       <Modal
         show={props.handleOtpPaymentModals.payment_success}
