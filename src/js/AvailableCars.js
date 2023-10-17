@@ -51,10 +51,15 @@ export default function AvailableCars() {
     try {
       let cs = contextState;
       cs.user.access_token = Constant.basic_token;
-      const res = await SendRequest(cs, "GET", Constant.get_cars);
+      let booking_obj = location.state.booking_obj;
+      let current_booking = booking_obj.details[booking_obj.details.length - 1];
+      console.log('res',current_booking);
+      let get_car_url = `${Constant.get_cars}?pickup=${current_booking.pickup}&dropoff=${current_booking.dropoff}
+      &pickupdate_time=${current_booking.pickupdate_time}`;
+      const res = await SendRequest(cs, "GET", get_car_url);
 
       if (res.status) {
-        let cars_list = res.response;
+        let cars_list = res.response.data;
         setTransportList(cars_list);
         console.log("get cars list ", cars_list);
       } else {
@@ -84,11 +89,10 @@ export default function AvailableCars() {
 
   return (
     <div>
-      {error && (
-        <div className="error-message">
-          <Alert variant="danger">{error}</Alert>
-        </div>
-      )}
+    <div className="alert-fixed">
+      <Alert className="" show={error} dismissible={true} onClose={()=>setError('')} 
+      variant="danger">{error}</Alert>
+    </div>
       <Container fluid>
         <Row>
           <div className="login_head">

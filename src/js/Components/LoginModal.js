@@ -38,46 +38,56 @@ import { Alert } from "react-bootstrap";
 export default function LoginModal(props) {
   const { contextState, updateContextState } = useContext(ContextApiContext);
 
-  // const [showLoginModal, setShowLoginModal] = props;
   // const {showLoginModal, setShowLoginModal} = props;
-  const { showLoginModal, setShowLoginModal } = props;
+
+  // const { showLoginModal, setShowLoginModalArea } = useState(true);
 
   // const [showLoginModal, setShowLoginModal] = useState(false);
 
+  // const [showLoginModal, setShowLoginModalArea] = useState(!contextState.user.is_loggedin);
+  const [showLoginModal, setShowLoginModalArea] = useState(contextState.show_login_modal);
   const [showSendOtp, setShowSendOtp] = useState(true);
   const [showValidateOtp, setshowValidateOtp] = useState(false);
   const [phone_no, setPhoneNumber] = useState("");
+  const [otp, setOtp] = useState("");
   const [error, setError] = useState(null);
+  const [user, setUser] = useState({});
 
   const navigate = useNavigate();
   console.log("props create otpnew modal ", props);
 
-  useEffect(() => {
-    console.log("props create contextState", contextState);
-    const user = contextState.user;
-    // if (user.is_loggedin) {
-    //   setShowLoginModal(false);
-    // } else {
-    //   setShowLoginModal(true);
-    // }
-  }, [contextState.user]);
+  // useEffect(() => {
+  //   console.log("props create contextState", contextState);
+  //   console.log("props setShowLoginModal", setShowLoginModalArea);
+  //   const user = contextState.user;
+  //   console.log("contextState user", user);
+
+  //   if (user.is_loggedin) {
+  //     console.log('set modal false');
+  //     setShowLoginModalArea(false);
+  //   } else {
+  //     console.log('set modal true');
+
+  //     setShowLoginModalArea(true);
+  //   }
+  // }, [contextState.user]);
 
   const getOtp = async () => {
     console.log("get otp");
     try {
+      if(!phone_no){
+        return;
+      }
       let formData = new FormData();
       formData.append("phone_no", phone_no);
-      const res = await SendRequest(contextState, "post", Constant.sendotp, formData);
+      const res = await SendRequest(contextState, "post", Constant.register_or_login, formData);
       
       if (res.status) {
-        updateContextState(res.response,'update_user');
-        // let cars_list = res.response;
-        // setTransportList(cars_list);
-        // console.log("get cars list ", cars_list);
+        setUser(res.response);
+        // updateContextState(res.response,'update_user');
       } else {
         setError("Login failed. Please check your credentials.");
       }
-
       setShowSendOtp(false);
       setshowValidateOtp(true);
     } catch (error) {
@@ -85,27 +95,52 @@ export default function LoginModal(props) {
       setError("An error occurred while logging in. Please try again.");
     }
   };
-  const validateOtp = () => {};
+  const validateOtp = async () => {
+    
+    if(!otp){
+      return;
+    }
+    let formData = new FormData();
+    formData.append("otp", otp);
+    formData.append("access_token", user.access_token);
+    const res = await SendRequest(contextState, "post", Constant.validate_otp, formData);
+    
+    if (res.status) {
+      res.response.is_loggedin = true;
+      updateContextState(res.response,'update_user');
+      updateContextState(false,'show_login_modal');
+
+      // setShowLoginModalArea(false);
+
+    } else {
+      if(res.error && res.error.message){
+        setError(res.error.message[0]);
+      }
+      else{
+        setError("Somthing went wrong contact admin.");
+      }
+    }
+    
+
+  };
 
   const handleCloseOtp = () => {
-    setShowLoginModal(false);
+    setShowLoginModalArea(false);
+    updateContextState(false,'show_login_modal');
     // console.log("handle close otpfalse ", props.handleOtpPaymentModals);
   };
 
-  return !showLoginModal ? (
-    <></>
-  ) : (
+  return (
     <>
       <div className="modal_plac">
-      {error && (
-        <div className="error-message">
-          <Alert variant="danger">{error}</Alert>
-        </div>
-      )}
+    <div className="alert-fixed">
+      <Alert className="" show={error} dismissible={true} onClose={()=>setError('')} 
+      variant="danger">{error}</Alert>
+    </div>
         <Modal
           // backdrop="static"
-          show={showLoginModal}
-          // show={showSendOtp}
+          // show={showLoginModal}
+          show={contextState.show_login_modal}
           onHide={handleCloseOtp}
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
@@ -143,6 +178,7 @@ export default function LoginModal(props) {
                     id="basic-url"
                     aria-describedby="basic-addon3"
                     placeholder="OTP"
+                    onChange={(e)=>{setOtp(e.target.value)}}
                   />
                 </InputGroup>
                 <Button onClick={() => validateOtp()}>Login</Button>

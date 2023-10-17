@@ -20,6 +20,7 @@ import Privacy from "./js/Privacy";
 import FAQ from "./js/FAQ";
 import Refund from "./js/Refund";
 import ContexApiProvider from "./context/ContextApi";
+import LoginModal from "./js/Components/LoginModal";
 
 
 function App() {
@@ -28,6 +29,8 @@ function App() {
       {/* <Router basename='/demas/build'> */}
       <ContexApiProvider>
         <Router>
+        <LoginModal/>
+
           {/* <Offcanvas_colapsable_nav /> */}
           <Routes>
             <Route Component={ProfileSale} path="/profilesale"></Route>

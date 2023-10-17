@@ -48,13 +48,7 @@ let initState = {
     //     "name":"Russian",
     //     "prefix":"_ru"
     // },
-                    
-    // "user":JSON.parse (localStorage.getItem('user', {
-    //     id: "0",
-    //     name: "Guest",
-    //     access_token: "Basic cmVlbHNwcm8tYXBwLW1vYmlsZTogY21WbGJITndjbTh0WVhCd0xXMXZZbWxzWlE9PQ==",
-    //     role_id: 2,
-    // })),
+   "show_login_modal":false,
     "user": localStorage.getItem('user')===null? Constant.guest_user:JSON.parse(localStorage.getItem('user')),
     // "user": {
     //     id: "0",

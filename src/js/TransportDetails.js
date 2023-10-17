@@ -81,7 +81,8 @@ export default function TransportDetails(props) {
       // setShowLoginModal(true)
     }
     else{
-      setShowLoginModal(true)
+      updateContextState(true,'show_login_modal');
+      // setShowLoginModal(true)
     }
     // setShowOTPPaymentOptions(true);
     console.log("logged in user data", contextState);
@@ -105,7 +106,11 @@ export default function TransportDetails(props) {
   }
   return (
     <div>
-      <LoginModal showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />
+      {/* <LoginModal showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} /> */}
+      {/* {
+        showLoginModal ?<LoginModal  />:null 
+      }
+       */}
       <Container fluid>
         <Row>
           <div className="login_head">

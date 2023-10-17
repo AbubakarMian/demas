@@ -86,7 +86,10 @@ export function change_time_stamp(start_time) {
     if (typeof needAuthorization === 'undefined') {
       needAuthorization = false; // Set a default value if it's not provided
     }
-    let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
+    // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
+    let user = localStorage.getItem('user')===null? Constant.guest_user:JSON.parse(localStorage.getItem('user'));
+    let acceess_token = needAuthorization ? user.access_token : Constant.basic_token;
+    // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
 
     let postData = {
       method: request_type,
