@@ -27,6 +27,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ContextApiContext } from "../context/ContextApi";
+import { Alert } from "react-bootstrap";
+
 
 export default function Package_style() {
   const [showPickup, setShowPickup] = useState(false);
@@ -45,9 +47,15 @@ export default function Package_style() {
   const [selectDropoff, setselectDropoff] = useState({});
   const [pickupTime, setpickupTime] = useState(0);
   const [comments, setComments] = useState("");
+
+  const [error, setError] = useState(null);
   const [transportTypeList, setTransportTypeList] = useState([]);
 
   const handleProceedToNext = () => {
+    if(!selectPickup.id || !selectDropoff.id || !pickupTime){
+      setError("All fields required");
+      return;
+    }
     let booking_obj = {
       type: "single",
       details: [
@@ -62,6 +70,7 @@ export default function Package_style() {
       ],
     };
     // updateContextState(booking_obj, "booking");
+    console.log('booking',booking_obj);
     navigateToPath("/availablecars", { booking_obj });
   };
   const settings = {
@@ -226,8 +235,11 @@ export default function Package_style() {
   };
   return (
     <div>
+        <div className="alert-fixed">
+          <Alert className="" show={error} dismissible={true} onClose={()=>setError('')} 
+          variant="danger">{error}</Alert>
+        </div>
       <Nav_bar_area />
-
       <div className="homeslider">
         <Home_crousel />
       </div>

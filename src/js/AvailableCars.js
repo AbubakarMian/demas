@@ -51,10 +51,15 @@ export default function AvailableCars() {
     try {
       let cs = contextState;
       cs.user.access_token = Constant.basic_token;
-      const res = await SendRequest(cs, "GET", Constant.get_cars);
+      let booking_obj = location.state.booking_obj;
+      let current_booking = booking_obj.details[booking_obj.details.length - 1];
+      console.log('res',current_booking);
+      let get_car_url = `${Constant.get_cars}?pickup=${current_booking.pickup}&dropoff=${current_booking.dropoff}
+      &pickupdate_time=${current_booking.pickupdate_time}`;
+      const res = await SendRequest(cs, "GET", get_car_url);
 
       if (res.status) {
-        let cars_list = res.response;
+        let cars_list = res.response.data;
         setTransportList(cars_list);
         console.log("get cars list ", cars_list);
       } else {
@@ -66,23 +71,28 @@ export default function AvailableCars() {
     }
   };
 
-  const selectTransport = (transport) =>{
-    let booking_obj = location.state.booking_obj;
+  const selectTransport = (transport) => {
     let transport_id = transport.id;
-    booking_obj.details[booking_obj.details.length - 1].transport_id = transport_id;
-    setBookingDetails({...location.state.booking_obj,booking_obj});
-    navigateToPath("/transport_details",{transport,booking_obj});
-  }
+    if (location.state) {
+      let booking_obj = location.state.booking_obj;
+      booking_obj.details[booking_obj.details.length - 1].transport_id =
+        transport_id;
+      setBookingDetails({ ...location.state.booking_obj, booking_obj });
+      navigateToPath("/transport_details", { transport, booking_obj });
+    }
+    else{
+      navigateToPath("/home");
+    }
+  };
 
   const [open, setOpen] = useState(false);
 
   return (
     <div>
-      {error && (
-        <div className="error-message">
-          <Alert variant="danger">{error}</Alert>
-        </div>
-      )}
+    <div className="alert-fixed">
+      <Alert className="" show={error} dismissible={true} onClose={()=>setError('')} 
+      variant="danger">{error}</Alert>
+    </div>
       <Container fluid>
         <Row>
           <div className="login_head">
@@ -215,9 +225,7 @@ export default function AvailableCars() {
           </Col>
         </Row>
 
-        <div
-          
-        >
+        <div>
           {/* start map*/}
           {transportlist.map((item) => {
             return (
@@ -243,28 +251,27 @@ export default function AvailableCars() {
                   </Col>
                 </Row>
                 <Row className="asdas const_paddingaa">
-                  
-    <div
-      className="slider-section"
-      onClick={() => {
-        selectTransport(item);
-      }}
-    >
-      <Carousel className="slider_bdr slide_availcars">
-        {item.images.map((image) => {
-          return (
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src={image}
-                // alt="First slide"
-              />
-              <Carousel.Caption></Carousel.Caption>
-            </Carousel.Item>
-          );
-        })}
-      </Carousel>
-    </div>
+                  <div
+                    className="slider-section"
+                    onClick={() => {
+                      selectTransport(item);
+                    }}
+                  >
+                    <Carousel className="slider_bdr slide_availcars">
+                      {item.images.map((image) => {
+                        return (
+                          <Carousel.Item>
+                            <img
+                              className="d-block w-100"
+                              src={image}
+                              // alt="First slide"
+                            />
+                            <Carousel.Caption></Carousel.Caption>
+                          </Carousel.Item>
+                        );
+                      })}
+                    </Carousel>
+                  </div>
                 </Row>
                 <Row className="icn_ara">
                   <Col>
@@ -391,7 +398,6 @@ const Sedan_crousel = () => {
     </Carousel>
   );
 };
-
 
 const Coaster_crousel = () => {
   return (

@@ -31,6 +31,7 @@ import Collapse from "react-bootstrap/Collapse";
 import InputGroup from "react-bootstrap/InputGroup";
 import Nav_bar_area from "./NavBar";
 import { ContextApiContext } from "../context/ContextApi";
+import LoginModal from "./Components/LoginModal";
 
 export default function TransportDetails(props) {
   const navigate = useNavigate();
@@ -72,16 +73,24 @@ export default function TransportDetails(props) {
   });
 
   const [showOtp, setShowotp] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [showOTPPaymentOptions, setShowOTPPaymentOptions] = useState(false);
   const handleBookCar = () => {
-    setShowOTPPaymentOptions(true);
-    const user = contextState.user.id;
+    const user = contextState.user;
+    if (user.is_loggedin) {
+      // setShowLoginModal(true)
+    }
+    else{
+      updateContextState(true,'show_login_modal');
+      // setShowLoginModal(true)
+    }
+    // setShowOTPPaymentOptions(true);
     console.log("logged in user data", contextState);
     // if (!user.is_loggedin) {
-    let otpPayment = handleOtpPaymentModals;
-    otpPayment.otp_step = true;
+    // let otpPayment = handleOtpPaymentModals;
+    // otpPayment.otp_step = true;
     // let otp = { otp_step: true };
-    setHandleOtpPaymentModalsShow({ ...handleOtpPaymentModals, otpPayment });
+    // setHandleOtpPaymentModalsShow({ ...handleOtpPaymentModals, otpPayment });
     // }
   };
 
@@ -97,6 +106,11 @@ export default function TransportDetails(props) {
   }
   return (
     <div>
+      {/* <LoginModal showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} /> */}
+      {/* {
+        showLoginModal ?<LoginModal  />:null 
+      }
+       */}
       <Container fluid>
         <Row>
           <div className="login_head">
@@ -285,11 +299,12 @@ export default function TransportDetails(props) {
               onClick={
                 () => {
                   handleBookCar();
+                  // setShowLoginModal(true)
                 }
                 // handleShow
               }
             >
-              BOOK CAR
+              PAY 250 SAR
             </Button>
 
             <div className="modal_plac">
@@ -330,30 +345,6 @@ export default function TransportDetails(props) {
   );
 }
 
-const Car_crousel = () => {
-  return (
-    <Carousel className="slider_bdr">
-      <Carousel.Item>
-        <img className="d-block w-100" src="./images/a.jpg" alt="First slide" />
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="./images/h.jpg"
-          alt="Second slide"
-        />
-
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img className="d-block w-100" src="./images/g.jpg" alt="Third slide" />
-
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-  );
-};
 
 const CreateOTPModal = (props) => {
   const [showValidateOtp, setshowValidateOtp] = useState(false);
@@ -408,15 +399,15 @@ const CreateOTPModal = (props) => {
               />
             </InputGroup>
 
-            <Button onClick={() => getOtp()}>GetOtp</Button>
+            <Button onClick={() => getOtp()}>Send OTP</Button>
             {!showValidateOtp ? null : (
               <>
-                <Form.Label htmlFor="basic-url">OTP</Form.Label>
+                <Form.Label htmlFor="basic-url"></Form.Label>
                 <InputGroup className="mb-3">
                   <Form.Control
                     id="basic-url"
                     aria-describedby="basic-addon3"
-                    placeholder="otp"
+                    placeholder="OTP"
                   />
                 </InputGroup>
                 <Button onClick={() => validateOtp()}>Login</Button>
@@ -580,13 +571,13 @@ const CreatePaymentSuccessModal = (props) => {
   };
   return (
     <>
-      <Button
+      {/* <Button
         variant="primary"
         className="bookbtn"
         onClick={() => setShow(true)}
       >
         Pay 250SAR
-      </Button>
+      </Button> */}
 
       <Modal
         show={props.handleOtpPaymentModals.payment_success}

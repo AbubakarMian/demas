@@ -1,15 +1,16 @@
 import React, { createContext, useState } from "react";
+import { Constant } from "../common/Constants";
 
 export const ContextApiContext = React.createContext()
 
-let guest_user = {
-    id: "0",
-    name: "Guest",
-    access_token: "Basic ZGVtYXMtYXBwLW1vYmlsZTtaR1Z0WVhNdFlYQndMVzF2WW1sc1pRPT0=",
-    role_id: 2,
-    rememberme:false,
-    is_loggedin:false,
-};
+// let guest_user = {
+//     id: "0",
+//     name: "Guest",
+//     access_token: "Basic ZGVtYXMtYXBwLW1vYmlsZTtaR1Z0WVhNdFlYQndMVzF2WW1sc1pRPT0=",
+//     role_id: 2,
+//     rememberme:false,
+//     is_loggedin:false,
+// };
 let initState = {
     "avalible_languages": [
         {
@@ -47,14 +48,8 @@ let initState = {
     //     "name":"Russian",
     //     "prefix":"_ru"
     // },
-                    
-    // "user":JSON.parse (localStorage.getItem('user', {
-    //     id: "0",
-    //     name: "Guest",
-    //     access_token: "Basic cmVlbHNwcm8tYXBwLW1vYmlsZTogY21WbGJITndjbTh0WVhCd0xXMXZZbWxzWlE9PQ==",
-    //     role_id: 2,
-    // })),
-    "user": localStorage.getItem('user')===null? guest_user:JSON.parse(localStorage.getItem('user')),
+   "show_login_modal":false,
+    "user": localStorage.getItem('user')===null? Constant.guest_user:JSON.parse(localStorage.getItem('user')),
     // "user": {
     //     id: "0",
     //     name: "Guest",
@@ -89,8 +84,8 @@ export const ContexApiProvider = (props) => {
                     setContextState({...contextState,objContextState})
                 break;
                 case 'logout_user':
-                    objContextState['user'] = guest_user;
-                    localStorage.setItem('user', JSON.stringify(guest_user));
+                    objContextState['user'] = Constant.guest_user;
+                    localStorage.setItem('user', JSON.stringify(Constant.guest_user));
                     setContextState({...contextState,objContextState})
                 break;
 

@@ -1,4 +1,5 @@
 // import {translate} from 'google-translate-api';
+import { Constant } from "./Constants";
 import Lang from "./Lang";
 
 
@@ -80,13 +81,22 @@ export function change_time_stamp(start_time) {
 
   // 
 
-  export async function SendRequest(contextState, request_type, url, formData) {
+  export async function SendRequest(contextState, request_type, url, formData,needAuthorization) {
+
+    if (typeof needAuthorization === 'undefined') {
+      needAuthorization = false; // Set a default value if it's not provided
+    }
+    // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
+    let user = localStorage.getItem('user')===null? Constant.guest_user:JSON.parse(localStorage.getItem('user'));
+    let acceess_token = needAuthorization ? user.access_token : Constant.basic_token;
+    // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
+
     let postData = {
       method: request_type,
       headers: {
         Accept: 'application/json',
-        Authorization: contextState.user.access_token,
-        'Authorization-secure': contextState.user.access_token,
+        Authorization: acceess_token,
+        'Authorization-secure': acceess_token,
         'client-id': 'demas-app-mobile',
       },
       
@@ -97,6 +107,10 @@ export function change_time_stamp(start_time) {
     }
   
     let response = await fetch(url, postData);
-    return response.json();
+    let json_response = response.json();
+    if(!json_response.status && json_response.error && json_response.error['custom_code'] == 403){
+      localStorage.setItem('user', JSON.stringify(Constant.guest_user));
+    }
+    return json_response;
   }
   

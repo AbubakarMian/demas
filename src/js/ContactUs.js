@@ -48,8 +48,6 @@ export default function Contact_Us() {
  
 
     try {
-      // let access_token = contextState.user.access_token;
-      // handleCloseUserSelectType(false);
       let access_token = Constant.basic_token;
       console.log("acces_token", access_token);
       const headers = {
