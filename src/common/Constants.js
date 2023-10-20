@@ -20,4 +20,5 @@ export const Constant = {
   validate_otp: `${base_url}/validate_otp`,
   get_cars: `${base_url}/cars/get_all`,
   contactus: `${base_url}/contactus`,
+  order_create: `${base_url}/order/create`,
 };

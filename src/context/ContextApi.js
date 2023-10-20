@@ -49,6 +49,8 @@ let initState = {
     //     "prefix":"_ru"
     // },
    "show_login_modal":false,
+   "show_error":false,
+   "error_msg":"",
     "user": localStorage.getItem('user')===null? Constant.guest_user:JSON.parse(localStorage.getItem('user')),
     // "user": {
     //     id: "0",

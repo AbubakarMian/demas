@@ -1,9 +1,7 @@
-
-import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Nav, Navbar, Container } from "react-bootstrap";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import ErrorAlert from "./js/Components/ErrorAlert";
 import Packages from "./js/Packages";
 import Login from "./js/Login_page";
 import Home from "./js/Home";
@@ -22,15 +20,14 @@ import Refund from "./js/Refund";
 import ContexApiProvider from "./context/ContextApi";
 import LoginModal from "./js/Components/LoginModal";
 
-
 function App() {
   return (
     <div className="App">
       {/* <Router basename='/demas/build'> */}
       <ContexApiProvider>
         <Router>
-        <LoginModal/>
-
+          <ErrorAlert/>
+          <LoginModal />
           {/* <Offcanvas_colapsable_nav /> */}
           <Routes>
             <Route Component={ProfileSale} path="/profilesale"></Route>
@@ -48,7 +45,10 @@ function App() {
               path="/bookinginfopackages"
             ></Route>
             <Route Component={ManageBookings} path="/managebookings"></Route>
-            <Route Component={TransportDetails} path="/transport_details"></Route>
+            <Route
+              Component={TransportDetails}
+              path="/transport_details"
+            ></Route>
             <Route Component={AvailableCars} path="/availablecars"></Route>
             <Route Component={Packages} path="/packages"></Route>
             <Route Component={Login} path="/login"></Route>
