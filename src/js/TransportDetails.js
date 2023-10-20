@@ -32,6 +32,8 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Nav_bar_area from "./NavBar";
 import { ContextApiContext } from "../context/ContextApi";
 import LoginModal from "./Components/LoginModal";
+import { Constant } from "../common/Constants";
+import { SendRequest } from "../common/Common";
 
 export default function TransportDetails(props) {
   const navigate = useNavigate();
@@ -64,42 +66,45 @@ export default function TransportDetails(props) {
   };
   const [car_feature, setcar_featureOpen] = useState(false);
   const [book, setbookOpen] = useState(false);
+
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [open, setOpen] = useState(false);
+  const [showPaymentOptionsModal, setShowPaymentOptionsModal] = useState(false);
 
   const [handleOtpPaymentModals, setHandleOtpPaymentModalsShow] = useState({
     otp_step: false,
     payment_step: false,
-    payment_success:false
+    payment_success: false,
   });
 
-  const [showOtp, setShowotp] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showOTPPaymentOptions, setShowOTPPaymentOptions] = useState(false);
+  // const [showOtp, setShowotp] = useState(false);
+  // const [showLoginModal, setShowLoginModal] = useState(false);
+  // const [showOTPPaymentOptions, setShowOTPPaymentOptions] = useState(false);
   const handleBookCar = () => {
     const user = contextState.user;
     if (user.is_loggedin) {
       // setShowLoginModal(true)
-    }
-    else{
-      updateContextState(true,'show_login_modal');
+      setShowPaymentOptionsModal(true);
+    } else {
+      updateContextState(true, "show_login_modal");
       // setShowLoginModal(true)
     }
     // setShowOTPPaymentOptions(true);
     console.log("logged in user data", contextState);
     // if (!user.is_loggedin) {
-    // let otpPayment = handleOtpPaymentModals;
-    // otpPayment.otp_step = true;
-    // let otp = { otp_step: true };
-    // setHandleOtpPaymentModalsShow({ ...handleOtpPaymentModals, otpPayment });
+    let otpPayment = handleOtpPaymentModals;
+    otpPayment.otp_step = true;
+    let otp = { otp_step: true };
+    setHandleOtpPaymentModalsShow({ ...handleOtpPaymentModals, otpPayment });
     // }
   };
 
-  const HandleShowOTPPaymentOptions = () => {
-    setShowOTPPaymentOptions(true);
-  };
-  const HandleHideOTPPaymentOptions = () => {
-    setShowOTPPaymentOptions(false);
-  };
+  // const HandleShowOTPPaymentOptions = () => {
+  //   setShowOTPPaymentOptions(true);
+  // };
+  // const HandleHideOTPPaymentOptions = () => {
+  //   setShowOTPPaymentOptions(false);
+  // };
   // const handleShow = () => setShow(true);
   if (!transportDetail) {
     return null;
@@ -309,23 +314,24 @@ export default function TransportDetails(props) {
 
             <div className="modal_plac">
               <div className="mdl_btn">
+                <PaymentOptions
+                  showPaymentOptionsModal={showPaymentOptionsModal}
+                  setShowPaymentOptionsModal={setShowPaymentOptionsModal}
+                />
                 <CreatePaymentModal
                   setHandleOtpPaymentModalsShow={setHandleOtpPaymentModalsShow}
                   handleOtpPaymentModals={handleOtpPaymentModals}
                 />
-                <CreateOTPModal
+                <CreatePaymentSuccessModal
                   setHandleOtpPaymentModalsShow={setHandleOtpPaymentModalsShow}
                   handleOtpPaymentModals={handleOtpPaymentModals}
                 />
-                <CreatePaymentSuccessModal setHandleOtpPaymentModalsShow={setHandleOtpPaymentModalsShow}
-                  handleOtpPaymentModals={handleOtpPaymentModals}
-                  />
               </div>
 
               <Modal
                 show={false}
                 // show={showOTPPaymentOptions}
-                onHide={HandleHideOTPPaymentOptions}
+                // onHide={HandleHideOTPPaymentOptions}
                 {...props}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
@@ -345,7 +351,6 @@ export default function TransportDetails(props) {
   );
 }
 
-
 const CreateOTPModal = (props) => {
   const [showValidateOtp, setshowValidateOtp] = useState(false);
   const navigate = useNavigate();
@@ -358,12 +363,12 @@ const CreateOTPModal = (props) => {
     setshowValidateOtp(true);
   };
   const validateOtp = () => {
-    let otp = { otp_step: false, payment_step: true ,payment_success:false};
+    let otp = { otp_step: false, payment_step: true, payment_success: false };
     props.setHandleOtpPaymentModalsShow(otp);
   };
 
   const handleCloseOtp = () => {
-    let otp = { otp_step: false, payment_step: false ,payment_success:false};
+    let otp = { otp_step: false, payment_step: false, payment_success: false };
     props.setHandleOtpPaymentModalsShow(otp);
     console.log("handle close otpfalse ", props.handleOtpPaymentModals);
   };
@@ -426,12 +431,12 @@ const CreatePaymentModal = (props) => {
   const navigate = useNavigate();
 
   const handleClosePayment = () => {
-    let otp = { otp_step: false, payment_step: false ,payment_success:false};
+    let otp = { otp_step: false, payment_step: false, payment_success: false };
     props.setHandleOtpPaymentModalsShow(otp);
     console.log("handle close otpfalse ", props.handleOtpPaymentModals);
   };
   const handlePayment = () => {
-    let otp = { otp_step: false, payment_step: false ,payment_success:true};
+    let otp = { otp_step: false, payment_step: false, payment_success: true };
     props.setHandleOtpPaymentModalsShow(otp);
     console.log("handle close otpfalse ", props.handleOtpPaymentModals);
   };
@@ -497,9 +502,7 @@ const CreatePaymentModal = (props) => {
             </Row>
             <Row>
               {/* <CreatePaymentSuccessModal /> */}
-              <Button 
-                onClick={handlePayment}
-              >Pay</Button>
+              <Button onClick={handlePayment}>Pay</Button>
             </Row>
           </Container>
         </Modal.Body>
@@ -508,7 +511,7 @@ const CreatePaymentModal = (props) => {
   );
 };
 
-const CreateSuccessModal = () => {
+const PayLater = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
@@ -557,6 +560,87 @@ const CreateSuccessModal = () => {
   );
 };
 
+const PaymentOptions = (props) => {
+  const navigate = useNavigate();
+  const { contextState, updateContextState } = useContext(ContextApiContext);
+  const location = useLocation();
+
+  const navigateToPath = (path) => {
+    navigate(path);
+  };
+
+  const CreateOrderPayLater = async () => {
+    
+    let formData = new FormData();
+    console.log('bookin',location.state.booking_obj);
+    formData.append("booking_details", location.state.booking_obj);
+    const res = await SendRequest(
+      contextState,
+      "post",
+      Constant.order_create,
+      formData,
+      true
+    );
+
+    if (res.status) {
+      // updateContextState(res.response, "update_user");
+      // updateContextState(false, "show_login_modal");
+    } else {
+      // if (res.error && res.error.message) {
+      //   setError(res.error.message[0]);
+      // } else {
+      //   setError("Somthing went wrong contact admin.");
+      // }
+    }
+  };
+  return (
+    <>
+      <Modal
+        show={props.showPaymentOptionsModal}
+        onHide={() => props.setShowPaymentOptionsModal(false)}
+        dialogClassName="modal-90w"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header>
+          <Modal.Title id="example-custom-modal-styling-title">
+            Payment Options
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Container>
+            <div className="cent">
+              <Row>
+                <Col>
+                  <Button
+                    className="pay_btn"
+                    onClick={() => CreateOrderPayLater()}
+                  >
+                    Pay Later
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    className="pay_btn"
+                    onClick={() => {
+                      updateContextState(
+                        "Online payment currently unavalible",
+                        "error_msg"
+                      );
+                    }}
+                  >
+                    Pay Now
+                  </Button>
+                </Col>
+              </Row>
+            </div>
+          </Container>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+};
+
 const CreatePaymentSuccessModal = (props) => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
@@ -565,7 +649,7 @@ const CreatePaymentSuccessModal = (props) => {
     navigate(path);
   };
   const handleClosePaymentSuccess = () => {
-    let otp = { otp_step: false, payment_step: false ,payment_success:false};
+    let otp = { otp_step: false, payment_step: false, payment_success: false };
     props.setHandleOtpPaymentModalsShow(otp);
     console.log("handle close otpfalse ", props.handleOtpPaymentModals);
   };

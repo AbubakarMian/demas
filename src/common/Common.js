@@ -110,6 +110,7 @@ export function change_time_stamp(start_time) {
     let json_response = response.json();
     if(!json_response.status && json_response.error && json_response.error['custom_code'] == 403){
       localStorage.setItem('user', JSON.stringify(Constant.guest_user));
+      localStorage.setItem('show_login_modal', true);
     }
     return json_response;
   }
