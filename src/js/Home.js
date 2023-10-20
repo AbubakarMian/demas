@@ -60,12 +60,14 @@ export default function Package_style() {
       type: "single",
       details: [
         {
-          pickup: selectPickup.id,
+          pickup_id: selectPickup.id,
           pick_extrainfo: "ticket_number",
-          dropoff: selectDropoff.id,
+          dropoff_id: selectDropoff.id,
           dropoff_extrainfo: "ticket_number",
           pickupdate_time: pickupTime,
           comment: comments,
+          transport_id: 0,
+          transport_type_id: 0,
         },
       ],
     };

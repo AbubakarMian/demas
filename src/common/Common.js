@@ -94,8 +94,9 @@ export function change_time_stamp(start_time) {
     let postData = {
       method: request_type,
       headers: {
-        Accept: 'application/json',
-        Authorization: acceess_token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': acceess_token,
         'Authorization-secure': acceess_token,
         'client-id': 'demas-app-mobile',
       },

@@ -84,6 +84,7 @@ export default function TransportDetails(props) {
     const user = contextState.user;
     if (user.is_loggedin) {
       // setShowLoginModal(true)
+      createOrderPayLater();
       setShowPaymentOptionsModal(true);
     } else {
       updateContextState(true, "show_login_modal");
@@ -97,6 +98,35 @@ export default function TransportDetails(props) {
     let otp = { otp_step: true };
     setHandleOtpPaymentModalsShow({ ...handleOtpPaymentModals, otpPayment });
     // }
+  };
+
+  
+  const createOrderPayLater = async () => {
+    
+    let formData = new FormData();
+    console.log('bookin',location.state.booking_obj);
+    let obj = {
+      booking_details:location.state.booking_obj
+    };
+    formData.append("booking_details", JSON.stringify(location.state.booking_obj));
+    const res = await SendRequest(
+      contextState,
+      "post",
+      Constant.order_create,
+      JSON.stringify(obj),
+      true
+    );
+
+    if (res.status) {
+      // updateContextState(res.response, "update_user");
+      // updateContextState(false, "show_login_modal");
+    } else {
+      // if (res.error && res.error.message) {
+      //   setError(res.error.message[0]);
+      // } else {
+      //   setError("Somthing went wrong contact admin.");
+      // }
+    }
   };
 
   // const HandleShowOTPPaymentOptions = () => {
@@ -568,31 +598,10 @@ const PaymentOptions = (props) => {
   const navigateToPath = (path) => {
     navigate(path);
   };
+  const payLater = () => {
+    props.setShowPaymentOptionsModal(false)
+  }
 
-  const CreateOrderPayLater = async () => {
-    
-    let formData = new FormData();
-    console.log('bookin',location.state.booking_obj);
-    formData.append("booking_details", location.state.booking_obj);
-    const res = await SendRequest(
-      contextState,
-      "post",
-      Constant.order_create,
-      formData,
-      true
-    );
-
-    if (res.status) {
-      // updateContextState(res.response, "update_user");
-      // updateContextState(false, "show_login_modal");
-    } else {
-      // if (res.error && res.error.message) {
-      //   setError(res.error.message[0]);
-      // } else {
-      //   setError("Somthing went wrong contact admin.");
-      // }
-    }
-  };
   return (
     <>
       <Modal
@@ -614,7 +623,7 @@ const PaymentOptions = (props) => {
                 <Col>
                   <Button
                     className="pay_btn"
-                    onClick={() => CreateOrderPayLater()}
+                    onClick={() => payLater()}
                   >
                     Pay Later
                   </Button>

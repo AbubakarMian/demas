@@ -54,7 +54,7 @@ export default function AvailableCars() {
       let booking_obj = location.state.booking_obj;
       let current_booking = booking_obj.details[booking_obj.details.length - 1];
       console.log('res',current_booking);
-      let get_car_url = `${Constant.get_cars}?pickup=${current_booking.pickup}&dropoff=${current_booking.dropoff}
+      let get_car_url = `${Constant.get_cars}?pickup=${current_booking.pickup_id}&dropoff=${current_booking.dropoff_id}
       &pickupdate_time=${current_booking.pickupdate_time}`;
       const res = await SendRequest(cs, "GET", get_car_url);
 
@@ -73,10 +73,13 @@ export default function AvailableCars() {
 
   const selectTransport = (transport) => {
     let transport_id = transport.id;
+    console.log('my transport',transport);
     if (location.state) {
       let booking_obj = location.state.booking_obj;
       booking_obj.details[booking_obj.details.length - 1].transport_id =
         transport_id;
+      booking_obj.details[booking_obj.details.length - 1].transport_type_id =
+      transport.transport_type_id;
       setBookingDetails({ ...location.state.booking_obj, booking_obj });
       navigateToPath("/transport_details", { transport, booking_obj });
     }
