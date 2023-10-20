@@ -33,13 +33,14 @@ let initState = {
         "type":"single",
         "details":[
             {
-                "pickup":0,
+                "pickup_id":0,
                 "pick_extrainfo":"ticket_number",
-                "dropoff":0,
+                "dropoff_id":0,
                 "dropoff_extrainfo":"ticket_number",
                 "pickupdate_time":0,
                 "comment":0,
                 "transport_id":0,
+                "transport_type_id":0,
             }
         ]
     },

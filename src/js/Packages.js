@@ -87,13 +87,14 @@ export default function Packages(props) {
   const handleProceedToNext = () =>{
     let package_details_arr = package_details;
     package_details_arr.push({
-        "pickup":selectPickup.id,
+        "pickup_id":selectPickup.id,
         "pick_extrainfo":"ticket_number",
-        "dropoff":selectDropoff.id,
+        "dropoff_id":selectDropoff.id,
         "dropoff_extrainfo":"ticket_number",
         "pickupdate_time":pickupTime,
         "comment":comments,
         "transport_id":0,
+        "transport_type_id":0,
     });
     let booking_obj = {
       type:"package",
