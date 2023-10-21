@@ -51,11 +51,17 @@ export default function AvailableCars() {
     try {
       let cs = contextState;
       cs.user.access_token = Constant.basic_token;
-      let booking_obj = location.state.booking_obj;
-      let current_booking = booking_obj.details[booking_obj.details.length - 1];
-      console.log('res',current_booking);
-      let get_car_url = `${Constant.get_cars}?pickup=${current_booking.pickup_id}&dropoff=${current_booking.dropoff_id}
-      &pickupdate_time=${current_booking.pickupdate_time}`;
+      let booking_obj = location.state?.booking_obj;
+      console.log("booking_obj", booking_obj);
+      let current_booking = {};
+      let booking_filters = "";
+      if (typeof booking_obj !== "undefined" && booking_obj !== null) {
+        current_booking = booking_obj.details[booking_obj.details.length - 1];
+        booking_filters = `?pickup_id=${current_booking.pickup_id}&dropoff_id=${current_booking.dropoff_id}&pickupdate_time=${current_booking.pickupdate_time}`;
+        console.log("res", current_booking);
+      }
+
+      let get_car_url = `${Constant.get_cars}` + booking_filters;
       const res = await SendRequest(cs, "GET", get_car_url);
 
       if (res.status) {
@@ -63,27 +69,28 @@ export default function AvailableCars() {
         setTransportList(cars_list);
         console.log("get cars list ", cars_list);
       } else {
-        setError("Login failed. Please check your credentials.");
+        setError("Transport List unavalible contact admin");
       }
     } catch (error) {
       console.error("Error during login:", error);
-      setError("An error occurred while logging in. Please try again.");
+      setError("Transport List unavalible contact admin.");
     }
   };
 
   const selectTransport = (transport) => {
     let transport_id = transport.id;
-    console.log('my transport',transport);
+    console.log("my transport", transport);
     if (location.state) {
       let booking_obj = location.state.booking_obj;
       booking_obj.details[booking_obj.details.length - 1].transport_id =
         transport_id;
       booking_obj.details[booking_obj.details.length - 1].transport_type_id =
-      transport.transport_type_id;
+        transport.transport_type_id;
+      booking_obj.details[booking_obj.details.length - 1].transport_type_name =
+      transport.transport_type.name;
       setBookingDetails({ ...location.state.booking_obj, booking_obj });
       navigateToPath("/transport_details", { transport, booking_obj });
-    }
-    else{
+    } else {
       navigateToPath("/home");
     }
   };
@@ -92,10 +99,17 @@ export default function AvailableCars() {
 
   return (
     <div>
-    <div className="alert-fixed">
-      <Alert className="" show={error} dismissible={true} onClose={()=>setError('')} 
-      variant="danger">{error}</Alert>
-    </div>
+      <div className="alert-fixed">
+        <Alert
+          className=""
+          show={error}
+          dismissible={true}
+          onClose={() => setError("")}
+          variant="danger"
+        >
+          {error}
+        </Alert>
+      </div>
       <Container fluid>
         <Row>
           <div className="login_head">

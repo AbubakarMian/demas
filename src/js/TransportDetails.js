@@ -32,6 +32,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Nav_bar_area from "./NavBar";
 import { ContextApiContext } from "../context/ContextApi";
 import LoginModal from "./Components/LoginModal";
+import TripCreatedSuccessModal from "./Components/TripCreatedSuccessModal";
 import { Constant } from "../common/Constants";
 import { SendRequest } from "../common/Common";
 
@@ -48,8 +49,8 @@ export default function TransportDetails(props) {
   //   dontforget:[],
   // });
 
-  const navigateToPath = (path) => {
-    navigate(path);
+  const navigateToPath = (path, props) => {
+    navigate(path, { state: props });
   };
 
   useEffect(() => {
@@ -70,45 +71,39 @@ export default function TransportDetails(props) {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [open, setOpen] = useState(false);
   const [showPaymentOptionsModal, setShowPaymentOptionsModal] = useState(false);
+  const [paymentSuccessModalsShow, setPaymentSuccessModalsShow] =
+    useState(false);
 
   const [handleOtpPaymentModals, setHandleOtpPaymentModalsShow] = useState({
     otp_step: false,
     payment_step: false,
     payment_success: false,
   });
-
-  // const [showOtp, setShowotp] = useState(false);
-  // const [showLoginModal, setShowLoginModal] = useState(false);
-  // const [showOTPPaymentOptions, setShowOTPPaymentOptions] = useState(false);
   const handleBookCar = () => {
     const user = contextState.user;
     if (user.is_loggedin) {
-      // setShowLoginModal(true)
-      createOrderPayLater();
-      setShowPaymentOptionsModal(true);
+      let booking_obj = location.state.booking_obj;
+      console.log("bookin handle", booking_obj);
+      if (booking_obj.type == "package") {
+        navigateToPath("/packages", { booking_obj });
+      } else {
+        createOrder();
+      }
     } else {
       updateContextState(true, "show_login_modal");
-      // setShowLoginModal(true)
     }
-    // setShowOTPPaymentOptions(true);
-    console.log("logged in user data", contextState);
-    // if (!user.is_loggedin) {
-    let otpPayment = handleOtpPaymentModals;
-    otpPayment.otp_step = true;
-    let otp = { otp_step: true };
-    setHandleOtpPaymentModalsShow({ ...handleOtpPaymentModals, otpPayment });
-    // }
   };
 
-  
-  const createOrderPayLater = async () => {
-    
+  const createOrder = async () => {
     let formData = new FormData();
-    console.log('bookin',location.state.booking_obj);
+    console.log("bookin", location.state.booking_obj);
     let obj = {
-      booking_details:location.state.booking_obj
+      booking_details: location.state.booking_obj,
     };
-    formData.append("booking_details", JSON.stringify(location.state.booking_obj));
+    formData.append(
+      "booking_details",
+      JSON.stringify(location.state.booking_obj)
+    );
     const res = await SendRequest(
       contextState,
       "post",
@@ -118,24 +113,11 @@ export default function TransportDetails(props) {
     );
 
     if (res.status) {
-      // updateContextState(res.response, "update_user");
-      // updateContextState(false, "show_login_modal");
+      setPaymentSuccessModalsShow(true);
     } else {
-      // if (res.error && res.error.message) {
-      //   setError(res.error.message[0]);
-      // } else {
-      //   setError("Somthing went wrong contact admin.");
-      // }
     }
   };
 
-  // const HandleShowOTPPaymentOptions = () => {
-  //   setShowOTPPaymentOptions(true);
-  // };
-  // const HandleHideOTPPaymentOptions = () => {
-  //   setShowOTPPaymentOptions(false);
-  // };
-  // const handleShow = () => setShow(true);
   if (!transportDetail) {
     return null;
   }
@@ -352,9 +334,9 @@ export default function TransportDetails(props) {
                   setHandleOtpPaymentModalsShow={setHandleOtpPaymentModalsShow}
                   handleOtpPaymentModals={handleOtpPaymentModals}
                 />
-                <CreatePaymentSuccessModal
-                  setHandleOtpPaymentModalsShow={setHandleOtpPaymentModalsShow}
-                  handleOtpPaymentModals={handleOtpPaymentModals}
+                <TripCreatedSuccessModal
+                  setPaymentSuccessModalsShow={setPaymentSuccessModalsShow}
+                  paymentSuccessModalsShow={paymentSuccessModalsShow}
                 />
               </div>
 
@@ -380,81 +362,6 @@ export default function TransportDetails(props) {
     </div>
   );
 }
-
-const CreateOTPModal = (props) => {
-  const [showValidateOtp, setshowValidateOtp] = useState(false);
-  const navigate = useNavigate();
-  console.log("props create otp", props);
-  const navigateToPath = (path, props) => {
-    navigate(path, { state: { props } });
-  };
-
-  const getOtp = () => {
-    setshowValidateOtp(true);
-  };
-  const validateOtp = () => {
-    let otp = { otp_step: false, payment_step: true, payment_success: false };
-    props.setHandleOtpPaymentModalsShow(otp);
-  };
-
-  const handleCloseOtp = () => {
-    let otp = { otp_step: false, payment_step: false, payment_success: false };
-    props.setHandleOtpPaymentModalsShow(otp);
-    console.log("handle close otpfalse ", props.handleOtpPaymentModals);
-  };
-
-  return (
-    <>
-      <div className="modal_plac">
-        <Modal
-          show={props.handleOtpPaymentModals.otp_step}
-          // show={props.handleOtpPaymentModals.otp_step}
-          // show={showOtp}
-          onHide={handleCloseOtp}
-          // {...props}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Enter Otp to Login</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form.Label htmlFor="basic-url">Mobile Number</Form.Label>
-            <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon3">
-                <div className="img_flag">
-                  <img src="./images/saudi-arabia.png" />
-                </div>
-              </InputGroup.Text>
-              <Form.Control
-                id="basic-url"
-                aria-describedby="basic-addon3"
-                placeholder="01234567"
-              />
-            </InputGroup>
-
-            <Button onClick={() => getOtp()}>Send OTP</Button>
-            {!showValidateOtp ? null : (
-              <>
-                <Form.Label htmlFor="basic-url"></Form.Label>
-                <InputGroup className="mb-3">
-                  <Form.Control
-                    id="basic-url"
-                    aria-describedby="basic-addon3"
-                    placeholder="OTP"
-                  />
-                </InputGroup>
-                <Button onClick={() => validateOtp()}>Login</Button>
-              </>
-            )}
-          </Modal.Body>
-          <Modal.Footer></Modal.Footer>
-        </Modal>
-      </div>
-    </>
-  );
-};
 
 const CreatePaymentModal = (props) => {
   const [show, setShow] = useState(false);
@@ -599,8 +506,8 @@ const PaymentOptions = (props) => {
     navigate(path);
   };
   const payLater = () => {
-    props.setShowPaymentOptionsModal(false)
-  }
+    props.setShowPaymentOptionsModal(false);
+  };
 
   return (
     <>
@@ -621,10 +528,7 @@ const PaymentOptions = (props) => {
             <div className="cent">
               <Row>
                 <Col>
-                  <Button
-                    className="pay_btn"
-                    onClick={() => payLater()}
-                  >
+                  <Button className="pay_btn" onClick={() => payLater()}>
                     Pay Later
                   </Button>
                 </Col>
@@ -650,61 +554,3 @@ const PaymentOptions = (props) => {
   );
 };
 
-const CreatePaymentSuccessModal = (props) => {
-  const [show, setShow] = useState(false);
-  const navigate = useNavigate();
-
-  const navigateToPath = (path) => {
-    navigate(path);
-  };
-  const handleClosePaymentSuccess = () => {
-    let otp = { otp_step: false, payment_step: false, payment_success: false };
-    props.setHandleOtpPaymentModalsShow(otp);
-    console.log("handle close otpfalse ", props.handleOtpPaymentModals);
-  };
-  return (
-    <>
-      {/* <Button
-        variant="primary"
-        className="bookbtn"
-        onClick={() => setShow(true)}
-      >
-        Pay 250SAR
-      </Button> */}
-
-      <Modal
-        show={props.handleOtpPaymentModals.payment_success}
-        // show={show}
-        onHide={handleClosePaymentSuccess}
-        dialogClassName="modal-90w"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          {/* <Modal.Title id="example-custom-modal-styling-title">
-            Payment
-          </Modal.Title> */}
-        </Modal.Header>
-        <Modal.Body>
-          <Container>
-            <div className="cent">
-              <Row>
-                <Col>
-                  <FontAwesomeIcon icon={faCheck} className="succ_icon" />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <p className="succ">Trip has been added</p>
-                  <p className="succ">successfully</p>
-                  <p className="succ">You will be notified with</p>
-                  <p className="succ">confimation shortly.</p>
-                </Col>
-              </Row>
-            </div>
-          </Container>
-        </Modal.Body>
-      </Modal>
-    </>
-  );
-};

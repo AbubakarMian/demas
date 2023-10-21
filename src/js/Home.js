@@ -28,6 +28,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ContextApiContext } from "../context/ContextApi";
 import { Alert } from "react-bootstrap";
+import { Constant } from "../common/Constants";
+import { SendRequest } from "../common/Common";
 
 
 export default function Package_style() {
@@ -51,29 +53,51 @@ export default function Package_style() {
   const [error, setError] = useState(null);
   const [transportTypeList, setTransportTypeList] = useState([]);
 
-  const handleProceedToNext = () => {
+  const handleProceedToNext = async () => {
     if(!selectPickup.id || !selectDropoff.id || !pickupTime){
       setError("All fields required");
       return;
     }
-    let booking_obj = {
-      type: "single",
-      details: [
-        {
-          pickup_id: selectPickup.id,
-          pick_extrainfo: "ticket_number",
-          dropoff_id: selectDropoff.id,
-          dropoff_extrainfo: "ticket_number",
-          pickupdate_time: pickupTime,
-          comment: comments,
-          transport_id: 0,
-          transport_type_id: 0,
-        },
-      ],
-    };
-    // updateContextState(booking_obj, "booking");
-    console.log('booking',booking_obj);
-    navigateToPath("/availablecars", { booking_obj });
+
+    try {
+      let cs = contextState;
+      let verify_journey_url = `${Constant.journey_verify}?pickup_id=${selectPickup.id}&dropoff_id=${selectDropoff.id}`;
+      const res = await SendRequest(cs, "GET", verify_journey_url);
+      if(res.status){
+
+        let booking_obj = {
+          type: "single",
+          details: [
+            {
+              pickup_id: selectPickup.id,
+              pick_extrainfo: "ticket_number",
+              dropoff_id: selectDropoff.id,
+              dropoff_extrainfo: "ticket_number",
+              pickupdate_time: pickupTime,
+              comment: comments,
+              transport_id: 0,
+              transport_type_id: 0,
+            },
+          ],
+        };
+        console.log('booking',booking_obj);
+        navigateToPath("/availablecars", { booking_obj });
+      }
+      else{
+        updateContextState(
+          res.error?.message[0],
+          "error_msg"
+        );
+      }
+
+    }catch (error) {
+      console.error("Error during login:", error);
+      
+      updateContextState(
+        "Transport List unavalible contact admin.",
+        "error_msg"
+      );
+    }
   };
   const settings = {
     dots: true, // Show navigation dots
@@ -179,33 +203,31 @@ export default function Package_style() {
     setTransportTypeList(transportType);
   };
 
-  const getLocations = () => {
-    // fetchapi
-    console.log("get locations");
-    const responseLocation = [
-      {
-        id: 1,
-        name: "Madina Hotel",
-        type: "hotel",
-      },
-      {
-        id: 2,
-        name: "Madina Airport",
-        type: "airport",
-      },
-      {
-        id: 3,
-        name: "Macca Hotel",
-        type: "hotel",
-      },
-      {
-        id: 4,
-        name: "Macca Airport",
-        type: "airport",
-      },
-    ];
-    console.log("my locations ", responseLocation);
-    setLocations(responseLocation);
+  const getLocations = async() => {
+    try {
+      let cs = contextState;
+      cs.user.access_token = Constant.basic_token;
+      const res = await SendRequest(cs, "GET", Constant.get_locations);
+      console.log("get locations_list list 1 ", res);
+
+      if (res.status) {
+        let locations_list = res.response;
+        setLocations(locations_list);
+        console.log("get locations_list list ", locations_list);
+      } else {
+        updateContextState(
+          "Unable to get avalible pickup and dropodd points",
+          "error_msg"
+        );
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      
+      updateContextState(
+        "Unable to get avalible pickup and dropodd points",
+        "error_msg"
+      );
+    }
   };
 
   const changeLocationPoints = (e, point, location) => {
