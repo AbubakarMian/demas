@@ -197,7 +197,7 @@ export default function AvailableCars() {
             </Collapse>
           </Row>
 
-          <Row className="const_padding">
+          {/* <Row className="const_padding">
             <Col>
               <div className="car_typ">Type - Sedan</div>
             </Col>
@@ -212,7 +212,7 @@ export default function AvailableCars() {
             <Col>
               <div className="similr">(or Similar)</div>
             </Col>
-          </Row>
+          </Row> */}
         </Container>
         <div
           className="asdas const_paddingaa"
@@ -220,11 +220,11 @@ export default function AvailableCars() {
             // navigate("/transport_details");
           }}
         >
-          <Sedan_crousel />
+          {/* <Sedan_crousel /> */}
         </div>
         {/* <Container fluid> */}
 
-        <Row className="icn_ara ">
+        {/* <Row className="icn_ara ">
           <Col className="sss">
             <FontAwesomeIcon className="detail_icn align" icon={faUser} />
             <span>3</span>
@@ -240,7 +240,7 @@ export default function AvailableCars() {
             <FontAwesomeIcon className="detail_icn align" icon={faDoorOpen} />
             <span>4</span>
           </Col>
-        </Row>
+        </Row> */}
 
         <div>
           {/* start map*/}
