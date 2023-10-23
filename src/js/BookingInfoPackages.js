@@ -52,7 +52,7 @@ export default function Booking_info_pack() {
   console.log("booking.order_details", booking);
 
   const showPaymentModal = () => {
-    if (contextState.user.role_id == 2 && !booking.is_paid) {
+    if (contextState.user.role_id == 5 && !booking.is_paid) {
       //its driver
       setShowPaymentConfirmation(true);
     }
