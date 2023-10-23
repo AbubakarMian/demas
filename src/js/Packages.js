@@ -106,7 +106,7 @@ export default function Packages(props) {
           dropoff: selectDropoff,
           dropoff_extrainfo: "ticket_number",
           pickupdate_time: pickupTime,
-          formatted_pickupdate_time: get_formated_dateime(pickupTime),
+          formatted_pickupdate_time: get_formated_dateime(pickupTime).date_time,
           comment: comments,
           transport_id: 0,
           transport_type_id: 0,

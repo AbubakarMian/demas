@@ -17,11 +17,22 @@ button.bill_btn.btn.btn-primary {
     height: 40px;
     border: solid 1px #996418;
 }
+
+button.paid.btn.btn-primary {
+    width: 40%;
+    background-color: #149908;
+    margin: 20px 0px;
+    height: 40px;
+    border: solid 1px #149908;
+}
 .whole_bx {
     padding: 0px 20%;
 }
 @media only screen and (max-width : 480px) {
     button.bill_btn.btn.btn-primary {
+        width: 100%;
+    }
+    button.paid.btn.btn-primary {
         width: 100%;
     }
     .whole_bx {
