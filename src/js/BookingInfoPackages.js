@@ -46,6 +46,9 @@ export default function Booking_info_pack() {
   };
 
   useEffect(() => {
+    if(location.state == null){
+      return navigateToPath('/home');
+    }
     const booking_obj = location.state.booking_details;
     setBooking(booking_obj);
   }, [location.state]);

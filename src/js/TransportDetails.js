@@ -34,7 +34,7 @@ import { ContextApiContext } from "../context/ContextApi";
 import LoginModal from "./Components/LoginModal";
 import TripCreatedSuccessModal from "./Components/TripCreatedSuccessModal";
 import { Constant } from "../common/Constants";
-import { SendRequest } from "../common/Common";
+import { SendRequest, SendRequestContetType } from "../common/Common";
 
 export default function TransportDetails(props) {
   const navigate = useNavigate();
@@ -104,7 +104,7 @@ export default function TransportDetails(props) {
       "booking_details",
       JSON.stringify(location.state.booking_obj)
     );
-    const res = await SendRequest(
+    const res = await SendRequestContetType(
       contextState,
       "post",
       Constant.order_create,

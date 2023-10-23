@@ -51,6 +51,7 @@ export default function LoginModal(props) {
   const [showSendOtp, setShowSendOtp] = useState(true);
   const [showValidateOtp, setshowValidateOtp] = useState(false);
   const [phone_no, setPhoneNumber] = useState("");
+  const [whatsapp_no, setWhatsapp] = useState("");
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(null);
@@ -69,6 +70,7 @@ export default function LoginModal(props) {
       let formData = new FormData();
       formData.append("phone_no", phone_no);
       formData.append("email", email);
+      formData.append("whatsapp_no", whatsapp_no);
       const res = await SendRequest(
         contextState,
         "post",
@@ -77,7 +79,10 @@ export default function LoginModal(props) {
       );
 
       if (res.status) {
-        setUser(res.response);
+        let user = res.response;
+        user.is_loggedin = true;
+        setUser(user);
+        // updateContextState(user,'update_user');
         // updateContextState(res.response,'update_user');
       } else {
         setError("Login failed. Please check your credentials.");
@@ -165,7 +170,21 @@ export default function LoginModal(props) {
                     onChange={(e) => setPhoneNumber(e.target.value)}
                   />
                 </InputGroup>
-                <Form.Label htmlFor="basic-url">Mobile Number</Form.Label>
+                <Form.Label htmlFor="basic-url">Whatsapp Number</Form.Label>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text id="basic-addon3">
+                    <div className="img_flag">
+                      <img src="./images/saudi-arabia.png" />
+                    </div>
+                  </InputGroup.Text>
+                  <Form.Control
+                    id="basic-url"
+                    aria-describedby="basic-addon3"
+                    placeholder="01234567"
+                    onChange={(e) => setWhatsapp(e.target.value)}
+                  />
+                </InputGroup>
+                <Form.Label htmlFor="basic-url">Email</Form.Label>
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon3">
                     <div className="img_flag">

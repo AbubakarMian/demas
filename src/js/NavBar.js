@@ -25,6 +25,17 @@ import { faUsers } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Nav_bar_area() {
+  
+  const user = localStorage.getItem("user");
+  console.log("users", user);
+  let user_loggedin = false;
+  if (user == null) {
+    console.log("users is  null", user);
+    user_loggedin = false;
+  } else {
+    user_loggedin = user.is_loggedin;
+  }
+
     return (
     <>
       {/* {[false, 'sm', 'lg', 'lg', 'xl', 'xxl'].map((expand) => ( */}
@@ -61,7 +72,7 @@ export default function Nav_bar_area() {
                 <div className='nav_bottom'><Nav.Link href="privacy"><FontAwesomeIcon icon={faShieldHalved} className='nav_ico_sp'  /> Privacy</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="faq"><FontAwesomeIcon icon={faFileCircleQuestion} className='nav_ico_sp'  /> FAQ's</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="refund"><FontAwesomeIcon icon={faCommentsDollar} className='nav_ico_sp'  /> Refund</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="login"><FontAwesomeIcon icon={faRightToBracket} className='nav_ico_sp'  /> Login</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="login"><FontAwesomeIcon icon={faRightToBracket} className='nav_ico_sp'  />{user_loggedin?'Logout':'Login'}</Nav.Link></div>
           
                 {/* <NavDropdown
                   title="Dropdown"
