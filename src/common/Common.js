@@ -19,19 +19,23 @@ export function change_time_stamp(start_time) {
   };
 }
 
+export function capitalizeFirstLetter(str) {
+  if(!str){
+    return "";
+  }
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
 export function get_formated_dateime(timestamp) {
-  // Replace this with your Unix timestamp
-  timestamp = timestamp*1000; // Example timestamp
-
-  // Create a Date object from the Unix timestamp
+  timestamp = timestamp*1000;
   const date = new Date(timestamp);
-
-  console.log(date); // Outputs the date and time
-
-  // You can format the date as a string if needed
-  const formattedDate = date.toLocaleString(); // Using the browser's locale
-  console.log(formattedDate); // Outputs a formatted date and time string
-  return formattedDate;
+  const formattedDate = date.toLocaleString(); 
+  console.log(formattedDate); 
+  const formattedDate_arr = formattedDate.split(" ");
+  return {
+    date:formattedDate_arr[0],
+    time:[1],
+    date_time:formattedDate
+  };
 }
 
 export async function googleTranslate(text, lang, that) {

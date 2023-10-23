@@ -24,4 +24,5 @@ export const Constant = {
   journey_verify: `${base_url}/journey/verify`,
   order_create: `${base_url}/order/create`,
   orders: `${base_url}/order`,
+  order_pay: `${base_url}/order/pay`,
 };
