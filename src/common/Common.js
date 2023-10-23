@@ -63,35 +63,6 @@ export async function googleTranslate(text, lang, that) {
   //   console.log(`Translation: ${translation}`);
 }
 
-// export async function SendRequest(contextState, request_type, url, formData) {
-
-//   // console.log('contextState.user.access_token',contextState);
-//   // console.log('contextState.user.access_token',contextState.user.access_token);
-//   // console.log('formData',contextState.user.access_token);
-//   let postData = {
-//     method: request_type,
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'multipart/form-data',
-//       Authorization: contextState.user.access_token,
-//       'Authorization-secure': contextState.user.access_token,
-//       'Authorization-secure': contextState.user.access_token,
-//       'client-id': 'demas-app-mobile',
-//     },
-//   };
-
-//   if (formData != null) {
-//     postData.body = formData;
-//   }
-//   console.log('post data',postData);
-
-//   let response = await fetch(url, postData);
-//   console.log('req ressssssssa11111111',response);
-//   return response.json();
-// }
-
-//
-
 export async function SendRequest(
   contextState,
   request_type,

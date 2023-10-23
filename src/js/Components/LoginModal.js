@@ -51,6 +51,7 @@ export default function LoginModal(props) {
   const [showSendOtp, setShowSendOtp] = useState(true);
   const [showValidateOtp, setshowValidateOtp] = useState(false);
   const [phone_no, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(null);
   const [user, setUser] = useState({});
@@ -58,30 +59,16 @@ export default function LoginModal(props) {
   const navigate = useNavigate();
   console.log("props create otpnew modal ", props);
 
-  // useEffect(() => {
-  //   console.log("props create contextState", contextState);
-  //   console.log("props setShowLoginModal", setShowLoginModalArea);
-  //   const user = contextState.user;
-  //   console.log("contextState user", user);
-
-  //   if (user.is_loggedin) {
-  //     console.log('set modal false');
-  //     setShowLoginModalArea(false);
-  //   } else {
-  //     console.log('set modal true');
-
-  //     setShowLoginModalArea(true);
-  //   }
-  // }, [contextState.user]);
 
   const getOtp = async () => {
     console.log("get otp");
     try {
-      if (!phone_no) {
+      if (!phone_no || !email) {
         return;
       }
       let formData = new FormData();
       formData.append("phone_no", phone_no);
+      formData.append("email", email);
       const res = await SendRequest(
         contextState,
         "post",
@@ -176,6 +163,21 @@ export default function LoginModal(props) {
                     aria-describedby="basic-addon3"
                     placeholder="01234567"
                     onChange={(e) => setPhoneNumber(e.target.value)}
+                  />
+                </InputGroup>
+                <Form.Label htmlFor="basic-url">Mobile Number</Form.Label>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text id="basic-addon3">
+                    <div className="img_flag">
+                      <img src="./images/saudi-arabia.png" />
+                    </div>
+                  </InputGroup.Text>
+                  <Form.Control
+                    id="basic-url"
+                    aria-describedby="basic-addon3"
+                    placeholder="name@example.com"
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </InputGroup>
                 <Button onClick={() => getOtp()}>Send OTP</Button>

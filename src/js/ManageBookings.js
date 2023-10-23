@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -24,34 +24,109 @@ import Collapse from "react-bootstrap/Collapse";
 import InputGroup from "react-bootstrap/InputGroup";
 import Nav_bar_area from "./NavBar";
 import { useNavigate } from "react-router-dom";
+import { Constant } from "../common/Constants";
+import { ContextApiContext } from "../context/ContextApi";
+import { googleTranslate, SendRequest } from "../common/Common";
 
 export default function Manage_Bookings() {
   const navigate = useNavigate();
+  const { contextState, updateContextState } = useContext(ContextApiContext);
 
-  const navigateToPath = (path) => {
-    navigate(path);
+  const navigateToPath = (path, props) => {
+    navigate(path, props);
   };
-  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    get_orders();
+  }, []);
+
+  const [bookingslist, setBookingslist] = useState([]);
+
+  const get_orders = async () => {
+    try {
+      let cs = contextState;
+      const res = await SendRequest(cs, "GET", Constant.orders, null, true);
+      if (res.status) {
+        console.log("orders list ", res.response);
+        setBookingslist(res.response);
+      } else {
+        updateContextState(res.error?.message[0], "error_msg");
+      }
+    } catch (error) {
+      console.error("Error get orders :", error);
+
+      updateContextState("No Bookings avalible.", "error_msg");
+    }
+  };
 
   return (
     <div>
-      
       <Container fluid>
         <Row>
           <div className="login_head">
-            <div className="backicon"><Button className="bcbtn" onClick={() => {
-              navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">MANAGE BOOKINGS</h3>
+            <div className="backicon">
+              <Button
+                className="bcbtn"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </Button>
+            </div>{" "}
+            <h3 className="top_heading_page">MANAGE BOOKINGS</h3>
           </div>
         </Row>
       </Container>
       <Container fluid>
-        <Row className="det_box">
+        {bookingslist.map((booking) => {
+          return (
+            <Row className="det_box">
+              <Col>
+                <div className="det_area">
+                  <h4>DETAIL</h4>
+                  {booking.order_details.map((booking_details) => {
+                    return <p>{booking_details.journey.name}</p>;
+                  })}
+                  <Button
+                    className="mange_btn"
+                    onClick={() => {
+                      navigateToPath("/bookinginfopackages", { //bookinginfosingle
+                        state: { booking_details: booking },
+                      });
+                    }}
+                  >
+                    {booking.trip_type == "single" ? (
+                      <>
+                        SINGLE TRIP{" "}
+                        <FontAwesomeIcon
+                          className="icon_btn"
+                          icon={faLocationDot}
+                          beat
+                        />
+                      </>
+                    ) : (
+                      <>
+                        Packages{" "}
+                        <FontAwesomeIcon
+                          className="icon_btn"
+                          icon={faArrowRightArrowLeft}
+                        />
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </Col>
+            </Row>
+          );
+        })}
+        {/* <Row className="det_box">
           <Col>
             <div className="det_area">
               <h4>DETAIL</h4>
               <p>Jeddah Airport to Jeddah Airport</p>
-              <Button className="mange_btn"
+              <Button
+                className="mange_btn"
                 onClick={() => {
                   navigate("/bookinginfosingle");
                 }}
@@ -73,7 +148,8 @@ export default function Manage_Bookings() {
                 <h4>DETAIL</h4>
                 <p>Jeddah Airport to Jeddah Airport</p>
               </div>
-              <Button className="mange_btn"
+              <Button
+                className="mange_btn"
                 onClick={() => {
                   navigate("/bookinginfopackages");
                 }}
@@ -86,7 +162,7 @@ export default function Manage_Bookings() {
               </Button>
             </div>
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     </div>
   );

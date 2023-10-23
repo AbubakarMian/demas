@@ -21,6 +21,7 @@ export const Constant = {
   get_cars: `${base_url}/cars/get_all`,
   get_locations: `${base_url}/locations/get_all`,
   contactus: `${base_url}/contactus`,
-  order_create: `${base_url}/order/create`,
   journey_verify: `${base_url}/journey/verify`,
+  order_create: `${base_url}/order/create`,
+  orders: `${base_url}/order`,
 };
