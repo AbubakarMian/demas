@@ -21,30 +21,74 @@ import ContexApiProvider from "./context/ContextApi";
 import LoginModal from "./js/Components/LoginModal";
 
 function App() {
+  let user =  localStorage.getItem("user");
+  console.log("users", user);
+  let user_loggedin = false;
+  if (user == null) {
+    console.log("users is  null", user);
+    user_loggedin = false;
+  } else {
+    user = JSON.parse(user);
+    user_loggedin = user.is_loggedin;
+  }
+  console.log("user_loggedi 111 n", user_loggedin);
+
+  const Check_login = (Component) => {
+    let user =  localStorage.getItem("user");
+
+    console.log("users", user);
+    let user_loggedin = false;
+    if (user == null) {
+      console.log("users is  null", user);
+      user_loggedin = false;
+      return Login;
+    } else {
+      user = JSON.parse(user);
+      user_loggedin = user.is_loggedin;
+    }console.log("user_loggedin", user_loggedin);
+    if (user_loggedin) {
+      return Component;
+    } else {
+      return Login;
+    }
+    
+  };
   return (
     <div className="App">
       {/* <Router basename='/demas/build'> */}
       <ContexApiProvider>
         <Router>
-          <ErrorAlert/>
+          <ErrorAlert />
           <LoginModal />
           {/* <Offcanvas_colapsable_nav /> */}
           <Routes>
-            <Route Component={ProfileSale} path="/profilesale"></Route>
-            <Route Component={ProfileTravel} path="/profiletravel"></Route>
+            <Route
+              Component={Check_login(ProfileSale)}
+              // Component={user_loggedin ? ProfileSale : Login}
+              path="/profilesale"
+            ></Route>
+            {/* <Route Component={user_loggedin?ProfileSale:Login} path="/profilesale"></Route> */}
+            <Route
+              Component={user_loggedin ? ProfileTravel : Login}
+              path="/profiletravel"
+            ></Route>
             <Route Component={Privacy} path="/privacy"></Route>
             <Route Component={FAQ} path="/faq"></Route>
             <Route Component={Refund} path="/refund"></Route>
             <Route Component={ContactUs} path="/contactus"></Route>
-            <Route
+            {/* <Route
               Component={BookingInfoSingle}
               path="/bookinginfosingle"
-            ></Route>
+            ></Route> */}
             <Route
-              Component={BookingInfoPackages}
+              Component={Check_login(BookingInfoPackages)}
+              // Component={user_loggedin ? BookingInfoPackages : Login}
               path="/bookinginfopackages"
             ></Route>
-            <Route Component={ManageBookings} path="/managebookings"></Route>
+            <Route
+              Component={Check_login(ManageBookings)}
+              path="/managebookings"
+            ></Route>
             <Route
               Component={TransportDetails}
               path="/transport_details"

@@ -33,67 +33,98 @@ export default function Login_page_style() {
   const { contextState, updateContextState } = useContext(ContextApiContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [phone_no, setPhoneNo] = useState("");
+  const [whatsapp_no, setWhatsapp] = useState("");
+  const [OTPShow, setOTPShow] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [user, setUser] = useState({});
+
+
   const [error, setError] = useState(null);
 
   const attempt_login = async () => {
     try {
       // Create the formData and append the email and password
+      console.log("test login 111");
       var formData = new FormData();
       formData.append("email", email);
-      formData.append("password", password);
+      formData.append("phone_no", phone_no);
+      formData.append("whatsapp_no", whatsapp_no);
+      console.log("email", email);
+      console.log("phone_no", phone_no);
 
       // Call SendRequest with the necessary parameters
       let cs = contextState;
       cs.user.access_token = Constant.basic_token;
-      const res = await SendRequest(cs, "POST", Constant.login, formData);
+      const res = await SendRequest(
+        cs,
+        "POST",
+        Constant.register_or_login,
+        formData
+      );
+      console.log("test res", res);
 
       if (res.status) {
-        updateContextState(res.response, "update_user");
+        let user = res.response;
+        setOTPShow(true);
+        setUser(user);
 
-        let role_id = res.response.role_id;
-        if (role_id === 2) {
-          try {
-            const access_token = contextState.user.access_token;
-            const user = contextState.user.id;
-            const headers = {
-              Accept: "application/json",
-              Authorization: access_token,
-              "Authorization-secure": access_token,
-              "client-id": "demas-app-mobile",
-            };
-
-            const response = await fetch(`${Constant.login}/${user}`, {
-              method: "GET",
-              headers: headers,
-            });
-
-            const data = await response.json();
-            console.log("datadd", data);
-
-            if (response.ok) {
-              if (data.response == "available") {
-                navigateToPath("/home");
-              } else {
-                console.error("NO AVAILABLE ORDERS.");
-              }
-            } else {
-              console.error("NO AVAILABLE ORDERS.");
-            }
-          } catch (error) {
-            console.error("Error checking available orders:", error);
-          }
-        } else if (role_id === 3) {
-          navigateToPath("/orderlist");
-        }
+        // let user = res.response;
+        // user.is_loggedin = true;
+        // updateContextState(user,'update_user');
+        // navigateToPath("/home");
       } else {
-        setError("Login failed. Please check your credentials.");
+        updateContextState(res.error.message[0],"error_msg");
+
+        // setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error during login:", error);
-      setError("An error occurred while logging in. Please try again.");
+      updateContextState("An error occurred while logging in. Please try again.","error_msg");
+
+      // setError("An error occurred while logging in. Please try again.");
     }
   };
   const [open, setOpen] = useState(false);
+
+  const validateOtp = async () => {
+    if (!otp) {
+      updateContextState("Enter OTP","error_msg");
+
+      return;
+    }
+    let formData = new FormData();
+    formData.append("otp", otp);
+    console.log('otp',otp);
+    console.log('access_token',user.access_token);
+    formData.append("access_token", user.access_token);
+    const res = await SendRequest(
+      contextState,
+      "post",
+      Constant.validate_otp,
+      formData
+      // JSON.stringify({
+      //   "otp":otp,
+      //   "access_token":user.access_token,
+      // })
+    );
+// console.log('resss',res);
+    if (res.status) {
+      res.response.is_loggedin = true;
+      updateContextState(res.response, "update_user");
+      // updateContextState(false, "show_login_modal");
+      navigateToPath('/home');
+    } else {
+      if (res.error && res.error.message) {
+        updateContextState(res.error.message[0],"error_msg");
+
+        // updateContextState(res.response, "update_user");
+
+      } else {
+        setError("Somthing went wrong contact admin.");
+      }
+    }
+  };
 
   return (
     <div>
@@ -115,72 +146,83 @@ export default function Login_page_style() {
         </Row>
       </Container>
       <div className="login_back">
-
-      <Container>
-        <div className="whl_login">
-          <Row>
-            <div className="input_area">
-              <InputGroup className="mb-3">
-                <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
-                <Form.Control
-                  placeholder="Email Address"
-                  aria-label="Email"
-                  aria-describedby="basic-addon1"
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email} // Bind the email state to the input value
-                />
-              </InputGroup>
-              <InputGroup className="mb-3">
-                <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
-                <Form.Control
-                  placeholder="Whatsapp Number"
-                  aria-label="Whatsapp"
-                  aria-describedby="basic-addon1"
-                  onChange={(e) => setPassword(e.target.value)}
-                  value={password} // Bind the password state to the input value
-                />
-              </InputGroup>{" "}
-            </div>
-          </Row>
-          <Row>
-            <div className="otp_bt_area">
-              <Button className="otpbtn" onClick={() => attempt_login()}>
-                SEND OTP
-              </Button>
-              {/* <Button className="otpbtn" onClick={() => setShow(true)}>
-      SEND OTP 
-      </Button> */}
-              <Modal
-                show={show}
-                onHide={() => setShow(false)}
-                dialogClassName="modal-90w"
-                aria-labelledby="example-custom-modal-styling-title"
-              >
-                <Modal.Header closeButton>
-                  <Modal.Title id="example-custom-modal-styling-title">
-                    OTP
-                  </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
-                    <Form.Control
-                      placeholder="Enter OTp"
-                      aria-label="otp"
-                      aria-describedby="basic-addon1"
-                      type="number"
-                    />
-                  </InputGroup>
-                  <Button href="/home" variant="primary" className="otpbtn">
-                    Login
-                  </Button>
-                </Modal.Body>
-              </Modal>
-            </div>
-          </Row>
-        </div>
-      </Container>
-    </div>
+        <Container>
+          <div className="whl_login">
+            <Row>
+              <div className="input_area">
+                <InputGroup className="mb-3">
+                  <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
+                  <Form.Control
+                    placeholder="Email Address"
+                    aria-label="Email"
+                    aria-describedby="basic-addon1"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email} // Bind the email state to the input value
+                  />
+                </InputGroup>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
+                  <Form.Control
+                    placeholder="Phone Number"
+                    aria-label="Whatsapp"
+                    aria-describedby="basic-addon1"
+                    onChange={(e) => setPhoneNo(e.target.value)}
+                    value={phone_no} // Bind the password state to the input value
+                  />
+                </InputGroup>{" "}
+                <InputGroup className="mb-3">
+                  <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
+                  <Form.Control
+                    placeholder="Whatsapp Number"
+                    aria-label="Whatsapp"
+                    aria-describedby="basic-addon1"
+                    onChange={(e) => setWhatsapp(e.target.value)}
+                    value={whatsapp_no} // Bind the password state to the input value
+                  />
+                </InputGroup>{" "}
+              </div>
+            </Row>
+            <Row>
+              <div className="otp_bt_area">
+                <Button className="otpbtn" onClick={() => attempt_login()}>
+                  SEND OTP
+                </Button>
+                <Modal
+                  show={OTPShow}
+                  onHide={() => setOTPShow(false)}
+                  dialogClassName="modal-90w"
+                  aria-labelledby="example-custom-modal-styling-title"
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title id="example-custom-modal-styling-title">
+                      OTP
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
+                      <Form.Control
+                        placeholder="Enter OTp"
+                        aria-label="otp"
+                        aria-describedby="basic-addon1"
+                        type="number"
+                        onChange={(e)=>setOtp(e.target.value)}
+                      />
+                    </InputGroup>
+                    <Button
+                      onClick={() => validateOtp()}
+                      variant="primary"
+                      className="otpbtn"
+                    >
+                      Login
+                    </Button>
+                  </Modal.Body>
+                </Modal>
+              </div>
+            </Row>
+          </div>
+        </Container>
+      </div>
     </div>
   );
 }

@@ -50,6 +50,13 @@ export default function Manage_Bookings() {
         console.log("orders list ", res.response);
         setBookingslist(res.response);
       } else {
+        console.log('resss',res);
+        if(res.error.custom_code == 403){
+            updateContextState(true, "show_login_modal");
+            updateContextState("Please Login and try again", "error_msg");
+
+            // navigateToPath(-1);
+        }
         updateContextState(res.error?.message[0], "error_msg");
       }
     } catch (error) {

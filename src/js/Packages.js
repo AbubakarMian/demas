@@ -20,7 +20,7 @@ import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
 import { ContextApiContext } from "../context/ContextApi";
 import { Constant } from "../common/Constants";
-import { SendRequest, get_formated_dateime } from "../common/Common";
+import { SendRequest, SendRequestContetType, get_formated_dateime } from "../common/Common";
 import TripCreatedSuccessModal from "./Components/TripCreatedSuccessModal";
 
 export default function Packages(props) {
@@ -185,7 +185,7 @@ export default function Packages(props) {
       "booking_details",
       JSON.stringify(location.state.booking_obj)
     );
-    const res = await SendRequest(
+    const res = await SendRequestContetType(
       contextState,
       "post",
       Constant.order_create,
