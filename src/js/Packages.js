@@ -39,8 +39,13 @@ export default function Packages(props) {
   const [selectDropoff, setselectDropoff] = useState({});
   const [pickupTime, setpickupTime] = useState(0);
   const [comments, setComments] = useState("");
+  const [showPickupExtraInfo, setShowPickupExtraInfo] = useState(false);
+  const [showDropoffExtraInfo, setShowDropoffExtraInfo] = useState(false);
+  const [pickExtrainfo, setPickExtrainfo] = useState("");
+  const [dropoffExtrainfo, setDropoffExtrainfo] = useState("");
   const [paymentSuccessModalsShow, setPaymentSuccessModalsShow] =
     useState(false);
+
 
   useEffect(() => {
     getLocations();
@@ -131,6 +136,8 @@ export default function Packages(props) {
 
   const changeLocationPoints = (e, point, location) => {
     let new_val = {};
+    let location_type = location.location_type.name;
+
     if (e.target.checked) {
       new_val = location;
     }
@@ -139,10 +146,26 @@ export default function Packages(props) {
       console.log(location.id);
       console.log(location.name);
 
+      if(location_type == "Airport"){
+        setShowPickupExtraInfo(true);
+      }
+      else{
+        setShowPickupExtraInfo(false);
+        setPickExtrainfo("");
+      }
+
       setselectPickup(new_val);
     } else {
       // dropoff
       console.log("dropoff location point ", point, new_val);
+
+      if(location_type == "Airport"){
+        setShowDropoffExtraInfo(true);
+      }
+      else{
+        setShowDropoffExtraInfo(false);
+        setDropoffExtrainfo("");
+      }
 
       setselectDropoff(new_val);
     }
@@ -299,6 +322,20 @@ export default function Packages(props) {
                           />
                           {selectPickup.name ?? " Select Pickup location"}
                         </Button>
+                  <Collapse in={showPickupExtraInfo}>
+                    <div id="">
+                      <InputGroup>
+                        <Form.Control
+                        type="text"
+                        placeholder="Ticket info"
+                          onChange={(e) => {
+                            setPickExtrainfo(e.target.value);
+                          }}
+                          value={pickExtrainfo}
+                        />
+                      </InputGroup>
+                    </div>
+                  </Collapse>
                         <h5 className="md_head">Dropoff</h5>
                         <Button
                           className="pick_drop"
@@ -309,7 +346,21 @@ export default function Packages(props) {
                             icon={faLocationDot}
                           />
                           {selectDropoff.name ?? " Select Dropoff location"}
-                        </Button>
+                        </Button>                  
+                  <Collapse in={showDropoffExtraInfo}>
+                    <div id="">
+                      <InputGroup>
+                        <Form.Control
+                        type="text"
+                        placeholder="Ticket info"
+                          onChange={(e) => {
+                            setDropoffExtrainfo(e.target.value);
+                          }}
+                          value={dropoffExtrainfo}
+                        />
+                      </InputGroup>
+                    </div>
+                  </Collapse>
                         <h5 className="md_head">PICKUP DATE & TIME</h5>
                         <Form.Control
                           type="datetime-local"
