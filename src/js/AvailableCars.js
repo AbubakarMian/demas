@@ -196,23 +196,6 @@ export default function AvailableCars() {
               </div>
             </Collapse>
           </Row>
-
-          {/* <Row className="const_padding">
-            <Col>
-              <div className="car_typ">Type - Sedan</div>
-            </Col>
-            <Col>
-              <div className="rates">250 SAR (per trip)</div>
-            </Col>
-          </Row>
-          <Row className="const_padding">
-            <Col>
-              <div className="car_nme">Sedan Car or Similar</div>
-            </Col>
-            <Col>
-              <div className="similr">(or Similar)</div>
-            </Col>
-          </Row> */}
         </Container>
         <div
           className="asdas const_paddingaa"
@@ -222,26 +205,6 @@ export default function AvailableCars() {
         >
           {/* <Sedan_crousel /> */}
         </div>
-        {/* <Container fluid> */}
-
-        {/* <Row className="icn_ara ">
-          <Col className="sss">
-            <FontAwesomeIcon className="detail_icn align" icon={faUser} />
-            <span>3</span>
-          </Col>
-          <Col className="sad">
-            <FontAwesomeIcon
-              className="detail_icn align"
-              icon={faSuitcaseRolling}
-            />
-            <span>5</span>
-          </Col>
-          <Col className="aaa">
-            <FontAwesomeIcon className="detail_icn align" icon={faDoorOpen} />
-            <span>4</span>
-          </Col>
-        </Row> */}
-
         <div>
           {/* start map*/}
           {transportlist.map((item) => {
@@ -254,7 +217,7 @@ export default function AvailableCars() {
                     </div>
                   </Col>
                   <Col>
-                    <div className="rates">250 SAR (per trip)</div>
+                    <div className="rates">{item.booking_price} SAR (per trip)</div>
                   </Col>
                 </Row>
                 <Row className="const_padding">
@@ -311,78 +274,6 @@ export default function AvailableCars() {
             );
           })}
           {/* end map */}
-          {/* <Row className="const_padding">
-            <Col>
-              <div className="car_typ">Type - Mini-Bus</div>
-            </Col>
-            <Col>
-              <div className="rates">250 SAR (per trip)</div>
-            </Col>
-          </Row>
-          <Row className="const_padding">
-            <Col>
-              <div className="car_nme">Coaster or Similar</div>
-            </Col>
-            <Col>
-              <div className="similr">(or Similar)</div>
-            </Col>
-          </Row>
-          <Row className="asdas const_paddingaa">
-            <Coaster_crousel />
-          </Row>
-          <Row className="icn_ara">
-            <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faUser} />
-              <span>32</span>
-            </Col>
-            <Col>
-              <FontAwesomeIcon
-                className="detail_icn"
-                icon={faSuitcaseRolling}
-              />
-              <span>25</span>
-            </Col>
-            <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />
-              <span>3</span>
-            </Col>
-          </Row>
-          <Row className="const_padding">
-            <Col>
-              <div className="car_typ">Type - SUV</div>
-            </Col>
-            <Col>
-              <div className="rates">400 SAR (per trip)</div>
-            </Col>
-          </Row>
-          <Row className="const_padding">
-            <Col>
-              <div className="car_nme">GMC or Similar</div>
-            </Col>
-            <Col>
-              <div className="similr">(or Similar)</div>
-            </Col>
-          </Row>
-          <Row className="asdas const_paddingaa">
-            <Suv_crousel />
-          </Row>
-          <Row className="icn_ara">
-            <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faUser} />
-              <span>7</span>
-            </Col>
-            <Col>
-              <FontAwesomeIcon
-                className="detail_icn"
-                icon={faSuitcaseRolling}
-              />
-              <span>4</span>
-            </Col>
-            <Col>
-              <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />
-              <span>5</span>
-            </Col>
-          </Row> */}
         </div>
 
         {/* </Container> */}

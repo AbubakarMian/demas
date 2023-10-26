@@ -154,7 +154,7 @@ export default function TransportDetails(props) {
             </div>
           </Col>
           <Col>
-            <div className="rates">250 SAR (per trip)</div>
+            <div className="rates">{transportDetail.booking_price} SAR (per trip)</div>
           </Col>
         </Row>
         <Row className="const_padding">
@@ -321,7 +321,7 @@ export default function TransportDetails(props) {
                 // handleShow
               }
             >
-              PAY 250 SAR
+              PAY {transportDetail.booking_price} SAR
             </Button>
 
             <div className="modal_plac">

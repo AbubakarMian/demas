@@ -40,10 +40,13 @@ export default function Package_style() {
   const navigateToPath = (path, props) => {
     navigate(path, { state: props });
   };
+  const { contextState, updateContextState } = useContext(ContextApiContext);
   const [activeTab, setActiveTab] = useState(0);
   const [openComment, setopenComment] = useState(false);
-
-  const { contextState, updateContextState } = useContext(ContextApiContext);
+  const [showPickupExtraInfo, setShowPickupExtraInfo] = useState(false);
+  const [showDropoffExtraInfo, setShowDropoffExtraInfo] = useState(false);
+  const [pickExtrainfo, setPickExtrainfo] = useState("");
+  const [dropoffExtrainfo, setDropoffExtrainfo] = useState("");
   const [locations, setLocations] = useState([]);
   const [selectPickup, setselectPickup] = useState({});
   const [selectDropoff, setselectDropoff] = useState({});
@@ -70,9 +73,9 @@ export default function Package_style() {
           details: [
             {
               pickup_id: selectPickup.id,
-              pick_extrainfo: "ticket_number",
+              pick_extrainfo: pickExtrainfo,
               dropoff_id: selectDropoff.id,
-              dropoff_extrainfo: "ticket_number",
+              dropoff_extrainfo: dropoffExtrainfo,
               pickupdate_time: pickupTime,
               comment: comments,
               transport_id: 0,
@@ -232,6 +235,8 @@ export default function Package_style() {
 
   const changeLocationPoints = (e, point, location) => {
     let new_val = {};
+    let location_type = location.location_type.name;
+
     if (e.target.checked) {
       new_val = location;
     }
@@ -240,10 +245,28 @@ export default function Package_style() {
       console.log(location.id);
       console.log(location.name);
 
+      // pick_extrainfo: "ticket_number",
+      // dropoff_extrainfo: "ticket_number",
+
+      if(location_type == "Airport"){
+        setShowPickupExtraInfo(true);
+      }
+      else{
+        setShowPickupExtraInfo(false);
+        setPickExtrainfo("");
+      }
       setselectPickup(new_val);
     } else {
       // dropoff
       console.log("dropoff location point ", point, new_val);
+
+      if(location_type == "Airport"){
+        setShowDropoffExtraInfo(true);
+      }
+      else{
+        setShowDropoffExtraInfo(false);
+        setDropoffExtrainfo("");
+      }
 
       setselectDropoff(new_val);
     }
@@ -318,6 +341,20 @@ export default function Package_style() {
                       <FontAwesomeIcon icon={faAngleDown} />
                     </div>
                   </Button>
+                  <Collapse in={showPickupExtraInfo}>
+                    <div id="">
+                      <InputGroup>
+                        <Form.Control
+                        type="text"
+                        placeholder="Ticket info"
+                          onChange={(e) => {
+                            setPickExtrainfo(e.target.value);
+                          }}
+                          value={pickExtrainfo}
+                        />
+                      </InputGroup>
+                    </div>
+                  </Collapse>
                   <Modal
                     show={showPickup}
                     onHide={() => setShowPickup(false)}
@@ -377,7 +414,21 @@ export default function Package_style() {
                     <div className="caret_down">
                       <FontAwesomeIcon icon={faAngleDown} />
                     </div>
-                  </Button>
+                  </Button>                  
+                  <Collapse in={showDropoffExtraInfo}>
+                    <div id="">
+                      <InputGroup>
+                        <Form.Control
+                        type="text"
+                        placeholder="Ticket info"
+                          onChange={(e) => {
+                            setDropoffExtrainfo(e.target.value);
+                          }}
+                          value={dropoffExtrainfo}
+                        />
+                      </InputGroup>
+                    </div>
+                  </Collapse>
                   <Modal
                     show={showDropOff}
                     onHide={() => setShowDropoff(false)}
