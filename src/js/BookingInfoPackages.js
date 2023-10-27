@@ -38,7 +38,7 @@ export default function Booking_info_pack() {
   const location = useLocation();
   const { contextState, updateContextState } = useContext(ContextApiContext);
 
-  const [booking, setBooking] = useState({ order_details: [] });
+  const [booking, setBooking] = useState({user_obj:{},order_details: [] });
   const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
 
   const navigateToPath = (path, props) => {
@@ -102,12 +102,28 @@ export default function Booking_info_pack() {
       </Container>
       <Container fluid>
         <div className="whole_bx">
+          
+        <Row>
+            <Col>
+              <Form.Label htmlFor="basic-url">User</Form.Label>
+              <InputGroup className="mb-3">
+                <Form.Control
+                  placeholder="-"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  value={booking.user_obj.name}
+                  className="inputboxes"
+                  readOnly
+                />
+              </InputGroup>
+            </Col>
+            </Row>
           <Row className="">
             <Col>
               <Form.Label htmlFor="basic-url">Booking ID</Form.Label>
               <InputGroup className="mb-3">
                 <Form.Control
-                  placeholder="Username"
+                  placeholder="-"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
                   value={booking.order_id}
@@ -120,7 +136,7 @@ export default function Booking_info_pack() {
               <Form.Label htmlFor="basic-url">Booking Status</Form.Label>
               <InputGroup className="mb-3">
                 <Form.Control
-                  placeholder="hi"
+                  placeholder="-"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
                   value={capitalizeFirstLetter(booking.status)}
@@ -129,6 +145,34 @@ export default function Booking_info_pack() {
                 />
               </InputGroup>
             </Col>
+          <Row className="">
+            <Col>
+              <Form.Label htmlFor="basic-url">Whatsapp</Form.Label>
+              <InputGroup className="mb-3">
+                <Form.Control
+                  placeholder="-"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  value={capitalizeFirstLetter(booking.whatsapp_number)}
+                  className="inputboxes"
+                  readOnly
+                />
+              </InputGroup>
+            </Col>
+            <Col>
+              <Form.Label htmlFor="basic-url">Phone Number</Form.Label>
+              <InputGroup className="mb-3">
+                <Form.Control
+                  placeholder="-"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  value={booking.user_obj.phone_no}
+                  className="inputboxes"
+                  readOnly
+                />
+              </InputGroup>
+            </Col>
+            </Row>
           </Row>
           {booking.order_details.map((booking_detail) => {
             return (
@@ -230,13 +274,13 @@ export default function Booking_info_pack() {
           })}
           <Row>
             <Col>
-              {booking.is_paid ? (
+              {booking.is_paid =="1"? (
                 <Button className="paid">
                   Paid {booking.price} SAR
                 </Button>
               ) : (
                 <Button onClick={() => showPaymentModal()} className="bill_btn">
-                  Total Price {booking.price} SAR
+                  {contextState.user.role_id == 5 ? 'Collect ' : 'Total Price '}{booking.price} SAR
                 </Button>
               )}
             </Col>

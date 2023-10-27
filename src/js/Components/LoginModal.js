@@ -77,8 +77,10 @@ export default function LoginModal(props) {
         Constant.register_or_login,
         formData
       );
+      console.log('get otp res ',res);
 
       if (res.status) {
+        console.log('get otp res after status ',res);
         let user = res.response;
         user.is_loggedin = true;
         setUser(user);
@@ -98,6 +100,7 @@ export default function LoginModal(props) {
     if (!otp) {
       return;
     }
+    console.log('user',user);
     let formData = new FormData();
     formData.append("otp", otp);
     formData.append("access_token", user.access_token);

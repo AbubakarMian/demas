@@ -12,8 +12,9 @@ import ManageBookings from "./js/ManageBookings";
 import BookingInfoPackages from "./js/BookingInfoPackages";
 import BookingInfoSingle from "./js/BookingInfoSingle";
 import ContactUs from "./js/ContactUs";
-import ProfileSale from "./js/ProfileSale";
-import ProfileTravel from "./js/ProfileTravel";
+// import ProfileSale from "./js/ProfileSale";
+import Profile from "./js/Profile";
+// import ProfileTravel from "./js/ProfileTravel";
 import Privacy from "./js/Privacy";
 import FAQ from "./js/FAQ";
 import Refund from "./js/Refund";
@@ -62,15 +63,13 @@ function App() {
           <LoginModal />
           {/* <Offcanvas_colapsable_nav /> */}
           <Routes>
-            <Route
+            {/* <Route
               Component={Check_login(ProfileSale)}
-              // Component={user_loggedin ? ProfileSale : Login}
               path="/profilesale"
-            ></Route>
-            {/* <Route Component={user_loggedin?ProfileSale:Login} path="/profilesale"></Route> */}
+            ></Route> */}
             <Route
-              Component={user_loggedin ? ProfileTravel : Login}
-              path="/profiletravel"
+              Component={Check_login(Profile )}
+              path="/profile"
             ></Route>
             <Route Component={Privacy} path="/privacy"></Route>
             <Route Component={FAQ} path="/faq"></Route>

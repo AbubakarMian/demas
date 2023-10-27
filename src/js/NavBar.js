@@ -67,8 +67,9 @@ export default function Nav_bar_area() {
                 <div className='nav_bottom'><Nav.Link href="availablecars"><FontAwesomeIcon icon={faCar}  className='nav_ico_sp'  /> AvailCars</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="managebookings"><FontAwesomeIcon icon={faBookBookmark}  className='nav_ico_sp' /> Bookings</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="contactus"><FontAwesomeIcon icon={faPhoneVolume}  className='nav_ico_sp' /> ContactUs</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="profiletravel"><FontAwesomeIcon icon={faBarsProgress} className='nav_ico_sp'  /> TravelAgent</Nav.Link></div>
-                <div className='nav_bottom'><Nav.Link href="profilesale"><FontAwesomeIcon icon={faBarsProgress} className='nav_ico_sp'  /> SaleAgent</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="profile"><FontAwesomeIcon icon={faBarsProgress} className='nav_ico_sp'  /> Profile</Nav.Link></div>
+                {/* <div className='nav_bottom'><Nav.Link href="profiletravel"><FontAwesomeIcon icon={faBarsProgress} className='nav_ico_sp'  /> TravelAgent</Nav.Link></div>
+                <div className='nav_bottom'><Nav.Link href="profilesale"><FontAwesomeIcon icon={faBarsProgress} className='nav_ico_sp'  /> SaleAgent</Nav.Link></div> */}
                 <div className='nav_bottom'><Nav.Link href="privacy"><FontAwesomeIcon icon={faShieldHalved} className='nav_ico_sp'  /> Privacy</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="faq"><FontAwesomeIcon icon={faFileCircleQuestion} className='nav_ico_sp'  /> FAQ's</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="refund"><FontAwesomeIcon icon={faCommentsDollar} className='nav_ico_sp'  /> Refund</Nav.Link></div>
