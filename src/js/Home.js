@@ -31,7 +31,6 @@ import { Alert } from "react-bootstrap";
 import { Constant } from "../common/Constants";
 import { SendRequest } from "../common/Common";
 
-
 export default function Package_style() {
   const [showPickup, setShowPickup] = useState(false);
   const [showDropOff, setShowDropoff] = useState(false);
@@ -45,6 +44,8 @@ export default function Package_style() {
   const [openComment, setopenComment] = useState(false);
   const [showPickupExtraInfo, setShowPickupExtraInfo] = useState(false);
   const [showDropoffExtraInfo, setShowDropoffExtraInfo] = useState(false);
+  const [placeholderPickupExtraInfo, setPlaceholderPickupExtraInfo] = useState('');
+  const [placeholderDropoffExtraInfo, setPlaceholderDropoffExtraInfo] = useState('');
   const [pickExtrainfo, setPickExtrainfo] = useState("");
   const [dropoffExtrainfo, setDropoffExtrainfo] = useState("");
   const [locations, setLocations] = useState([]);
@@ -236,36 +237,34 @@ export default function Package_style() {
   const changeLocationPoints = (e, point, location) => {
     let new_val = {};
     let location_type = location.location_type.name;
+    let placeholder = location?.location_type?.placeholder;
 
     if (e.target.checked) {
       new_val = location;
     }
     if (point == "pickup") {
-      console.log("pick up location point ", point, new_val);
-      console.log(location.id);
-      console.log(location.name);
-
-      // pick_extrainfo: "ticket_number",
-      // dropoff_extrainfo: "ticket_number",
-
+      setPlaceholderPickupExtraInfo(placeholder);
+      setShowPickupExtraInfo(placeholder.length);
       if(location_type == "Airport"){
-        setShowPickupExtraInfo(true);
+        // setShowPickupExtraInfo(true);
       }
       else{
-        setShowPickupExtraInfo(false);
-        setPickExtrainfo("");
+        // setShowPickupExtraInfo(false);
+        // setPickExtrainfo("");
       }
       setselectPickup(new_val);
     } else {
       // dropoff
       console.log("dropoff location point ", point, new_val);
+      setPlaceholderDropoffExtraInfo(placeholder);
+      setShowDropoffExtraInfo(placeholder.length);
 
       if(location_type == "Airport"){
-        setShowDropoffExtraInfo(true);
+        // setShowDropoffExtraInfo(true);
       }
       else{
-        setShowDropoffExtraInfo(false);
-        setDropoffExtrainfo("");
+        // setShowDropoffExtraInfo(false);
+        // setDropoffExtrainfo("");
       }
 
       setselectDropoff(new_val);
@@ -346,7 +345,7 @@ export default function Package_style() {
                       <InputGroup>
                         <Form.Control
                         type="text"
-                        placeholder="Ticket info"
+                        placeholder={placeholderPickupExtraInfo}
                           onChange={(e) => {
                             setPickExtrainfo(e.target.value);
                           }}
@@ -420,7 +419,7 @@ export default function Package_style() {
                       <InputGroup>
                         <Form.Control
                         type="text"
-                        placeholder="Ticket info"
+                        placeholder={placeholderDropoffExtraInfo}
                           onChange={(e) => {
                             setDropoffExtrainfo(e.target.value);
                           }}

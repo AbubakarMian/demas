@@ -42,6 +42,7 @@ export default function TransportDetails(props) {
   const { contextState, updateContextState } = useContext(ContextApiContext);
 
   const [transportDetail, setTransportDetail] = useState(null);
+  const [booking_obj, setBooking_obj] = useState({});
   // const [transportDetail, setTransportDetail] = useState({transport_type:{},
   //   images:[],
   //   features:[],
@@ -59,10 +60,16 @@ export default function TransportDetails(props) {
       location.state
     );
     set_transport_details();
+    init_state_variables();
   }, [location.state]);
 
+  const init_state_variables = ()=>{
+    let booking_obj = location.state.booking_obj;
+    setBooking_obj(booking_obj);
+  }
   const set_transport_details = () => {
     const transport_detail = location.state.transport;
+    console.log('transport detail props ',transport_detail);
     setTransportDetail(transport_detail);
   };
   const [car_feature, setcar_featureOpen] = useState(false);
@@ -156,6 +163,11 @@ export default function TransportDetails(props) {
           <Col>
             <div className="rates">{transportDetail.booking_price} SAR (per trip)</div>
           </Col>
+          {transportDetail.apply_discount ?  
+                 <Col>
+                 <div className="rates">Discounted Price {transportDetail.discounted_price} SAR (per trip)</div>
+               </Col>
+               :null}
         </Row>
         <Row className="const_padding">
           <Col>
@@ -321,7 +333,7 @@ export default function TransportDetails(props) {
                 // handleShow
               }
             >
-              PAY {transportDetail.booking_price} SAR
+              BOOK {transportDetail.booking_price} SAR
             </Button>
 
             <div className="modal_plac">
