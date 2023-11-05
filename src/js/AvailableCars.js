@@ -36,6 +36,7 @@ export default function AvailableCars() {
   const { contextState, updateContextState } = useContext(ContextApiContext);
   const [transportlist, setTransportList] = useState([]);
   const [bookingDetails, setBookingDetails] = useState([]);
+  const [applyDiscount, setApplyDiscount] = useState(false);
   const [error, setError] = useState(null);
 
   const navigateToPath = (path, props) => {
@@ -45,7 +46,21 @@ export default function AvailableCars() {
   useEffect(() => {
     console.log("props from previous screen ", location.state);
     get_transport();
+    init_state_variables();
   }, []);
+
+  const init_state_variables = () =>{
+    let booking_obj = location.state?.booking_obj;
+
+    if (typeof booking_obj !== "undefined" && booking_obj !== null) {
+      if(booking_obj.details.length!=0 && booking_obj.details.length % 3 === 0 ){
+        setApplyDiscount(true);
+      }
+    }
+    else{
+      setApplyDiscount(false);
+    }
+  }
 
   const get_transport = async () => {
     try {
@@ -79,6 +94,7 @@ export default function AvailableCars() {
 
   const selectTransport = (transport) => {
     let transport_id = transport.id;
+    transport.apply_discount = applyDiscount;
     console.log("my transport", transport);
     if (location.state) {
       let booking_obj = location.state.booking_obj;
@@ -88,6 +104,8 @@ export default function AvailableCars() {
         transport.transport_type_id;
       booking_obj.details[booking_obj.details.length - 1].transport_type_name =
       transport.transport_type.name;
+      booking_obj.details[booking_obj.details.length - 1].apply_discount =applyDiscount;
+      
       setBookingDetails({ ...location.state.booking_obj, booking_obj });
       navigateToPath("/transport_details", { transport, booking_obj });
     } else {
@@ -218,7 +236,13 @@ export default function AvailableCars() {
                   </Col>
                   <Col>
                     <div className="rates">{item.booking_price} SAR (per trip)</div>
-                  </Col>
+                </Col>
+                {applyDiscount ?  
+                 <Col>
+                 <div className="rates">Discounted Price {item.discounted_price} SAR (per trip)</div>
+               </Col>
+               :null}
+                 
                 </Row>
                 <Row className="const_padding">
                   <Col>
@@ -244,7 +268,6 @@ export default function AvailableCars() {
                             <img
                               className="d-block w-100"
                               src={image}
-                              // alt="First slide"
                             />
                             <Carousel.Caption></Carousel.Caption>
                           </Carousel.Item>
@@ -275,129 +298,8 @@ export default function AvailableCars() {
           })}
           {/* end map */}
         </div>
-
         {/* </Container> */}
       </div>
     </div>
   );
 }
-
-const Sedan_crousel = () => {
-  return (
-    <Carousel className="slider_bdr slide_availcars">
-      <Carousel.Item>
-        <img className="d-block w-100" src="./images/a.jpg" alt="First slide" />
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item className="">
-        <img
-          className="d-block w-100"
-          src="./images/h.jpg"
-          alt="Second slide"
-        />
-
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img className="d-block w-100" src="./images/g.jpg" alt="Third slide" />
-
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-  );
-};
-
-const Coaster_crousel = () => {
-  return (
-    <div className="slider-section">
-      <Carousel className="slider_bdr slide_availcars">
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="./images/b.jpg"
-            alt="First slide"
-          />
-          <Carousel.Caption></Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="./images/d.jpg"
-            alt="Second slide"
-          />
-
-          <Carousel.Caption></Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="./images/f.jpg"
-            alt="Third slide"
-          />
-
-          <Carousel.Caption></Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-    </div>
-  );
-};
-
-const Suv_crousel = () => {
-  return (
-    <Carousel className="slider_bdr slide_availcars">
-      <Carousel.Item>
-        <img className="d-block w-100" src="./images/c.jpg" alt="First slide" />
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="./images/e.jpg"
-          alt="Second slide"
-        />
-
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img className="d-block w-100" src="./images/i.jpg" alt="Third slide" />
-
-        <Carousel.Caption></Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-  );
-};
-
-const Filters = () => {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <>
-      <Button
-        onClick={() => setOpen(!open)}
-        aria-controls="example-collapse-text"
-        aria-expanded={open}
-        className="sett_btn"
-      >
-        <FontAwesomeIcon icon={faSliders} />
-      </Button>
-      <Collapse in={open}>
-        <div id="example-collapse-text">
-          <Container>
-            <Row>
-              <Col>
-                <h3>CAR TYPE</h3>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Button>Sedan</Button>
-                <Button>Mini-Bus</Button>
-                <Button>SUV</Button>
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      </Collapse>
-    </>
-  );
-};
