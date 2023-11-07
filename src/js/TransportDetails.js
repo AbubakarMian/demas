@@ -338,10 +338,10 @@ export default function TransportDetails(props) {
                 // handleShow
               }
             >
-              BOOK {transportDetail.booking_price} SAR
+              Total Fare {transportDetail.booking_price} SAR
               {transportDetail.apply_discount ? (
-                <div className="rates">
-                  Discounted Price {transportDetail.discounted_price} SAR
+                <div className="ratesa">
+                  Discounted Fares {transportDetail.discounted_price} SAR
                 </div>
               ) : null}
             </Button>
