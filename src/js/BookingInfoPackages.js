@@ -225,10 +225,10 @@ export default function Booking_info_pack() {
                     <Form.Label htmlFor="basic-url">Price</Form.Label>
                     <InputGroup className="mb-3">
                       <Form.Control
-                        placeholder="Username"
-                        aria-label="Username"
+                        placeholder="Price"
+                        aria-label="Price"
                         aria-describedby="basic-addon1"
-                        value={booking_detail.price}
+                        value={booking_detail.final_price}
                         className="inputboxes"
                         readOnly
                       />
@@ -276,11 +276,11 @@ export default function Booking_info_pack() {
             <Col>
               {booking.is_paid =="1"? (
                 <Button className="paid">
-                  Paid {booking.price} SAR
+                  Paid {booking.final_price} SAR
                 </Button>
               ) : (
                 <Button onClick={() => showPaymentModal()} className="bill_btn">
-                  {contextState.user.role_id == 5 ? 'Collect ' : 'Total Price '}{booking.price} SAR
+                  {contextState.user.role_id == 5 ? 'Collect ' : 'Total Price '}{booking.final_price} SAR
                 </Button>
               )}
             </Col>
