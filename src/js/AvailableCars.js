@@ -235,11 +235,11 @@ export default function AvailableCars() {
                     </div>
                   </Col>
                   <Col>
-                    <div className="rates">{item.booking_price} SAR (per trip)</div>
+                    <div className="rates">{item.booking_price} SAR <span className="top_headn">(per trip)</span></div>
                 </Col>
                 {applyDiscount ?  
                  <Col>
-                 <div className="rates">Discounted Price {item.discounted_price} SAR (per trip)</div>
+                 <div className="rates"> {item.discounted_price} SAR <span className="top_headn">(Discounted Fare)</span></div>
                </Col>
                :null}
                  
