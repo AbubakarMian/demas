@@ -63,13 +63,13 @@ export default function TransportDetails(props) {
     init_state_variables();
   }, [location.state]);
 
-  const init_state_variables = ()=>{
+  const init_state_variables = () => {
     let booking_obj = location.state.booking_obj;
     setBooking_obj(booking_obj);
-  }
+  };
   const set_transport_details = () => {
     const transport_detail = location.state.transport;
-    console.log('transport detail props ',transport_detail);
+    console.log("transport detail props ", transport_detail);
     setTransportDetail(transport_detail);
   };
   const [car_feature, setcar_featureOpen] = useState(false);
@@ -161,13 +161,18 @@ export default function TransportDetails(props) {
             </div>
           </Col>
           <Col>
-            <div className="rates">{transportDetail.booking_price} SAR (per trip)</div>
+            <div className="rates">
+              {transportDetail.booking_price} SAR (per trip)
+            </div>
           </Col>
-          {transportDetail.apply_discount ?  
-                 <Col>
-                 <div className="rates">Discounted Price {transportDetail.discounted_price} SAR (per trip)</div>
-               </Col>
-               :null}
+          {transportDetail.apply_discount ? (
+            <Col>
+              <div className="rates">
+                Discounted Price {transportDetail.discounted_price} SAR (per
+                trip)
+              </div>
+            </Col>
+          ) : null}
         </Row>
         <Row className="const_padding">
           <Col>
@@ -334,6 +339,11 @@ export default function TransportDetails(props) {
               }
             >
               BOOK {transportDetail.booking_price} SAR
+              {transportDetail.apply_discount ? (
+                <div className="rates">
+                  Discounted Price {transportDetail.discounted_price} SAR
+                </div>
+              ) : null}
             </Button>
 
             <div className="modal_plac">
@@ -565,4 +575,3 @@ const PaymentOptions = (props) => {
     </>
   );
 };
-
