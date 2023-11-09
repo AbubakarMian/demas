@@ -49,18 +49,20 @@ export default function AvailableCars() {
     init_state_variables();
   }, []);
 
-  const init_state_variables = () =>{
+  const init_state_variables = () => {
     let booking_obj = location.state?.booking_obj;
 
     if (typeof booking_obj !== "undefined" && booking_obj !== null) {
-      if(booking_obj.details.length!=0 && booking_obj.details.length % 3 === 0 ){
+      if (
+        booking_obj.details.length != 0 &&
+        booking_obj.details.length % 3 === 0
+      ) {
         setApplyDiscount(true);
       }
-    }
-    else{
+    } else {
       setApplyDiscount(false);
     }
-  }
+  };
 
   const get_transport = async () => {
     try {
@@ -103,9 +105,10 @@ export default function AvailableCars() {
       booking_obj.details[booking_obj.details.length - 1].transport_type_id =
         transport.transport_type_id;
       booking_obj.details[booking_obj.details.length - 1].transport_type_name =
-      transport.transport_type.name;
-      booking_obj.details[booking_obj.details.length - 1].apply_discount =applyDiscount;
-      
+        transport.transport_type.name;
+      booking_obj.details[booking_obj.details.length - 1].apply_discount =
+        applyDiscount;
+
       setBookingDetails({ ...location.state.booking_obj, booking_obj });
       navigateToPath("/transport_details", { transport, booking_obj });
     } else {
@@ -228,30 +231,28 @@ export default function AvailableCars() {
           {transportlist.map((item) => {
             return (
               <div>
-                <Row className="const_padding">
+                <Row className="bdr_line const_padding">
                   <Col>
                     <div className="car_typ">
                       Type - {item.transport_type.name}
                     </div>
-                  </Col>
-                  <Col>
-                    <div className="rates">{item.booking_price} SAR <span className="top_headn">(per trip)</span></div>
-                </Col>
-                {applyDiscount ?  
-                 <Col>
-                 <div className="rates"> {item.discounted_price} SAR <span className="top_headn">(Discounted Fare)</span></div>
-               </Col>
-               :null}
-                 
-                </Row>
-                <Row className="const_padding">
-                  <Col>
                     <div className="car_nme">
                       {item.transport_type.name} or Similar
                     </div>
                   </Col>
                   <Col>
-                    <div className="similr">(or Similar)</div>
+                    <div className="rates">
+                      <div className="style-1 divine">
+                        {applyDiscount ? (
+                          <>
+                           <p className="pd"><span className="bef">BEFORE</span>
+                            <del className="sps">{item.booking_price} SAR</del></p>
+                            <span className="nw">NOW</span>
+                          </>
+                        ) : null}
+                        {item.discounted_price} SAR
+                      </div>
+                    </div>
                   </Col>
                 </Row>
                 <Row className="asdas const_paddingaa">
@@ -265,10 +266,7 @@ export default function AvailableCars() {
                       {item.images.map((image) => {
                         return (
                           <Carousel.Item>
-                            <img
-                              className="d-block w-100"
-                              src={image}
-                            />
+                            <img className="d-block w-100" src={image} />
                             <Carousel.Caption></Carousel.Caption>
                           </Carousel.Item>
                         );

@@ -119,6 +119,52 @@ button.bcbtn.btn.btn-primary {
     font-size: 37px;
 }
 
+.divine {
+    flex-basis: 500px;
+    border: 1px dotted #ccc;
+    display: inline-block;
+    color: #484848;
+    padding: 0px 10px;
+}
+p.pd {
+    margin-bottom: 0px;
+}
+  
+  .style-1 del {
+    /* color: red !important; */
+    text-decoration: line-through red 2px; /* Apply a red strikethrough */
+    position: relative;
+    &:before {
+      content: " ";
+      display: block;
+      width: 100%;
+      border-top: 2px solid rgba(red);
+      height: 12px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: rotate(-7deg);
+    }
+   
+    ins {
+      color: green;
+      font-size: 32px;
+      text-decoration: none;
+      padding: 1em 1em 1em .5em;
+    }
+  }
+  span.bef {
+    font-size: 12px;
+    margin: 0px 10px;
+}
+span.nw {
+    font-size: 12px;
+    margin: 0px 10px;
+}
+.bdr_line {
+    padding: 10px;
+}
+
 /* Extra Small Devices, Phones */ 
 @media only screen and (max-width : 480px) {
     .icn_ara.row .detail_icn {

@@ -1,11 +1,11 @@
 .det_area {
     border: solid 1px #a4610d;
-    margin: 0px 10px;
+    margin: 0px 0px;
     text-align: left;
     padding: 10px;
     background-color: #e8e8e8;
     border-radius: 10px;
-    margin-top: 40px;
+    margin-top: 10px;
     display: flow-root;
 }
 .det_area button {
@@ -30,6 +30,19 @@ button.mange_btn.btn.btn-primary {
     float: right;
     width: 190px;
 
+}
+.top_hed_bt {
+    text-align: center;
+    color: #996418;
+}
+p.cd_hd {
+    font-size: 10px;
+    margin: 0px;
+}
+button.hed_btn.btn.btn-primary {
+    background: white;
+    color: #996418;
+    font-weight: 700;
 }
 
 @media only screen and (max-width : 480px) {

@@ -159,27 +159,29 @@ export default function TransportDetails(props) {
             <div className="car_typ">
               Type - {transportDetail.transport_type.name}
             </div>
-          </Col>
-          <Col>
-            <div className="rates">
-              {transportDetail.booking_price} SAR (per trip)
-            </div>
-          </Col>
-          {transportDetail.apply_discount ? (
-            <Col>
-              <div className="rates">
-                Discounted Price {transportDetail.discounted_price} SAR (per
-                trip)
-              </div>
-            </Col>
-          ) : null}
-        </Row>
-        <Row className="const_padding">
-          <Col>
             <div className="car_nme">
               {transportDetail.transport_type.name} Type or Similar
             </div>
           </Col>
+          <Col>
+                    <div className="rates">
+                      <div className="style-1 divine">
+                        {transportDetail.apply_discount ? (
+                          <>
+                           <p className="pd"><span className="bef">BEFORE</span>
+                            <del className="sps">{transportDetail.booking_price}  SAR</del></p>
+                            <span className="nw">NOW</span>
+                          </>
+                        ) : null}
+                        {transportDetail.discounted_price} SAR
+                      </div>
+                    </div>
+                  </Col>
+        </Row>
+        
+        
+        <Row className="const_padding">
+          
           {/* <Col>
             <div className="similr">(or Similar)</div>
           </Col> */}
@@ -328,24 +330,38 @@ export default function TransportDetails(props) {
         </div>
         <Row className="const_padding">
           <Col>
-            <Button
-              className="book_btn"
-              onClick={
-                () => {
-                  handleBookCar();
-                  // setShowLoginModal(true)
-                }
-                // handleShow
-              }
-            >
-              Total Fare {transportDetail.booking_price} SAR
-              {transportDetail.apply_discount ? (
-                <div className="ratesa">
-                  Discounted Fares {transportDetail.discounted_price} SAR
-                </div>
-              ) : null}
-            </Button>
-
+          <Button
+      className="book_btn"
+      onClick={handleBookCar}
+    >
+      <div className="style-1 divine_det">
+        {transportDetail.apply_discount ? (
+          <>
+          <p className="pd"><span className="bef">BEFORE</span>
+            <del>
+              
+              <span className="amount">
+                {transportDetail.booking_price} SAR
+              </span>
+            </del></p>
+            <ins>
+            <span className="nw">NOW</span>
+              <span className="amount">
+                {transportDetail.discounted_price} SAR
+              </span>
+            </ins>
+          </>
+        ) : (
+          <>
+            Total Fare
+            <span className="amount">
+              {transportDetail.booking_price} SAR
+            </span>
+          </>
+        )}
+      </div>
+    </Button>
+            
             <div className="modal_plac">
               <div className="mdl_btn">
                 <PaymentOptions
