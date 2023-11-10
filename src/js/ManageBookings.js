@@ -102,19 +102,19 @@ export default function Manage_Bookings() {
                     <h4>DETAILS</h4>
                   </div>
                 </Col>
-                <Col>
+                {/* <Col>
                   <div className="top_hed_bt">
                     {" "}
                     <Button className="hed_btn">
                       <p className="cd_hd">Payment Type</p>Card
                     </Button>
                   </div>
-                </Col>
+                </Col> */}
                 <Col>
-                  <div className="top_hed_bt">
-                    {" "}
+                  <div className="top_hed_bt flx">
+                    {" "}<p className="cd_hd">Status</p>
                     <Button className="hed_btn">
-                      <p className="cd_hd">Status</p>Pending
+                      Pending
                     </Button>
                   </div>
                 </Col>

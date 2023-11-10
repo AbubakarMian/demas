@@ -28,6 +28,14 @@ button.paid.btn.btn-primary {
 .whole_bx {
     padding: 0px 20%;
 }
+button.mange_btn.btn.btn-primary {
+    float: right;
+    width: 190px;
+    background: #a4610d;
+    color: white;
+    border: solid #b15d00 1px;
+
+}
 @media only screen and (max-width : 480px) {
     button.bill_btn.btn.btn-primary {
         width: 100%;
@@ -37,6 +45,11 @@ button.paid.btn.btn-primary {
     }
     .whole_bx {
         padding: 0px 0%;
+    }
+    button.mange_btn.btn.btn-primary {
+        width: 100%;
+        float: none;
+    
     }
     
 }

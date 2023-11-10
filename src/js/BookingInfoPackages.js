@@ -32,6 +32,8 @@ import {
 } from "../common/Common";
 import { ContextApiContext } from "../context/ContextApi";
 import { Constant } from "../common/Constants";
+import PaymentModal from './Components/PaymentOptions';
+
 
 export default function Booking_info_pack() {
   const navigate = useNavigate();
@@ -175,7 +177,34 @@ export default function Booking_info_pack() {
           {booking.order_details.map((booking_detail) => {
             return (
               <div className="inpup_box">
-                
+                <Row className="">
+                  <Col>
+                    <Form.Label htmlFor="basic-url">Booking ID</Form.Label>
+                    <InputGroup className="mb-3">
+                      <Form.Control
+                        placeholder="-"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                        value={booking.order_id}
+                        className="inputboxes"
+                        readOnly
+                      />
+                    </InputGroup>
+                  </Col>
+                  <Col>
+                    <Form.Label htmlFor="basic-url">Booking Status</Form.Label>
+                    <InputGroup className="mb-3">
+                      <Form.Control
+                        placeholder="-"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                        value={capitalizeFirstLetter(booking.status)}
+                        className="inputboxes"
+                        readOnly
+                      />
+                    </InputGroup>
+                  </Col>
+                </Row>
                 <Row className="">
                   <Col>
                     <Form.Label htmlFor="basic-url">Driver Name</Form.Label>
@@ -266,6 +295,12 @@ export default function Booking_info_pack() {
                         </tr>
                       </tbody>
                     </Table>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                  <PaymentModal />
+                  
                   </Col>
                 </Row>
               </div>
