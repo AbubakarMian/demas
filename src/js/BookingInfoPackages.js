@@ -38,7 +38,7 @@ export default function Booking_info_pack() {
   const location = useLocation();
   const { contextState, updateContextState } = useContext(ContextApiContext);
 
-  const [booking, setBooking] = useState({user_obj:{},order_details: [] });
+  const [booking, setBooking] = useState({ user_obj: {}, order_details: [] });
   const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
 
   const navigateToPath = (path, props) => {
@@ -46,8 +46,8 @@ export default function Booking_info_pack() {
   };
 
   useEffect(() => {
-    if(location.state == null){
-      return navigateToPath('/home');
+    if (location.state == null) {
+      return navigateToPath("/home");
     }
     const booking_obj = location.state.booking_details;
     setBooking(booking_obj);
@@ -75,7 +75,6 @@ export default function Booking_info_pack() {
       booking_obj.is_paid = true;
       setBooking({ ...booking, booking_obj });
       setShowPaymentConfirmation(false);
-
     } else {
       updateContextState("Payment failed", "error_msg");
     }
@@ -102,8 +101,7 @@ export default function Booking_info_pack() {
       </Container>
       <Container fluid>
         <div className="whole_bx">
-          
-        <Row>
+          <Row>
             <Col>
               <Form.Label htmlFor="basic-url">User</Form.Label>
               <InputGroup className="mb-3">
@@ -117,7 +115,7 @@ export default function Booking_info_pack() {
                 />
               </InputGroup>
             </Col>
-            </Row>
+          </Row>
           <Row className="">
             <Col>
               <Form.Label htmlFor="basic-url">Booking ID</Form.Label>
@@ -145,6 +143,7 @@ export default function Booking_info_pack() {
                 />
               </InputGroup>
             </Col>
+          </Row>
           <Row className="">
             <Col>
               <Form.Label htmlFor="basic-url">Whatsapp</Form.Label>
@@ -172,11 +171,11 @@ export default function Booking_info_pack() {
                 />
               </InputGroup>
             </Col>
-            </Row>
           </Row>
           {booking.order_details.map((booking_detail) => {
             return (
               <div className="inpup_box">
+                
                 <Row className="">
                   <Col>
                     <Form.Label htmlFor="basic-url">Driver Name</Form.Label>
@@ -274,13 +273,12 @@ export default function Booking_info_pack() {
           })}
           <Row>
             <Col>
-              {booking.is_paid =="1"? (
-                <Button className="paid">
-                  Paid {booking.final_price} SAR
-                </Button>
+              {booking.is_paid == "1" ? (
+                <Button className="paid">Paid {booking.final_price} SAR</Button>
               ) : (
                 <Button onClick={() => showPaymentModal()} className="bill_btn">
-                  {contextState.user.role_id == 5 ? 'Collect ' : 'Total Price '}{booking.final_price} SAR
+                  {contextState.user.role_id == 5 ? "Collect " : "Total Price "}
+                  {booking.final_price} SAR
                 </Button>
               )}
             </Col>
