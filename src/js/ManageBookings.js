@@ -112,8 +112,9 @@ export default function Manage_Bookings() {
                 </Col> */}
                 <Col>
                   <div className="top_hed_bt flx">
-                    {" "}<p className="cd_hd">Status</p>
+                    {" "}
                     <Button className="hed_btn">
+                      <p className="cd_hd">Status</p>
                       Pending
                     </Button>
                   </div>
