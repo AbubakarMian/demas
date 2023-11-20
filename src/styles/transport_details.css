@@ -1,156 +1,167 @@
-.icn_ara_sedan{
-    padding: 10px;
-
+.icn_ara_sedan {
+  padding: 10px;
 }
+.comnt_txt {
+  margin-right: 55px;
+  padding: 17px;
+  margin-bottom: 10px;
+}
+.const_padding {
+  padding: 0px 15%;
+  width: 100%;
+}
+
 p.car_details {
-    padding: 22px;
-    font-weight: bold;
-    font-size: 14px;
-    color: gray;
+  padding: 22px;
+  font-weight: bold;
+  font-size: 14px;
+  color: gray;
 }
 .car_card {
-    border: solid 1px #847a7a;
-    border-radius: 10px;
-    margin: 20px 0px;
-    background-color: #ededed;
+  border: solid 1px #847a7a;
+  border-radius: 10px;
+  margin: 20px 0px;
+  background-color: #ededed;
 }
 .car_icn1 {
-    font-size: 23px;
-    /* margin-right: 60px; */
-    float: left;
+  font-size: 23px;
+  /* margin-right: 60px; */
+  float: left;
 }
 .car_icn2 {
-    font-size: 23px;
-    /* margin-right: 45px; */
-    float: left;
+  font-size: 23px;
+  /* margin-right: 45px; */
+  float: left;
 }
 .car_icn3 {
-    font-size: 23px;
-    /* margin-right: 55px; */
-    float: left;
-
+  font-size: 23px;
+  /* margin-right: 55px; */
+  float: left;
 }
 .car_hd {
-    font-size: 14px;
-    font-weight: bold;
-    color: #a4610d;
+  font-size: 14px;
+  font-weight: bold;
+  color: #a4610d;
 }
 button.car_fea.btn.btn-primary {
-    background: transparent;
-    color: #a4610d;
-    border: 0px ;
-    float: right;
-    font-size: 14px;
-    width: 100%;
-    font-weight: bold;
+  background: transparent;
+  color: #a4610d;
+  border: 0px;
+  float: right;
+  font-size: 14px;
+  width: 100%;
+  font-weight: bold;
 }
 svg.svg-inline--fa.fa-bars {
-    float: right;
+  float: right;
 }
 .car_c_btn {
-    border: solid 1px #847a7a;
-    border-radius: 10px;
-    margin: 0px;
-    padding: 10px;
-    background-color: white;
-    border-bottom: 0px;
+  border: solid 1px #847a7a;
+  border-radius: 10px;
+  margin: 0px;
+  padding: 10px;
+  background-color: white;
+  border-bottom: 0px;
 }
 svg.svg-inline--fa.fa-arrow-right.arr_icn {
-    color: #a4610d;
-    font-size: 17px;
-    margin-right: 10px;
+  color: #a4610d;
+  font-size: 17px;
+  margin-right: 10px;
 }
 div#example-collapse-text {
-    text-align: left;
-    margin-left: 27px;
-    font-size: 16px;
-    margin-top: 20px;
+  text-align: left;
+  margin-left: 27px;
+  font-size: 16px;
+  margin-top: 20px;
 }
 
 button.book_btn.btn.btn-primary {
-    margin-top: 20px;
-    width: 227px;
-    height: 40px;
-    background: #a4610d;
-    border: 1px solid #a4610d;
-    color: white;
-    border-radius: 10px;
-    float: right;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    margin: 10px 0px;
+  margin-top: 20px;
+  width: 227px;
+  height: 40px;
+  background: #a4610d;
+  border: 1px solid #a4610d;
+  color: white;
+  border-radius: 10px;
+  float: right;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  margin: 10px 0px;
 }
-button.book_btn.btn.btn-primary:hover{
-    background: white;
-    color: #a4610d;
+button.book_btn.btn.btn-primary:hover {
+  background: white;
+  color: #a4610d;
 }
 .mdl_btn {
-    text-align: center;
-    display: flex;
-    justify-content: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 button.pay_btn.btn.btn-primary {
-    background: #a4610d;
-    margin: 0px 10px;
-    height: 45px;
-    border: 1px solid #a4610d;
+  background: #a4610d;
+  margin: 0px 10px;
+  height: 45px;
+  border: 1px solid #a4610d;
 }
 .cent {
-    text-align: center;
+  text-align: center;
 }
 p.succ {
-    margin-bottom: 0px;
-    font-weight: bold;
-    font-size: 18px;
+  margin-bottom: 0px;
+  font-weight: bold;
+  font-size: 18px;
 }
 svg.svg-inline--fa.fa-check.succ_icon {
-    font-size: 42px;
-    margin-bottom: 14px;
+  font-size: 42px;
+  margin-bottom: 14px;
 }
-.para_sedan{
-    font-weight: bold;
-    font-size: 14px;
-    color: gray;
+.para_sedan {
+  font-weight: bold;
+  font-size: 14px;
+  color: gray;
 }
 .divine_det {
-  
-    flex-basis: 500px;
-    border: 0px dotted #ccc;
-    display: inline-block;
-    color: white;
-  }
-  
-  .style-1 del {
-    /* color: red !important; */
-    text-decoration: line-through red 2px; /* Apply a red strikethrough */
-    position: relative;
-    &:before {
-      content: " ";
-      display: block;
-      width: 100%;
-      border-top: 2px solid rgba(red);
-      height: 12px;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      transform: rotate(-7deg);
-    }
-   
-    ins {
-      color: green;
-      font-size: 32px;
-      text-decoration: none;
-      padding: 1em 1em 1em .5em;
-    }
-  }
-@media only screen and (max-width : 480px) {
+  flex-basis: 500px;
+  border: 0px dotted #ccc;
+  display: inline-block;
+  color: white;
+}
 
-    
+.style-1 del {
+  /* color: red !important; */
+  text-decoration: line-through red 2px; /* Apply a red strikethrough */
+  position: relative;
+  &:before {
+    content: " ";
+    display: block;
+    width: 100%;
+    border-top: 2px solid rgba(red);
+    height: 12px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: rotate(-7deg);
+  }
 
-button.book_btn.btn.btn-primary {
+  ins {
+    color: green;
+    font-size: 32px;
+    text-decoration: none;
+    padding: 1em 1em 1em 0.5em;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .comnt_txt {
+    margin-left: -7%;
+    margin-right: 13%;
+    padding: 17px;
+    margin-bottom: 10px;
+  }
+
+  button.book_btn.btn.btn-primary {
     width: 100%;
     height: 55px;
-}
+  }
 }

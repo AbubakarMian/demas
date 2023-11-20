@@ -326,6 +326,37 @@ export default function TransportDetails(props) {
                 </div>
               </Collapse>
             </Row>
+            <Row className="on_padding">
+              
+            <Collapse in={true}>
+                    <div id="example-collapse-text">
+                      <InputGroup>
+                        <Form.Control
+                          as="text"
+                          aria-label="With textarea"
+                          className="comnt_txt"
+                          placeholder="Customer Name"
+                        />
+                      </InputGroup>
+                      <InputGroup>
+                        <Form.Control
+                          as="text"
+                          aria-label="With textarea"
+                          className="comnt_txt"
+                          placeholder="customer_number"
+                        />
+                      </InputGroup>
+                      <InputGroup>
+                        <Form.Control
+                          as="text"
+                          aria-label="With textarea"
+                          className="comnt_txt"
+                          placeholder="customer_collection_price"
+                        />
+                      </InputGroup>
+                    </div>
+                  </Collapse>
+            </Row>
           </div>
         </div>
         <Row className="const_padding">
