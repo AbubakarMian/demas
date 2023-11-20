@@ -1,5 +1,5 @@
-// const base_url = 'http://localhost/demas_backend/public/api';
-const base_url = "https://demastransport.com/demas_backend/public/api";
+const base_url = 'http://localhost/demas_backend/public/api';
+// const base_url = "https://demastransport.com/demas_backend/public/api";
 
 export const Constant = {
   basic_token: "Basic ZGVtYXMtYXBwLW1vYmlsZTtaR1Z0WVhNdFlYQndMVzF2WW1sc1pRPT0=",
@@ -25,4 +25,5 @@ export const Constant = {
   order_create: `${base_url}/order/create`,
   orders: `${base_url}/order`,
   order_pay: `${base_url}/order/pay`,
+  create_request_new_agent: `${base_url}/create_request_new_agent`,
 };

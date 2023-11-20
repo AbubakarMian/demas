@@ -27,13 +27,12 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Common, { googleTranslate, SendRequest } from "../common/Common";
 
-export default function Login_page_style() {
+export default function BecomeAgent() {
   const navigate = useNavigate();
 
   const navigateToPath = (path) => {
     navigate(path);
   };
-  const [show, setShow] = useState(false);
   const { contextState, updateContextState } = useContext(ContextApiContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -41,40 +40,35 @@ export default function Login_page_style() {
   const [password, setPassword] = useState("");
   const [phone_no, setPhoneNo] = useState("");
   const [whatsapp_no, setWhatsapp] = useState("");
-  const [OTPShow, setOTPShow] = useState(false);
-  const [otp, setOtp] = useState("");
-  const [user, setUser] = useState({});
-  const [error, setError] = useState(null);
-  const attempt_login = async () => {
+  const [successModal, setSuccessModal] = useState(false);
+
+  const CreateNewAgent = async () => {
     try {
       // Create the formData and append the email and password
       console.log("test login 111");
       var formData = new FormData();
       formData.append("name", name);
       formData.append("email", email);
-      formData.append("password", email);
-      formData.append("phone_no", phone_no);
+      formData.append("password", password);
+      formData.append("phone", phone_no);
       formData.append("comment", comment);
-      formData.append("whatsapp_no", whatsapp_no);
+      formData.append("whatsapp", whatsapp_no);
       console.log("email", email);
      
       console.log("phone_no", phone_no);
 
-      // Call SendRequest with the necessary parameters
       let cs = contextState;
       cs.user.access_token = Constant.basic_token;
       const res = await SendRequest(
         cs,
         "POST",
-        Constant.register_or_login,
+        Constant.create_request_new_agent,
         formData
       );
       console.log("test res", res);
 
       if (res.status) {
-        let user = res.response;
-        setOTPShow(true);
-        setUser(user);
+        setSuccessModal(true);
       } else {
         updateContextState(res.error.message[0], "error_msg");
 
@@ -90,44 +84,10 @@ export default function Login_page_style() {
       // setError("An error occurred while logging in. Please try again.");
     }
   };
-  const [open, setOpen] = useState(false);
 
-  const validateOtp = async () => {
-    if (!otp) {
-      updateContextState("Enter OTP", "error_msg");
-
-      return;
-    }
-    let formData = new FormData();
-    formData.append("otp", otp);
-    console.log("otp", otp);
-    console.log("access_token", user.access_token);
-    formData.append("access_token", user.access_token);
-    const res = await SendRequest(
-      contextState,
-      "post",
-      Constant.validate_otp,
-      formData
-      // JSON.stringify({
-      //   "otp":otp,
-      //   "access_token":user.access_token,
-      // })
-    );
-    // console.log('resss',res);
-    if (res.status) {
-      res.response.is_loggedin = true;
-      updateContextState(res.response, "update_user");
-      // updateContextState(false, "show_login_modal");
-      navigateToPath("/home");
-    } else {
-      if (res.error && res.error.message) {
-        updateContextState(res.error.message[0], "error_msg");
-
-        // updateContextState(res.response, "update_user");
-      } else {
-        setError("Somthing went wrong contact admin.");
-      }
-    }
+  const hideSuccessModal = async () => {
+    setSuccessModal(false);
+    navigateToPath('/home');
   };
 
   return (
@@ -163,7 +123,7 @@ export default function Login_page_style() {
                     aria-label="name"
                     aria-describedby="basic-addon1"
                     onChange={(e) => setName(e.target.value)}
-                    value={email} // Bind the email state to the input value
+                    value={name} // Bind the email state to the input value
                   />
                 </InputGroup>
                 <InputGroup className="mb-3">
@@ -192,8 +152,9 @@ export default function Login_page_style() {
                 </InputGroup>{" "}
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon1">
-                  {/* <FontAwesomeIcon icon={faWhatsapp} /> */}
-                  <FontAwesomeIconW icon={['fab', 'square-whatsapp']} />
+                  {/* <FontAwesomeIcon icon={"#"} /> */}
+                  {/* <FontAwesomeIconW icon={['fab', 'square-whatsapp']} /> */}
+                  #
                   </InputGroup.Text>
                   <Form.Control
                     placeholder="Whatsapp Number"
@@ -212,7 +173,7 @@ export default function Login_page_style() {
                     aria-label="Whatsapp"
                     aria-describedby="basic-addon1"
                     onChange={(e) => setPassword(e.target.value)}
-                    value={whatsapp_no} // Bind the password state to the input value
+                    value={password} // Bind the password state to the input value
                   />
                 </InputGroup>{" "}
                 <InputGroup className="mb-3">
@@ -224,45 +185,29 @@ export default function Login_page_style() {
                     aria-label=""
                     aria-describedby="basic-addon1"
                     onChange={(e) => setComment(e.target.value)}
-                    value={whatsapp_no} // Bind the password state to the input value
+                    value={comment} // Bind the password state to the input value
                   />
                 </InputGroup>{" "}
               </div>
             </Row>
             <Row>
               <div className="otp_bt_area">
-                <Button className="otpbtn" onClick={() => attempt_login()}>
-                  SEND OTP
+                <Button className="otpbtn" onClick={() => CreateNewAgent()}>
+                  Send
                 </Button>
                 <Modal
-                  show={OTPShow}
-                  onHide={() => setOTPShow(false)}
+                  show={successModal}
+                  onHide={() => hideSuccessModal()}
                   dialogClassName="modal-90w"
                   aria-labelledby="example-custom-modal-styling-title"
                 >
                   <Modal.Header closeButton>
                     <Modal.Title id="example-custom-modal-styling-title">
-                      OTP
+                      Success
                     </Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
-                      <Form.Control
-                        placeholder="Enter OTp"
-                        aria-label="otp"
-                        aria-describedby="basic-addon1"
-                        type="number"
-                        onChange={(e) => setOtp(e.target.value)}
-                      />
-                    </InputGroup>
-                    <Button
-                      onClick={() => validateOtp()}
-                      variant="primary"
-                      className="otpbtn"
-                    >
-                      Login
-                    </Button>
+                    Request Sent Successfully
                   </Modal.Body>
                 </Modal>
               </div>

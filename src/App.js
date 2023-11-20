@@ -5,7 +5,7 @@ import ErrorAlert from "./js/Components/ErrorAlert";
 import Packages from "./js/Packages";
 import Login from "./js/Login_page";
 import Home from "./js/Home";
-import Become_agent from "./js/become_agent";
+import Become_agent from "./js/BecomeAgent";
 import Starting from "./js/Starting";
 import AvailableCars from "./js/AvailableCars";
 import TransportDetails from "./js/TransportDetails";

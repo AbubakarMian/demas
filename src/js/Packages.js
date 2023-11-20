@@ -312,6 +312,7 @@ export default function Packages(props) {
                 })}
 
                 <div className="add_btn_card">
+                  
                   <Button onClick={handleShow}>ADD</Button>
                   <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton></Modal.Header>
@@ -492,6 +493,8 @@ export default function Packages(props) {
         </div>
 
         <div className="for_small_screen">
+          
+   
           <Row>
             <Col md={1}></Col>
             <Col md={10}>
@@ -503,6 +506,37 @@ export default function Packages(props) {
           </Row>
         </div>
         <Row>
+        <Row>
+              
+              <Collapse in={true}>
+                      <div id="example-collapse-text">
+                        <InputGroup>
+                          <Form.Control
+                            as="text"
+                            aria-label="With textarea"
+                            className="comnt_text"
+                            placeholder="Customer Name"
+                          />
+                        </InputGroup>
+                        <InputGroup>
+                          <Form.Control
+                            as="text"
+                            aria-label="With textarea"
+                            className="comnt_text"
+                            placeholder="customer_number"
+                          />
+                        </InputGroup>
+                        <InputGroup>
+                          <Form.Control
+                            as="text"
+                            aria-label="With textarea"
+                            className="comnt_text"
+                            placeholder="customer_collection_price"
+                          />
+                        </InputGroup>
+                      </div>
+                    </Collapse>
+              </Row>
           <Col md={1}></Col>
           <Col md={10}>
             <Button
