@@ -5,6 +5,7 @@ import ErrorAlert from "./js/Components/ErrorAlert";
 import Packages from "./js/Packages";
 import Login from "./js/Login_page";
 import Home from "./js/Home";
+import Become_agent from "./js/become_agent";
 import Starting from "./js/Starting";
 import AvailableCars from "./js/AvailableCars";
 import TransportDetails from "./js/TransportDetails";
@@ -97,6 +98,7 @@ function App() {
             <Route Component={Login} path="/login"></Route>
             <Route Component={Starting} path="/"></Route>
             <Route Component={Home} path="/home"></Route>
+            <Route Component={Become_agent} path="/agent"></Route>
           </Routes>
         </Router>
       </ContexApiProvider>
