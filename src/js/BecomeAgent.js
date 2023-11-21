@@ -43,7 +43,7 @@ export default function BecomeAgent() {
 
   const CreateNewAgent = async () => {
     try {
-      // Create the formData and append the email and password
+
       console.log("test login 111");
       var formData = new FormData();
       formData.append("name", name);
@@ -71,7 +71,6 @@ export default function BecomeAgent() {
       } else {
         updateContextState(res.error.message[0], "error_msg");
 
-        // setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -80,7 +79,6 @@ export default function BecomeAgent() {
         "error_msg"
       );
 
-      // setError("An error occurred while logging in. Please try again.");
     }
   };
 
@@ -122,7 +120,7 @@ export default function BecomeAgent() {
                     aria-label="name"
                     aria-describedby="basic-addon1"
                     onChange={(e) => setName(e.target.value)}
-                    value={name} // Bind the email state to the input value
+                    value={name}
                   />
                 </InputGroup>
                 <InputGroup className="mb-3">
@@ -134,7 +132,7 @@ export default function BecomeAgent() {
                     aria-label="Email"
                     aria-describedby="basic-addon1"
                     onChange={(e) => setEmail(e.target.value)}
-                    value={email} // Bind the email state to the input value
+                    value={email} 
                   />
                 </InputGroup>
                 <InputGroup className="mb-3">
@@ -146,7 +144,7 @@ export default function BecomeAgent() {
                     aria-label="Whatsapp"
                     aria-describedby="basic-addon1"
                     onChange={(e) => setPhoneNo(e.target.value)}
-                    value={phone_no} // Bind the password state to the input value
+                    value={phone_no}
                   />
                 </InputGroup>{" "}
                 <InputGroup className="mb-3">
@@ -158,7 +156,7 @@ export default function BecomeAgent() {
                     aria-label="Whatsapp"
                     aria-describedby="basic-addon1"
                     onChange={(e) => setWhatsapp(e.target.value)}
-                    value={whatsapp_no} // Bind the password state to the input value
+                    value={whatsapp_no}
                   />
                 </InputGroup>{" "}
                 <InputGroup className="mb-3">
@@ -170,7 +168,7 @@ export default function BecomeAgent() {
                     aria-label="Whatsapp"
                     aria-describedby="basic-addon1"
                     onChange={(e) => setPassword(e.target.value)}
-                    value={password} // Bind the password state to the input value
+                    value={password}
                   />
                 </InputGroup>{" "}
                 <InputGroup className="mb-3">
@@ -182,7 +180,7 @@ export default function BecomeAgent() {
                     aria-label=""
                     aria-describedby="basic-addon1"
                     onChange={(e) => setComment(e.target.value)}
-                    value={comment} // Bind the password state to the input value
+                    value={comment}
                   />
                 </InputGroup>{" "}
               </div>

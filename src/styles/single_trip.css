@@ -142,12 +142,18 @@ h5.md_head {
   .lociconarea_new img {
     margin: 0px -20px;
   }
-  .comnt_text {
-    margin-left: -4%;
-    margin-right: 5%;
-    padding: 17px;
-    margin-bottom: 10px;
-  }
+
+  button.bookbtn.btn.btn-primary {
+    margin-top: 127px;
+    width: 190px;
+    background-color: #996418;
+    border: #996418;
+    margin-top: 25px;
+    height: 42px;
+    font-size: 20px;
+    margin-bottom: 25px;
+    float: right;
+}
   button.bookbtn.btn.btn-primary {
     width: 100%;
     float: none;
