@@ -3,14 +3,21 @@
 }
 .comnt_txt {
   margin-right: 55px;
-  padding: 17px;
+  padding: 10px;
   margin-bottom: 10px;
 }
 .const_padding {
   padding: 0px 15%;
   width: 100%;
 }
-
+.on_padding {
+  background: #a4610d78;
+  padding: 20px 0px 10px 0px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #a4610dbf;
+  box-shadow: 0px 0px 2px 0px;
+}
 p.car_details {
   padding: 22px;
   font-weight: bold;
@@ -68,7 +75,7 @@ svg.svg-inline--fa.fa-arrow-right.arr_icn {
   font-size: 17px;
   margin-right: 10px;
 }
-div#example-collapse-text {
+.coll_p {
   text-align: left;
   margin-left: 27px;
   font-size: 16px;
@@ -154,14 +161,31 @@ svg.svg-inline--fa.fa-check.succ_icon {
 }
 @media only screen and (max-width: 480px) {
   .comnt_txt {
-    margin-left: -7%;
-    margin-right: 13%;
-    padding: 17px;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin-bottom: 0px;
   }
+  .const_padding {
+    padding: 0px 10%;
+    width: 100%;
+  }
+  .on_padding {
+    background: #a4610d78;
+    padding: 25px 0px 10px 0px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #a4610dbf;
+    box-shadow: 0px 0px 2px 0px;
+}
 
   button.book_btn.btn.btn-primary {
     width: 100%;
     height: 55px;
+    margin-right: -10px;
+  }
+  .coll_p {
+    text-align: left;
+    margin-left: 15px;
+    font-size: 16px;
+    margin-top: 20px;
   }
 }

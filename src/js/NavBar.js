@@ -9,8 +9,10 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
 import {
   faHouse,
+  faUser,
   faRightToBracket,
   faPhoneVolume,
   faBarsProgress,
@@ -138,7 +140,7 @@ export default function Nav_bar_area() {
                 <div className="nav_bottom">
                   <Nav.Link href="agent">
                     <FontAwesomeIcon
-                      icon={faCommentsDollar}
+                      icon={faUser}
                       className="nav_ico_sp"
                     />{" "}
                     Agent

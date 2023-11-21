@@ -20,7 +20,12 @@ import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
 import { ContextApiContext } from "../context/ContextApi";
 import { Constant } from "../common/Constants";
-import { SendRequest, SendRequestContetType, get_formated_dateime } from "../common/Common";
+import Accordion from "react-bootstrap/Accordion";
+import {
+  SendRequest,
+  SendRequestContetType,
+  get_formated_dateime,
+} from "../common/Common";
 import TripCreatedSuccessModal from "./Components/TripCreatedSuccessModal";
 
 export default function Packages(props) {
@@ -42,12 +47,13 @@ export default function Packages(props) {
   const [showPickupExtraInfo, setShowPickupExtraInfo] = useState(false);
   const [showDropoffExtraInfo, setShowDropoffExtraInfo] = useState(false);
   const [pickExtrainfo, setPickExtrainfo] = useState("");
-  const [dropoffExtrainfo, setDropoffExtrainfo] = useState("");  
-  const [placeholderPickupExtraInfo, setPlaceholderPickupExtraInfo] = useState('');
-  const [placeholderDropoffExtraInfo, setPlaceholderDropoffExtraInfo] = useState('');
+  const [dropoffExtrainfo, setDropoffExtrainfo] = useState("");
+  const [placeholderPickupExtraInfo, setPlaceholderPickupExtraInfo] =
+    useState("");
+  const [placeholderDropoffExtraInfo, setPlaceholderDropoffExtraInfo] =
+    useState("");
   const [paymentSuccessModalsShow, setPaymentSuccessModalsShow] =
     useState(false);
-
 
   useEffect(() => {
     getLocations();
@@ -151,10 +157,9 @@ export default function Packages(props) {
       setPlaceholderPickupExtraInfo(placeholder);
       setShowPickupExtraInfo(placeholder.length);
 
-      if(location_type == "Airport"){
+      if (location_type == "Airport") {
         // setShowPickupExtraInfo(true);
-      }
-      else{
+      } else {
         // setShowPickupExtraInfo(false);
         // setPickExtrainfo("");
       }
@@ -165,10 +170,9 @@ export default function Packages(props) {
       console.log("dropoff location point ", point, new_val);
       setPlaceholderDropoffExtraInfo(placeholder);
       setShowDropoffExtraInfo(placeholder.length);
-      if(location_type == "Airport"){
+      if (location_type == "Airport") {
         // setShowDropoffExtraInfo(true);
-      }
-      else{
+      } else {
         // setShowDropoffExtraInfo(false);
         // setDropoffExtrainfo("");
       }
@@ -312,7 +316,6 @@ export default function Packages(props) {
                 })}
 
                 <div className="add_btn_card">
-                  
                   <Button onClick={handleShow}>ADD</Button>
                   <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton></Modal.Header>
@@ -329,20 +332,20 @@ export default function Packages(props) {
                           />
                           {selectPickup.name ?? " Select Pickup location"}
                         </Button>
-                  <Collapse in={showPickupExtraInfo}>
-                    <div id="">
-                      <InputGroup>
-                        <Form.Control
-                        type="text"
-                        placeholder={placeholderPickupExtraInfo}
-                          onChange={(e) => {
-                            setPickExtrainfo(e.target.value);
-                          }}
-                          value={pickExtrainfo}
-                        />
-                      </InputGroup>
-                    </div>
-                  </Collapse>
+                        <Collapse in={showPickupExtraInfo}>
+                          <div id="">
+                            <InputGroup>
+                              <Form.Control
+                                type="text"
+                                placeholder={placeholderPickupExtraInfo}
+                                onChange={(e) => {
+                                  setPickExtrainfo(e.target.value);
+                                }}
+                                value={pickExtrainfo}
+                              />
+                            </InputGroup>
+                          </div>
+                        </Collapse>
                         <h5 className="md_head">Dropoff</h5>
                         <Button
                           className="pick_drop"
@@ -353,21 +356,21 @@ export default function Packages(props) {
                             icon={faLocationDot}
                           />
                           {selectDropoff.name ?? " Select Dropoff location"}
-                        </Button>                  
-                  <Collapse in={showDropoffExtraInfo}>
-                    <div id="">
-                      <InputGroup>
-                        <Form.Control
-                        type="text"
-                        placeholder={placeholderDropoffExtraInfo}
-                          onChange={(e) => {
-                            setDropoffExtrainfo(e.target.value);
-                          }}
-                          value={dropoffExtrainfo}
-                        />
-                      </InputGroup>
-                    </div>
-                  </Collapse>
+                        </Button>
+                        <Collapse in={showDropoffExtraInfo}>
+                          <div id="">
+                            <InputGroup>
+                              <Form.Control
+                                type="text"
+                                placeholder={placeholderDropoffExtraInfo}
+                                onChange={(e) => {
+                                  setDropoffExtrainfo(e.target.value);
+                                }}
+                                value={dropoffExtrainfo}
+                              />
+                            </InputGroup>
+                          </div>
+                        </Collapse>
                         <h5 className="md_head">PICKUP DATE & TIME</h5>
                         <Form.Control
                           type="datetime-local"
@@ -493,8 +496,6 @@ export default function Packages(props) {
         </div>
 
         <div className="for_small_screen">
-          
-   
           <Row>
             <Col md={1}></Col>
             <Col md={10}>
@@ -506,37 +507,43 @@ export default function Packages(props) {
           </Row>
         </div>
         <Row>
-        <Row>
-              
-              <Collapse in={true}>
-                      <div id="example-collapse-text">
-                        <InputGroup>
-                          <Form.Control
-                            as="text"
-                            aria-label="With textarea"
-                            className="comnt_text"
-                            placeholder="Customer Name"
-                          />
-                        </InputGroup>
-                        <InputGroup>
-                          <Form.Control
-                            as="text"
-                            aria-label="With textarea"
-                            className="comnt_text"
-                            placeholder="customer_number"
-                          />
-                        </InputGroup>
-                        <InputGroup>
-                          <Form.Control
-                            as="text"
-                            aria-label="With textarea"
-                            className="comnt_text"
-                            placeholder="customer_collection_price"
-                          />
-                        </InputGroup>
-                      </div>
-                    </Collapse>
-              </Row>
+          <Accordion className="mt-3">
+            <Accordion.Item eventKey="1">
+              <Accordion.Header>Customer Info</Accordion.Header>
+              <Accordion.Body in={true}>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Control
+                    type="text"
+                    aria-label="With textarea"
+                    className="comnt_tsxt"
+                    placeholder="Customer Name"
+                  />
+                </Form.Group>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Control
+                    type="text"
+                    aria-label="With textarea"
+                    className="comnt_tsxt"
+                    placeholder="customer_number"
+                  />
+                </Form.Group>
+                <Form.Group className="" controlId="exampleForm.ControlInput1">
+                  <Form.Control
+                    type="text"
+                    aria-label="With textarea"
+                    className="comnt_tsxt"
+                    placeholder="customer_collection_price"
+                  />
+                </Form.Group>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
           <Col md={1}></Col>
           <Col md={10}>
             <Button

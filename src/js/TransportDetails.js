@@ -11,6 +11,7 @@ import "./../styles/transport_details.css";
 import Carousel from "react-bootstrap/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate, useLocation } from "react-router-dom";
+import Accordion from "react-bootstrap/Accordion";
 
 import {
   faArrowRight,
@@ -43,12 +44,7 @@ export default function TransportDetails(props) {
 
   const [transportDetail, setTransportDetail] = useState(null);
   const [booking_obj, setBooking_obj] = useState({});
-  // const [transportDetail, setTransportDetail] = useState({transport_type:{},
-  //   images:[],
-  //   features:[],
-  //   booking:[],
-  //   dontforget:[],
-  // });
+
 
   const navigateToPath = (path, props) => {
     navigate(path, { state: props });
@@ -130,11 +126,6 @@ export default function TransportDetails(props) {
   }
   return (
     <div>
-      {/* <LoginModal showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} /> */}
-      {/* {
-        showLoginModal ?<LoginModal  />:null 
-      }
-       */}
       <Container fluid>
         <Row>
           <div className="login_head">
@@ -164,31 +155,28 @@ export default function TransportDetails(props) {
             </div>
           </Col>
           <Col>
-                    <div className="rates">
-                      <div className="style-1 divine">
-                        {transportDetail.apply_discount ? (
-                          <>
-                           <p className="pd"><span className="bef">BEFORE</span>
-                            <del className="sps">{transportDetail.booking_price}  SAR</del></p>
-                            <span className="nw">NOW</span>
-                          </>
-                        ) : null}
-                        {transportDetail.discounted_price} SAR
-                      </div>
-                    </div>
-                  </Col>
+            <div className="rates">
+              <div className="style-1 divine">
+                {transportDetail.apply_discount ? (
+                  <>
+                    <p className="pd">
+                      <span className="bef">BEFORE</span>
+                      <del className="sps">
+                        {transportDetail.booking_price} SAR
+                      </del>
+                    </p>
+                    <span className="nw">NOW</span>
+                  </>
+                ) : null}
+                {transportDetail.discounted_price} SAR
+              </div>
+            </div>
+          </Col>
         </Row>
-        
-        
-        <Row className="const_padding">
-          
-          {/* <Col>
-            <div className="similr">(or Similar)</div>
-          </Col> */}
-        </Row>
+
+        <Row className="const_padding"></Row>
       </Container>
       <Row className="const_padding">
-        {/*  */}
         <Carousel className="slider_bdr">
           {transportDetail.images.map((image) => {
             return (
@@ -326,73 +314,80 @@ export default function TransportDetails(props) {
                 </div>
               </Collapse>
             </Row>
-            <Row className="on_padding">
-              
-            <Collapse in={true}>
-                    <div id="example-collapse-text">
-                      <InputGroup>
-                        <Form.Control
-                          as="text"
-                          aria-label="With textarea"
-                          className="comnt_txt"
-                          placeholder="Customer Name"
-                        />
-                      </InputGroup>
-                      <InputGroup>
-                        <Form.Control
-                          as="text"
-                          aria-label="With textarea"
-                          className="comnt_txt"
-                          placeholder="customer_number"
-                        />
-                      </InputGroup>
-                      <InputGroup>
-                        <Form.Control
-                          as="text"
-                          aria-label="With textarea"
-                          className="comnt_txt"
-                          placeholder="customer_collection_price"
-                        />
-                      </InputGroup>
-                    </div>
-                  </Collapse>
-            </Row>
           </div>
+          <Accordion>
+            <Accordion.Item eventKey="1">
+              <Accordion.Header>Customer Info</Accordion.Header>
+              <Accordion.Body in={true}>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Control
+                    type="text"
+                    aria-label="With textarea"
+                    className="comnt_tsxt"
+                    placeholder="Customer Name"
+                  />
+                </Form.Group>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Control
+                    type="text"
+                    aria-label="With textarea"
+                    className="comnt_tsxt"
+                    placeholder="customer_number"
+                  />
+                </Form.Group>
+                <Form.Group
+                  className=""
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Control
+                    type="text"
+                    aria-label="With textarea"
+                    className="comnt_tsxt"
+                    placeholder="customer_collection_price"
+                  />
+                </Form.Group>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
         </div>
         <Row className="const_padding">
           <Col>
-          <Button
-      className="book_btn"
-      onClick={handleBookCar}
-    >
-      <div className="style-1 divine_det">
-        {transportDetail.apply_discount ? (
-          <>
-          <p className="pd"><span className="bef">BEFORE</span>
-            <del>
-              
-              <span className="amount">
-                {transportDetail.booking_price} SAR
-              </span>
-            </del></p>
-            <ins>
-            <span className="nw">NOW</span>
-              <span className="amount">
-                {transportDetail.discounted_price} SAR
-              </span>
-            </ins>
-          </>
-        ) : (
-          <>
-            Total Fare
-            <span className="amount">
-              {transportDetail.booking_price} SAR
-            </span>
-          </>
-        )}
-      </div>
-    </Button>
-            
+            <Button className="book_btn" onClick={handleBookCar}>
+              <div className="style-1 divine_det">
+                {transportDetail.apply_discount ? (
+                  <>
+                    <p className="pd">
+                      <span className="bef">BEFORE</span>
+                      <del>
+                        <span className="amount">
+                          {transportDetail.booking_price} SAR
+                        </span>
+                      </del>
+                    </p>
+                    <ins>
+                      <span className="nw">NOW</span>
+                      <span className="amount">
+                        {transportDetail.discounted_price} SAR
+                      </span>
+                    </ins>
+                  </>
+                ) : (
+                  <>
+                    Total Fare
+                    <span className="amount">
+                      {transportDetail.booking_price} SAR
+                    </span>
+                  </>
+                )}
+              </div>
+            </Button>
+
             <div className="modal_plac">
               <div className="mdl_btn">
                 <PaymentOptions
