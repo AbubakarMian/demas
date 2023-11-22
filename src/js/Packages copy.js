@@ -20,13 +20,13 @@ import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
 import { ContextApiContext } from "../context/ContextApi";
 import { Constant } from "../common/Constants";
-import Accordion from "react-bootstrap/Accordion";
 import {
   SendRequest,
   SendRequestContetType,
   get_formated_dateime,
 } from "../common/Common";
 import TripCreatedSuccessModal from "./Components/TripCreatedSuccessModal";
+import CustomerDetails from "./Components/CustomerDetails";
 
 export default function Packages(props) {
   const location = useLocation();
@@ -53,6 +53,9 @@ export default function Packages(props) {
   const [placeholderDropoffExtraInfo, setPlaceholderDropoffExtraInfo] =
     useState("");
   const [paymentSuccessModalsShow, setPaymentSuccessModalsShow] =
+    useState(false);
+
+  const [showCustomerDetailsModal, setShowCustomerDetailsModal] =
     useState(false);
   const [customer_name, setCustomerName] = useState(false);
   const [customer_number, setCustomerNumber] = useState(false);
@@ -515,43 +518,6 @@ export default function Packages(props) {
           </Row>
         </div>
         <Row>
-          <Accordion className="mt-3">
-            <Accordion.Item eventKey="1">
-              <Accordion.Header>Customer Info</Accordion.Header>
-              <Accordion.Body in={true}>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Control
-                    type="text"
-                    aria-label="With textarea"
-                    className="comnt_tsxt"
-                    placeholder="Customer Name"
-                  />
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Control
-                    type="text"
-                    aria-label="With textarea"
-                    className="comnt_tsxt"
-                    placeholder="customer_number"
-                  />
-                </Form.Group>
-                <Form.Group className="" controlId="exampleForm.ControlInput1">
-                  <Form.Control
-                    type="text"
-                    aria-label="With textarea"
-                    className="comnt_tsxt"
-                    placeholder="customer_collection_price"
-                  />
-                </Form.Group>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
           <Col md={1}></Col>
           <Col md={10}>
             <Button
@@ -615,6 +581,19 @@ export default function Packages(props) {
                                     </Button> */}
                 </Modal.Footer>
               </Modal>
+
+              <CustomerDetails
+                showCustomerDetailsModal={showCustomerDetailsModal}
+                setShowCustomerDetailsModal={setShowCustomerDetailsModal}
+                customer_name={customer_name}
+                setCustomerName={setCustomerName}
+                customer_number={customer_number}
+                setCustomerNumber={setCustomerNumber}
+                customer_collection_price={customer_collection_price}
+                setCustomerCollectionPrice={setCustomerCollectionPrice}
+                handleBookCar={handleBookPackage}
+                ContextApiContext={ContextApiContext}
+              />
             </div>
           </Col>
           <Col md={1}></Col>

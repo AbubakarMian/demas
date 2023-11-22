@@ -28,7 +28,7 @@ import Nav_bar_area from "./NavBar";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Constant } from "../common/Constants";
 import { ContextApiContext } from "../context/ContextApi";
-import Common, { googleTranslate, SendRequest } from "../common/Common";
+import Common, { googleTranslate, SendRequest, SendRequestContetType } from "../common/Common";
 
 export default function AvailableCars() {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ export default function AvailableCars() {
   const { contextState, updateContextState } = useContext(ContextApiContext);
   const [transportlist, setTransportList] = useState([]);
   const [bookingDetails, setBookingDetails] = useState([]);
-  const [applyDiscount, setApplyDiscount] = useState(false);
+  // const [applyDiscount, setApplyDiscount] = useState(false);
   const [error, setError] = useState(null);
 
   const navigateToPath = (path, props) => {
@@ -50,18 +50,18 @@ export default function AvailableCars() {
   }, []);
 
   const init_state_variables = () => {
-    let booking_obj = location.state?.booking_obj;
+    // let booking_obj = location.state?.booking_obj;
 
-    if (typeof booking_obj !== "undefined" && booking_obj !== null) {
-      if (
-        booking_obj.details.length != 0 &&
-        booking_obj.details.length % 3 === 0
-      ) {
-        setApplyDiscount(true);
-      }
-    } else {
-      setApplyDiscount(false);
-    }
+    // if (typeof booking_obj !== "undefined" && booking_obj !== null) {
+    //   if (
+    //     booking_obj.details.length != 0 &&
+    //     booking_obj.details.length % 3 === 0
+    //   ) {
+    //     setApplyDiscount(true);
+    //   }
+    // } else {
+    //   setApplyDiscount(false);
+    // }
   };
 
   const get_transport = async () => {
@@ -79,7 +79,26 @@ export default function AvailableCars() {
       }
 
       let get_car_url = `${Constant.get_cars}` + booking_filters;
-      const res = await SendRequest(cs, "GET", get_car_url);
+
+      
+    let obj = {
+      booking_details: location.state?.booking_obj,
+    };
+    // formData.append(
+    //   "booking_details",
+    //   JSON.stringify(location.state.booking_obj)
+    // );
+    const res = await SendRequestContetType(
+      cs,
+      "post",
+      get_car_url,
+      JSON.stringify(obj),
+      true
+    );
+
+
+
+      // const res = await SendRequest(cs, "GET", get_car_url);
 
       if (res.status) {
         let cars_list = res.response.data;
@@ -96,7 +115,7 @@ export default function AvailableCars() {
 
   const selectTransport = (transport) => {
     let transport_id = transport.id;
-    transport.apply_discount = applyDiscount;
+    transport.apply_discount = transport.apply_discount;
     console.log("my transport", transport);
     if (location.state) {
       let booking_obj = location.state.booking_obj;
@@ -107,7 +126,9 @@ export default function AvailableCars() {
       booking_obj.details[booking_obj.details.length - 1].transport_type_name =
         transport.transport_type.name;
       booking_obj.details[booking_obj.details.length - 1].apply_discount =
-        applyDiscount;
+      transport.apply_discount;
+      booking_obj.details[booking_obj.details.length - 1].customer_collection_price =
+      0;
 
       setBookingDetails({ ...location.state.booking_obj, booking_obj });
       navigateToPath("/transport_details", { transport, booking_obj });
@@ -243,7 +264,7 @@ export default function AvailableCars() {
                   <Col>
                     <div className="rates">
                       <div className="style-1 divine">
-                        {applyDiscount ? (
+                        {item.apply_discount ? (
                           <>
                            <p className="pd"><span className="bef">BEFORE</span>
                             <del className="sps">{item.booking_price} SAR</del></p>
