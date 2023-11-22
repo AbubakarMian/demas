@@ -26,6 +26,7 @@ import {
   get_formated_dateime,
 } from "../common/Common";
 import TripCreatedSuccessModal from "./Components/TripCreatedSuccessModal";
+import CustomerDetails from "./Components/CustomerDetails";
 
 export default function Packages(props) {
   const location = useLocation();
@@ -52,6 +53,9 @@ export default function Packages(props) {
   const [placeholderDropoffExtraInfo, setPlaceholderDropoffExtraInfo] =
     useState("");
   const [paymentSuccessModalsShow, setPaymentSuccessModalsShow] =
+    useState(false);
+
+  const [showCustomerDetailsModal, setShowCustomerDetailsModal] =
     useState(false);
   const [customer_name, setCustomerName] = useState(false);
   const [customer_number, setCustomerNumber] = useState(false);
@@ -577,6 +581,19 @@ export default function Packages(props) {
                                     </Button> */}
                 </Modal.Footer>
               </Modal>
+
+              <CustomerDetails
+                showCustomerDetailsModal={showCustomerDetailsModal}
+                setShowCustomerDetailsModal={setShowCustomerDetailsModal}
+                customer_name={customer_name}
+                setCustomerName={setCustomerName}
+                customer_number={customer_number}
+                setCustomerNumber={setCustomerNumber}
+                customer_collection_price={customer_collection_price}
+                setCustomerCollectionPrice={setCustomerCollectionPrice}
+                handleBookCar={handleBookPackage}
+                ContextApiContext={ContextApiContext}
+              />
             </div>
           </Col>
           <Col md={1}></Col>

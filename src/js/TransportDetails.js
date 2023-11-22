@@ -43,12 +43,19 @@ export default function TransportDetails(props) {
 
   const [transportDetail, setTransportDetail] = useState(null);
   const [booking_obj, setBooking_obj] = useState({});
-  // const [transportDetail, setTransportDetail] = useState({transport_type:{},
-  //   images:[],
-  //   features:[],
-  //   booking:[],
-  //   dontforget:[],
-  // });
+  const [user, setUser_obj] = useState({});
+
+  const [car_feature, setcar_featureOpen] = useState(false);
+  const [book, setbookOpen] = useState(false);
+  const [customer_name, setCustomerName] = useState("");
+  const [customer_number, setCustomerNumber] = useState("");
+  const [customer_collection_price, setCustomerCollectionPrice] = useState(0);
+
+  // const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [open, setOpen] = useState(false);
+  // const [showPaymentOptionsModal, setShowPaymentOptionsModal] = useState(false);
+  const [paymentSuccessModalsShow, setPaymentSuccessModalsShow] =
+    useState(false);
 
   const navigateToPath = (path, props) => {
     navigate(path, { state: props });
@@ -65,32 +72,36 @@ export default function TransportDetails(props) {
 
   const init_state_variables = () => {
     let booking_obj = location.state.booking_obj;
+    const user = contextState.user;
     setBooking_obj(booking_obj);
+    setUser_obj(user);
   };
   const set_transport_details = () => {
     const transport_detail = location.state.transport;
     console.log("transport detail props ", transport_detail);
     setTransportDetail(transport_detail);
   };
-  const [car_feature, setcar_featureOpen] = useState(false);
-  const [book, setbookOpen] = useState(false);
-
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [showPaymentOptionsModal, setShowPaymentOptionsModal] = useState(false);
-  const [paymentSuccessModalsShow, setPaymentSuccessModalsShow] =
-    useState(false);
-
-  const [handleOtpPaymentModals, setHandleOtpPaymentModalsShow] = useState({
-    otp_step: false,
-    payment_step: false,
-    payment_success: false,
-  });
   const handleBookCar = () => {
-    const user = contextState.user;
+    // const user = contextState.user;
+    let current_booking = booking_obj.details[booking_obj.details.length - 1];
     if (user.is_loggedin) {
-      let booking_obj = location.state.booking_obj;
+      // let booking_obj = location.state.booking_obj;
       console.log("bookin handle", booking_obj);
+      if (
+        current_booking.booking_price <
+        current_booking.customer_collection_price
+      ) {
+        updateContextState(
+          "Collection price must be greater than booking price",
+          "error_msg"
+        );
+        return;
+      }
+      booking_obj.details[
+        booking_obj.details.length - 1
+      ].customer_collection_price = customer_collection_price;
+      // setBookingDetails({ ...location.state.booking_obj, booking_obj });
+
       if (booking_obj.type == "package") {
         navigateToPath("/packages", { booking_obj });
       } else {
@@ -102,15 +113,21 @@ export default function TransportDetails(props) {
   };
 
   const createOrder = async () => {
-    let formData = new FormData();
-    console.log("bookin", location.state.booking_obj);
+    // let formData = new FormData();
+    console.log("bookin", booking_obj);
+
+    let bookingObj = booking_obj;
+    bookingObj.customer_name = customer_name;
+    bookingObj.customer_number = customer_number;
+    // bookingObj.customer_collection_price = customer_collection_price;
+
     let obj = {
-      booking_details: location.state.booking_obj,
+      booking_details: bookingObj,
     };
-    formData.append(
-      "booking_details",
-      JSON.stringify(location.state.booking_obj)
-    );
+    // formData.append(
+    //   "booking_details",
+    //   JSON.stringify(booking_obj)
+    // );
     const res = await SendRequestContetType(
       contextState,
       "post",
@@ -130,11 +147,6 @@ export default function TransportDetails(props) {
   }
   return (
     <div>
-      {/* <LoginModal showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} /> */}
-      {/* {
-        showLoginModal ?<LoginModal  />:null 
-      }
-       */}
       <Container fluid>
         <Row>
           <div className="login_head">
@@ -164,24 +176,25 @@ export default function TransportDetails(props) {
             </div>
           </Col>
           <Col>
-                    <div className="rates">
-                      <div className="style-1 divine">
-                        {transportDetail.apply_discount ? (
-                          <>
-                           <p className="pd"><span className="bef">BEFORE</span>
-                            <del className="sps">{transportDetail.booking_price}  SAR</del></p>
-                            <span className="nw">NOW</span>
-                          </>
-                        ) : null}
-                        {transportDetail.discounted_price} SAR
-                      </div>
-                    </div>
-                  </Col>
+            <div className="rates">
+              <div className="style-1 divine">
+                {transportDetail.apply_discount ? (
+                  <>
+                    <p className="pd">
+                      <span className="bef">BEFORE</span>
+                      <del className="sps">
+                        {transportDetail.booking_price} SAR
+                      </del>
+                    </p>
+                    <span className="nw">NOW</span>
+                  </>
+                ) : null}
+                {transportDetail.discounted_price} SAR
+              </div>
+            </div>
+          </Col>
         </Row>
-        
-        
         <Row className="const_padding">
-          
           {/* <Col>
             <div className="similr">(or Similar)</div>
           </Col> */}
@@ -330,48 +343,49 @@ export default function TransportDetails(props) {
         </div>
         <Row className="const_padding">
           <Col>
-          <Button
-      className="book_btn"
-      onClick={handleBookCar}
-    >
-      <div className="style-1 divine_det">
-        {transportDetail.apply_discount ? (
-          <>
-          <p className="pd"><span className="bef">BEFORE</span>
-            <del>
-              
-              <span className="amount">
-                {transportDetail.booking_price} SAR
-              </span>
-            </del></p>
-            <ins>
-            <span className="nw">NOW</span>
-              <span className="amount">
-                {transportDetail.discounted_price} SAR
-              </span>
-            </ins>
-          </>
-        ) : (
-          <>
-            Total Fare
-            <span className="amount">
-              {transportDetail.booking_price} SAR
-            </span>
-          </>
-        )}
-      </div>
-    </Button>
-            
+            <Button
+              className="book_btn"
+              onClick={handleBookCar}
+            >
+              <div className="style-1 divine_det">
+                {transportDetail.apply_discount ? (
+                  <>
+                    <p className="pd">
+                      <span className="bef">BEFORE</span>
+                      <del>
+                        <span className="amount">
+                          {transportDetail.booking_price} SAR
+                        </span>
+                      </del>
+                    </p>
+                    <ins>
+                      <span className="nw">NOW</span>
+                      <span className="amount">
+                        {transportDetail.discounted_price} SAR
+                      </span>
+                    </ins>
+                  </>
+                ) : (
+                  <>
+                    Total Fare
+                    <span className="amount">
+                      {transportDetail.booking_price} SAR
+                    </span>
+                  </>
+                )}
+              </div>
+            </Button>
+
             <div className="modal_plac">
               <div className="mdl_btn">
-                <PaymentOptions
+                {/* <PaymentOptions
                   showPaymentOptionsModal={showPaymentOptionsModal}
                   setShowPaymentOptionsModal={setShowPaymentOptionsModal}
-                />
-                <CreatePaymentModal
+                /> */}
+                {/* <CreatePaymentModal
                   setHandleOtpPaymentModalsShow={setHandleOtpPaymentModalsShow}
                   handleOtpPaymentModals={handleOtpPaymentModals}
-                />
+                /> */}
                 <TripCreatedSuccessModal
                   setPaymentSuccessModalsShow={setPaymentSuccessModalsShow}
                   paymentSuccessModalsShow={paymentSuccessModalsShow}
@@ -400,194 +414,3 @@ export default function TransportDetails(props) {
     </div>
   );
 }
-
-const CreatePaymentModal = (props) => {
-  const [show, setShow] = useState(false);
-  const navigate = useNavigate();
-
-  const handleClosePayment = () => {
-    let otp = { otp_step: false, payment_step: false, payment_success: false };
-    props.setHandleOtpPaymentModalsShow(otp);
-    console.log("handle close otpfalse ", props.handleOtpPaymentModals);
-  };
-  const handlePayment = () => {
-    let otp = { otp_step: false, payment_step: false, payment_success: true };
-    props.setHandleOtpPaymentModalsShow(otp);
-    console.log("handle close otpfalse ", props.handleOtpPaymentModals);
-  };
-
-  const navigateToPath = (path) => {
-    navigate(path);
-  };
-  return (
-    <>
-      <Modal
-        show={props.handleOtpPaymentModals.payment_step}
-        onHide={handleClosePayment}
-        dialogClassName="modal-90w"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">
-            Payment
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Container>
-            <Row>
-              <Col>
-                <Form.Label htmlFor="basic-url">Card Number</Form.Label>
-                <InputGroup className="mb-3">
-                  <Form.Control
-                    placeholder="Card No"
-                    aria-label="Recipient's username"
-                    aria-describedby="basic-addon2"
-                  />
-                  <InputGroup.Text id="basic-addon2">
-                    {" "}
-                    <div className="img_flag">
-                      <img src="./images/visa.png" />
-                    </div>
-                  </InputGroup.Text>
-                </InputGroup>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Label htmlFor="basic-url">Expiry</Form.Label>
-                <InputGroup className="mb-3">
-                  <Form.Control
-                    placeholder="Date"
-                    aria-label="Recipient's username"
-                    aria-describedby="basic-addon2"
-                  />
-                </InputGroup>
-              </Col>
-              <Col>
-                <Form.Label htmlFor="basic-url">Security</Form.Label>
-                <InputGroup className="mb-3">
-                  <Form.Control
-                    placeholder="CVC"
-                    aria-label="Recipient's username"
-                    aria-describedby="basic-addon2"
-                  />
-                </InputGroup>
-              </Col>
-            </Row>
-            <Row>
-              {/* <CreatePaymentSuccessModal /> */}
-              <Button onClick={handlePayment}>Pay</Button>
-            </Row>
-          </Container>
-        </Modal.Body>
-      </Modal>
-    </>
-  );
-};
-
-const PayLater = () => {
-  const [show, setShow] = useState(false);
-  const navigate = useNavigate();
-
-  const navigateToPath = (path) => {
-    navigate(path);
-  };
-  return (
-    <>
-      <Button className="pay_btn" onClick={() => setShow(true)}>
-        Pay Later
-      </Button>
-
-      <Modal
-        show={show}
-        onHide={() => setShow(false)}
-        dialogClassName="modal-90w"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          {/* <Modal.Title id="example-custom-modal-styling-title">
-            Payment
-          </Modal.Title> */}
-        </Modal.Header>
-        <Modal.Body>
-          <Container>
-            <div className="cent">
-              <Row>
-                <Col>
-                  <FontAwesomeIcon icon={faCheck} className="succ_icon" />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <p className="succ">Trip has been added</p>
-                  <p className="succ">successfully</p>
-                  <p className="succ">You will be notified with</p>
-                  <p className="succ">confimation shortly.</p>
-                </Col>
-              </Row>
-            </div>
-          </Container>
-        </Modal.Body>
-      </Modal>
-    </>
-  );
-};
-
-const PaymentOptions = (props) => {
-  const navigate = useNavigate();
-  const { contextState, updateContextState } = useContext(ContextApiContext);
-  const location = useLocation();
-
-  const navigateToPath = (path) => {
-    navigate(path);
-  };
-  const payLater = () => {
-    props.setShowPaymentOptionsModal(false);
-  };
-
-  return (
-    <>
-      <Modal
-        show={props.showPaymentOptionsModal}
-        onHide={() => props.setShowPaymentOptionsModal(false)}
-        dialogClassName="modal-90w"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header>
-          <Modal.Title id="example-custom-modal-styling-title">
-            Payment Options
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Container>
-            <div className="cent">
-              <Row>
-                <Col>
-                  <Button className="pay_btn" onClick={() => payLater()}>
-                    Pay Later
-                  </Button>
-                </Col>
-                <Col>
-                  <Button
-                    className="pay_btn"
-                    onClick={() => {
-                      updateContextState(
-                        "Online payment currently unavalible",
-                        "error_msg"
-                      );
-                    }}
-                  >
-                    Pay Now
-                  </Button>
-                </Col>
-              </Row>
-            </div>
-          </Container>
-        </Modal.Body>
-      </Modal>
-    </>
-  );
-};
