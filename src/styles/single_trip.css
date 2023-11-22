@@ -1,174 +1,161 @@
 .singletrip_card {
-    width: 100%;
-    height: auto;
-    border: solid 1px #99641857;
-    margin-top: 40px;
-    border-radius: 15px;
-    padding: 10px;
-    box-shadow: 5px 7px 10px #e4dede;
+  width: 100%;
+  height: auto;
+  border: solid 1px #99641857;
+  margin-top: 40px;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 5px 7px 10px #e4dede;
+}
+.comnt_text {
+  margin-right: 30px;
+  padding: 17px;
+  margin-bottom: 10px;
 }
 
 .smallcard {
-    width: 100%;
-    height: auto;
-    border: solid 1px #d9d9d9;
-    border-radius: 10px;
-    background-color: #d9d9d9;
-    margin-top: 10px;
+  width: 100%;
+  height: auto;
+  border: solid 1px #d9d9d9;
+  border-radius: 10px;
+  background-color: #d9d9d9;
+  margin-top: 10px;
 }
-
-/* .lociconarea {
-    font-size: 50px;
-    border: solid 1px #c9a97c;
-    width: 80px;
-    border-radius: 53px;
-    margin-top: 21px;
-    margin-left: 30px;
-    background: #c9a97c;
-    color: #060642;
-    float: left;
-    height: 80px;
-} */
 
 button.cross_btn.btn.btn-primary {
-    margin-top: 30px;
-    border-radius: 50px;
-    background-color: gray;
+  margin-top: 30px;
+  border-radius: 50px;
+  background-color: gray;
 }
-
 
 .crossarea {
-    /* width: 4px; */
-    margin-top: 27px;
-    padding: 0px 10px 40px 10px;
+  /* width: 4px; */
+  margin-top: 27px;
+  padding: 0px 10px 40px 10px;
 }
 
-
 .cardtxtarea {
-    font-size: 18px;
-    text-align: left;
-    display: grid;
-    justify-content: center;
-    justify-items: center;
+  font-size: 18px;
+  text-align: left;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
 }
 
 .cardtxtarea p {
-    margin: 0px;
+  margin: 0px;
 }
 
 .crossarea button {
-    background-color: #9c9797;
-    border: #9c9797;
-    border-radius: 50px;
+  background-color: #9c9797;
+  border: #9c9797;
+  border-radius: 50px;
 }
-
-/* .crossarea button:hover {
-    background-color: #575353;
-    border: #4e4c4c;
-    border-radius: 50px;
-} */
 
 .add_btn_card button {
-    background: #f8f9f9;
-    width: 70px;
-    height: 70px;
-    border-radius: 47px;
-    border: solid 7px #996418;
-    font-weight: bold;
-    color: #996418;
-    box-shadow: 2px 2px 7px 4px #d6cccc;
+  background: #f8f9f9;
+  width: 70px;
+  height: 70px;
+  border-radius: 47px;
+  border: solid 7px #996418;
+  font-weight: bold;
+  color: #996418;
+  box-shadow: 2px 2px 7px 4px #d6cccc;
 }
 
-
-
 button.bookbtn.btn.btn-primary {
+  margin-top: 127px;
+  width: 190px;
+  background-color: #996418;
+  border: #996418;
+  margin-top: 40px;
+  height: 42px;
+  font-size: 20px;
+  margin-bottom: 25px;
+  float: right;
+}
+
+.add_btn_card {
+  margin-top: 30px;
+}
+.lociconarea_new img {
+  width: 100px;
+  margin: 0px -29px;
+}
+
+.lociconarea_new {
+  display: flex;
+  justify-content: center;
+}
+a.singtripbtn.btn.btn-primary:hover {
+  color: #996418;
+  border: solid 1px #996418;
+  background: white;
+  font-weight: bold;
+}
+
+.for_large_screen {
+  display: block;
+}
+
+.for_small_screen {
+  display: none;
+}
+button.bookbtn.btn.btn-primary:hover {
+  background-color: white;
+  color: #996418;
+  border: solid 1px #996418;
+}
+.img_flag {
+  width: 30px;
+}
+.img_flag img {
+  width: 100%;
+}
+button.pick_drop.btn.btn-primary {
+  width: 100%;
+  height: 55px;
+  background: #e8e8e8;
+  border: solid 1px #e8e8e8;
+  color: black;
+}
+.pick_drop .icon_btn_loc {
+  float: left;
+  color: #996418;
+  font-size: 25px;
+}
+button.procced_btn.btn.btn-secondary {
+  width: 100%;
+  background-color: #996418;
+  border: solid 1px#996418;
+}
+h5.md_head {
+  margin: 14px 4px;
+}
+
+@media only screen and (max-width: 480px) {
+  .cardtxtarea {
+    font-size: 17px;
+    width: auto;
+    margin-top: 0px;
+  }
+  .lociconarea_new img {
+    margin: 0px -20px;
+  }
+
+  button.bookbtn.btn.btn-primary {
     margin-top: 127px;
     width: 190px;
     background-color: #996418;
     border: #996418;
-    margin-top: 40px;
-    height:42px;
+    margin-top: 25px;
+    height: 42px;
     font-size: 20px;
     margin-bottom: 25px;
     float: right;
 }
-
-.add_btn_card {
-    margin-top: 30px;
-}
-.lociconarea_new img {
-    width: 100px;
-    margin: 0px -29px;
-}
-
-.lociconarea_new {
-    display: flex;
-    justify-content: center;
-}
-a.singtripbtn.btn.btn-primary:hover {
-    color: #996418;
-    border: solid 1px #996418;
-    background: white;
-    font-weight: bold;
-}
-
-.crossarea button {
-    /* margin-top: 20px; */
-}
-
-.for_large_screen {
-    display: block;
-}
-
-.for_small_screen {
-    display: none;
-}
-button.bookbtn.btn.btn-primary:hover {
-    background-color: white;
-    color: #996418;
-    border: solid 1px #996418;
-}
-.img_flag {
-    width: 30px;
-}
-.img_flag img {
-    width: 100%;
-}
-button.pick_drop.btn.btn-primary {
-    width: 100%;
-    height: 55px;
-    background: #e8e8e8;
-    border: solid 1px #e8e8e8;
-    color: black;
-}
-.pick_drop .icon_btn_loc {
-    float: left;
-    color: #996418;
-    font-size: 25px;
-}
-button.procced_btn.btn.btn-secondary {
-    width: 100%;
-    background-color: #996418;
-    border: solid 1px#996418;
-}
-h5.md_head {
-    margin: 14px 4px;
-}
-
-@media only screen and (max-width: 480px){
-    .cardtxtarea {
-        font-size: 17px;
-        width: auto;
-        margin-top: 0px;
-    }
-.lociconarea_new img {
-    margin: 0px -20px;
-}
-button.cross_btn.btn.btn-primary {
-   
-}
-button.bookbtn.btn.btn-primary {
+  button.bookbtn.btn.btn-primary {
     width: 100%;
     float: none;
-}
+  }
 }

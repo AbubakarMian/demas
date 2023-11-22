@@ -11,6 +11,7 @@ import "./../styles/transport_details.css";
 import Carousel from "react-bootstrap/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate, useLocation } from "react-router-dom";
+import Accordion from "react-bootstrap/Accordion";
 
 import {
   faArrowRight,
@@ -194,14 +195,10 @@ export default function TransportDetails(props) {
             </div>
           </Col>
         </Row>
-        <Row className="const_padding">
-          {/* <Col>
-            <div className="similr">(or Similar)</div>
-          </Col> */}
-        </Row>
+
+        <Row className="const_padding"></Row>
       </Container>
       <Row className="const_padding">
-        {/*  */}
         <Carousel className="slider_bdr">
           {transportDetail.images.map((image) => {
             return (
@@ -340,6 +337,46 @@ export default function TransportDetails(props) {
               </Collapse>
             </Row>
           </div>
+          <Accordion>
+            <Accordion.Item eventKey="1">
+              <Accordion.Header>Customer Info</Accordion.Header>
+              <Accordion.Body in={true}>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Control
+                    type="text"
+                    aria-label="With textarea"
+                    className="comnt_tsxt"
+                    placeholder="Customer Name"
+                  />
+                </Form.Group>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Control
+                    type="text"
+                    aria-label="With textarea"
+                    className="comnt_tsxt"
+                    placeholder="customer_number"
+                  />
+                </Form.Group>
+                <Form.Group
+                  className=""
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Control
+                    type="text"
+                    aria-label="With textarea"
+                    className="comnt_tsxt"
+                    placeholder="customer_collection_price"
+                  />
+                </Form.Group>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
         </div>
         <Row className="const_padding">
           <Col>

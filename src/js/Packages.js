@@ -20,6 +20,7 @@ import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
 import { ContextApiContext } from "../context/ContextApi";
 import { Constant } from "../common/Constants";
+import Accordion from "react-bootstrap/Accordion";
 import {
   SendRequest,
   SendRequestContetType,
@@ -514,6 +515,43 @@ export default function Packages(props) {
           </Row>
         </div>
         <Row>
+          <Accordion className="mt-3">
+            <Accordion.Item eventKey="1">
+              <Accordion.Header>Customer Info</Accordion.Header>
+              <Accordion.Body in={true}>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Control
+                    type="text"
+                    aria-label="With textarea"
+                    className="comnt_tsxt"
+                    placeholder="Customer Name"
+                  />
+                </Form.Group>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Control
+                    type="text"
+                    aria-label="With textarea"
+                    className="comnt_tsxt"
+                    placeholder="customer_number"
+                  />
+                </Form.Group>
+                <Form.Group className="" controlId="exampleForm.ControlInput1">
+                  <Form.Control
+                    type="text"
+                    aria-label="With textarea"
+                    className="comnt_tsxt"
+                    placeholder="customer_collection_price"
+                  />
+                </Form.Group>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
           <Col md={1}></Col>
           <Col md={10}>
             <Button

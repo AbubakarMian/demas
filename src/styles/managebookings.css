@@ -17,6 +17,10 @@
 .det_area h4 {
     color: #a4610d;
     font-size: 17px;
+    margin: 13px 0px 0px 5px;
+}
+.flx{
+    display: flex;
 }
 .det_area p {
     font-size: 14px;
@@ -36,13 +40,18 @@ button.mange_btn.btn.btn-primary {
     color: #996418;
 }
 p.cd_hd {
-    font-size: 10px;
+    font-size: 9px;
+    /* margin: 7px 7px; */
     margin: 0px;
+    padding: 1px;
+    margin-bottom: -8px;
+    margin-left: -41px;
 }
 button.hed_btn.btn.btn-primary {
     background: white;
     color: #996418;
     font-weight: 700;
+    padding-bottom: 1px;
 }
 
 @media only screen and (max-width : 480px) {
