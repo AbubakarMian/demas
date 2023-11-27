@@ -77,13 +77,6 @@ export async function SendRequest(
   if (typeof needAuthorization === "undefined") {
     needAuthorization = false; // Set a default value if it's not provided
   }
-  console.log('test login',
-    contextState,
-    request_type,
-    url,
-    formData,
-    needAuthorization
-  );
   // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
   let user =
     localStorage.getItem("user") === null
@@ -132,13 +125,6 @@ export async function SendRequestContetType(
   if (typeof needAuthorization === "undefined") {
     needAuthorization = false; // Set a default value if it's not provided
   }
-  console.log('test login',
-    contextState,
-    request_type,
-    url,
-    formData,
-    needAuthorization
-  );
   // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
   let user =
     localStorage.getItem("user") === null

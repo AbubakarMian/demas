@@ -96,8 +96,6 @@ export default function AvailableCars() {
       true
     );
 
-
-
       // const res = await SendRequest(cs, "GET", get_car_url);
 
       if (res.status) {
@@ -105,6 +103,12 @@ export default function AvailableCars() {
         setTransportList(cars_list);
         console.log("get cars list ", cars_list);
       } else {
+        if (res.error.custom_code == 403) {
+          updateContextState(true, "show_login_modal");
+          updateContextState("Please Login and try again", "error_msg");
+          // navigateToPath(-1);
+        }
+        updateContextState(res.error?.message[0], "error_msg");
         setError("Transport List unavalible contact admin");
       }
     } catch (error) {

@@ -14,11 +14,10 @@ export const Constant = {
   },
 
   register_or_login: `${base_url}/register_or_login`,
-  // signup: `${base_url}/register`,
-  // login: `${base_url}/login`,
   // sendotp: `${base_url}/sendotp`,
   validate_otp: `${base_url}/validate_otp`,
   get_cars: `${base_url}/cars/get_all`,
+  get_cars_by_types: `${base_url}/get_cars_by_types`,
   get_locations: `${base_url}/locations/get_all`,
   contactus: `${base_url}/contactus`,
   journey_verify: `${base_url}/journey/verify`,
