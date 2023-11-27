@@ -54,9 +54,8 @@ export default function Packages(props) {
     useState("");
   const [paymentSuccessModalsShow, setPaymentSuccessModalsShow] =
     useState(false);
-  const [customer_name, setCustomerName] = useState(false);
-  const [customer_number, setCustomerNumber] = useState(false);
-  const [customer_collection_price, setCustomerCollectionPrice] = useState(0);
+  const [customer_name, setCustomerName] = useState("");
+  const [customer_whatsapp_number, setCustomerWhatsappNumber] = useState("");
 
   useEffect(() => {
     getLocations();
@@ -212,11 +211,20 @@ export default function Packages(props) {
   };
 
   const createOrder = async () => {
+    
+    if (contextState.user.role_id == 4) {
+      // 4 is travel agent
+      if (customer_name == "" || customer_whatsapp_number == "") {
+        updateContextState("All fields required", "error_msg");
+        return;
+      }
+    }
+    
     let formData = new FormData();
     console.log("bookin", bookingObj);
     let booking_obj = bookingObj;
     booking_obj.customer_name = customer_name;
-    booking_obj.customer_number = customer_number;
+    booking_obj.customer_whatsapp_number = customer_whatsapp_number;
     // bookingObj.customer_collection_price = customer_collection_price;
 
     let obj = {
@@ -518,7 +526,7 @@ export default function Packages(props) {
           <Accordion className="mt-3">
             <Accordion.Item eventKey="1">
               <Accordion.Header>Customer Info</Accordion.Header>
-              <Accordion.Body in={true}>
+              {/* <Accordion.Body in={true}> */}
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
@@ -527,7 +535,8 @@ export default function Packages(props) {
                     type="text"
                     aria-label="With textarea"
                     className="comnt_tsxt"
-                    placeholder="Customer Name"
+                    placeholder="Name"
+                    onChange={(e) => setCustomerName(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group
@@ -538,18 +547,11 @@ export default function Packages(props) {
                     type="text"
                     aria-label="With textarea"
                     className="comnt_tsxt"
-                    placeholder="customer_number"
+                    placeholder="Whatsapp Number"
+                    onChange={(e) => setCustomerWhatsappNumber(e.target.value)}
                   />
                 </Form.Group>
-                <Form.Group className="" controlId="exampleForm.ControlInput1">
-                  <Form.Control
-                    type="text"
-                    aria-label="With textarea"
-                    className="comnt_tsxt"
-                    placeholder="customer_collection_price"
-                  />
-                </Form.Group>
-              </Accordion.Body>
+              {/* </Accordion.Body> */}
             </Accordion.Item>
           </Accordion>
           <Col md={1}></Col>

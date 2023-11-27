@@ -492,7 +492,7 @@ export default function Package_style() {
                       dots={true} // Show navigation dots
                       infinite={true} // Loop through the slides
                       speed={500} // Transition speed in milliseconds
-                      slidesToShow={transportTypeList[activeTab].transports.length < 3 ?
+                      slidesToShow={transportTypeList.length && transportTypeList[activeTab].transports.length < 3 ?
                         transportTypeList[activeTab].transports.length : 3
                       } // Number of slides to show at once
                       slidesToScroll={1} // Number of slides to scroll at a time}
