@@ -24,30 +24,24 @@ import LoginModal from "./js/Components/LoginModal";
 
 function App() {
   let user =  localStorage.getItem("user");
-  console.log("users", user);
   let user_loggedin = false;
   if (user == null) {
-    console.log("users is  null", user);
     user_loggedin = false;
   } else {
     user = JSON.parse(user);
     user_loggedin = user.is_loggedin;
   }
-  console.log("user_loggedi 111 n", user_loggedin);
 
   const Check_login = (Component) => {
     let user =  localStorage.getItem("user");
-
-    console.log("users", user);
     let user_loggedin = false;
     if (user == null) {
-      console.log("users is  null", user);
       user_loggedin = false;
       return Login;
     } else {
       user = JSON.parse(user);
       user_loggedin = user.is_loggedin;
-    }console.log("user_loggedin", user_loggedin);
+    }
     if (user_loggedin) {
       return Component;
     } else {

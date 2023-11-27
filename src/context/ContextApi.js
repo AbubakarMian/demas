@@ -74,12 +74,10 @@ export const ContexApiProvider = (props) => {
         switch (obj_name) {
             case 'language':
                 let lang = contextState['avalible_languages'].find((element) => {
-                    console.log('element.id === update_obj', element.id, parseInt(update_obj));
                     return element.id === update_obj;
                 });
                 objContextState[obj_name] = lang;
                 setContextState({...contextState,objContextState})
-                console.log('updated context', contextState);console.log('found  lang ', lang);
                 break;
                 case 'update_user':
                     objContextState['user'] = update_obj;
@@ -101,9 +99,6 @@ export const ContexApiProvider = (props) => {
             default:
                 objContextState[obj_name] = update_obj;
                 setContextState({...contextState,objContextState})
-                setTimeout(() => {
-                    console.log('is updated ',contextState[obj_name])
-                }, 2000);
                 break;
         }
     }

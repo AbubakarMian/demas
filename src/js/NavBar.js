@@ -27,10 +27,8 @@ import { faUsers } from "@fortawesome/free-solid-svg-icons";
 
 export default function Nav_bar_area() {
   const user = localStorage.getItem("user");
-  console.log("users", user);
   let user_loggedin = false;
   if (user == null) {
-    console.log("users is  null", user);
     user_loggedin = false;
   } else {
     user_loggedin = user.is_loggedin;

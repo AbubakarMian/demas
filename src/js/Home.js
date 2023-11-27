@@ -44,8 +44,10 @@ export default function Package_style() {
   const [openComment, setopenComment] = useState(false);
   const [showPickupExtraInfo, setShowPickupExtraInfo] = useState(false);
   const [showDropoffExtraInfo, setShowDropoffExtraInfo] = useState(false);
-  const [placeholderPickupExtraInfo, setPlaceholderPickupExtraInfo] = useState('');
-  const [placeholderDropoffExtraInfo, setPlaceholderDropoffExtraInfo] = useState('');
+  const [placeholderPickupExtraInfo, setPlaceholderPickupExtraInfo] =
+    useState("");
+  const [placeholderDropoffExtraInfo, setPlaceholderDropoffExtraInfo] =
+    useState("");
   const [pickExtrainfo, setPickExtrainfo] = useState("");
   const [dropoffExtrainfo, setDropoffExtrainfo] = useState("");
   const [locations, setLocations] = useState([]);
@@ -58,7 +60,7 @@ export default function Package_style() {
   const [transportTypeList, setTransportTypeList] = useState([]);
 
   const handleProceedToNext = async () => {
-    if(!selectPickup.id || !selectDropoff.id || !pickupTime){
+    if (!selectPickup.id || !selectDropoff.id || !pickupTime) {
       setError("All fields required");
       return;
     }
@@ -67,8 +69,7 @@ export default function Package_style() {
       let cs = contextState;
       let verify_journey_url = `${Constant.journey_verify}?pickup_id=${selectPickup.id}&dropoff_id=${selectDropoff.id}`;
       const res = await SendRequest(cs, "GET", verify_journey_url);
-      if(res.status){
-
+      if (res.status) {
         let booking_obj = {
           type: "single",
           details: [
@@ -84,19 +85,13 @@ export default function Package_style() {
             },
           ],
         };
-        console.log('booking',booking_obj);
         navigateToPath("/availablecars", { booking_obj });
+      } else {
+        updateContextState(res.error?.message[0], "error_msg");
       }
-      else{
-        updateContextState(
-          res.error?.message[0],
-          "error_msg"
-        );
-      }
-
-    }catch (error) {
+    } catch (error) {
       console.error("Error during login:", error);
-      
+
       updateContextState(
         "Transport List unavalible contact admin.",
         "error_msg"
@@ -113,111 +108,40 @@ export default function Package_style() {
 
   useEffect(() => {
     getLocations();
-    getTransportTypeTransportList();
+    getCarTypes();
   }, []);
 
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
-  const getTransportTypeTransportList = () => {
-    let transportType = [
-      {
-        id: 1,
-        name: "Sedan",
-        details: [
-          {
-            id: 1,
-            image: "./images/a.jpg",
-            name: "Civic",
-            passengers: 3,
-            luggage: 3,
-          },
-          {
-            id: 1,
-            image: "./images/corolla.jpg",
-            name: "Elantra",
-            passengers: 4,
-            luggage: 3,
-          },
-          {
-            id: 3,
-            image: "./images/elantra.jpg",
-            name: "Corolla",
-            passengers: 2,
-            luggage: 5,
-          },
-        ],
-      },
-      {
-        id: 2,
-        name: "SUV",
-        details: [
-          {
-            id: 1,
-            image: "./images/acura.jpg",
-            name: "Acura",
-            passengers: 13,
-            luggage: 43,
-          },
-          {
-            id: 1,
-            image: "./images/corolla.jpg",
-            name: "Elantra",
-            passengers: 4,
-            luggage: 3,
-          },
-          {
-            id: 3,
-            image: "./images/elantra.jpg",
-            name: "Corolla",
-            passengers: 2,
-            luggage: 5,
-          },
-        ],
-      },
-      {
-        id: 3,
-        name: "Coaster",
-        details: [
-          {
-            id: 1,
-            image: "./images/toyocoaster.jpg",
-            name: "Coaster",
-            passengers: 13,
-            luggage: 9,
-          },
-          {
-            id: 1,
-            image: "./images/corolla.jpg",
-            name: "Elantra",
-            passengers: 4,
-            luggage: 3,
-          },
-          {
-            id: 3,
-            image: "./images/elantra.jpg",
-            name: "Corolla",
-            passengers: 2,
-            luggage: 5,
-          },
-        ],
-      },
-    ];
-    console.log("transport type ", transportType);
-    setTransportTypeList(transportType);
+
+  const getCarTypes = async () => {
+    try {
+      let cs = contextState;
+      cs.user.access_token = Constant.basic_token;
+      const res = await SendRequest(cs, "GET", Constant.get_cars_by_types);
+      if (res.status) {
+        let res_list = res.response;
+        setTransportTypeList(res_list);
+      } else {
+        updateContextState("Unable to get Car types", "error_msg");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+
+      updateContextState("Unable to get Car types", "error_msg");
+    }
   };
 
-  const getLocations = async() => {
+  const getLocations = async () => {
     try {
       let cs = contextState;
       cs.user.access_token = Constant.basic_token;
       const res = await SendRequest(cs, "GET", Constant.get_locations);
-      console.log("get locations_list list 1 ", res);
 
       if (res.status) {
         let locations_list = res.response;
         setLocations(locations_list);
-        console.log("get locations_list list ", locations_list);
       } else {
         updateContextState(
           "Unable to get avalible pickup and dropodd points",
@@ -226,7 +150,7 @@ export default function Package_style() {
       }
     } catch (error) {
       console.error("Error during login:", error);
-      
+
       updateContextState(
         "Unable to get avalible pickup and dropodd points",
         "error_msg"
@@ -245,24 +169,21 @@ export default function Package_style() {
     if (point == "pickup") {
       setPlaceholderPickupExtraInfo(placeholder);
       setShowPickupExtraInfo(placeholder.length);
-      if(location_type == "Airport"){
+      if (location_type == "Airport") {
         // setShowPickupExtraInfo(true);
-      }
-      else{
+      } else {
         // setShowPickupExtraInfo(false);
         // setPickExtrainfo("");
       }
       setselectPickup(new_val);
     } else {
       // dropoff
-      console.log("dropoff location point ", point, new_val);
       setPlaceholderDropoffExtraInfo(placeholder);
       setShowDropoffExtraInfo(placeholder.length);
 
-      if(location_type == "Airport"){
+      if (location_type == "Airport") {
         // setShowDropoffExtraInfo(true);
-      }
-      else{
+      } else {
         // setShowDropoffExtraInfo(false);
         // setDropoffExtrainfo("");
       }
@@ -274,17 +195,22 @@ export default function Package_style() {
   };
 
   const handleDateTimeChange = (dateString) => {
-    console.log("dateString ", dateString);
     const timestamp = Math.floor(new Date(dateString).getTime() / 1000);
-    console.log("datetime ", timestamp);
     setpickupTime(timestamp);
   };
   return (
     <div>
-        <div className="alert-fixed">
-          <Alert className="" show={error} dismissible={true} onClose={()=>setError('')} 
-          variant="danger">{error}</Alert>
-        </div>
+      <div className="alert-fixed">
+        <Alert
+          className=""
+          show={error}
+          dismissible={true}
+          onClose={() => setError("")}
+          variant="danger"
+        >
+          {error}
+        </Alert>
+      </div>
       <Nav_bar_area />
       <div className="homeslider">
         <Home_crousel />
@@ -344,8 +270,8 @@ export default function Package_style() {
                     <div id="">
                       <InputGroup>
                         <Form.Control
-                        type="text"
-                        placeholder={placeholderPickupExtraInfo}
+                          type="text"
+                          placeholder={placeholderPickupExtraInfo}
                           onChange={(e) => {
                             setPickExtrainfo(e.target.value);
                           }}
@@ -413,13 +339,13 @@ export default function Package_style() {
                     <div className="caret_down">
                       <FontAwesomeIcon icon={faAngleDown} />
                     </div>
-                  </Button>                  
+                  </Button>
                   <Collapse in={showDropoffExtraInfo}>
                     <div id="">
                       <InputGroup>
                         <Form.Control
-                        type="text"
-                        placeholder={placeholderDropoffExtraInfo}
+                          type="text"
+                          placeholder={placeholderDropoffExtraInfo}
                           onChange={(e) => {
                             setDropoffExtrainfo(e.target.value);
                           }}
@@ -547,10 +473,11 @@ export default function Package_style() {
               <div className="tab_center">
                 <div className="tab-buttons">
                   {transportTypeList.map((transportType, index) => {
-                    console.log("transportTypeList", transportTypeList);
+                    // console.log("transportTypeList", transportTypeList);
                     return (
                       <button
                         key={index}
+                        // key={transportType.id}
                         onClick={() => handleTabClick(index)}
                         className={index === activeTab ? "active" : ""}
                       >
@@ -561,15 +488,25 @@ export default function Package_style() {
                 </div>
                 <div className="tab-content">
                   <div className="product-slide">
-                    <Slider {...settings}>
+                    <Slider
+                      dots={true} // Show navigation dots
+                      infinite={true} // Loop through the slides
+                      speed={500} // Transition speed in milliseconds
+                      slidesToShow={transportTypeList[activeTab].transports.length < 3 ?
+                        transportTypeList[activeTab].transports.length : 3
+                      } // Number of slides to show at once
+                      slidesToScroll={1} // Number of slides to scroll at a time}
+                    >
                       {!transportTypeList.length
                         ? null
-                        : transportTypeList[activeTab].details.map(
+                        : transportTypeList[activeTab].transports.map(
                             (transport_detail, index) => {
+                              console.log("index", index);
                               return (
-                                <>
+                                <div key={transport_detail.id}>
+                                  {/* <div key={transport_detail.id}> */}
                                   <img
-                                    src={transport_detail.image}
+                                    src={transport_detail.images[0]}
                                     alt={transport_detail.name}
                                   />
                                   <h3>{transport_detail.name}</h3>
@@ -579,7 +516,7 @@ export default function Package_style() {
                                         className="info_icn"
                                         icon={faUsers}
                                       />{" "}
-                                      {transport_detail.passengers}
+                                      {transport_detail.seats}
                                       <FontAwesomeIcon
                                         className="info_icn"
                                         icon={faSuitcaseRolling}
@@ -587,7 +524,7 @@ export default function Package_style() {
                                       {transport_detail.luggage}
                                     </div>
                                   </p>
-                                </>
+                                </div>
                               );
                             }
                           )}
@@ -668,230 +605,3 @@ const Home_crousel = () => {
     </Carousel>
   );
 };
-
-const settings = {
-  dots: true, // Show navigation dots
-  infinite: true, // Loop through the slides
-  speed: 500, // Transition speed in milliseconds
-  slidesToShow: 3, // Number of slides to show at once
-  slidesToScroll: 1, // Number of slides to scroll at a time
-};
-
-const suv = [
-  {
-    id: 1,
-    name: "Acura",
-    description: (
-      <div className="disc_info">
-        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-      </div>
-    ),
-    price: 49.99,
-    image: "./images/acura.jpg", // Replace with the actual image URL
-  },
-  {
-    id: 2,
-    name: "BRV",
-    description: (
-      <div className="disc_info">
-        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-      </div>
-    ),
-    price: 59.99,
-    image: "./images/brv.jpg",
-  },
-  {
-    id: 3,
-    name: "CRV",
-    description: (
-      <div className="disc_info">
-        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-      </div>
-    ),
-    price: 59.99,
-    image: "./images/crv.jpg",
-  },
-  {
-    id: 4,
-    name: "RAV4",
-    description: (
-      <div className="disc_info">
-        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-      </div>
-    ),
-    price: 59.99,
-    image: "./images/rav4.jpg", // Replace with the actual image URL
-  },
-  // Add more products as needed
-];
-
-const sedan = [
-  {
-    id: 1,
-    name: "Civic",
-    description: (
-      <div className="disc_info">
-        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-      </div>
-    ),
-    price: 49.99,
-    image: "./images/a.jpg", // Replace with the actual image URL
-  },
-  {
-    id: 2,
-    name: "Corolla",
-    description: (
-      <div className="disc_info">
-        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-      </div>
-    ),
-    price: 59.99,
-    image: "./images/corolla.jpg",
-  },
-  {
-    id: 3,
-    name: "Elantra",
-    description: (
-      <div className="disc_info">
-        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-      </div>
-    ),
-    price: 59.99,
-    image: "./images/elantra.jpg",
-  },
-  {
-    id: 4,
-    name: "Sonata",
-    description: (
-      <div className="disc_info">
-        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-      </div>
-    ),
-    price: 59.99,
-    image: "./images/sonata.jpg", // Replace with the actual image URL
-  },
-  // Add more products as needed
-];
-
-const coaster = [
-  {
-    id: 1,
-    name: "Toyota",
-    description: (
-      <div className="disc_info">
-        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 29
-        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />
-        10
-      </div>
-    ),
-    price: 49.99,
-    image: "./images/toyocoaster.jpg", // Replace with the actual image URL
-  },
-  {
-    id: 2,
-    name: "Coaster",
-    description: (
-      <div className="disc_info">
-        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 35
-        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />
-        20
-      </div>
-    ),
-    price: 59.99,
-    image: "./images/coaster.jpg",
-  },
-  {
-    id: 3,
-    name: "Saloon",
-    description: (
-      <div className="disc_info">
-        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-      </div>
-    ),
-    price: 59.99,
-    image: "./images/coastersaloon.jpg", // Replace with the actual image URL
-  },
-  {
-    id: 4,
-    name: "Coaster",
-    description: (
-      <div className="disc_info">
-        <FontAwesomeIcon className="info_icn" icon={faUsers} /> 4
-        <FontAwesomeIcon className="info_icn" icon={faSuitcaseRolling} />3
-      </div>
-    ),
-    price: 59.99,
-    image: "./images/csss.jpeg", // Replace with the actual image URL
-  },
-  // Add more products as needed
-];
-
-const tabs = [
-  {
-    label: "SEDAN",
-    content: (
-      <div className="slid">
-        <div className="product-slider">
-          <Slider {...settings}>
-            {sedan.map((product) => (
-              <div key={product.id} className="product-slide">
-                <img src={product.image} alt={product.name} />
-                <h3>{product.name}</h3>
-                <p>{product.description}</p>
-                <span>${product.price}</span>
-              </div>
-            ))}
-          </Slider>
-        </div>
-      </div>
-    ),
-  },
-  {
-    label: "SUV",
-    content: (
-      <div className="slid">
-        <div className="product-slider">
-          <Slider {...settings}>
-            {suv.map((product) => (
-              <div key={product.id} className="product-slide">
-                <img src={product.image} alt={product.name} />
-                <h3>{product.name}</h3>
-                <p>{product.description}</p>
-                <span>${product.price}</span>
-              </div>
-            ))}
-          </Slider>
-        </div>
-      </div>
-    ),
-  },
-  {
-    label: "COASTER",
-    content: (
-      <div className="slid">
-        <div className="product-slider">
-          <Slider {...settings}>
-            {coaster.map((product) => (
-              <div key={product.id} className="product-slide">
-                <img src={product.image} alt={product.name} />
-                <h3>{product.name}</h3>
-                <p>{product.description}</p>
-                <span>${product.price}</span>
-              </div>
-            ))}
-          </Slider>
-        </div>
-      </div>
-    ),
-  },
-  // Add more tabs as needed
-];
