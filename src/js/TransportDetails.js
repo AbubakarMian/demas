@@ -49,7 +49,7 @@ export default function TransportDetails(props) {
   const [car_feature, setcar_featureOpen] = useState(false);
   const [book, setbookOpen] = useState(false);
   const [customer_name, setCustomerName] = useState("");
-  const [customer_number, setCustomerNumber] = useState("");
+  const [customer_whatsapp_number, setCustomerWhatsappNumber] = useState("");
   const [customer_collection_price, setCustomerCollectionPrice] = useState(0);
 
   // const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -88,9 +88,17 @@ export default function TransportDetails(props) {
     if (user.is_loggedin) {
       // let booking_obj = location.state.booking_obj;
       console.log("bookin handle", booking_obj);
+      console.log("bookin hantransportDetaille", transportDetail);
+      console.log("bookin current_booking", current_booking);
+      console.log("bookin current_booking.booking_price", current_booking.booking_price);
+      console.log("btransportDetail.booking_price", transportDetail.booking_price);
+      console.log("customer_collection_pricece", customer_collection_price);
+      console.log("chk", parseInt(transportDetail.booking_price) <
+      parseInt(customer_collection_price));
       if (
-        current_booking.booking_price <
-        current_booking.customer_collection_price
+        customer_collection_price == "" ||
+        parseInt(transportDetail.booking_price) >
+        parseInt(customer_collection_price)
       ) {
         updateContextState(
           "Collection price must be greater than booking price",
@@ -103,6 +111,8 @@ export default function TransportDetails(props) {
       ].customer_collection_price = customer_collection_price;
       // setBookingDetails({ ...location.state.booking_obj, booking_obj });
 
+      // console.log('passed');
+      // return;
       if (booking_obj.type == "package") {
         navigateToPath("/packages", { booking_obj });
       } else {
@@ -114,12 +124,22 @@ export default function TransportDetails(props) {
   };
 
   const createOrder = async () => {
-    // let formData = new FormData();
     console.log("bookin", booking_obj);
+
+    console.log("contextState", contextState);
+    console.log("contextState user", contextState.user);
+    if (contextState.user.role_id == 4) {
+      // 4 is travel agent
+      if (customer_name == "" || customer_whatsapp_number == "") {
+        updateContextState("All fields required", "error_msg");
+        return;
+      }
+    }
 
     let bookingObj = booking_obj;
     bookingObj.customer_name = customer_name;
-    bookingObj.customer_number = customer_number;
+    bookingObj.customer_whatsapp_number = customer_whatsapp_number;
+    // this is added in booking details
     // bookingObj.customer_collection_price = customer_collection_price;
 
     let obj = {
@@ -140,6 +160,13 @@ export default function TransportDetails(props) {
     if (res.status) {
       setPaymentSuccessModalsShow(true);
     } else {
+      if (res.error.custom_code == 403) {
+        updateContextState(true, "show_login_modal");
+        updateContextState("Please Login and try again", "error_msg");
+        // navigateToPath(-1);
+      }
+      // updateContextState("Booking unavalible contact admin", "error_msg");
+      updateContextState(res.error?.message[0], "error_msg");
     }
   };
 
@@ -340,50 +367,53 @@ export default function TransportDetails(props) {
           <Accordion>
             <Accordion.Item eventKey="1">
               <Accordion.Header>Customer Info</Accordion.Header>
-              <Accordion.Body in={true}>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Control
-                    type="text"
-                    aria-label="With textarea"
-                    className="comnt_tsxt"
-                    placeholder="Customer Name"
-                  />
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Control
-                    type="text"
-                    aria-label="With textarea"
-                    className="comnt_tsxt"
-                    placeholder="customer_number"
-                  />
-                </Form.Group>
-                <Form.Group
-                  className=""
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Control
-                    type="text"
-                    aria-label="With textarea"
-                    className="comnt_tsxt"
-                    placeholder="customer_collection_price"
-                  />
-                </Form.Group>
-              </Accordion.Body>
+              {/* <Accordion.Body in={true}> */}
+              {booking_obj.type == "single" ? (
+                <>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Control
+                      type="text"
+                      aria-label="With textarea"
+                      className="comnt_tsxt"
+                      placeholder="Name"
+                      onChange={(e) => setCustomerName(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Control
+                      type="text"
+                      aria-label="With textarea"
+                      className="comnt_tsxt"
+                      placeholder="Whatsapp Number"
+                      onChange={(e) =>
+                        setCustomerWhatsappNumber(e.target.value)
+                      }
+                    />
+                  </Form.Group>
+                </>
+              ) : null}
+              <Form.Group className="" controlId="exampleForm.ControlInput1">
+                <Form.Control
+                  type="number"
+                  aria-label="With textarea"
+                  className="comnt_tsxt"
+                  placeholder="Collection price"
+                  onChange={(e) => setCustomerCollectionPrice(e.target.value)}
+                />
+              </Form.Group>
+              {/* </Accordion.Body> */}
             </Accordion.Item>
           </Accordion>
         </div>
         <Row className="const_padding">
           <Col>
-            <Button
-              className="book_btn"
-              onClick={handleBookCar}
-            >
+            <Button className="book_btn" onClick={handleBookCar}>
               <div className="style-1 divine_det">
                 {transportDetail.apply_discount ? (
                   <>
@@ -404,9 +434,9 @@ export default function TransportDetails(props) {
                   </>
                 ) : (
                   <>
-                    Total Fare
+                    Total
                     <span className="amount">
-                      {transportDetail.booking_price} SAR
+                      {" " + transportDetail.booking_price} SAR
                     </span>
                   </>
                 )}
