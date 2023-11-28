@@ -56,12 +56,12 @@ export default function Package_style() {
   const [pickupTime, setpickupTime] = useState(0);
   const [comments, setComments] = useState("");
 
-  const [error, setError] = useState(null);
   const [transportTypeList, setTransportTypeList] = useState([]);
 
   const handleProceedToNext = async () => {
     if (!selectPickup.id || !selectDropoff.id || !pickupTime) {
-      setError("All fields required");
+      updateContextState("All fields required", "error_msg");
+
       return;
     }
 
@@ -196,17 +196,6 @@ export default function Package_style() {
   };
   return (
     <div>
-      <div className="alert-fixed">
-        <Alert
-          className=""
-          show={error}
-          dismissible={true}
-          onClose={() => setError("")}
-          variant="danger"
-        >
-          {error}
-        </Alert>
-      </div>
       <Nav_bar_area />
       <div className="homeslider">
         <Home_crousel />

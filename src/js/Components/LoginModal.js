@@ -54,7 +54,6 @@ export default function LoginModal(props) {
   const [whatsapp_no, setWhatsapp] = useState("");
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [error, setError] = useState(null);
   const [user, setUser] = useState({});
 
   const navigate = useNavigate();
@@ -86,13 +85,20 @@ export default function LoginModal(props) {
         // updateContextState(user,'update_user');
         // updateContextState(res.response,'update_user');
       } else {
-        setError("Login failed. Please check your credentials.");
+        
+      updateContextState(
+        "Login failed. Please check your credentials.",
+        "error_msg"
+      );
       }
       setShowSendOtp(false);
       setshowValidateOtp(true);
     } catch (error) {
+      updateContextState(
+        "Login failed. Please check your credentials.",
+        "error_msg"
+      );
       console.error("Error during login:", error);
-      setError("An error occurred while logging in. Please try again.");
     }
   };
   const validateOtp = async () => {
@@ -115,9 +121,15 @@ export default function LoginModal(props) {
       updateContextState(false, "show_login_modal");
     } else {
       if (res.error && res.error.message) {
-        setError(res.error.message[0]);
+        updateContextState(
+          res.error.message[0],
+          "error_msg"
+        );
       } else {
-        setError("Somthing went wrong contact admin.");
+        updateContextState(
+          "Somthing went wrong contact admin.",
+          "error_msg"
+        );
       }
     }
   };
@@ -131,17 +143,6 @@ export default function LoginModal(props) {
   return (
     <>
       <div className="modal_plac">
-        <div className="alert-fixed">
-          <Alert
-            className=""
-            show={error}
-            dismissible={true}
-            onClose={() => setError("")}
-            variant="danger"
-          >
-            {error}
-          </Alert>
-        </div>
         <Modal
           // backdrop="static"
           // show={showLoginModal}

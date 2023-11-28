@@ -38,10 +38,7 @@ export default function Login_page_style() {
   const [OTPShow, setOTPShow] = useState(false);
   const [otp, setOtp] = useState("");
   const [user, setUser] = useState({});
-
-
-  const [error, setError] = useState(null);
-
+  
   const attempt_login = async () => {
     try {
       // Create the formData and append the email and password
@@ -64,21 +61,15 @@ export default function Login_page_style() {
         let user = res.response;
         setOTPShow(true);
         setUser(user);
-
-        // let user = res.response;
         // user.is_loggedin = true;
         // updateContextState(user,'update_user');
         // navigateToPath("/home");
       } else {
         updateContextState(res.error.message[0],"error_msg");
-
-        // setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error during login:", error);
       updateContextState("An error occurred while logging in. Please try again.","error_msg");
-
-      // setError("An error occurred while logging in. Please try again.");
     }
   };
   const [open, setOpen] = useState(false);
@@ -108,7 +99,10 @@ export default function Login_page_style() {
       if (res.error && res.error.message) {
         updateContextState(res.error.message[0],"error_msg");
       } else {
-        setError("Somthing went wrong contact admin.");
+      updateContextState(
+        "Somthing went wrong contact admin",
+        "error_msg"
+      );
       }
     }
   };

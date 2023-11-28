@@ -49,8 +49,6 @@ export default function ListCars() {
   const [carSeatFilter, setCarSeatFilter] = useState(0);
   const [carLuggageFilter, setCarLuggageFilter] = useState(0);
 
-  const [error, setError] = useState(null);
-
   const navigateToPath = (path, props) => {
     navigate(path, { state: props });
   };
@@ -90,11 +88,13 @@ export default function ListCars() {
           "Transport List unavalible contact admin",
           "error_msg"
         );
-        // setError("Transport List unavalible contact admin");
       }
-    } catch (error) {
+    } catch (error) {    
+      updateContextState(
+        "Transport List unavalible contact admin",
+        "error_msg"
+      );
       console.error("Error during login:", error);
-      setError("Transport List unavalible contact admin.");
     }
   };
 
@@ -120,11 +120,18 @@ export default function ListCars() {
           // navigateToPath(-1);
         }
         updateContextState(res.error?.message[0], "error_msg");
-        setError("Transport List unavalible contact admin");
+            
+      updateContextState(
+        "Transport List unavalible contact admin",
+        "error_msg"
+      );
       }
-    } catch (error) {
+    } catch (error) {    
+      updateContextState(
+        "Transport List unavalible contact admin",
+        "error_msg"
+      );
       console.error("Error during login:", error);
-      setError("Transport List unavalible contact admin.");
     }
   };
 
@@ -136,17 +143,6 @@ export default function ListCars() {
 
   return (
     <div>
-      <div className="alert-fixed">
-        <Alert
-          className=""
-          show={error}
-          dismissible={true}
-          onClose={() => setError("")}
-          variant="danger"
-        >
-          {error}
-        </Alert>
-      </div>
       <Container fluid>
         <Row>
           <div className="login_head">
