@@ -65,9 +65,9 @@ export default function Nav_bar_area() {
                   </Nav.Link>
                 </div>
                 <div className="nav_bottom">
-                  <Nav.Link href="availablecars">
+                  <Nav.Link href="listcars">
                     <FontAwesomeIcon icon={faCar} className="nav_ico_sp" />{" "}
-                    AvailCars
+                    ListCars
                   </Nav.Link>
                 </div>
                 <div className="nav_bottom">
