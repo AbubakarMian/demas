@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FaWhatsapp } from "react-icons/fa";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faMobileScreenButton } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
@@ -43,7 +43,6 @@ export default function BecomeAgent() {
 
   const CreateNewAgent = async () => {
     try {
-
       console.log("test login 111");
       var formData = new FormData();
       formData.append("name", name);
@@ -53,7 +52,7 @@ export default function BecomeAgent() {
       formData.append("comment", comment);
       formData.append("whatsapp", whatsapp_no);
       console.log("email", email);
-     
+
       console.log("phone_no", phone_no);
 
       let cs = contextState;
@@ -70,7 +69,6 @@ export default function BecomeAgent() {
         setSuccessModal(true);
       } else {
         updateContextState(res.error.message[0], "error_msg");
-
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -78,13 +76,12 @@ export default function BecomeAgent() {
         "An error occurred while logging in. Please try again.",
         "error_msg"
       );
-
     }
   };
 
   const hideSuccessModal = async () => {
     setSuccessModal(false);
-    navigateToPath('/home');
+    navigateToPath("/home");
   };
 
   return (
@@ -125,14 +122,14 @@ export default function BecomeAgent() {
                 </InputGroup>
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon1">
-                    <FontAwesomeIcon icon={faPhone} />
+                    <FontAwesomeIcon icon={faEnvelope} />
                   </InputGroup.Text>
                   <Form.Control
                     placeholder="Email Address"
                     aria-label="Email"
                     aria-describedby="basic-addon1"
                     onChange={(e) => setEmail(e.target.value)}
-                    value={email} 
+                    value={email}
                   />
                 </InputGroup>
                 <InputGroup className="mb-3">
@@ -149,7 +146,7 @@ export default function BecomeAgent() {
                 </InputGroup>{" "}
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon1">
-                  <FaWhatsapp className="icons" />
+                    <FaWhatsapp className="icons" />
                   </InputGroup.Text>
                   <Form.Control
                     placeholder="Whatsapp Number"
@@ -176,13 +173,15 @@ export default function BecomeAgent() {
                     <FontAwesomeIcon icon={faComment} />
                   </InputGroup.Text>
                   <Form.Control
-                    placeholder="Comment"
-                    aria-label=""
-                    aria-describedby="basic-addon1"
+                    className="input_txt"
+                    as="textarea"
+                    placeholder="Message"
+                    aria-label="With textarea"
+                    // rows={4}
                     onChange={(e) => setComment(e.target.value)}
                     value={comment}
                   />
-                </InputGroup>{" "}
+                </InputGroup>
               </div>
             </Row>
             <Row>
@@ -201,9 +200,7 @@ export default function BecomeAgent() {
                       Success
                     </Modal.Title>
                   </Modal.Header>
-                  <Modal.Body>
-                    Request Sent Successfully
-                  </Modal.Body>
+                  <Modal.Body>Request Sent Successfully</Modal.Body>
                 </Modal>
               </div>
             </Row>

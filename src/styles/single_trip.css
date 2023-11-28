@@ -132,7 +132,13 @@ button.procced_btn.btn.btn-secondary {
 h5.md_head {
   margin: 14px 4px;
 }
+.coll_2 {
+  text-align: left;
 
+  font-size: 16px;
+  padding: 5px 30px 10px 30px;
+  margin-top: 20px;
+}
 @media only screen and (max-width: 480px) {
   .cardtxtarea {
     font-size: 17px;

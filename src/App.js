@@ -23,7 +23,7 @@ import ContexApiProvider from "./context/ContextApi";
 import LoginModal from "./js/Components/LoginModal";
 
 function App() {
-  let user =  localStorage.getItem("user");
+  let user = localStorage.getItem("user");
   let user_loggedin = false;
   if (user == null) {
     user_loggedin = false;
@@ -33,7 +33,7 @@ function App() {
   }
 
   const Check_login = (Component) => {
-    let user =  localStorage.getItem("user");
+    let user = localStorage.getItem("user");
     let user_loggedin = false;
     if (user == null) {
       user_loggedin = false;
@@ -47,7 +47,6 @@ function App() {
     } else {
       return Login;
     }
-    
   };
   return (
     <div className="App">
@@ -62,10 +61,7 @@ function App() {
               Component={Check_login(ProfileSale)}
               path="/profilesale"
             ></Route> */}
-            <Route
-              Component={Check_login(Profile )}
-              path="/profile"
-            ></Route>
+            <Route Component={Check_login(Profile)} path="/profile"></Route>
             <Route Component={Privacy} path="/privacy"></Route>
             <Route Component={FAQ} path="/faq"></Route>
             <Route Component={Refund} path="/refund"></Route>

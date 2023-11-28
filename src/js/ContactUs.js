@@ -10,12 +10,16 @@ import "./../styles/contactus.css";
 import Carousel from "react-bootstrap/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSliders,
+  // faComment,
   faUser,
   faSuitcaseRolling,
   faDoorOpen,
   faArrowLeft,
+  faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
+// import {  } from "@fortawesome/free-solid-svg-icons";
+import { FaWhatsapp } from "react-icons/fa";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
@@ -28,7 +32,6 @@ import { Constant } from "../common/Constants";
 import { useContext } from "react";
 import { ContextApiContext } from "../context/ContextApi";
 
-
 export default function Contact_Us() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -38,15 +41,12 @@ export default function Contact_Us() {
   const { contextState, updateContextState } = useContext(ContextApiContext);
   const [error, setContactusError] = useState(null);
 
-
   const navigateToPath = (path) => {
     navigate(path);
   };
   const [open, setOpen] = useState(false);
 
   const ContactUsApi = async () => {
- 
-
     try {
       let access_token = Constant.basic_token;
       console.log("acces_token", access_token);
@@ -115,11 +115,15 @@ export default function Contact_Us() {
               <Row className="input_row">
                 <Col>
                   <Form.Label htmlFor="basic-url">Full Name</Form.Label>
+
                   <InputGroup className="mb-3">
+                    <InputGroup.Text id="basic-addon1">
+                      <FontAwesomeIcon icon={faUser} />
+                    </InputGroup.Text>
                     <Form.Control
-                      className="input_txt"
-                      id="basic-url"
-                      aria-describedby="basic-addon3"
+                      placeholder="Name"
+                      aria-label="name"
+                      aria-describedby="basic-addon1"
                       onChange={(e) => {
                         setName(e.target.value);
                       }}
@@ -130,13 +134,23 @@ export default function Contact_Us() {
               <Row className="input_row">
                 <Col>
                   <Form.Label htmlFor="basic-url">Email Address</Form.Label>
-                  <InputGroup className="mb-3">
+                  {/* <InputGroup className="mb-3">
                     <Form.Control
                       className="input_txt"
                       id="basic-url"
                       aria-describedby="basic-addon3"
                       onChange={(e) => setEmail(e.target.value)}
-
+                    />
+                  </InputGroup> */}
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text id="basic-addon1">
+                      <FontAwesomeIcon icon={faEnvelope} />
+                    </InputGroup.Text>
+                    <Form.Control
+                      placeholder="Email Address"
+                      aria-label="Email"
+                      aria-describedby="basic-addon1"
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </InputGroup>
                 </Col>
@@ -145,33 +159,42 @@ export default function Contact_Us() {
                 <Col>
                   <Form.Label htmlFor="basic-url">Whatsapp Number</Form.Label>
                   <InputGroup className="mb-3">
+                    <InputGroup.Text id="basic-addon1">
+                      <FaWhatsapp className="icons" />
+                    </InputGroup.Text>
                     <Form.Control
-                      className="input_txt"
-                      id="basic-url"
-                      aria-describedby="basic-addon3"
+                      placeholder="Whatsapp Number"
+                      aria-label="Whatsapp"
+                      aria-describedby="basic-addon1"
                       onChange={(e) => setWhatsappNumber(e.target.value)}
-
                     />
-                  </InputGroup>
+                  </InputGroup>{" "}
                 </Col>
               </Row>
               <Row className="input_row">
                 <Col>
                   <Form.Label htmlFor="basic-url">Message</Form.Label>
                   <InputGroup className="mb-3">
+                    {/* <InputGroup.Text id="basic-addon1">
+                      <FontAwesomeIcon icon={faComment} />
+                    </InputGroup.Text> */}
                     <Form.Control
                       className="input_txt"
                       as="textarea"
+                      placeholder="Message"
                       aria-label="With textarea"
+                      rows={4}
                       onChange={(e) => setMessage(e.target.value)}
-
                     />
                   </InputGroup>
+                  
                 </Col>
               </Row>
               <Row className="input_row">
                 <Col>
-                  <Button className="sub_btn"  onClick={() => ContactUsApi()}>SUBMIT</Button>
+                  <Button className="sub_btn" onClick={() => ContactUsApi()}>
+                    SUBMIT
+                  </Button>
                 </Col>
               </Row>
             </div>
@@ -181,4 +204,3 @@ export default function Contact_Us() {
     </div>
   );
 }
-
