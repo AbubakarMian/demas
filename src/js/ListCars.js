@@ -41,11 +41,13 @@ export default function ListCars() {
   const [transportlist, setTransportList] = useState([]);
   const [transportFilterListType, setTransportFilterListType] = useState([]);
   const [transportFilterListSeats, setTransportFilterListSeats] = useState([]);
-  const [transportFilterListLuggage, setTransportFilterListLuggage] = useState([]);
-  
-const [carTypeFilter, setCarTypeFilter] = useState(0);
-const [carSeatFilter, setCarSeatFilter] = useState(0);
-const [carLuggageFilter, setCarLuggageFilter] = useState(0);
+  const [transportFilterListLuggage, setTransportFilterListLuggage] = useState(
+    []
+  );
+
+  const [carTypeFilter, setCarTypeFilter] = useState(0);
+  const [carSeatFilter, setCarSeatFilter] = useState(0);
+  const [carLuggageFilter, setCarLuggageFilter] = useState(0);
 
   const [error, setError] = useState(null);
 
@@ -55,26 +57,21 @@ const [carLuggageFilter, setCarLuggageFilter] = useState(0);
 
   useEffect(() => {
     console.log("props from previous screen ", location.state);
-    
+
     get_transport_types();
     init_state_variables();
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     get_transport();
-  },[carTypeFilter,carSeatFilter,carLuggageFilter])
+  }, [carTypeFilter, carSeatFilter, carLuggageFilter]);
 
   const init_state_variables = () => {};
 
   const get_transport_types = async () => {
     try {
       let url = `${Constant.get_transport_types}`;
-      const res = await SendRequestContetType(
-        "get",
-        url,
-        null,
-        false
-      );
+      const res = await SendRequestContetType("get", url, null, false);
 
       if (res.status) {
         let filters_list = res.response;
@@ -84,7 +81,6 @@ const [carLuggageFilter, setCarLuggageFilter] = useState(0);
         setTransportFilterListType(filters_list.type);
         setTransportFilterListSeats(filters_list.seats);
         setTransportFilterListLuggage(filters_list.luggage);
-        
       } else {
         if (res.error.custom_code == 403) {
           updateContextState(true, "show_login_modal");
@@ -92,7 +88,10 @@ const [carLuggageFilter, setCarLuggageFilter] = useState(0);
           // navigateToPath(-1);
         }
         console.log(res.error?.message[0], "error_msg");
-        updateContextState("Transport List unavalible contact admin", "error_msg");
+        updateContextState(
+          "Transport List unavalible contact admin",
+          "error_msg"
+        );
         // setError("Transport List unavalible contact admin");
       }
     } catch (error) {
@@ -103,19 +102,14 @@ const [carLuggageFilter, setCarLuggageFilter] = useState(0);
 
   const get_transport = async () => {
     try {
-
       let booking_filters = "";
-      booking_filters = `?transport_type_id=${carTypeFilter}`+
-      `&seats=${carSeatFilter}&luggage=${carLuggageFilter}`;
+      booking_filters =
+        `?transport_type_id=${carTypeFilter}` +
+        `&seats=${carSeatFilter}&luggage=${carLuggageFilter}`;
 
       let get_car_url = `${Constant.get_all}` + booking_filters;
 
-      const res = await SendRequestContetType(
-        "post",
-        get_car_url,
-        null,
-        false
-      );
+      const res = await SendRequestContetType("post", get_car_url, null, false);
 
       if (res.status) {
         let cars_list = res.response;
@@ -168,7 +162,7 @@ const [carLuggageFilter, setCarLuggageFilter] = useState(0);
                 <FontAwesomeIcon icon={faArrowLeft} />
               </Button>
             </div>{" "}
-            <h3 className="top_heading_page">Available Cars</h3>
+            <h3 className="top_heading_page">Transport Avalible</h3>
           </div>
         </Row>
       </Container>
@@ -201,25 +195,31 @@ const [carLuggageFilter, setCarLuggageFilter] = useState(0);
                   </Row>
                   <Row>
                     <Col>
-                    {
-                      transportFilterListType.map(((item,index)=>{
-                        let style_obj = {};
-                        if(item.id== carTypeFilter){
-                           style_obj = {
+                      {transportFilterListType.map((item, index) => {
+                        let style_obj = { 
+                          backgroundColor: "#d6d1d1",
+                          color:'#4a4564'
+                      };
+                        if (item.id == carTypeFilter) {
+                          style_obj = {
                             backgroundColor: "#996418",
-                            color:"white"
-                           };
+                            color: "white",
+                          };
                         }
-                        return(
-                          <Button id={index} onClick={()=>{
-                            let id = item.id == carTypeFilter ? 0:item.id;
-                            setCarTypeFilter(id)}} 
-                          className="filter_btn"
-                          style={style_obj}>
-                          {item.name}</Button>
-                        )
-                      }))
-                    }
+                        return (
+                          <Button
+                            key={index}
+                            onClick={() => {
+                              let id = item.id == carTypeFilter ? 0 : item.id;
+                              setCarTypeFilter(id);
+                            }}
+                            className="filter_btn"
+                            style={style_obj}
+                          >
+                            {item.name}
+                          </Button>
+                        );
+                      })}
                     </Col>
                   </Row>
                   <Row>
@@ -228,27 +228,33 @@ const [carLuggageFilter, setCarLuggageFilter] = useState(0);
                     </Col>
                   </Row>
                   <Row>
-                    <Col>{
-                      transportFilterListSeats.map(((item,index)=>{
-                        let style_obj = {};
-                        if(item.seats== carSeatFilter){
-                           style_obj = {
+                    <Col>
+                      {transportFilterListSeats.map((item, index) => {
+                        let style_obj = { 
+                          backgroundColor: "#d6d1d1",
+                          color:'#4a4564'
+                      };
+                        if (item.seats == carSeatFilter) {
+                          style_obj = {
                             backgroundColor: "#996418",
-                            color:"white"
-                           };
+                            color: "white",
+                          };
                         }
-                        return(
-                          <Button id={index} onClick={()=>{
-                            let id = item.seats == carSeatFilter ? 0:item.seats;
-                            setCarSeatFilter(id)
-                          }} 
-                          className={'filter_btn '} 
-                          style={style_obj}>
+                        return (
+                          <Button
+                            id={index}
+                            onClick={() => {
+                              let id =
+                                item.seats == carSeatFilter ? 0 : item.seats;
+                              setCarSeatFilter(id);
+                            }}
+                            className={"filter_btn "}
+                            style={style_obj}
+                          >
                             {item.seats}
                           </Button>
-                        )
-                      }))
-                    }
+                        );
+                      })}
                     </Col>
                   </Row>
                   <Row>
@@ -258,25 +264,34 @@ const [carLuggageFilter, setCarLuggageFilter] = useState(0);
                   </Row>
                   <Row>
                     <Col>
-                    {
-                      transportFilterListLuggage.map(((item,index)=>{
-                        let style_obj = {};
-                        if(item.luggage== carLuggageFilter){
-                           style_obj = {
+                      {transportFilterListLuggage.map((item, index) => {
+                        let style_obj = { 
+                          backgroundColor: "#d6d1d1",
+                          color:'#4a4564'
+                      };
+                        if (item.luggage == carLuggageFilter) {
+                          style_obj = {
                             backgroundColor: "#996418",
-                            color:"white"
-                           };
+                            color: "white",
+                          };
                         }
-                        return(
-                          <Button id={index} onClick={()=>{
-                            let id = item.luggage == carLuggageFilter ? 0:item.luggage;
-                            setCarLuggageFilter(id)}} 
-                          className="filter_btn"
-                          style={style_obj}>
-                          {item.luggage}</Button>
-                        )
-                      }))
-                    }
+                        return (
+                          <Button
+                            id={index}
+                            onClick={() => {
+                              let id =
+                                item.luggage == carLuggageFilter
+                                  ? 0
+                                  : item.luggage;
+                              setCarLuggageFilter(id);
+                            }}
+                            className="filter_btn"
+                            style={style_obj}
+                          >
+                            {item.luggage}
+                          </Button>
+                        );
+                      })}
                     </Col>
                   </Row>
                 </Container>
@@ -347,14 +362,14 @@ const [carLuggageFilter, setCarLuggageFilter] = useState(0);
                 <Row className="icn_ara">
                   <Col>
                     <FontAwesomeIcon className="detail_icn" icon={faUser} />
-                    <span>{item.transport_type.seats}</span>
+                    <span>{item.seats}</span>
                   </Col>
                   <Col>
                     <FontAwesomeIcon
                       className="detail_icn"
                       icon={faSuitcaseRolling}
                     />
-                    <span>{item.transport_type.luggage}</span>
+                    <span>{item.luggage}</span>
                   </Col>
                   <Col>
                     <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />
