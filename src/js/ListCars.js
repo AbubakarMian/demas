@@ -56,8 +56,6 @@ export default function ListCars() {
   };
 
   useEffect(() => {
-    console.log("props from previous screen ", location.state);
-
     get_transport_types();
     init_state_variables();
   }, []);
@@ -162,7 +160,7 @@ export default function ListCars() {
                 <FontAwesomeIcon icon={faArrowLeft} />
               </Button>
             </div>{" "}
-            <h3 className="top_heading_page">Transport Avalible</h3>
+            <h3 className="top_heading_page">Transports</h3>
           </div>
         </Row>
       </Container>
@@ -196,10 +194,10 @@ export default function ListCars() {
                   <Row>
                     <Col>
                       {transportFilterListType.map((item, index) => {
-                        let style_obj = { 
+                        let style_obj = {
                           backgroundColor: "#d6d1d1",
-                          color:'#4a4564'
-                      };
+                          color: "#4a4564",
+                        };
                         if (item.id == carTypeFilter) {
                           style_obj = {
                             backgroundColor: "#996418",
@@ -230,10 +228,10 @@ export default function ListCars() {
                   <Row>
                     <Col>
                       {transportFilterListSeats.map((item, index) => {
-                        let style_obj = { 
+                        let style_obj = {
                           backgroundColor: "#d6d1d1",
-                          color:'#4a4564'
-                      };
+                          color: "#4a4564",
+                        };
                         if (item.seats == carSeatFilter) {
                           style_obj = {
                             backgroundColor: "#996418",
@@ -265,10 +263,10 @@ export default function ListCars() {
                   <Row>
                     <Col>
                       {transportFilterListLuggage.map((item, index) => {
-                        let style_obj = { 
+                        let style_obj = {
                           backgroundColor: "#d6d1d1",
-                          color:'#4a4564'
-                      };
+                          color: "#4a4564",
+                        };
                         if (item.luggage == carLuggageFilter) {
                           style_obj = {
                             backgroundColor: "#996418",
@@ -373,7 +371,7 @@ export default function ListCars() {
                   </Col>
                   <Col>
                     <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />
-                    <span>{item.transport_type.doors}</span>
+                    <span>{item.doors}</span>
                   </Col>
                 </Row>
               </div>
