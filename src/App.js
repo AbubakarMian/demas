@@ -21,6 +21,7 @@ import FAQ from "./js/FAQ";
 import Refund from "./js/Refund";
 import ContexApiProvider from "./context/ContextApi";
 import LoginModal from "./js/Components/LoginModal";
+import ListCars from "./js/ListCars";
 
 function App() {
   let user =  localStorage.getItem("user");
@@ -93,6 +94,7 @@ function App() {
             <Route Component={Starting} path="/"></Route>
             <Route Component={Home} path="/home"></Route>
             <Route Component={Become_agent} path="/agent"></Route>
+            <Route Component={ListCars} path="/listcars"></Route>
           </Routes>
         </Router>
       </ContexApiProvider>

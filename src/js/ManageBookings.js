@@ -46,8 +46,8 @@ export default function Manage_Bookings() {
 
   const get_orders = async () => {
     try {
-      let cs = contextState;
-      const res = await SendRequest(cs, "GET", Constant.orders, null, true);
+      
+      const res = await SendRequest("GET", Constant.orders, null, true);
       if (res.status) {
         console.log("orders list ", res.response);
         setBookingslist(res.response);

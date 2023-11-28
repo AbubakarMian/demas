@@ -53,11 +53,7 @@ export default function Login_page_style() {
       console.log("email", email);
       console.log("phone_no", phone_no);
 
-      // Call SendRequest with the necessary parameters
-      let cs = contextState;
-      cs.user.access_token = Constant.basic_token;
       const res = await SendRequest(
-        cs,
         "POST",
         Constant.register_or_login,
         formData
@@ -99,27 +95,18 @@ export default function Login_page_style() {
     console.log('access_token',user.access_token);
     formData.append("access_token", user.access_token);
     const res = await SendRequest(
-      contextState,
       "post",
       Constant.validate_otp,
       formData
-      // JSON.stringify({
-      //   "otp":otp,
-      //   "access_token":user.access_token,
-      // })
     );
-// console.log('resss',res);
+    
     if (res.status) {
       res.response.is_loggedin = true;
       updateContextState(res.response, "update_user");
-      // updateContextState(false, "show_login_modal");
       navigateToPath('/home');
     } else {
       if (res.error && res.error.message) {
         updateContextState(res.error.message[0],"error_msg");
-
-        // updateContextState(res.response, "update_user");
-
       } else {
         setError("Somthing went wrong contact admin.");
       }

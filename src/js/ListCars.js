@@ -28,15 +28,25 @@ import Nav_bar_area from "./NavBar";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Constant } from "../common/Constants";
 import { ContextApiContext } from "../context/ContextApi";
-import Common, { googleTranslate, SendRequest, SendRequestContetType } from "../common/Common";
+import Common, {
+  googleTranslate,
+  SendRequest,
+  SendRequestContetType,
+} from "../common/Common";
 
-export default function AvailableCars() {
+export default function ListCars() {
   const navigate = useNavigate();
   const location = useLocation();
   const { contextState, updateContextState } = useContext(ContextApiContext);
   const [transportlist, setTransportList] = useState([]);
-  const [bookingDetails, setBookingDetails] = useState([]);
-  // const [applyDiscount, setApplyDiscount] = useState(false);
+  const [transportFilterListType, setTransportFilterListType] = useState([]);
+  const [transportFilterListSeats, setTransportFilterListSeats] = useState([]);
+  const [transportFilterListLuggage, setTransportFilterListLuggage] = useState([]);
+  
+const [carTypeFilter, setCarTypeFilter] = useState(0);
+const [carSeatFilter, setCarSeatFilter] = useState(0);
+const [carLuggageFilter, setCarLuggageFilter] = useState(0);
+
   const [error, setError] = useState(null);
 
   const navigateToPath = (path, props) => {
@@ -45,58 +55,70 @@ export default function AvailableCars() {
 
   useEffect(() => {
     console.log("props from previous screen ", location.state);
-    get_transport();
+    
+    get_transport_types();
     init_state_variables();
   }, []);
 
-  const init_state_variables = () => {
-    // let booking_obj = location.state?.booking_obj;
+  useEffect(()=>{
+    get_transport();
+  },[carTypeFilter,carSeatFilter,carLuggageFilter])
 
-    // if (typeof booking_obj !== "undefined" && booking_obj !== null) {
-    //   if (
-    //     booking_obj.details.length != 0 &&
-    //     booking_obj.details.length % 3 === 0
-    //   ) {
-    //     setApplyDiscount(true);
-    //   }
-    // } else {
-    //   setApplyDiscount(false);
-    // }
+  const init_state_variables = () => {};
+
+  const get_transport_types = async () => {
+    try {
+      let url = `${Constant.get_transport_types}`;
+      const res = await SendRequestContetType(
+        "get",
+        url,
+        null,
+        false
+      );
+
+      if (res.status) {
+        let filters_list = res.response;
+        console.log("get type list ", filters_list);
+        console.log("get type list type ", filters_list.type);
+        console.log("get type list seats ", filters_list.seats);
+        setTransportFilterListType(filters_list.type);
+        setTransportFilterListSeats(filters_list.seats);
+        setTransportFilterListLuggage(filters_list.luggage);
+        
+      } else {
+        if (res.error.custom_code == 403) {
+          updateContextState(true, "show_login_modal");
+          updateContextState("Please Login and try again", "error_msg");
+          // navigateToPath(-1);
+        }
+        console.log(res.error?.message[0], "error_msg");
+        updateContextState("Transport List unavalible contact admin", "error_msg");
+        // setError("Transport List unavalible contact admin");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setError("Transport List unavalible contact admin.");
+    }
   };
 
   const get_transport = async () => {
     try {
-      let cs = contextState;
-      cs.user.access_token = Constant.basic_token;
-      let booking_obj = location.state?.booking_obj;
-      console.log("booking_obj", booking_obj);
-      let current_booking = {};
+
       let booking_filters = "";
-      if (typeof booking_obj !== "undefined" && booking_obj !== null) {
-        current_booking = booking_obj.details[booking_obj.details.length - 1];
-        booking_filters = `?pickup_id=${current_booking.pickup_id}&dropoff_id=${current_booking.dropoff_id}&pickupdate_time=${current_booking.pickupdate_time}`;
-        console.log("res", current_booking);
-      }
+      booking_filters = `?transport_type_id=${carTypeFilter}`+
+      `&seats=${carSeatFilter}&luggage=${carLuggageFilter}`;
 
-      let get_car_url = `${Constant.get_cars_for_booking}` + booking_filters;
+      let get_car_url = `${Constant.get_all}` + booking_filters;
 
-      
-    let obj = {
-      booking_details: location.state?.booking_obj,
-    };
-    // formData.append(
-    //   "booking_details",
-    //   JSON.stringify(location.state.booking_obj)
-    // );
-    const res = await SendRequestContetType(
-      "post",
-      get_car_url,
-      JSON.stringify(obj),
-      true
-    );
+      const res = await SendRequestContetType(
+        "post",
+        get_car_url,
+        null,
+        false
+      );
 
       if (res.status) {
-        let cars_list = res.response.data;
+        let cars_list = res.response;
         setTransportList(cars_list);
         console.log("get cars list ", cars_list);
       } else {
@@ -115,27 +137,7 @@ export default function AvailableCars() {
   };
 
   const selectTransport = (transport) => {
-    let transport_id = transport.id;
-    transport.apply_discount = transport.apply_discount;
-    console.log("my transport", transport);
-    if (location.state) {
-      let booking_obj = location.state.booking_obj;
-      booking_obj.details[booking_obj.details.length - 1].transport_id =
-        transport_id;
-      booking_obj.details[booking_obj.details.length - 1].transport_type_id =
-        transport.transport_type_id;
-      booking_obj.details[booking_obj.details.length - 1].transport_type_name =
-        transport.transport_type.name;
-      booking_obj.details[booking_obj.details.length - 1].apply_discount =
-      transport.apply_discount;
-      booking_obj.details[booking_obj.details.length - 1].customer_collection_price =
-      0;
-
-      setBookingDetails({ ...location.state.booking_obj, booking_obj });
-      navigateToPath("/transport_details", { transport, booking_obj });
-    } else {
-      navigateToPath("/home");
-    }
+    navigateToPath("/home");
   };
 
   const [open, setOpen] = useState(false);
@@ -174,7 +176,7 @@ export default function AvailableCars() {
         <Container fluid>
           <Row className="bar_clr">
             <Col>
-              <div className="car-head">5 Cars Ready</div>
+              <div className="car-head">{transportlist.length} Cars Ready</div>
             </Col>
             <Col>
               {/* <Filters /> */}
@@ -199,14 +201,25 @@ export default function AvailableCars() {
                   </Row>
                   <Row>
                     <Col>
-                      <Button className="filter_btn">Sedan</Button>
-                      <Button className="filter_btn">Mini-Bus</Button>
-                      <Button className="filter_btn">SUV</Button>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Button className="filter_btn">People Carrier Van</Button>
+                    {
+                      transportFilterListType.map(((item,index)=>{
+                        let style_obj = {};
+                        if(item.id== carTypeFilter){
+                           style_obj = {
+                            backgroundColor: "#996418",
+                            color:"white"
+                           };
+                        }
+                        return(
+                          <Button id={index} onClick={()=>{
+                            let id = item.id == carTypeFilter ? 0:item.id;
+                            setCarTypeFilter(id)}} 
+                          className="filter_btn"
+                          style={style_obj}>
+                          {item.name}</Button>
+                        )
+                      }))
+                    }
                     </Col>
                   </Row>
                   <Row>
@@ -215,11 +228,27 @@ export default function AvailableCars() {
                     </Col>
                   </Row>
                   <Row>
-                    <Col>
-                      <Button className="filter_btn">4</Button>
-                      <Button className="filter_btn">15</Button>
-                      <Button className="filter_btn">5</Button>
-                      <Button className="filter_btn">8</Button>
+                    <Col>{
+                      transportFilterListSeats.map(((item,index)=>{
+                        let style_obj = {};
+                        if(item.seats== carSeatFilter){
+                           style_obj = {
+                            backgroundColor: "#996418",
+                            color:"white"
+                           };
+                        }
+                        return(
+                          <Button id={index} onClick={()=>{
+                            let id = item.seats == carSeatFilter ? 0:item.seats;
+                            setCarSeatFilter(id)
+                          }} 
+                          className={'filter_btn '} 
+                          style={style_obj}>
+                            {item.seats}
+                          </Button>
+                        )
+                      }))
+                    }
                     </Col>
                   </Row>
                   <Row>
@@ -229,10 +258,25 @@ export default function AvailableCars() {
                   </Row>
                   <Row>
                     <Col>
-                      <Button className="filter_btn">6</Button>
-                      <Button className="filter_btn">17</Button>
-                      <Button className="filter_btn">7</Button>
-                      <Button className="filter_btn">10</Button>
+                    {
+                      transportFilterListLuggage.map(((item,index)=>{
+                        let style_obj = {};
+                        if(item.luggage== carLuggageFilter){
+                           style_obj = {
+                            backgroundColor: "#996418",
+                            color:"white"
+                           };
+                        }
+                        return(
+                          <Button id={index} onClick={()=>{
+                            let id = item.luggage == carLuggageFilter ? 0:item.luggage;
+                            setCarLuggageFilter(id)}} 
+                          className="filter_btn"
+                          style={style_obj}>
+                          {item.luggage}</Button>
+                        )
+                      }))
+                    }
                     </Col>
                   </Row>
                 </Container>
@@ -267,8 +311,12 @@ export default function AvailableCars() {
                       <div className="style-1 divine">
                         {item.apply_discount ? (
                           <>
-                           <p className="pd"><span className="bef">BEFORE</span>
-                            <del className="sps">{item.booking_price} SAR</del></p>
+                            <p className="pd">
+                              <span className="bef">BEFORE</span>
+                              <del className="sps">
+                                {item.booking_price} SAR
+                              </del>
+                            </p>
                             <span className="nw">NOW</span>
                           </>
                         ) : null}

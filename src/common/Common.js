@@ -68,7 +68,6 @@ export async function googleTranslate(text, lang, that) {
 }
 
 export async function SendRequest(
-  contextState,
   request_type,
   url,
   formData,
@@ -116,7 +115,6 @@ export async function SendRequest(
 }
 
 export async function SendRequestContetType(
-  contextState,
   request_type,
   url,
   formData,

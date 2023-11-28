@@ -77,9 +77,8 @@ export default function Packages(props) {
   const getLocations = async () => {
     console.log("get locations");
     try {
-      let cs = contextState;
-      cs.user.access_token = Constant.basic_token;
-      const res = await SendRequest(cs, "GET", Constant.get_locations);
+
+      const res = await SendRequest("GET", Constant.get_locations);
       if (res.status) {
         let locations_list = res.response;
         setLocations(locations_list);
@@ -107,9 +106,9 @@ export default function Packages(props) {
     }
 
     try {
-      let cs = contextState;
+      
       let verify_journey_url = `${Constant.journey_verify}?pickup_id=${selectPickup.id}&dropoff_id=${selectDropoff.id}`;
-      const res = await SendRequest(cs, "GET", verify_journey_url);
+      const res = await SendRequest("GET", verify_journey_url);
       if (res.status) {
         let package_details_arr = bookingObj.details;
         console.log("selectPickup ", selectPickup);
@@ -235,7 +234,6 @@ export default function Packages(props) {
       JSON.stringify(location.state.booking_obj)
     );
     const res = await SendRequestContetType(
-      contextState,
       "post",
       Constant.order_create,
       JSON.stringify(obj),

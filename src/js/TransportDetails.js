@@ -150,7 +150,6 @@ export default function TransportDetails(props) {
     //   JSON.stringify(booking_obj)
     // );
     const res = await SendRequestContetType(
-      contextState,
       "post",
       Constant.order_create,
       JSON.stringify(obj),
