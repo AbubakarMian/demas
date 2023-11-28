@@ -11,8 +11,6 @@ import "./../styles/transport_details.css";
 import Carousel from "react-bootstrap/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate, useLocation } from "react-router-dom";
-import Accordion from "react-bootstrap/Accordion";
-
 import {
   faArrowRight,
   faUser,
@@ -90,15 +88,24 @@ export default function TransportDetails(props) {
       console.log("bookin handle", booking_obj);
       console.log("bookin hantransportDetaille", transportDetail);
       console.log("bookin current_booking", current_booking);
-      console.log("bookin current_booking.booking_price", current_booking.booking_price);
-      console.log("btransportDetail.booking_price", transportDetail.booking_price);
+      console.log(
+        "bookin current_booking.booking_price",
+        current_booking.booking_price
+      );
+      console.log(
+        "btransportDetail.booking_price",
+        transportDetail.booking_price
+      );
       console.log("customer_collection_pricece", customer_collection_price);
-      console.log("chk", parseInt(transportDetail.booking_price) <
-      parseInt(customer_collection_price));
+      console.log(
+        "chk",
+        parseInt(transportDetail.booking_price) <
+          parseInt(customer_collection_price)
+      );
       if (
         customer_collection_price == "" ||
         parseInt(transportDetail.booking_price) >
-        parseInt(customer_collection_price)
+          parseInt(customer_collection_price)
       ) {
         updateContextState(
           "Collection price must be greater than booking price",
@@ -363,53 +370,63 @@ export default function TransportDetails(props) {
               </Collapse>
             </Row>
           </div>
-          <Accordion>
-            <Accordion.Item eventKey="1">
-              <Accordion.Header>Customer Info</Accordion.Header>
-              {/* <Accordion.Body in={true}> */}
-              {booking_obj.type == "single" ? (
-                <>
-                  <Form.Group
-                    className="mb-3"
-                    controlId="exampleForm.ControlInput1"
+
+          <div className="const_paddingw">
+            <div className="car_card ">
+              <Row className="car_c_btn">
+                <Col>
+                  <Button
+                    onClick={() => setcar_featureOpen(!car_feature)}
+                    aria-controls="example-collapse-text"
+                    aria-expanded={car_feature}
+                    className="car_fea"
                   >
-                    <Form.Control
-                      type="text"
-                      aria-label="With textarea"
-                      className="comnt_tsxt"
-                      placeholder="Name"
-                      onChange={(e) => setCustomerName(e.target.value)}
-                    />
-                  </Form.Group>
-                  <Form.Group
-                    className="mb-3"
-                    controlId="exampleForm.ControlInput1"
-                  >
-                    <Form.Control
-                      type="text"
-                      aria-label="With textarea"
-                      className="comnt_tsxt"
-                      placeholder="Whatsapp Number"
-                      onChange={(e) =>
-                        setCustomerWhatsappNumber(e.target.value)
-                      }
-                    />
-                  </Form.Group>
-                </>
-              ) : null}
-              <Form.Group className="" controlId="exampleForm.ControlInput1">
-                <Form.Control
-                  type="number"
-                  aria-label="With textarea"
-                  className="comnt_tsxt"
-                  placeholder="Collection price"
-                  onChange={(e) => setCustomerCollectionPrice(e.target.value)}
-                />
-              </Form.Group>
-              {/* </Accordion.Body> */}
-            </Accordion.Item>
-          </Accordion>
+                    <FontAwesomeIcon className="car_icn1" icon={faUser} />
+                    Customer Info <FontAwesomeIcon icon={faBars} />
+                  </Button>
+                </Col>
+              </Row>
+              <Row>
+                <Collapse in={car_feature}>
+                  <div id="example-collapse-text" className="coll_2">
+                    <p className="para_sedan">
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlInput1"
+                      >
+                        <Form.Control
+                          type="text"
+                          aria-label="With textarea"
+                          className="comnt_tsxt"
+                          placeholder="Name"
+                          onChange={(e) => setCustomerName(e.target.value)}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlInput1"
+                      >
+                        <Form.Control
+                          type="text"
+                          aria-label="With textarea"
+                          className="comnt_tsxt"
+                          placeholder="Whatsapp Number"
+                          onChange={(e) =>
+                            setCustomerWhatsappNumber(e.target.value)
+                          }
+                        />
+                      </Form.Group>
+                    </p>
+                  </div>
+                </Collapse>
+              </Row>
+            </div>
+          </div>
+
         </div>
+
+
+
         <Row className="const_padding">
           <Col>
             <Button className="book_btn" onClick={handleBookCar}>

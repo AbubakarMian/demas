@@ -84,7 +84,7 @@ export default function Refunds() {
                 astounding choice for the explorer who needs an economy vehicle
                 with maximizing space for luggage and themselves
               </p>
-              <p>
+              <p className="last_pr">
                 DEMAS Offers Sedan shape vehical that is greate for a small
                 family of 2-3 People. It comes with the standard host of safely
                 features and Impressive features of sharp steering,confident

@@ -1,10 +1,14 @@
 .policy_area {
-    padding: 0px 20%;
+  padding: 0px 20%;
 }
-@media only screen and (max-width : 480px) {
-
-    .policy_area {
-        padding: 0px 0px;
-    }
-    
+.last_pr {
+    margin-bottom: 50px;
+  }
+@media only screen and (max-width: 480px) {
+  .policy_area {
+    padding: 0px 0px;
+  }
+  .last_pr {
+    margin-bottom: 50px;
+  }
 }

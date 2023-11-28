@@ -11,6 +11,17 @@ import {
   faArrowRightArrowLeft,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faSuitcaseRolling,
+  faCar,
+  faDoorOpen,
+  faCircleInfo,
+  faFingerprint,
+  faCheck,
+  faBars,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -20,7 +31,6 @@ import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
 import { ContextApiContext } from "../context/ContextApi";
 import { Constant } from "../common/Constants";
-import Accordion from "react-bootstrap/Accordion";
 import {
   SendRequest,
   SendRequestContetType,
@@ -35,7 +45,7 @@ export default function Packages(props) {
 
   const [showPickup, setShowPickup] = useState(false);
   const [showDropOff, setShowDropoff] = useState(false);
-
+  const [car_feature, setcar_featureOpen] = useState(true);
   const [openComment, setopenComment] = useState(false);
   const [package_details, setPackage_details] = useState([]);
   const [bookingObj, setBookingObj] = useState({ details: [] });
@@ -210,7 +220,6 @@ export default function Packages(props) {
   };
 
   const createOrder = async () => {
-    
     if (contextState.user.role_id == 4) {
       // 4 is travel agent
       if (customer_name == "" || customer_whatsapp_number == "") {
@@ -218,7 +227,7 @@ export default function Packages(props) {
         return;
       }
     }
-    
+
     let formData = new FormData();
     console.log("bookin", bookingObj);
     let booking_obj = bookingObj;
@@ -509,6 +518,64 @@ export default function Packages(props) {
           </Row>
         </div>
 
+
+        <div className="const_paddingw">
+          <div className="car_card ">
+            <Row className="car_c_btn">
+              <Col>
+                <Button
+                  onClick={() => setcar_featureOpen(!car_feature)}
+                  aria-controls="example-collapse-text"
+                  aria-expanded={car_feature}
+                  className="car_fea"
+                >
+                  <FontAwesomeIcon className="car_icn1" icon={faUser} />
+                  Customer Info <FontAwesomeIcon icon={faBars} />
+                </Button>
+              </Col>
+            </Row>
+            <Row>
+              <Collapse in={car_feature}>
+                <div id="example-collapse-text" className="coll_2">
+
+                  <p className="para_sedan">
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Control
+                        type="text"
+                        aria-label="With textarea"
+                        className="comnt_tsxt"
+                        placeholder="Name"
+                        onChange={(e) => setCustomerName(e.target.value)}
+                      />
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Control
+                        type="text"
+                        aria-label="With textarea"
+                        className="comnt_tsxt"
+                        placeholder="Whatsapp Number"
+                        onChange={(e) =>
+                          setCustomerWhatsappNumber(e.target.value)
+                        }
+                      />
+                    </Form.Group>
+                  </p>
+
+                </div>
+              </Collapse>
+            </Row>
+          </div>
+        </div>
+
+
+
+
         <div className="for_small_screen">
           <Row>
             <Col md={1}></Col>
@@ -520,38 +587,11 @@ export default function Packages(props) {
             <Col md={1}></Col>
           </Row>
         </div>
+
+      
+
         <Row>
-          <Accordion className="mt-3">
-            <Accordion.Item eventKey="1">
-              <Accordion.Header>Customer Info</Accordion.Header>
-              {/* <Accordion.Body in={true}> */}
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Control
-                    type="text"
-                    aria-label="With textarea"
-                    className="comnt_tsxt"
-                    placeholder="Name"
-                    onChange={(e) => setCustomerName(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Control
-                    type="text"
-                    aria-label="With textarea"
-                    className="comnt_tsxt"
-                    placeholder="Whatsapp Number"
-                    onChange={(e) => setCustomerWhatsappNumber(e.target.value)}
-                  />
-                </Form.Group>
-              {/* </Accordion.Body> */}
-            </Accordion.Item>
-          </Accordion>
+          
           <Col md={1}></Col>
           <Col md={10}>
             <Button

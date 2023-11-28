@@ -1,47 +1,47 @@
-
 .img_area img {
-    width: 15%;
-    margin: 35px 0px;
+  width: 15%;
+  margin: 35px 0px;
 }
 .info_area_bx {
-    text-align: left;
-    padding: 17px;
-    border: solid 1px #a4610d;
-    box-shadow: 1px 1px 5px 1px;
-    margin: 10px;
-    border-radius: 10px;
-    background-color:rgb(255 255 255 / 32%);
+  text-align: left;
+  padding: 17px;
+  border: solid 1px #a4610d;
+  box-shadow: 1px 1px 5px 1px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: rgb(255 255 255 / 32%);
 }
 .inp_bx {
-    background-color: #e8e8e8;
+  background-color: #e8e8e8;
 }
 .info_area_bx h4 {
-    color: #a4610d;
+  color: #a4610d;
 }
 .agnt_prof {
-    padding: 0px 25%;
+  padding: 0px 25%;
 }
-.profile_back{
-    background-image: url(../../public/images/sal_bck.jpg);
-    background-size: cover; /* Optional: Adjust how the image is displayed */
-    background-repeat: no-repeat; /* Optional: Prevent image repetition */
-    height: 100vh;
-    background-position-y: -355px;
+.profile_back {
+  background-image: url(../../public/images/sal_bck.jpg);
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* height: 129vh; */
+  padding-bottom: 100px;
+  /* background-position-y: -355px; */
 }
-.sale_back{
-    background-image: url(../../public/images/sal_bck.jpg);
-    background-size: cover; /* Optional: Adjust how the image is displayed */
-    background-repeat: no-repeat; /* Optional: Prevent image repetition */
-    height: 100vh;
-    background-position-y: -355px;
+.sale_back {
+  background-image: url(../../public/images/sal_bck.jpg);
+  background-size: cover; /* Optional: Adjust how the image is displayed */
+  background-repeat: no-repeat; /* Optional: Prevent image repetition */
+  height: 100vh;
+  background-position-y: -355px;
 }
 
-@media only screen and (max-width : 480px) {
-
-    .img_area img {
-        width: 50%;
-    }
-    .agnt_prof {
-        padding: 0px 0px;
-    }
+@media only screen and (max-width: 480px) {
+  .img_area img {
+    width: 50%;
+  }
+  .agnt_prof {
+    padding: 0px 0px;
+  }
 }
