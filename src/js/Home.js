@@ -66,9 +66,8 @@ export default function Package_style() {
     }
 
     try {
-      let cs = contextState;
       let verify_journey_url = `${Constant.journey_verify}?pickup_id=${selectPickup.id}&dropoff_id=${selectDropoff.id}`;
-      const res = await SendRequest(cs, "GET", verify_journey_url);
+      const res = await SendRequest( "GET", verify_journey_url);
       if (res.status) {
         let booking_obj = {
           type: "single",

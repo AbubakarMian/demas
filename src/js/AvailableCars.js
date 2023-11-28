@@ -28,15 +28,27 @@ import Nav_bar_area from "./NavBar";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Constant } from "../common/Constants";
 import { ContextApiContext } from "../context/ContextApi";
-import Common, { googleTranslate, SendRequest, SendRequestContetType } from "../common/Common";
+import Common, {
+  googleTranslate,
+  SendRequest,
+  SendRequestContetType,
+} from "../common/Common";
 
 export default function AvailableCars() {
   const navigate = useNavigate();
   const location = useLocation();
   const { contextState, updateContextState } = useContext(ContextApiContext);
-  const [transportlist, setTransportList] = useState([]);
   const [bookingDetails, setBookingDetails] = useState([]);
-  // const [applyDiscount, setApplyDiscount] = useState(false);
+  const [transportlist, setTransportList] = useState([]);
+  const [transportFilterListType, setTransportFilterListType] = useState([]);
+  const [transportFilterListSeats, setTransportFilterListSeats] = useState([]);
+  const [transportFilterListLuggage, setTransportFilterListLuggage] = useState(
+    []
+  );
+  const [carTypeFilter, setCarTypeFilter] = useState(0);
+  const [carSeatFilter, setCarSeatFilter] = useState(0);
+  const [carLuggageFilter, setCarLuggageFilter] = useState(0);
+
   const [error, setError] = useState(null);
 
   const navigateToPath = (path, props) => {
@@ -44,24 +56,46 @@ export default function AvailableCars() {
   };
 
   useEffect(() => {
-    console.log("props from previous screen ", location.state);
-    get_transport();
+    get_transport_types();
     init_state_variables();
   }, []);
 
-  const init_state_variables = () => {
-    // let booking_obj = location.state?.booking_obj;
+  useEffect(() => {
+    get_transport();
+  }, [carTypeFilter, carSeatFilter, carLuggageFilter]);
 
-    // if (typeof booking_obj !== "undefined" && booking_obj !== null) {
-    //   if (
-    //     booking_obj.details.length != 0 &&
-    //     booking_obj.details.length % 3 === 0
-    //   ) {
-    //     setApplyDiscount(true);
-    //   }
-    // } else {
-    //   setApplyDiscount(false);
-    // }
+  const init_state_variables = () => {};
+
+  const get_transport_types = async () => {
+    try {
+      let url = `${Constant.get_transport_types}`;
+      const res = await SendRequestContetType("get", url, null, false);
+
+      if (res.status) {
+        let filters_list = res.response;
+        console.log("get type list ", filters_list);
+        console.log("get type list type ", filters_list.type);
+        console.log("get type list seats ", filters_list.seats);
+        setTransportFilterListType(filters_list.type);
+        setTransportFilterListSeats(filters_list.seats);
+        setTransportFilterListLuggage(filters_list.luggage);
+      } else {
+        if (res.error.custom_code == 403) {
+          updateContextState(true, "show_login_modal");
+          updateContextState("Please Login and try again", "error_msg");
+          // navigateToPath(-1);
+        }
+        console.log(res.error?.message[0], "error_msg");
+        updateContextState(
+          "Transport List unavalible contact admin",
+          "error_msg"
+        );
+        // setError("Transport List unavalible contact admin");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setError("Transport List unavalible contact admin.");
+    }
   };
 
   const get_transport = async () => {
@@ -71,29 +105,28 @@ export default function AvailableCars() {
       let booking_obj = location.state?.booking_obj;
       console.log("booking_obj", booking_obj);
       let current_booking = {};
-      let booking_filters = "";
+      let booking_filters =
+        `?transport_type_id=${carTypeFilter}` +
+        `&seats=${carSeatFilter}&luggage=${carLuggageFilter}`;
+
       if (typeof booking_obj !== "undefined" && booking_obj !== null) {
         current_booking = booking_obj.details[booking_obj.details.length - 1];
-        booking_filters = `?pickup_id=${current_booking.pickup_id}&dropoff_id=${current_booking.dropoff_id}&pickupdate_time=${current_booking.pickupdate_time}`;
+        booking_filters += `&pickup_id=${current_booking.pickup_id}&dropoff_id=${current_booking.dropoff_id}&pickupdate_time=${current_booking.pickupdate_time}`;
         console.log("res", current_booking);
       }
 
       let get_car_url = `${Constant.get_cars_for_booking}` + booking_filters;
 
-      
-    let obj = {
-      booking_details: location.state?.booking_obj,
-    };
-    // formData.append(
-    //   "booking_details",
-    //   JSON.stringify(location.state.booking_obj)
-    // );
-    const res = await SendRequestContetType(
-      "post",
-      get_car_url,
-      JSON.stringify(obj),
-      true
-    );
+      let obj = {
+        booking_details: location.state?.booking_obj,
+      };
+
+      const res = await SendRequestContetType(
+        "post",
+        get_car_url,
+        JSON.stringify(obj),
+        true
+      );
 
       if (res.status) {
         let cars_list = res.response.data;
@@ -127,9 +160,10 @@ export default function AvailableCars() {
       booking_obj.details[booking_obj.details.length - 1].transport_type_name =
         transport.transport_type.name;
       booking_obj.details[booking_obj.details.length - 1].apply_discount =
-      transport.apply_discount;
-      booking_obj.details[booking_obj.details.length - 1].customer_collection_price =
-      0;
+        transport.apply_discount;
+      booking_obj.details[
+        booking_obj.details.length - 1
+      ].customer_collection_price = 0;
 
       setBookingDetails({ ...location.state.booking_obj, booking_obj });
       navigateToPath("/transport_details", { transport, booking_obj });
@@ -171,10 +205,10 @@ export default function AvailableCars() {
         </Row>
       </Container>
       <div className="cont_type">
-        <Container fluid>
+      <Container fluid>
           <Row className="bar_clr">
             <Col>
-              <div className="car-head">5 Cars Ready</div>
+              <div className="car-head">{transportlist.length} Cars Ready</div>
             </Col>
             <Col>
               {/* <Filters /> */}
@@ -199,14 +233,31 @@ export default function AvailableCars() {
                   </Row>
                   <Row>
                     <Col>
-                      <Button className="filter_btn">Sedan</Button>
-                      <Button className="filter_btn">Mini-Bus</Button>
-                      <Button className="filter_btn">SUV</Button>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Button className="filter_btn">People Carrier Van</Button>
+                      {transportFilterListType.map((item, index) => {
+                        let style_obj = {
+                          backgroundColor: "#d6d1d1",
+                          color: "#4a4564",
+                        };
+                        if (item.id == carTypeFilter) {
+                          style_obj = {
+                            backgroundColor: "#996418",
+                            color: "white",
+                          };
+                        }
+                        return (
+                          <Button
+                            key={index}
+                            onClick={() => {
+                              let id = item.id == carTypeFilter ? 0 : item.id;
+                              setCarTypeFilter(id);
+                            }}
+                            className="filter_btn"
+                            style={style_obj}
+                          >
+                            {item.name}
+                          </Button>
+                        );
+                      })}
                     </Col>
                   </Row>
                   <Row>
@@ -216,10 +267,32 @@ export default function AvailableCars() {
                   </Row>
                   <Row>
                     <Col>
-                      <Button className="filter_btn">4</Button>
-                      <Button className="filter_btn">15</Button>
-                      <Button className="filter_btn">5</Button>
-                      <Button className="filter_btn">8</Button>
+                      {transportFilterListSeats.map((item, index) => {
+                        let style_obj = {
+                          backgroundColor: "#d6d1d1",
+                          color: "#4a4564",
+                        };
+                        if (item.seats == carSeatFilter) {
+                          style_obj = {
+                            backgroundColor: "#996418",
+                            color: "white",
+                          };
+                        }
+                        return (
+                          <Button
+                            id={index}
+                            onClick={() => {
+                              let id =
+                                item.seats == carSeatFilter ? 0 : item.seats;
+                              setCarSeatFilter(id);
+                            }}
+                            className={"filter_btn "}
+                            style={style_obj}
+                          >
+                            {item.seats}
+                          </Button>
+                        );
+                      })}
                     </Col>
                   </Row>
                   <Row>
@@ -229,10 +302,34 @@ export default function AvailableCars() {
                   </Row>
                   <Row>
                     <Col>
-                      <Button className="filter_btn">6</Button>
-                      <Button className="filter_btn">17</Button>
-                      <Button className="filter_btn">7</Button>
-                      <Button className="filter_btn">10</Button>
+                      {transportFilterListLuggage.map((item, index) => {
+                        let style_obj = {
+                          backgroundColor: "#d6d1d1",
+                          color: "#4a4564",
+                        };
+                        if (item.luggage == carLuggageFilter) {
+                          style_obj = {
+                            backgroundColor: "#996418",
+                            color: "white",
+                          };
+                        }
+                        return (
+                          <Button
+                            id={index}
+                            onClick={() => {
+                              let id =
+                                item.luggage == carLuggageFilter
+                                  ? 0
+                                  : item.luggage;
+                              setCarLuggageFilter(id);
+                            }}
+                            className="filter_btn"
+                            style={style_obj}
+                          >
+                            {item.luggage}
+                          </Button>
+                        );
+                      })}
                     </Col>
                   </Row>
                 </Container>
@@ -240,13 +337,13 @@ export default function AvailableCars() {
             </Collapse>
           </Row>
         </Container>
+
         <div
           className="asdas const_paddingaa"
           onClick={() => {
             // navigate("/transport_details");
           }}
         >
-          {/* <Sedan_crousel /> */}
         </div>
         <div>
           {/* start map*/}
@@ -267,8 +364,12 @@ export default function AvailableCars() {
                       <div className="style-1 divine">
                         {item.apply_discount ? (
                           <>
-                           <p className="pd"><span className="bef">BEFORE</span>
-                            <del className="sps">{item.booking_price} SAR</del></p>
+                            <p className="pd">
+                              <span className="bef">BEFORE</span>
+                              <del className="sps">
+                                {item.booking_price} SAR
+                              </del>
+                            </p>
                             <span className="nw">NOW</span>
                           </>
                         ) : null}
@@ -299,18 +400,18 @@ export default function AvailableCars() {
                 <Row className="icn_ara">
                   <Col>
                     <FontAwesomeIcon className="detail_icn" icon={faUser} />
-                    <span>{item.transport_type.seats}</span>
+                    <span>{item.seats}</span>
                   </Col>
                   <Col>
                     <FontAwesomeIcon
                       className="detail_icn"
                       icon={faSuitcaseRolling}
                     />
-                    <span>{item.transport_type.luggage}</span>
+                    <span>{item.luggage}</span>
                   </Col>
                   <Col>
                     <FontAwesomeIcon className="detail_icn" icon={faDoorOpen} />
-                    <span>{item.transport_type.doors}</span>
+                    <span>{item.doors}</span>
                   </Col>
                 </Row>
               </div>
