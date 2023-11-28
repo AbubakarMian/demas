@@ -72,7 +72,6 @@ export default function LoginModal(props) {
       formData.append("email", email);
       formData.append("whatsapp_no", whatsapp_no);
       const res = await SendRequest(
-        contextState,
         "post",
         Constant.register_or_login,
         formData
@@ -105,7 +104,6 @@ export default function LoginModal(props) {
     formData.append("otp", otp);
     formData.append("access_token", user.access_token);
     const res = await SendRequest(
-      contextState,
       "post",
       Constant.validate_otp,
       formData

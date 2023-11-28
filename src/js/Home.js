@@ -119,7 +119,7 @@ export default function Package_style() {
     try {
       let cs = contextState;
       cs.user.access_token = Constant.basic_token;
-      const res = await SendRequest(cs, "GET", Constant.get_cars_by_types);
+      const res = await SendRequest("GET", Constant.get_cars_by_types);
       if (res.status) {
         let res_list = res.response;
         setTransportTypeList(res_list);
@@ -135,10 +135,7 @@ export default function Package_style() {
 
   const getLocations = async () => {
     try {
-      let cs = contextState;
-      cs.user.access_token = Constant.basic_token;
-      const res = await SendRequest(cs, "GET", Constant.get_locations);
-
+      const res = await SendRequest( "GET", Constant.get_locations);
       if (res.status) {
         let locations_list = res.response;
         setLocations(locations_list);
