@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Row from "react-bootstrap/Row";
 // import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
-import Home_crousel from "./Home_crousel";
+import HomeCrousel from "./HomeCrousel";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import "./../styles/single_trip.css";
@@ -279,7 +279,7 @@ export default function Packages(props) {
     <div>
       <Nav_bar_area />
 
-      <Home_crousel />
+      <HomeCrousel/>
       <Container>
         <Row>
           <Col>

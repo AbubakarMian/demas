@@ -17,7 +17,7 @@ import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 
-export default function Home_crousel() {
+export default function HomeCrousel() {
   return (
     <Carousel>
       <Carousel.Item>
