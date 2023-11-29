@@ -128,11 +128,10 @@ export async function SendRequestContetType(
     localStorage.getItem("user") === null
       ? Constant.guest_user
       : JSON.parse(localStorage.getItem("user"));
-  let acceess_token = needAuthorization
-    ? user.access_token
+  let acceess_token = needAuthorization ? user.access_token
     : Constant.basic_token;
   // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
-
+console.log('access token',acceess_token);
   let postData = {
     method: request_type,
     headers: {

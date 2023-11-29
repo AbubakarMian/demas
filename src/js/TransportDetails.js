@@ -42,6 +42,7 @@ export default function TransportDetails(props) {
 
   const [transportDetail, setTransportDetail] = useState(null);
   const [booking_obj, setBooking_obj] = useState({});
+  const [current_booking, setCurrent_booking] = useState({});
   const [user, setUser_obj] = useState({});
 
   const [car_feature, setcar_featureOpen] = useState(false);
@@ -71,6 +72,9 @@ export default function TransportDetails(props) {
 
   const init_state_variables = () => {
     let booking_obj = location.state.booking_obj;
+    let current_booking_obj =
+      booking_obj.details[booking_obj.details.length - 1];
+    setCurrent_booking(current_booking_obj);
     const user = contextState.user;
     setBooking_obj(booking_obj);
     setUser_obj(user);
@@ -82,7 +86,7 @@ export default function TransportDetails(props) {
   };
   const handleBookCar = () => {
     // const user = contextState.user;
-    let current_booking = booking_obj.details[booking_obj.details.length - 1];
+    // let current_booking = booking_obj.details[booking_obj.details.length - 1];
     if (user.is_loggedin) {
       // let booking_obj = location.state.booking_obj;
       console.log("bookin handle", booking_obj);
@@ -135,7 +139,7 @@ export default function TransportDetails(props) {
 
     console.log("contextState", contextState);
     console.log("contextState user", contextState.user);
-    if (contextState.user.role_id == 4) {
+    if ([3,4].includes(user.role_id)) {
       // 4 is travel agent
       if (customer_name == "" || customer_whatsapp_number == "") {
         updateContextState("All fields required", "error_msg");
@@ -152,10 +156,6 @@ export default function TransportDetails(props) {
     let obj = {
       booking_details: bookingObj,
     };
-    // formData.append(
-    //   "booking_details",
-    //   JSON.stringify(booking_obj)
-    // );
     const res = await SendRequestContetType(
       "post",
       Constant.order_create,
@@ -370,15 +370,16 @@ export default function TransportDetails(props) {
               </Collapse>
             </Row>
           </div>
-
+          {
+                [3,4].includes(user.role_id) ?
+                null:
           <div className="const_paddingw">
             <div className="car_card ">
               <Row className="car_c_btn">
                 <Col>
                   <Button
-                    onClick={() => setcar_featureOpen(!car_feature)}
                     aria-controls="example-collapse-text"
-                    aria-expanded={car_feature}
+                    aria-expanded={true}
                     className="car_fea"
                   >
                     <FontAwesomeIcon className="car_icn1" icon={faUser} />
@@ -386,10 +387,42 @@ export default function TransportDetails(props) {
                   </Button>
                 </Col>
               </Row>
+             
               <Row>
-                <Collapse in={car_feature}>
+                <Collapse in={true}>
                   <div id="example-collapse-text" className="coll_2">
                     <p className="para_sedan">
+                      {booking_obj.type == "package" ? null : (
+                        <>
+                          <Form.Group
+                            className="mb-3"
+                            controlId="exampleForm.ControlInput1"
+                          >
+                            <Form.Control
+                              type="text"
+                              aria-label="With textarea"
+                              className="comnt_tsxt"
+                              placeholder="Name"
+                              onChange={(e) => setCustomerName(e.target.value)}
+                            />
+                          </Form.Group>
+                          <Form.Group
+                            className="mb-3"
+                            controlId="exampleForm.ControlInput1"
+                          >
+                            <Form.Control
+                              type="text"
+                              aria-label="With textarea"
+                              className="comnt_tsxt"
+                              placeholder="Whatsapp Number"
+                              onChange={(e) =>
+                                setCustomerWhatsappNumber(e.target.value)
+                              }
+                            />
+                          </Form.Group>
+                        </>
+                      )}
+
                       <Form.Group
                         className="mb-3"
                         controlId="exampleForm.ControlInput1"
@@ -398,21 +431,9 @@ export default function TransportDetails(props) {
                           type="text"
                           aria-label="With textarea"
                           className="comnt_tsxt"
-                          placeholder="Name"
-                          onChange={(e) => setCustomerName(e.target.value)}
-                        />
-                      </Form.Group>
-                      <Form.Group
-                        className="mb-3"
-                        controlId="exampleForm.ControlInput1"
-                      >
-                        <Form.Control
-                          type="text"
-                          aria-label="With textarea"
-                          className="comnt_tsxt"
-                          placeholder="Whatsapp Number"
+                          placeholder="Collection Price"
                           onChange={(e) =>
-                            setCustomerWhatsappNumber(e.target.value)
+                            setCustomerCollectionPrice(e.target.value)
                           }
                         />
                       </Form.Group>
@@ -420,12 +441,11 @@ export default function TransportDetails(props) {
                   </div>
                 </Collapse>
               </Row>
+              
             </div>
           </div>
-
+          }
         </div>
-
-
 
         <Row className="const_padding">
           <Col>

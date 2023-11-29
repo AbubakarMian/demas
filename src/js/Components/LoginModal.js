@@ -63,11 +63,11 @@ export default function LoginModal(props) {
   const getOtp = async () => {
     console.log("get otp");
     try {
-      if (!phone_no || !email) {
+      if (!whatsapp_no || !email) {
         return;
       }
       let formData = new FormData();
-      formData.append("phone_no", phone_no);
+      // formData.append("phone_no", phone_no);
       formData.append("email", email);
       formData.append("whatsapp_no", whatsapp_no);
       const res = await SendRequest(
@@ -158,7 +158,7 @@ export default function LoginModal(props) {
           <Modal.Body>
             {!showSendOtp ? null : (
               <>
-                <Form.Label htmlFor="basic-url">Mobile Number</Form.Label>
+                {/* <Form.Label htmlFor="basic-url">Mobile Number</Form.Label>
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon3">
                     <div className="img_flag">
@@ -171,7 +171,7 @@ export default function LoginModal(props) {
                     placeholder="01234567"
                     onChange={(e) => setPhoneNumber(e.target.value)}
                   />
-                </InputGroup>
+                </InputGroup> */}
                 <Form.Label htmlFor="basic-url">Whatsapp Number</Form.Label>
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon3">
@@ -182,7 +182,7 @@ export default function LoginModal(props) {
                   <Form.Control
                     id="basic-url"
                     aria-describedby="basic-addon3"
-                    placeholder="01234567"
+                    placeholder="Whatsapp Number"
                     onChange={(e) => setWhatsapp(e.target.value)}
                   />
                 </InputGroup>

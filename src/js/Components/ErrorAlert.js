@@ -14,7 +14,7 @@ export default function ErrorAlert() {
     console.log("error 2");
 
       updateContextState("", "error_msg");
-    }, 1500);
+    }, 3000);
 
     // Cleanup the timeout on component unmount or when the error message changes
     return () => clearTimeout(timeoutId);
