@@ -38,14 +38,14 @@ export default function Login_page_style() {
   const [OTPShow, setOTPShow] = useState(false);
   const [otp, setOtp] = useState("");
   const [user, setUser] = useState({});
-  
+
   const attempt_login = async () => {
     try {
       // Create the formData and append the email and password
       console.log("test login 111");
       var formData = new FormData();
       formData.append("email", email);
-      formData.append("phone_no", phone_no);
+      // formData.append("phone_no", phone_no);
       formData.append("whatsapp_no", whatsapp_no);
       console.log("email", email);
       console.log("phone_no", phone_no);
@@ -141,7 +141,7 @@ export default function Login_page_style() {
                     value={email} // Bind the email state to the input value
                   />
                 </InputGroup>
-                <InputGroup className="mb-3">
+                {/* <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
                   <Form.Control
                     placeholder="Phone Number"
@@ -150,7 +150,7 @@ export default function Login_page_style() {
                     onChange={(e) => setPhoneNo(e.target.value)}
                     value={phone_no} // Bind the password state to the input value
                   />
-                </InputGroup>{" "}
+                </InputGroup>{" "} */}
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
                   <Form.Control
@@ -183,7 +183,7 @@ export default function Login_page_style() {
                     <InputGroup className="mb-3">
                       <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
                       <Form.Control
-                        placeholder="Enter OTp"
+                        placeholder="Enter OTP"
                         aria-label="otp"
                         aria-describedby="basic-addon1"
                         type="number"

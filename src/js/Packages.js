@@ -43,6 +43,7 @@ export default function Packages(props) {
 
   const { contextState, updateContextState } = useContext(ContextApiContext);
 
+  const [user, setUser_obj] = useState({});
   const [showPickup, setShowPickup] = useState(false);
   const [showDropOff, setShowDropoff] = useState(false);
   const [car_feature, setcar_featureOpen] = useState(true);
@@ -81,6 +82,8 @@ export default function Packages(props) {
         details: [], //package_details_arr
       };
     }
+    const user = contextState.user;
+    setUser_obj(user);
     setPackage_details(booking_obj.details);
     setBookingObj(booking_obj);
   };
@@ -220,7 +223,8 @@ export default function Packages(props) {
   };
 
   const createOrder = async () => {
-    if (contextState.user.role_id == 4) {
+    // if (contextState.user.role_id == 4) {
+    if ([3,4].includes(user.role_id)) {
       // 4 is travel agent
       if (customer_name == "" || customer_whatsapp_number == "") {
         updateContextState("All fields required", "error_msg");
@@ -627,7 +631,7 @@ export default function Packages(props) {
                     <Form.Control
                       id="basic-url"
                       aria-describedby="basic-addon3"
-                      placeholder="01234567"
+                      placeholder="Mobile Number"
                     />
                   </InputGroup>
 
