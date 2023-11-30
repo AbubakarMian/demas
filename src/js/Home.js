@@ -67,7 +67,7 @@ export default function Package_style() {
 
     try {
       let verify_journey_url = `${Constant.journey_verify}?pickup_id=${selectPickup.id}&dropoff_id=${selectDropoff.id}`;
-      const res = await SendRequest( "GET", verify_journey_url);
+      const res = await SendRequest("GET", verify_journey_url);
       if (res.status) {
         let booking_obj = {
           type: "single",
@@ -134,7 +134,7 @@ export default function Package_style() {
 
   const getLocations = async () => {
     try {
-      const res = await SendRequest( "GET", Constant.get_locations);
+      const res = await SendRequest("GET", Constant.get_locations);
       if (res.status) {
         let locations_list = res.response;
         setLocations(locations_list);
@@ -477,8 +477,11 @@ export default function Package_style() {
                       dots={true} // Show navigation dots
                       infinite={true} // Loop through the slides
                       speed={500} // Transition speed in milliseconds
-                      slidesToShow={transportTypeList.length && transportTypeList[activeTab].transports.length < 3 ?
-                        transportTypeList[activeTab].transports.length : 3
+                      slidesToShow={
+                        transportTypeList.length &&
+                        transportTypeList[activeTab].transports.length < 3
+                          ? transportTypeList[activeTab].transports.length
+                          : 3
                       } // Number of slides to show at once
                       slidesToScroll={1} // Number of slides to scroll at a time}
                     >
@@ -491,6 +494,7 @@ export default function Package_style() {
                                 <div key={transport_detail.id}>
                                   {/* <div key={transport_detail.id}> */}
                                   <img
+                                    className="img-responsive"
                                     src={transport_detail.images[0]}
                                     alt={transport_detail.name}
                                   />
@@ -529,7 +533,11 @@ const Home_crousel = () => {
   return (
     <Carousel>
       <Carousel.Item>
-        <img className="d-block w-100 img-responsive" src="./images/1.jpg" alt="First slide" />
+        <img
+          className="d-block w-100 img-responsive"
+          src="./images/1.jpg"
+          alt="First slide"
+        />
         <Carousel.Caption>
           {/* <h3>First slide label</h3>
           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> */}
@@ -548,7 +556,11 @@ const Home_crousel = () => {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100 img-responsive" src="./images/5.jpg" alt="Third slide" />
+        <img
+          className="d-block w-100 img-responsive"
+          src="./images/5.jpg"
+          alt="Third slide"
+        />
 
         <Carousel.Caption>
           {/* <h3>Third slide label</h3>
@@ -558,7 +570,11 @@ const Home_crousel = () => {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100 img-responsive" src="./images/6.jpg" alt="Third slide" />
+        <img
+          className="d-block w-100 img-responsive"
+          src="./images/6.jpg"
+          alt="Third slide"
+        />
 
         <Carousel.Caption>
           {/* <h3>Fourth slide label</h3>
@@ -568,7 +584,11 @@ const Home_crousel = () => {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100 img-responsive" src="./images/7.jpg" alt="Third slide" />
+        <img
+          className="d-block w-100 img-responsive"
+          src="./images/7.jpg"
+          alt="Third slide"
+        />
 
         <Carousel.Caption>
           {/* <h3>Fifth slide label</h3>
@@ -578,7 +598,11 @@ const Home_crousel = () => {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100 img-responsive" src="./images/8.jpg" alt="Third slide" />
+        <img
+          className="d-block w-100 img-responsive"
+          src="./images/8.jpg"
+          alt="Third slide"
+        />
 
         <Carousel.Caption>
           {/* <h3>Sixth slide label</h3>
