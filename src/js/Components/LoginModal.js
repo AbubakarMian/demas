@@ -116,6 +116,8 @@ export default function LoginModal(props) {
     );
 
     if (res.status) {
+      setShowSendOtp(true);
+      setshowValidateOtp(false);
       res.response.is_loggedin = true;
       updateContextState(res.response, "update_user");
       updateContextState(false, "show_login_modal");
@@ -135,6 +137,8 @@ export default function LoginModal(props) {
   };
 
   const handleCloseOtp = () => {
+    setShowSendOtp(true);
+    setshowValidateOtp(false);
     setShowLoginModalArea(false);
     updateContextState(false, "show_login_modal");
     // console.log("handle close otpfalse ", props.handleOtpPaymentModals);
