@@ -67,6 +67,10 @@ export default function Packages(props) {
     useState(false);
   const [customer_name, setCustomerName] = useState("");
   const [customer_whatsapp_number, setCustomerWhatsappNumber] = useState("");
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
   useEffect(() => {
     getLocations();
@@ -110,6 +114,9 @@ export default function Packages(props) {
     }
   };
 
+  useEffect(()=>{
+    setUser_obj(contextState.user);
+  },[contextState.user])
   const handleProceedToNext = async () => {
     console.log("bookin_obj", bookingObj);
 
@@ -204,22 +211,18 @@ export default function Packages(props) {
     setpickupTime(timestamp);
   };
 
-  const [showOtpModal, setShowOtpModal] = useState(false);
-  const [show, setShow] = useState(false);
 
   const handleOtpClose = () => {
     setShowOtpModal(false);
   };
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
 
   const handleBookPackage = () => {
-    const user = contextState.user;
-    if (user.is_loggedin) {
+    // const user = contextState.user;
+    // if (user.is_loggedin) {
       createOrder();
-    } else {
-      updateContextState(true, "show_login_modal");
-    }
+    // } else {
+    //   updateContextState(true, "show_login_modal");
+    // }
   };
 
   const createOrder = async () => {
@@ -230,6 +233,10 @@ export default function Packages(props) {
         updateContextState("All fields required", "error_msg");
         return;
       }
+    }
+    if(!bookingObj.details.length){
+      updateContextState("Please Add trip", "error_msg");
+      return;      
     }
 
     let formData = new FormData();
@@ -256,6 +263,11 @@ export default function Packages(props) {
     if (res.status) {
       setPaymentSuccessModalsShow(true);
     } else {
+      if (res.error.custom_code == 403) {
+        updateContextState(true, "show_login_modal");
+        updateContextState("Please Login and try again", "error_msg");
+        // navigateToPath(-1);
+      }
     }
   };
   const navigate = useNavigate();
@@ -522,6 +534,7 @@ export default function Packages(props) {
           </Row>
         </div>
 
+        {[3, 4].includes(user.role_id) ? (
 
         <div className="const_paddingw">
           <div className="car_card ">
@@ -576,7 +589,7 @@ export default function Packages(props) {
             </Row>
           </div>
         </div>
-
+          ):null}
 
 
 

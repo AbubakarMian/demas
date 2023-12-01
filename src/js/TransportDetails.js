@@ -70,6 +70,11 @@ export default function TransportDetails(props) {
     init_state_variables();
   }, [location.state]);
 
+  useEffect(()=>{
+    const user = contextState.user;
+    setUser_obj(user);
+  },[contextState.user.access_token])
+
   const init_state_variables = () => {
     let booking_obj = location.state.booking_obj;
     let current_booking_obj =
@@ -85,8 +90,6 @@ export default function TransportDetails(props) {
     setTransportDetail(transport_detail);
   };
   const handleBookCar = () => {
-    // const user = contextState.user;
-    // let current_booking = booking_obj.details[booking_obj.details.length - 1];
     if (user.is_loggedin) {
       // let booking_obj = location.state.booking_obj;
       console.log("bookin handle", booking_obj);
@@ -139,7 +142,7 @@ export default function TransportDetails(props) {
 
     console.log("contextState", contextState);
     console.log("contextState user", contextState.user);
-    if ([3,4].includes(user.role_id)) {
+    if ([3, 4].includes(user.role_id)) {
       // 4 is travel agent
       if (customer_name == "" || customer_whatsapp_number == "") {
         updateContextState("All fields required", "error_msg");
@@ -370,81 +373,79 @@ export default function TransportDetails(props) {
               </Collapse>
             </Row>
           </div>
-          {
-                [3,4].includes(user.role_id) ?
-                null:
-          <div className="const_paddingw">
-            <div className="car_card ">
-              <Row className="car_c_btn">
-                <Col>
-                  <Button
-                    aria-controls="example-collapse-text"
-                    aria-expanded={true}
-                    className="car_fea"
-                  >
-                    <FontAwesomeIcon className="car_icn1" icon={faUser} />
-                    Customer Info <FontAwesomeIcon icon={faBars} />
-                  </Button>
-                </Col>
-              </Row>
-             
-              <Row>
-                <Collapse in={true}>
-                  <div id="example-collapse-text" className="coll_2">
-                    <p className="para_sedan">
-                      {booking_obj.type == "package" ? null : (
-                        <>
-                          <Form.Group
-                            className="mb-3"
-                            controlId="exampleForm.ControlInput1"
-                          >
-                            <Form.Control
-                              type="text"
-                              aria-label="With textarea"
-                              className="comnt_tsxt"
-                              placeholder="Name"
-                              onChange={(e) => setCustomerName(e.target.value)}
-                            />
-                          </Form.Group>
-                          <Form.Group
-                            className="mb-3"
-                            controlId="exampleForm.ControlInput1"
-                          >
-                            <Form.Control
-                              type="text"
-                              aria-label="With textarea"
-                              className="comnt_tsxt"
-                              placeholder="Whatsapp Number"
-                              onChange={(e) =>
-                                setCustomerWhatsappNumber(e.target.value)
-                              }
-                            />
-                          </Form.Group>
-                        </>
-                      )}
+          {[3, 4].includes(user.role_id) ? (
+            <div className="const_paddingw">
+              <div className="car_card ">
+                <Row className="car_c_btn">
+                  <Col>
+                    <Button
+                      aria-controls="example-collapse-text"
+                      aria-expanded={true}
+                      className="car_fea"
+                    >
+                      <FontAwesomeIcon className="car_icn1" icon={faUser} />
+                      Customer Info <FontAwesomeIcon icon={faBars} />
+                    </Button>
+                  </Col>
+                </Row>
+                <Row>
+                  <Collapse in={true}>
+                    <div id="example-collapse-text" className="coll_2">
+                      <p className="para_sedan">
+                        {booking_obj.type == "package" ? null : (
+                          <>
+                            <Form.Group
+                              className="mb-3"
+                              controlId="exampleForm.ControlInput1"
+                            >
+                              <Form.Control
+                                type="text"
+                                aria-label="With textarea"
+                                className="comnt_tsxt"
+                                placeholder="Name"
+                                onChange={(e) =>
+                                  setCustomerName(e.target.value)
+                                }
+                              />
+                            </Form.Group>
+                            <Form.Group
+                              className="mb-3"
+                              controlId="exampleForm.ControlInput1"
+                            >
+                              <Form.Control
+                                type="text"
+                                aria-label="With textarea"
+                                className="comnt_tsxt"
+                                placeholder="Whatsapp Number"
+                                onChange={(e) =>
+                                  setCustomerWhatsappNumber(e.target.value)
+                                }
+                              />
+                            </Form.Group>
+                          </>
+                        )}
 
-                      <Form.Group
-                        className="mb-3"
-                        controlId="exampleForm.ControlInput1"
-                      >
-                        <Form.Control
-                          type="text"
-                          aria-label="With textarea"
-                          className="comnt_tsxt"
-                          placeholder="Collection Price"
-                          onChange={(e) =>
-                            setCustomerCollectionPrice(e.target.value)
-                          }
-                        />
-                      </Form.Group>
-                    </p>
-                  </div>
-                </Collapse>
-              </Row>
-              
+                        <Form.Group
+                          className="mb-3"
+                          controlId="exampleForm.ControlInput1"
+                        >
+                          <Form.Control
+                            type="number"
+                            aria-label="With textarea"
+                            className="comnt_tsxt"
+                            placeholder="Collection Price"
+                            onChange={(e) =>
+                              setCustomerCollectionPrice(e.target.value)
+                            }
+                          />
+                        </Form.Group>
+                      </p>
+                    </div>
+                  </Collapse>
+                </Row>
+              </div>
             </div>
-          </div>
-          }
+          ):null}
         </div>
 
         <Row className="const_padding">

@@ -58,6 +58,11 @@ export default function Package_style() {
 
   const [transportTypeList, setTransportTypeList] = useState([]);
 
+  useEffect(() => {
+    getLocations();
+    getCarTypes();
+  }, []);
+  
   const handleProceedToNext = async () => {
     if (!selectPickup.id || !selectDropoff.id || !pickupTime) {
       updateContextState("All fields required", "error_msg");
@@ -105,10 +110,7 @@ export default function Package_style() {
     slidesToScroll: 1, // Number of slides to scroll at a time
   };
 
-  useEffect(() => {
-    getLocations();
-    getCarTypes();
-  }, []);
+
 
   const handleTabClick = (index) => {
     setActiveTab(index);
@@ -494,6 +496,7 @@ export default function Package_style() {
                                 <div key={transport_detail.id}>
                                   {/* <div key={transport_detail.id}> */}
                                   <img
+                                    style={{ maxWidth: "min-content" }}
                                     className="img-responsive"
                                     src={transport_detail.images[0]}
                                     alt={transport_detail.name}

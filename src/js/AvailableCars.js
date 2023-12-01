@@ -125,7 +125,7 @@ export default function AvailableCars() {
         "post",
         get_car_url,
         JSON.stringify(obj),
-        true
+        false
       );
 
       if (res.status) {

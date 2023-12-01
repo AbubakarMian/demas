@@ -106,10 +106,11 @@ export async function SendRequest(
   if (
     !json_response.status &&
     json_response.error &&
-    json_response.error["custom_code"] == 403
+    json_response.error["custom_code"] == 403 &&
+    needAuthorization
   ) {
     localStorage.setItem("user", JSON.stringify(Constant.guest_user));
-    // localStorage.setItem("show_login_modal", true);
+    localStorage.setItem("show_login_modal", true);
   }
   return json_response;
 }
@@ -148,11 +149,13 @@ console.log('access token',acceess_token);
   }
 
   let response = await fetch(url, postData);
-  let json_response = response.json();
+  let json_response = await  response.json();
+
   if (
     !json_response.status &&
     json_response.error &&
-    json_response.error["custom_code"] == 403
+    json_response.error["custom_code"] == 403 &&
+    needAuthorization
   ) {
     localStorage.setItem("user", JSON.stringify(Constant.guest_user));
     // localStorage.setItem("show_login_modal", true);
