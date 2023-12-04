@@ -362,7 +362,7 @@ export default function Packages(props) {
                       <div>
                         <h5 className="md_head">PICKUP</h5>
                         <Button
-                          className="pick_drop"
+                          className="pick_drop mb-3"
                           onClick={() => setShowPickup(true)}
                         >
                           <FontAwesomeIcon
@@ -387,7 +387,7 @@ export default function Packages(props) {
                         </Collapse>
                         <h5 className="md_head">Dropoff</h5>
                         <Button
-                          className="pick_drop"
+                          className="pick_drop mb-3"
                           onClick={() => setShowDropoff(true)}
                         >
                           <FontAwesomeIcon

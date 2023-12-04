@@ -102,7 +102,7 @@ export async function SendRequest(
   }
 
   let response = await fetch(url, postData);
-  let json_response = response.json();
+  let json_response = await response.json();
   if (
     !json_response.status &&
     json_response.error &&
