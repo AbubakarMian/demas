@@ -241,7 +241,7 @@ export default function Package_style() {
                 <Col md={1}></Col>
                 <Col md={10}>
                   <Button
-                    className="pic_btn_modal"
+                    className="pic_btn_modal md-3"
                     onClick={() => setShowPickup(true)}
                   >
                     <FontAwesomeIcon
@@ -258,6 +258,7 @@ export default function Package_style() {
                       <InputGroup>
                         <Form.Control
                           type="text"
+                          className="mt-3"
                           placeholder={placeholderPickupExtraInfo}
                           onChange={(e) => {
                             setPickExtrainfo(e.target.value);
@@ -493,7 +494,7 @@ export default function Package_style() {
                             (transport_detail, index) => {
                               console.log("index", index);
                               return (
-                                <div key={transport_detail.id}>
+                                <div  className="img-item-box" key={transport_detail.id}>
                                   {/* <div key={transport_detail.id}> */}
                                   <img
                                     style={{ maxWidth: "min-content" }}
