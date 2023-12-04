@@ -279,12 +279,12 @@ export default function Package_style() {
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                      <Form className="asdasd">
+                      <Form className="asdasd mt-3">
                         {/* <div className="mb-3"> */}
                         {locations.map((location) => {
                           if (location.id != selectDropoff.id) {
                             return (
-                              <Form.Check
+                              <Form.Check className="fomrate mt-3"
                                 onClick={(e) => {
                                   changeLocationPoints(e, "pickup", location);
                                 }}
@@ -315,7 +315,7 @@ export default function Package_style() {
                 <Col md={1}></Col>
                 <Col md={10}>
                   <Button
-                    className="pic_btn_modal"
+                    className="pic_btn_modal mb-3"
                     onClick={() => setShowDropoff(true)}
                   >
                     <FontAwesomeIcon
