@@ -111,7 +111,7 @@ export default function TransportDetails(props) {
       );
       if (
         customer_collection_price == "" ||
-        parseInt(transportDetail.booking_price) >
+        parseInt(transportDetail.booking_price) >=
           parseInt(customer_collection_price)
       ) {
         updateContextState(
@@ -208,9 +208,6 @@ export default function TransportDetails(props) {
             <div className="car_typ">
               Type - {transportDetail.transport_type.name}
             </div>
-            <div className="car_nme">
-              {transportDetail.transport_type.name} Type or Similar
-            </div>
           </Col>
           <Col>
             <div className="rates">
@@ -223,10 +220,10 @@ export default function TransportDetails(props) {
                         {transportDetail.booking_price} SAR
                       </del>
                     </p>
-                    <span className="nw">NOW</span>
+                    <span className="nw">NOW </span>
+                    {transportDetail.discounted_price} SAR
                   </>
-                ) : null}
-                {transportDetail.discounted_price} SAR
+                ) : transportDetail.booking_price} SAR
               </div>
             </div>
           </Col>
