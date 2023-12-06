@@ -2,6 +2,21 @@
   width: 15%;
   margin: 35px 0px;
 }
+
+.btn_center {
+  text-align: center;
+}
+.btn_update {
+  width: 227px;
+  height: 40px;
+  background: #a4610d;
+  border: 1px solid #a4610d;
+  color: white;
+  border-radius: 10px;
+
+  font-weight: bold;
+  margin: 10px 0px;
+}
 .info_area_bx {
   text-align: left;
   padding: 17px;
@@ -20,15 +35,15 @@
 .agnt_prof {
   padding: 0px 25%;
 }
-.profile_back {
+/* .profile_back {
   background-image: url(../../public/images/sal_bck.jpg);
 
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
   /* height: 129vh; */
-  padding-bottom: 100px;
+  /* padding-bottom: 100px; */
   /* background-position-y: -355px; */
-}
+/* } */
 .sale_back {
   background-image: url(../../public/images/sal_bck.jpg);
   background-size: cover; /* Optional: Adjust how the image is displayed */
@@ -40,6 +55,17 @@
 @media only screen and (max-width: 480px) {
   .img_area img {
     width: 50%;
+  }
+  .btn_update {
+    width: 227px;
+    height: 40px;
+    background: #a4610d;
+    border: 1px solid #a4610d;
+    color: white;
+    border-radius: 10px;
+    float: right;
+    font-weight: bold;
+    margin: 10px 0px;
   }
   .agnt_prof {
     padding: 0px 0px;

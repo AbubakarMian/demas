@@ -60,8 +60,9 @@ button.Proceed_button.btn.btn-primary {
     float: right;
 }
 .back_banner{
-    background-image: url(../../public/images/BACK_BAN.jpeg);
+    background-image: url(../../public/images/BACK_BAN.jpeg) ;
     /* filter: brightness(0.30); */
+    background-size: cover;
 }
 .back_banner.background-image{
     filter: brightness(0.30);

@@ -27,4 +27,5 @@ export const Constant = {
   orders: `${base_url}/order`,
   order_pay: `${base_url}/order/pay`,
   create_request_new_agent: `${base_url}/create_request_new_agent`,
+  user_update_profile: `${base_url}/update`,
 };
