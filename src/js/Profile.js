@@ -1,4 +1,4 @@
-import React, { useContext,useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -15,6 +15,7 @@ import {
   faUser,
   faSuitcaseRolling,
   faDoorOpen,
+  faBars,
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
@@ -36,100 +37,129 @@ export default function Profile() {
     navigate(path);
   };
   const [user, setUser] = useState({});
-  useEffect(()=>{
-    let user_obj =contextState.user;
-    let role = '';
-    if(user_obj.role_id == 2){
-      role = 'user';
-    }
-    else if(user_obj.role_id == 3){
-      role = 'Sale Agent';
-    }
-    else if(user_obj.role_id == 4){
-      role = 'Travel Agent';
-    }
-    else if(user_obj.role_id == 5){
-      role = 'Driver';
+  useEffect(() => {
+    let user_obj = contextState.user;
+    let role = "";
+    if (user_obj.role_id == 2) {
+      role = "user";
+    } else if (user_obj.role_id == 3) {
+      role = "Sale Agent";
+    } else if (user_obj.role_id == 4) {
+      role = "Travel Agent";
+    } else if (user_obj.role_id == 5) {
+      role = "Driver";
     }
     user_obj.role_name = role;
     setUser(user_obj);
-  })
+  });
 
   return (
     <div>
-       <Container fluid>
+      <Container fluid>
         <Row>
           <div className="login_head">
-            <div className="backicon"><Button className="bcbtn" onClick={() => {
-              navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">Profile</h3>
+            <div className="backicon">
+              <Button
+                className="bcbtn"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </Button>
+            </div>{" "}
+            <h3 className="top_heading_page">Profile</h3>
           </div>
         </Row>
       </Container>
+
       <div className="profile_back">
-      <Container fluid>
-        <div className="agnt_prof">
-          <Row className="">
-            <Col>
-              <div className="img_area">
-                <img src="./images/profile.png" />
-              </div>
-            </Col>
-          </Row>
-          <div className="info_area_bx">
+        <Container fluid>
+          <div className="agnt_prof">
             <Row className="">
               <Col>
-                <h4>{user.role_name}</h4>
+                <div className="img_area">
+                  <img src="./images/profile.png" />
+                </div>
               </Col>
             </Row>
-            <Row className="">
-              <Col>
-                <Form.Label htmlFor="basic-url">Name</Form.Label>
-                <InputGroup className="mb-3">
-                  
-                  <Form.Control
-                    id="basic-url"
-                    aria-describedby="basic-addon3"
-                    value={user.name}
-                    className="inp_bx"
-                    readOnly
-                  />
-                </InputGroup>{" "}
-              </Col>
-            </Row>
-            <Row className="">
-              <Col>
-                <Form.Label htmlFor="basic-url">Email</Form.Label>
-                <InputGroup className="mb-3">
-                  
-                  <Form.Control
-                    id="basic-url"
-                    aria-describedby="basic-addon3"
-                    value={user.email}
-                    className="inp_bx"
-                    readOnly
-                  />
-                </InputGroup>{" "}
-              </Col>
-            </Row>
-            <Row className="">
-              <Col>
-                <Form.Label htmlFor="basic-url">Mobile NO</Form.Label>
-                <InputGroup className="mb-3">
-                  
-                  <Form.Control
-                    id="basic-url"
-                    aria-describedby="basic-addon3"
-                    value={user.phone_no}
-                    className="inp_bx"
-                    readOnly
-                  />
-                </InputGroup>{" "}
-              </Col>
-            </Row>
+            <div className="info_area_bx">
+              <Row className="">
+                <Col>
+                  <h4>{user.role_name}</h4>
+                </Col>
+              </Row>
+
+              <Row className="">
+                <Col>
+                  <Form.Label htmlFor="basic-url">Name</Form.Label>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      id="basic-url"
+                      aria-describedby="basic-addon3"
+                      value={user.name}
+                      className="inp_bx"
+                      readOnly
+                    />
+                  </InputGroup>{" "}
+                </Col>
+              </Row>
+
+              <Row className="">
+                <Col>
+                  <Form.Label htmlFor="basic-url">Email</Form.Label>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      id="basic-url"
+                      aria-describedby="basic-addon3"
+                      value={user.email}
+                      className="inp_bx"
+                      readOnly
+                    />
+                  </InputGroup>{" "}
+                </Col>
+              </Row>
+
+              <Row className="">
+                <Col>
+                  <Form.Label htmlFor="basic-url">Mobile</Form.Label>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      id="basic-url"
+                      aria-describedby="basic-addon3"
+                      value={user.phone_no}
+                      className="inp_bx"
+                      readOnly
+                    />
+                  </InputGroup>{" "}
+                </Col>
+              </Row>
+
+              <Row className="">
+                <Col>
+                  <Form.Label htmlFor="basic-url">Whatsapp</Form.Label>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      id="basic-url"
+                      aria-describedby="basic-addon3"
+                      value={user.whatsapp_no}
+                      className="inp_bx"
+                      readOnly
+                    />
+                  </InputGroup>{" "}
+                </Col>
+              </Row>
+
+              {[2].includes(user.role_id) ? (
+                <Row>
+                  <Col className="btn_center">
+                    <Button className="btn_update">Update</Button>
+                  </Col>
+                </Row>
+              ) : null}
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
       </div>
     </div>
   );
