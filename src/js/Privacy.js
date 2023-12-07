@@ -38,9 +38,17 @@ export default function Privacy() {
       <Container fluid>
         <Row>
           <div className="login_head">
-            <div className="backicon"><Button className="bcbtn" onClick={() => {
-              navigate(-1);
-            }} ><FontAwesomeIcon icon={faArrowLeft} /></Button></div> <h3 className="top_heading_page">PRIVACY POLICY</h3>
+            <div className="backicon">
+              <Button
+                className="bcbtn"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </Button>
+            </div>{" "}
+            <h3 className="top_heading_page">PRIVACY POLICY</h3>
           </div>
         </Row>
       </Container>
@@ -82,7 +90,7 @@ export default function Privacy() {
                 astounding choice for the explorer who needs an economy vehicle
                 with maximizing space for luggage and themselves
               </p>
-              <p>
+              <p className="last_p">
                 DEMAS Offers Sedan shape vehical that is greate for a small
                 family of 2-3 People. It comes with the standard host of safely
                 features and Impressive features of sharp steering,confident

@@ -65,7 +65,6 @@ export default function Booking_info_pack() {
 
   const order_paid = async () => {
     const res = await SendRequest(
-      contextState,
       "post",
       Constant.order_pay + "/" + booking.id,
       null,

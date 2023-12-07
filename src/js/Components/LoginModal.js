@@ -54,7 +54,6 @@ export default function LoginModal(props) {
   const [whatsapp_no, setWhatsapp] = useState("");
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [error, setError] = useState(null);
   const [user, setUser] = useState({});
 
   const navigate = useNavigate();
@@ -64,15 +63,14 @@ export default function LoginModal(props) {
   const getOtp = async () => {
     console.log("get otp");
     try {
-      if (!phone_no || !email) {
+      if (!whatsapp_no || !email) {
         return;
       }
       let formData = new FormData();
-      formData.append("phone_no", phone_no);
+      // formData.append("phone_no", phone_no);
       formData.append("email", email);
       formData.append("whatsapp_no", whatsapp_no);
       const res = await SendRequest(
-        contextState,
         "post",
         Constant.register_or_login,
         formData
@@ -87,13 +85,20 @@ export default function LoginModal(props) {
         // updateContextState(user,'update_user');
         // updateContextState(res.response,'update_user');
       } else {
-        setError("Login failed. Please check your credentials.");
+        
+      updateContextState(
+        "Login failed. Please check your credentials.",
+        "error_msg"
+      );
       }
       setShowSendOtp(false);
       setshowValidateOtp(true);
     } catch (error) {
+      updateContextState(
+        "Login failed. Please check your credentials.",
+        "error_msg"
+      );
       console.error("Error during login:", error);
-      setError("An error occurred while logging in. Please try again.");
     }
   };
   const validateOtp = async () => {
@@ -105,26 +110,35 @@ export default function LoginModal(props) {
     formData.append("otp", otp);
     formData.append("access_token", user.access_token);
     const res = await SendRequest(
-      contextState,
       "post",
       Constant.validate_otp,
       formData
     );
 
     if (res.status) {
+      setShowSendOtp(true);
+      setshowValidateOtp(false);
       res.response.is_loggedin = true;
       updateContextState(res.response, "update_user");
       updateContextState(false, "show_login_modal");
     } else {
       if (res.error && res.error.message) {
-        setError(res.error.message[0]);
+        updateContextState(
+          res.error.message[0],
+          "error_msg"
+        );
       } else {
-        setError("Somthing went wrong contact admin.");
+        updateContextState(
+          "Somthing went wrong contact admin.",
+          "error_msg"
+        );
       }
     }
   };
 
   const handleCloseOtp = () => {
+    setShowSendOtp(true);
+    setshowValidateOtp(false);
     setShowLoginModalArea(false);
     updateContextState(false, "show_login_modal");
     // console.log("handle close otpfalse ", props.handleOtpPaymentModals);
@@ -133,17 +147,6 @@ export default function LoginModal(props) {
   return (
     <>
       <div className="modal_plac">
-        <div className="alert-fixed">
-          <Alert
-            className=""
-            show={error}
-            dismissible={true}
-            onClose={() => setError("")}
-            variant="danger"
-          >
-            {error}
-          </Alert>
-        </div>
         <Modal
           // backdrop="static"
           // show={showLoginModal}
@@ -159,7 +162,7 @@ export default function LoginModal(props) {
           <Modal.Body>
             {!showSendOtp ? null : (
               <>
-                <Form.Label htmlFor="basic-url">Mobile Number</Form.Label>
+                {/* <Form.Label htmlFor="basic-url">Mobile Number</Form.Label>
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon3">
                     <div className="img_flag">
@@ -172,7 +175,7 @@ export default function LoginModal(props) {
                     placeholder="01234567"
                     onChange={(e) => setPhoneNumber(e.target.value)}
                   />
-                </InputGroup>
+                </InputGroup> */}
                 <Form.Label htmlFor="basic-url">Whatsapp Number</Form.Label>
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon3">
@@ -183,7 +186,7 @@ export default function LoginModal(props) {
                   <Form.Control
                     id="basic-url"
                     aria-describedby="basic-addon3"
-                    placeholder="01234567"
+                    placeholder="Whatsapp Number"
                     onChange={(e) => setWhatsapp(e.target.value)}
                   />
                 </InputGroup>

@@ -39,25 +39,18 @@ export default function Login_page_style() {
   const [otp, setOtp] = useState("");
   const [user, setUser] = useState({});
 
-
-  const [error, setError] = useState(null);
-
   const attempt_login = async () => {
     try {
       // Create the formData and append the email and password
       console.log("test login 111");
       var formData = new FormData();
       formData.append("email", email);
-      formData.append("phone_no", phone_no);
+      // formData.append("phone_no", phone_no);
       formData.append("whatsapp_no", whatsapp_no);
       console.log("email", email);
       console.log("phone_no", phone_no);
 
-      // Call SendRequest with the necessary parameters
-      let cs = contextState;
-      cs.user.access_token = Constant.basic_token;
       const res = await SendRequest(
-        cs,
         "POST",
         Constant.register_or_login,
         formData
@@ -68,21 +61,15 @@ export default function Login_page_style() {
         let user = res.response;
         setOTPShow(true);
         setUser(user);
-
-        // let user = res.response;
         // user.is_loggedin = true;
         // updateContextState(user,'update_user');
         // navigateToPath("/home");
       } else {
         updateContextState(res.error.message[0],"error_msg");
-
-        // setError("Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error during login:", error);
       updateContextState("An error occurred while logging in. Please try again.","error_msg");
-
-      // setError("An error occurred while logging in. Please try again.");
     }
   };
   const [open, setOpen] = useState(false);
@@ -99,29 +86,23 @@ export default function Login_page_style() {
     console.log('access_token',user.access_token);
     formData.append("access_token", user.access_token);
     const res = await SendRequest(
-      contextState,
       "post",
       Constant.validate_otp,
       formData
-      // JSON.stringify({
-      //   "otp":otp,
-      //   "access_token":user.access_token,
-      // })
     );
-// console.log('resss',res);
+    
     if (res.status) {
       res.response.is_loggedin = true;
       updateContextState(res.response, "update_user");
-      // updateContextState(false, "show_login_modal");
       navigateToPath('/home');
     } else {
       if (res.error && res.error.message) {
         updateContextState(res.error.message[0],"error_msg");
-
-        // updateContextState(res.response, "update_user");
-
       } else {
-        setError("Somthing went wrong contact admin.");
+      updateContextState(
+        "Somthing went wrong contact admin",
+        "error_msg"
+      );
       }
     }
   };
@@ -160,7 +141,7 @@ export default function Login_page_style() {
                     value={email} // Bind the email state to the input value
                   />
                 </InputGroup>
-                <InputGroup className="mb-3">
+                {/* <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
                   <Form.Control
                     placeholder="Phone Number"
@@ -169,7 +150,7 @@ export default function Login_page_style() {
                     onChange={(e) => setPhoneNo(e.target.value)}
                     value={phone_no} // Bind the password state to the input value
                   />
-                </InputGroup>{" "}
+                </InputGroup>{" "} */}
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
                   <Form.Control
@@ -202,7 +183,7 @@ export default function Login_page_style() {
                     <InputGroup className="mb-3">
                       <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
                       <Form.Control
-                        placeholder="Enter OTp"
+                        placeholder="Enter OTP"
                         aria-label="otp"
                         aria-describedby="basic-addon1"
                         type="number"

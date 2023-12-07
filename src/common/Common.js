@@ -68,7 +68,6 @@ export async function googleTranslate(text, lang, that) {
 }
 
 export async function SendRequest(
-  contextState,
   request_type,
   url,
   formData,
@@ -77,13 +76,6 @@ export async function SendRequest(
   if (typeof needAuthorization === "undefined") {
     needAuthorization = false; // Set a default value if it's not provided
   }
-  console.log('test login',
-    contextState,
-    request_type,
-    url,
-    formData,
-    needAuthorization
-  );
   // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
   let user =
     localStorage.getItem("user") === null
@@ -110,20 +102,20 @@ export async function SendRequest(
   }
 
   let response = await fetch(url, postData);
-  let json_response = response.json();
+  let json_response = await response.json();
   if (
     !json_response.status &&
     json_response.error &&
-    json_response.error["custom_code"] == 403
+    json_response.error["custom_code"] == 403 &&
+    needAuthorization
   ) {
     localStorage.setItem("user", JSON.stringify(Constant.guest_user));
-    // localStorage.setItem("show_login_modal", true);
+    localStorage.setItem("show_login_modal", true);
   }
   return json_response;
 }
 
 export async function SendRequestContetType(
-  contextState,
   request_type,
   url,
   formData,
@@ -132,23 +124,15 @@ export async function SendRequestContetType(
   if (typeof needAuthorization === "undefined") {
     needAuthorization = false; // Set a default value if it's not provided
   }
-  console.log('test login',
-    contextState,
-    request_type,
-    url,
-    formData,
-    needAuthorization
-  );
   // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
   let user =
     localStorage.getItem("user") === null
       ? Constant.guest_user
       : JSON.parse(localStorage.getItem("user"));
-  let acceess_token = needAuthorization
-    ? user.access_token
+  let acceess_token = needAuthorization ? user.access_token
     : Constant.basic_token;
   // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
-
+console.log('access token',acceess_token);
   let postData = {
     method: request_type,
     headers: {
@@ -165,11 +149,13 @@ export async function SendRequestContetType(
   }
 
   let response = await fetch(url, postData);
-  let json_response = response.json();
+  let json_response = await  response.json();
+
   if (
     !json_response.status &&
     json_response.error &&
-    json_response.error["custom_code"] == 403
+    json_response.error["custom_code"] == 403 &&
+    needAuthorization
   ) {
     localStorage.setItem("user", JSON.stringify(Constant.guest_user));
     // localStorage.setItem("show_login_modal", true);

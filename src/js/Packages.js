@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Row from "react-bootstrap/Row";
 // import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
-import Home_crousel from "./Home_crousel";
+import HomeCrousel from "./HomeCrousel";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import "./../styles/single_trip.css";
@@ -10,6 +10,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightArrowLeft,
   faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faSuitcaseRolling,
+  faCar,
+  faDoorOpen,
+  faCircleInfo,
+  faFingerprint,
+  faCheck,
+  faBars,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
@@ -20,7 +31,11 @@ import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
 import { ContextApiContext } from "../context/ContextApi";
 import { Constant } from "../common/Constants";
-import { SendRequest, SendRequestContetType, get_formated_dateime } from "../common/Common";
+import {
+  SendRequest,
+  SendRequestContetType,
+  get_formated_dateime,
+} from "../common/Common";
 import TripCreatedSuccessModal from "./Components/TripCreatedSuccessModal";
 
 export default function Packages(props) {
@@ -28,9 +43,10 @@ export default function Packages(props) {
 
   const { contextState, updateContextState } = useContext(ContextApiContext);
 
+  const [user, setUser_obj] = useState({});
   const [showPickup, setShowPickup] = useState(false);
   const [showDropOff, setShowDropoff] = useState(false);
-
+  const [car_feature, setcar_featureOpen] = useState(true);
   const [openComment, setopenComment] = useState(false);
   const [package_details, setPackage_details] = useState([]);
   const [bookingObj, setBookingObj] = useState({ details: [] });
@@ -42,12 +58,19 @@ export default function Packages(props) {
   const [showPickupExtraInfo, setShowPickupExtraInfo] = useState(false);
   const [showDropoffExtraInfo, setShowDropoffExtraInfo] = useState(false);
   const [pickExtrainfo, setPickExtrainfo] = useState("");
-  const [dropoffExtrainfo, setDropoffExtrainfo] = useState("");  
-  const [placeholderPickupExtraInfo, setPlaceholderPickupExtraInfo] = useState('');
-  const [placeholderDropoffExtraInfo, setPlaceholderDropoffExtraInfo] = useState('');
+  const [dropoffExtrainfo, setDropoffExtrainfo] = useState("");
+  const [placeholderPickupExtraInfo, setPlaceholderPickupExtraInfo] =
+    useState("");
+  const [placeholderDropoffExtraInfo, setPlaceholderDropoffExtraInfo] =
+    useState("");
   const [paymentSuccessModalsShow, setPaymentSuccessModalsShow] =
     useState(false);
-
+  const [customer_name, setCustomerName] = useState("");
+  const [customer_whatsapp_number, setCustomerWhatsappNumber] = useState("");
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
   useEffect(() => {
     getLocations();
@@ -63,15 +86,16 @@ export default function Packages(props) {
         details: [], //package_details_arr
       };
     }
+    const user = contextState.user;
+    setUser_obj(user);
     setPackage_details(booking_obj.details);
     setBookingObj(booking_obj);
   };
   const getLocations = async () => {
     console.log("get locations");
     try {
-      let cs = contextState;
-      cs.user.access_token = Constant.basic_token;
-      const res = await SendRequest(cs, "GET", Constant.get_locations);
+
+      const res = await SendRequest("GET", Constant.get_locations);
       if (res.status) {
         let locations_list = res.response;
         setLocations(locations_list);
@@ -90,6 +114,9 @@ export default function Packages(props) {
     }
   };
 
+  useEffect(()=>{
+    setUser_obj(contextState.user);
+  },[contextState.user])
   const handleProceedToNext = async () => {
     console.log("bookin_obj", bookingObj);
 
@@ -99,9 +126,9 @@ export default function Packages(props) {
     }
 
     try {
-      let cs = contextState;
+      
       let verify_journey_url = `${Constant.journey_verify}?pickup_id=${selectPickup.id}&dropoff_id=${selectDropoff.id}`;
-      const res = await SendRequest(cs, "GET", verify_journey_url);
+      const res = await SendRequest("GET", verify_journey_url);
       if (res.status) {
         let package_details_arr = bookingObj.details;
         console.log("selectPickup ", selectPickup);
@@ -151,10 +178,9 @@ export default function Packages(props) {
       setPlaceholderPickupExtraInfo(placeholder);
       setShowPickupExtraInfo(placeholder.length);
 
-      if(location_type == "Airport"){
+      if (location_type == "Airport") {
         // setShowPickupExtraInfo(true);
-      }
-      else{
+      } else {
         // setShowPickupExtraInfo(false);
         // setPickExtrainfo("");
       }
@@ -165,10 +191,9 @@ export default function Packages(props) {
       console.log("dropoff location point ", point, new_val);
       setPlaceholderDropoffExtraInfo(placeholder);
       setShowDropoffExtraInfo(placeholder.length);
-      if(location_type == "Airport"){
+      if (location_type == "Airport") {
         // setShowDropoffExtraInfo(true);
-      }
-      else{
+      } else {
         // setShowDropoffExtraInfo(false);
         // setDropoffExtrainfo("");
       }
@@ -186,36 +211,49 @@ export default function Packages(props) {
     setpickupTime(timestamp);
   };
 
-  const [showOtpModal, setShowOtpModal] = useState(false);
-  const [show, setShow] = useState(false);
 
   const handleOtpClose = () => {
     setShowOtpModal(false);
   };
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
 
   const handleBookPackage = () => {
-    const user = contextState.user;
-    if (user.is_loggedin) {
+    // const user = contextState.user;
+    // if (user.is_loggedin) {
       createOrder();
-    } else {
-      updateContextState(true, "show_login_modal");
-    }
+    // } else {
+    //   updateContextState(true, "show_login_modal");
+    // }
   };
 
   const createOrder = async () => {
+    // if (contextState.user.role_id == 4) {
+    if ([3,4].includes(user.role_id)) {
+      // 4 is travel agent
+      if (customer_name == "" || customer_whatsapp_number == "") {
+        updateContextState("All fields required", "error_msg");
+        return;
+      }
+    }
+    if(!bookingObj.details.length){
+      updateContextState("Please Add trip", "error_msg");
+      return;      
+    }
+
     let formData = new FormData();
     console.log("bookin", bookingObj);
+    let booking_obj = bookingObj;
+    booking_obj.customer_name = customer_name;
+    booking_obj.customer_whatsapp_number = customer_whatsapp_number;
+    // bookingObj.customer_collection_price = customer_collection_price;
+
     let obj = {
-      booking_details: bookingObj,
+      booking_details: booking_obj,
     };
     formData.append(
       "booking_details",
       JSON.stringify(location.state.booking_obj)
     );
     const res = await SendRequestContetType(
-      contextState,
       "post",
       Constant.order_create,
       JSON.stringify(obj),
@@ -225,6 +263,11 @@ export default function Packages(props) {
     if (res.status) {
       setPaymentSuccessModalsShow(true);
     } else {
+      if (res.error.custom_code == 403) {
+        updateContextState(true, "show_login_modal");
+        updateContextState("Please Login and try again", "error_msg");
+        // navigateToPath(-1);
+      }
     }
   };
   const navigate = useNavigate();
@@ -248,7 +291,7 @@ export default function Packages(props) {
     <div>
       <Nav_bar_area />
 
-      <Home_crousel />
+      <HomeCrousel/>
       <Container>
         <Row>
           <Col>
@@ -319,7 +362,7 @@ export default function Packages(props) {
                       <div>
                         <h5 className="md_head">PICKUP</h5>
                         <Button
-                          className="pick_drop"
+                          className="pick_drop mb-3"
                           onClick={() => setShowPickup(true)}
                         >
                           <FontAwesomeIcon
@@ -328,23 +371,23 @@ export default function Packages(props) {
                           />
                           {selectPickup.name ?? " Select Pickup location"}
                         </Button>
-                  <Collapse in={showPickupExtraInfo}>
-                    <div id="">
-                      <InputGroup>
-                        <Form.Control
-                        type="text"
-                        placeholder={placeholderPickupExtraInfo}
-                          onChange={(e) => {
-                            setPickExtrainfo(e.target.value);
-                          }}
-                          value={pickExtrainfo}
-                        />
-                      </InputGroup>
-                    </div>
-                  </Collapse>
+                        <Collapse in={showPickupExtraInfo}>
+                          <div id="">
+                            <InputGroup>
+                              <Form.Control
+                                type="text"
+                                placeholder={placeholderPickupExtraInfo}
+                                onChange={(e) => {
+                                  setPickExtrainfo(e.target.value);
+                                }}
+                                value={pickExtrainfo}
+                              />
+                            </InputGroup>
+                          </div>
+                        </Collapse>
                         <h5 className="md_head">Dropoff</h5>
                         <Button
-                          className="pick_drop"
+                          className="pick_drop mb-3"
                           onClick={() => setShowDropoff(true)}
                         >
                           <FontAwesomeIcon
@@ -352,21 +395,21 @@ export default function Packages(props) {
                             icon={faLocationDot}
                           />
                           {selectDropoff.name ?? " Select Dropoff location"}
-                        </Button>                  
-                  <Collapse in={showDropoffExtraInfo}>
-                    <div id="">
-                      <InputGroup>
-                        <Form.Control
-                        type="text"
-                        placeholder={placeholderDropoffExtraInfo}
-                          onChange={(e) => {
-                            setDropoffExtrainfo(e.target.value);
-                          }}
-                          value={dropoffExtrainfo}
-                        />
-                      </InputGroup>
-                    </div>
-                  </Collapse>
+                        </Button>
+                        <Collapse in={showDropoffExtraInfo}>
+                          <div id="">
+                            <InputGroup>
+                              <Form.Control
+                                type="text"
+                                placeholder={placeholderDropoffExtraInfo}
+                                onChange={(e) => {
+                                  setDropoffExtrainfo(e.target.value);
+                                }}
+                                value={dropoffExtrainfo}
+                              />
+                            </InputGroup>
+                          </div>
+                        </Collapse>
                         <h5 className="md_head">PICKUP DATE & TIME</h5>
                         <Form.Control
                           type="datetime-local"
@@ -491,6 +534,65 @@ export default function Packages(props) {
           </Row>
         </div>
 
+        {[3, 4].includes(user.role_id) ? (
+
+        <div className="const_paddingw">
+          <div className="car_card ">
+            <Row className="car_c_btn">
+              <Col>
+                <Button
+                  onClick={() => setcar_featureOpen(!car_feature)}
+                  aria-controls="example-collapse-text"
+                  aria-expanded={car_feature}
+                  className="car_fea"
+                >
+                  <FontAwesomeIcon className="car_icn1" icon={faUser} />
+                  Customer Info <FontAwesomeIcon icon={faBars} />
+                </Button>
+              </Col>
+            </Row>
+            <Row>
+              <Collapse in={car_feature}>
+                <div id="example-collapse-text" className="coll_2">
+
+                  <p className="para_sedan">
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Control
+                        type="text"
+                        aria-label="With textarea"
+                        className="comnt_tsxt"
+                        placeholder="Name"
+                        onChange={(e) => setCustomerName(e.target.value)}
+                      />
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Control
+                        type="text"
+                        aria-label="With textarea"
+                        className="comnt_tsxt"
+                        placeholder="Whatsapp Number"
+                        onChange={(e) =>
+                          setCustomerWhatsappNumber(e.target.value)
+                        }
+                      />
+                    </Form.Group>
+                  </p>
+
+                </div>
+              </Collapse>
+            </Row>
+          </div>
+        </div>
+          ):null}
+
+
+
         <div className="for_small_screen">
           <Row>
             <Col md={1}></Col>
@@ -502,7 +604,11 @@ export default function Packages(props) {
             <Col md={1}></Col>
           </Row>
         </div>
+
+      
+
         <Row>
+          
           <Col md={1}></Col>
           <Col md={10}>
             <Button
@@ -510,7 +616,6 @@ export default function Packages(props) {
               onClick={() => {
                 handleBookPackage();
               }}
-              // onClick={handleOtpOpen}
               className="bookbtn"
             >
               Book
@@ -539,7 +644,7 @@ export default function Packages(props) {
                     <Form.Control
                       id="basic-url"
                       aria-describedby="basic-addon3"
-                      placeholder="01234567"
+                      placeholder="Mobile Number"
                     />
                   </InputGroup>
 
@@ -583,18 +688,9 @@ const CreatePaymentModal = (props) => {
   const navigateToPath = (path) => {
     navigate(path);
   };
-  // const paymentOptionDone = () => {
-  //   props.closeOtp();
-  //   setPaymentModalShow(true);
-  // };
 
   return (
     <>
-      {/* <Button className="modal_btn" onClick={() => setShow(true)}>
-          {" "}
-          collaboration
-        </Button> */}
-      {/* <Button variant="primary" className="bookbtn" onClick={paymentOptionDone}> */}
       <Button
         variant="primary"
         className="bookbtn"

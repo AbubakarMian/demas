@@ -5,6 +5,7 @@ import ErrorAlert from "./js/Components/ErrorAlert";
 import Packages from "./js/Packages";
 import Login from "./js/Login_page";
 import Home from "./js/Home";
+import Become_agent from "./js/BecomeAgent";
 import Starting from "./js/Starting";
 import AvailableCars from "./js/AvailableCars";
 import TransportDetails from "./js/TransportDetails";
@@ -20,39 +21,33 @@ import FAQ from "./js/FAQ";
 import Refund from "./js/Refund";
 import ContexApiProvider from "./context/ContextApi";
 import LoginModal from "./js/Components/LoginModal";
+import ListCars from "./js/ListCars";
 
 function App() {
-  let user =  localStorage.getItem("user");
-  console.log("users", user);
+  let user = localStorage.getItem("user");
   let user_loggedin = false;
   if (user == null) {
-    console.log("users is  null", user);
     user_loggedin = false;
   } else {
     user = JSON.parse(user);
     user_loggedin = user.is_loggedin;
   }
-  console.log("user_loggedi 111 n", user_loggedin);
 
   const Check_login = (Component) => {
-    let user =  localStorage.getItem("user");
-
-    console.log("users", user);
+    let user = localStorage.getItem("user");
     let user_loggedin = false;
     if (user == null) {
-      console.log("users is  null", user);
       user_loggedin = false;
       return Login;
     } else {
       user = JSON.parse(user);
       user_loggedin = user.is_loggedin;
-    }console.log("user_loggedin", user_loggedin);
+    }
     if (user_loggedin) {
       return Component;
     } else {
       return Login;
     }
-    
   };
   return (
     <div className="App">
@@ -67,10 +62,7 @@ function App() {
               Component={Check_login(ProfileSale)}
               path="/profilesale"
             ></Route> */}
-            <Route
-              Component={Check_login(Profile )}
-              path="/profile"
-            ></Route>
+            <Route Component={Check_login(Profile)} path="/profile"></Route>
             <Route Component={Privacy} path="/privacy"></Route>
             <Route Component={FAQ} path="/faq"></Route>
             <Route Component={Refund} path="/refund"></Route>
@@ -97,6 +89,8 @@ function App() {
             <Route Component={Login} path="/login"></Route>
             <Route Component={Starting} path="/"></Route>
             <Route Component={Home} path="/home"></Route>
+            <Route Component={Become_agent} path="/agent"></Route>
+            <Route Component={ListCars} path="/listcars"></Route>
           </Routes>
         </Router>
       </ContexApiProvider>

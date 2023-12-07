@@ -34,21 +34,21 @@ import Common, {
   SendRequestContetType,
 } from "../common/Common";
 
-export default function AvailableCars() {
+export default function ListCars() {
   const navigate = useNavigate();
   const location = useLocation();
   const { contextState, updateContextState } = useContext(ContextApiContext);
-  const [bookingDetails, setBookingDetails] = useState([]);
   const [transportlist, setTransportList] = useState([]);
   const [transportFilterListType, setTransportFilterListType] = useState([]);
   const [transportFilterListSeats, setTransportFilterListSeats] = useState([]);
   const [transportFilterListLuggage, setTransportFilterListLuggage] = useState(
     []
   );
+
   const [carTypeFilter, setCarTypeFilter] = useState(0);
   const [carSeatFilter, setCarSeatFilter] = useState(0);
   const [carLuggageFilter, setCarLuggageFilter] = useState(0);
-  
+
   const navigateToPath = (path, props) => {
     navigate(path, { state: props });
   };
@@ -89,7 +89,7 @@ export default function AvailableCars() {
           "error_msg"
         );
       }
-    } catch (error) {      
+    } catch (error) {    
       updateContextState(
         "Transport List unavalible contact admin",
         "error_msg"
@@ -100,36 +100,17 @@ export default function AvailableCars() {
 
   const get_transport = async () => {
     try {
-      let cs = contextState;
-      cs.user.access_token = Constant.basic_token;
-      let booking_obj = location.state?.booking_obj;
-      console.log("booking_obj", booking_obj);
-      let current_booking = {};
-      let booking_filters =
+      let booking_filters = "";
+      booking_filters =
         `?transport_type_id=${carTypeFilter}` +
         `&seats=${carSeatFilter}&luggage=${carLuggageFilter}`;
 
-      if (typeof booking_obj !== "undefined" && booking_obj !== null) {
-        current_booking = booking_obj.details[booking_obj.details.length - 1];
-        booking_filters += `&pickup_id=${current_booking.pickup_id}&dropoff_id=${current_booking.dropoff_id}&pickupdate_time=${current_booking.pickupdate_time}`;
-        console.log("res", current_booking);
-      }
+      let get_car_url = `${Constant.get_all}` + booking_filters;
 
-      let get_car_url = `${Constant.get_cars_for_booking}` + booking_filters;
-
-      let obj = {
-        booking_details: location.state?.booking_obj,
-      };
-
-      const res = await SendRequestContetType(
-        "post",
-        get_car_url,
-        JSON.stringify(obj),
-        false
-      );
+      const res = await SendRequestContetType("post", get_car_url, null, false);
 
       if (res.status) {
-        let cars_list = res.response.data;
+        let cars_list = res.response;
         setTransportList(cars_list);
         console.log("get cars list ", cars_list);
       } else {
@@ -145,8 +126,7 @@ export default function AvailableCars() {
         "error_msg"
       );
       }
-    } catch (error) {
-          
+    } catch (error) {    
       updateContextState(
         "Transport List unavalible contact admin",
         "error_msg"
@@ -156,28 +136,7 @@ export default function AvailableCars() {
   };
 
   const selectTransport = (transport) => {
-    let transport_id = transport.id;
-    transport.apply_discount = transport.apply_discount;
-    console.log("my transport", transport);
-    if (location.state) {
-      let booking_obj = location.state.booking_obj;
-      booking_obj.details[booking_obj.details.length - 1].transport_id =
-        transport_id;
-      booking_obj.details[booking_obj.details.length - 1].transport_type_id =
-        transport.transport_type_id;
-      booking_obj.details[booking_obj.details.length - 1].transport_type_name =
-        transport.transport_type.name;
-      booking_obj.details[booking_obj.details.length - 1].apply_discount =
-        transport.apply_discount;
-      booking_obj.details[
-        booking_obj.details.length - 1
-      ].customer_collection_price = 0;
-
-      setBookingDetails({ ...location.state.booking_obj, booking_obj });
-      navigateToPath("/transport_details", { transport, booking_obj });
-    } else {
-      navigateToPath("/home");
-    }
+    navigateToPath("/home");
   };
 
   const [open, setOpen] = useState(false);
@@ -197,12 +156,12 @@ export default function AvailableCars() {
                 <FontAwesomeIcon icon={faArrowLeft} />
               </Button>
             </div>{" "}
-            <h3 className="top_heading_page">Available Cars</h3>
+            <h3 className="top_heading_page">Transports</h3>
           </div>
         </Row>
       </Container>
       <div className="cont_type">
-      <Container fluid>
+        <Container fluid>
           <Row className="bar_clr">
             <Col>
               <div className="car-head">{transportlist.length} Cars Ready</div>
@@ -334,13 +293,13 @@ export default function AvailableCars() {
             </Collapse>
           </Row>
         </Container>
-
         <div
           className="asdas const_paddingaa"
           onClick={() => {
             // navigate("/transport_details");
           }}
         >
+          {/* <Sedan_crousel /> */}
         </div>
         <div>
           {/* start map*/}
