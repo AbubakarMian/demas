@@ -137,10 +137,7 @@ export default function Nav_bar_area() {
                 </div>
                 <div className="nav_bottom">
                   <Nav.Link href="agent">
-                    <FontAwesomeIcon
-                      icon={faUser}
-                      className="nav_ico_sp"
-                    />{" "}
+                    <FontAwesomeIcon icon={faUser} className="nav_ico_sp" />{" "}
                     Agent
                   </Nav.Link>
                 </div>

@@ -94,7 +94,6 @@ export default function Packages(props) {
   const getLocations = async () => {
     console.log("get locations");
     try {
-
       const res = await SendRequest("GET", Constant.get_locations);
       if (res.status) {
         let locations_list = res.response;
@@ -114,9 +113,9 @@ export default function Packages(props) {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setUser_obj(contextState.user);
-  },[contextState.user])
+  }, [contextState.user]);
   const handleProceedToNext = async () => {
     console.log("bookin_obj", bookingObj);
 
@@ -126,7 +125,6 @@ export default function Packages(props) {
     }
 
     try {
-      
       let verify_journey_url = `${Constant.journey_verify}?pickup_id=${selectPickup.id}&dropoff_id=${selectDropoff.id}`;
       const res = await SendRequest("GET", verify_journey_url);
       if (res.status) {
@@ -211,7 +209,6 @@ export default function Packages(props) {
     setpickupTime(timestamp);
   };
 
-
   const handleOtpClose = () => {
     setShowOtpModal(false);
   };
@@ -219,7 +216,7 @@ export default function Packages(props) {
   const handleBookPackage = () => {
     // const user = contextState.user;
     // if (user.is_loggedin) {
-      createOrder();
+    createOrder();
     // } else {
     //   updateContextState(true, "show_login_modal");
     // }
@@ -227,16 +224,16 @@ export default function Packages(props) {
 
   const createOrder = async () => {
     // if (contextState.user.role_id == 4) {
-    if ([3,4].includes(user.role_id)) {
+    if ([3, 4].includes(user.role_id)) {
       // 4 is travel agent
       if (customer_name == "" || customer_whatsapp_number == "") {
         updateContextState("All fields required", "error_msg");
         return;
       }
     }
-    if(!bookingObj.details.length){
+    if (!bookingObj.details.length) {
       updateContextState("Please Add trip", "error_msg");
-      return;      
+      return;
     }
 
     let formData = new FormData();
@@ -291,7 +288,7 @@ export default function Packages(props) {
     <div>
       <Nav_bar_area />
 
-      <HomeCrousel/>
+      <HomeCrousel />
       <Container>
         <Row>
           <Col>
@@ -535,63 +532,58 @@ export default function Packages(props) {
         </div>
 
         {[3, 4].includes(user.role_id) ? (
-
-        <div className="const_paddingw">
-          <div className="car_card ">
-            <Row className="car_c_btn">
-              <Col>
-                <Button
-                  onClick={() => setcar_featureOpen(!car_feature)}
-                  aria-controls="example-collapse-text"
-                  aria-expanded={car_feature}
-                  className="car_fea"
-                >
-                  <FontAwesomeIcon className="car_icn1" icon={faUser} />
-                  Customer Info <FontAwesomeIcon icon={faBars} />
-                </Button>
-              </Col>
-            </Row>
-            <Row>
-              <Collapse in={car_feature}>
-                <div id="example-collapse-text" className="coll_2">
-
-                  <p className="para_sedan">
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput1"
-                    >
-                      <Form.Control
-                        type="text"
-                        aria-label="With textarea"
-                        className="comnt_tsxt"
-                        placeholder="Name"
-                        onChange={(e) => setCustomerName(e.target.value)}
-                      />
-                    </Form.Group>
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput1"
-                    >
-                      <Form.Control
-                        type="text"
-                        aria-label="With textarea"
-                        className="comnt_tsxt"
-                        placeholder="Whatsapp Number"
-                        onChange={(e) =>
-                          setCustomerWhatsappNumber(e.target.value)
-                        }
-                      />
-                    </Form.Group>
-                  </p>
-
-                </div>
-              </Collapse>
-            </Row>
+          <div className="const_paddingw">
+            <div className="car_card ">
+              <Row className="car_c_btn">
+                <Col>
+                  <Button
+                    onClick={() => setcar_featureOpen(!car_feature)}
+                    aria-controls="example-collapse-text"
+                    aria-expanded={car_feature}
+                    className="car_fea"
+                  >
+                    <FontAwesomeIcon className="car_icn1" icon={faUser} />
+                    Customer Info <FontAwesomeIcon icon={faBars} />
+                  </Button>
+                </Col>
+              </Row>
+              <Row>
+                <Collapse in={car_feature}>
+                  <div id="example-collapse-text" className="coll_2">
+                    <p className="para_sedan">
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlInput1"
+                      >
+                        <Form.Control
+                          type="text"
+                          aria-label="With textarea"
+                          className="comnt_tsxt"
+                          placeholder="Name"
+                          onChange={(e) => setCustomerName(e.target.value)}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlInput1"
+                      >
+                        <Form.Control
+                          type="text"
+                          aria-label="With textarea"
+                          className="comnt_tsxt"
+                          placeholder="Whatsapp Number"
+                          onChange={(e) =>
+                            setCustomerWhatsappNumber(e.target.value)
+                          }
+                        />
+                      </Form.Group>
+                    </p>
+                  </div>
+                </Collapse>
+              </Row>
+            </div>
           </div>
-        </div>
-          ):null}
-
-
+        ) : null}
 
         <div className="for_small_screen">
           <Row>
@@ -605,10 +597,7 @@ export default function Packages(props) {
           </Row>
         </div>
 
-      
-
         <Row>
-          
           <Col md={1}></Col>
           <Col md={10}>
             <Button

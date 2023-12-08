@@ -59,7 +59,6 @@ export default function LoginModal(props) {
   const navigate = useNavigate();
   console.log("props create otpnew modal ", props);
 
-
   const getOtp = async () => {
     console.log("get otp");
     try {
@@ -75,21 +74,20 @@ export default function LoginModal(props) {
         Constant.register_or_login,
         formData
       );
-      console.log('get otp res ',res);
+      console.log("get otp res ", res);
 
       if (res.status) {
-        console.log('get otp res after status ',res);
+        console.log("get otp res after status ", res);
         let user = res.response;
         user.is_loggedin = true;
         setUser(user);
         // updateContextState(user,'update_user');
         // updateContextState(res.response,'update_user');
       } else {
-        
-      updateContextState(
-        "Login failed. Please check your credentials.",
-        "error_msg"
-      );
+        updateContextState(
+          "Login failed. Please check your credentials.",
+          "error_msg"
+        );
       }
       setShowSendOtp(false);
       setshowValidateOtp(true);
@@ -105,15 +103,11 @@ export default function LoginModal(props) {
     if (!otp) {
       return;
     }
-    console.log('user',user);
+    console.log("user", user);
     let formData = new FormData();
     formData.append("otp", otp);
     formData.append("access_token", user.access_token);
-    const res = await SendRequest(
-      "post",
-      Constant.validate_otp,
-      formData
-    );
+    const res = await SendRequest("post", Constant.validate_otp, formData);
 
     if (res.status) {
       setShowSendOtp(true);
@@ -123,15 +117,9 @@ export default function LoginModal(props) {
       updateContextState(false, "show_login_modal");
     } else {
       if (res.error && res.error.message) {
-        updateContextState(
-          res.error.message[0],
-          "error_msg"
-        );
+        updateContextState(res.error.message[0], "error_msg");
       } else {
-        updateContextState(
-          "Somthing went wrong contact admin.",
-          "error_msg"
-        );
+        updateContextState("Somthing went wrong contact admin.", "error_msg");
       }
     }
   };
