@@ -21,6 +21,7 @@ import {
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
+import { Alert } from "react-bootstrap";
 import { useState } from "react";
 import Collapse from "react-bootstrap/Collapse";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -38,6 +39,8 @@ export default function Profile() {
   const [userEmail, setUserEmail] = useState("");
   const [userphone_no, setUserPhone_no] = useState("");
   const [userwhatsapp_number, setUserWhatsapp_number] = useState("");
+
+  const [successModal, setSuccessModal] = useState(false);
 
   useEffect(() => {
     initFunction();
@@ -59,8 +62,8 @@ export default function Profile() {
     setUser(user_obj);
     setUserName(user_obj.name);
     setUserEmail(user_obj.email);
-    setUserPhone_no(user_obj.userphone_no);
-    setUserWhatsapp_number(user_obj.userwhatsapp_number);
+    setUserPhone_no(user_obj.phone_no);
+    setUserWhatsapp_number(user_obj.whatsapp_number);
   };
 
   const handleUpdate = async () => {
@@ -85,6 +88,7 @@ export default function Profile() {
 
       if (res.status) {
         // show success modal
+        setSuccessModal();
       } else {
         if (res.error.custom_code == 403) {
           updateContextState(true, "show_login_modal");
@@ -128,6 +132,14 @@ export default function Profile() {
           </div>
         </Row>
       </Container>
+      <Alert
+        variant="success"
+        show={successModal}
+        dismissible={true}
+        onClose={() => {}}
+      >
+        Success
+      </Alert>
 
       <div className="profile_back">
         <Container fluid>
