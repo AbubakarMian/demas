@@ -125,7 +125,7 @@ export default function AvailableCars() {
         "post",
         get_car_url,
         JSON.stringify(obj),
-        false
+        true
       );
 
       if (res.status) {
@@ -141,14 +141,14 @@ export default function AvailableCars() {
         updateContextState(res.error?.message[0], "error_msg");
             
       updateContextState(
-        "Transport List unavalible contact admin",
+        "Please check your journey destination points or contact admin",
         "error_msg"
       );
       }
     } catch (error) {
           
       updateContextState(
-        "Transport List unavalible contact admin",
+        "Please check your journey destination points or contact admin",
         "error_msg"
       );
       console.error("Error during login:", error);
@@ -367,10 +367,12 @@ export default function AvailableCars() {
                                 {item.booking_price} SAR
                               </del>
                             </p>
-                            <span className="nw">NOW</span>
+                            <span className="nw">NOW </span>
+                            {item.discounted_price} SAR
+
                           </>
                         ) : null}
-                        {item.discounted_price} SAR
+                        {item.booking_price} SAR
                       </div>
                     </div>
                   </Col>

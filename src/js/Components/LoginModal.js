@@ -82,6 +82,8 @@ export default function LoginModal(props) {
         let user = res.response;
         user.is_loggedin = true;
         setUser(user);
+        setShowSendOtp(false);
+      setshowValidateOtp(true);
         // updateContextState(user,'update_user');
         // updateContextState(res.response,'update_user');
       } else {
@@ -91,8 +93,7 @@ export default function LoginModal(props) {
         "error_msg"
       );
       }
-      setShowSendOtp(false);
-      setshowValidateOtp(true);
+      
     } catch (error) {
       updateContextState(
         "Login failed. Please check your credentials.",
