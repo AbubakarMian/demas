@@ -38,48 +38,59 @@ export default function BecomeAgent() {
   const [comment, setComment] = useState("");
   const [password, setPassword] = useState("");
   const [phone_no, setPhoneNo] = useState("");
-  const [whatsapp_no, setWhatsapp] = useState("");
+  const [whatsapp_number, setWhatsapp_number] = useState("");
   const [successModal, setSuccessModal] = useState(false);
+  
 
-  const CreateNewAgent = async () => {
+  const create_agent = async () => {
     try {
-      console.log("test login 111");
+      console.log("name", name);
+      console.log("email", email);
+      console.log("password", password);
+      console.log("comment", comment);
+      console.log("phone_no", phone_no);
+      console.log("whatsapp_number", whatsapp_number);
+  
       var formData = new FormData();
       formData.append("name", name);
       formData.append("email", email);
       formData.append("password", password);
-      formData.append("phone", phone_no);
+      formData.append("phone_no", phone_no);
       formData.append("comment", comment);
-      formData.append("whatsapp", whatsapp_no);
-      console.log("email", email);
-
-      console.log("phone_no", phone_no);
-
+      formData.append("whatsapp_number", whatsapp_number);
+  
       let cs = contextState;
-      cs.user.access_token = Constant.basic_token;
-      const res = await SendRequest(
-        cs,
-        "POST",
-        Constant.create_request_new_agent,
-        formData
-      );
-      console.log("test res", res);
-
+  
+      const res = await SendRequest("POST", Constant.create_agent, formData);
+  
+      console.log("rrrrrrrrrrr", res);
       if (res.status) {
-        setSuccessModal(true);
+        console.log("sign ", res.response);
+        let user_obj = res.response;
+        // user_obj.rememberme = rememberme;
+        user_obj.is_loggedin = true;
+        updateContextState(user_obj, "update_user");
+  
+        navigateToPath("/home");
       } else {
-        updateContextState(res.error.message[0], "error_msg");
+        console.log("resss", res);
+        if (res.error.custom_code == 403) {
+          console.log("403 error");
+          updateContextState(true, "show_login_modal");
+          updateContextState("Please Login and try again", "error_msg");
+  
+          // navigateToPath(-1);
+        }
+        updateContextState(res.error?.message[0], "error_msg");
       }
     } catch (error) {
-      console.error("Error during login:", error);
-      updateContextState(
-        "An error occurred while logging in. Please try again.",
-        "error_msg"
-      );
+      console.error("Error updating agent :", error);
     }
   };
+  
 
   const hideSuccessModal = async () => {
+    // Close the success modal and navigate to the desired path
     setSuccessModal(false);
     navigateToPath("/home");
   };
@@ -152,8 +163,8 @@ export default function BecomeAgent() {
                     placeholder="Whatsapp Number"
                     aria-label="Whatsapp"
                     aria-describedby="basic-addon1"
-                    onChange={(e) => setWhatsapp(e.target.value)}
-                    value={whatsapp_no}
+                    onChange={(e) => setWhatsapp_number(e.target.value)}
+                    value={whatsapp_number}
                   />
                 </InputGroup>{" "}
                 <InputGroup className="mb-3">
@@ -161,8 +172,9 @@ export default function BecomeAgent() {
                     <FontAwesomeIcon icon={faLock} />
                   </InputGroup.Text>
                   <Form.Control
-                    placeholder="password"
+                    placeholder="Password"
                     aria-label="Whatsapp"
+                    type="password"
                     aria-describedby="basic-addon1"
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
@@ -186,7 +198,7 @@ export default function BecomeAgent() {
             </Row>
             <Row>
               <div className="otp_bt_area">
-                <Button className="otpbtn" onClick={() => CreateNewAgent()}>
+                <Button className="otpbtn" onClick={() => create_agent()}>
                   Send
                 </Button>
                 <Modal
