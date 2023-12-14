@@ -20,21 +20,21 @@ export function change_time_stamp(start_time) {
 }
 
 export function capitalizeFirstLetter(str) {
-  if(!str){
+  if (!str) {
     return "";
   }
-    return str.charAt(0).toUpperCase() + str.slice(1);
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 export function get_formated_dateime(timestamp) {
-  timestamp = timestamp*1000;
+  timestamp = timestamp * 1000;
   const date = new Date(timestamp);
-  const formattedDate = date.toLocaleString(); 
-  console.log(formattedDate); 
+  const formattedDate = date.toLocaleString();
+  console.log(formattedDate);
   const formattedDate_arr = formattedDate.split(" ");
   return {
-    date:formattedDate_arr[0],
-    time:[1],
-    date_time:formattedDate
+    date: formattedDate_arr[0],
+    time: [1],
+    date_time: formattedDate,
   };
 }
 
@@ -129,10 +129,11 @@ export async function SendRequestContetType(
     localStorage.getItem("user") === null
       ? Constant.guest_user
       : JSON.parse(localStorage.getItem("user"));
-  let acceess_token = needAuthorization ? user.access_token
+  let acceess_token = needAuthorization
+    ? user.access_token
     : Constant.basic_token;
   // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
-console.log('access token',acceess_token);
+  console.log("access token", acceess_token);
   let postData = {
     method: request_type,
     headers: {
@@ -149,7 +150,7 @@ console.log('access token',acceess_token);
   }
 
   let response = await fetch(url, postData);
-  let json_response = await  response.json();
+  let json_response = await response.json();
 
   if (
     !json_response.status &&
@@ -162,3 +163,86 @@ console.log('access token',acceess_token);
   }
   return json_response;
 }
+
+// export async function SendRequest(
+//   request_type,
+//   url,
+//   formData,
+//   needAuthorization
+// ) {
+//   return await sendRequestInternal(
+//     request_type,
+//     url,
+//     formData,
+//     needAuthorization,
+//     false
+//   );
+// }
+
+// export async function SendRequestContentType(
+//   request_type,
+//   url,
+//   formData,
+//   needAuthorization
+// ) {
+//   return await sendRequestInternal(
+//     request_type,
+//     url,
+//     formData,
+//     needAuthorization,
+//     true
+//   );
+// }
+
+// async function sendRequestInternal(
+//   request_type,
+//   url,
+//   formData,
+//   needAuthorization,
+//   isContentType
+// ) {
+//   if (typeof needAuthorization === "undefined") {
+//     needAuthorization = false;
+//   }
+
+//   let user =
+//     localStorage.getItem("user") === null
+//       ? Constant.guest_user
+//       : JSON.parse(localStorage.getItem("user"));
+
+//   let acceess_token = needAuthorization ? user.access_token : Constant.basic_token;
+
+//   let headers = {
+//     Accept: "application/json",
+//     Authorization: acceess_token,
+//     "Authorization-secure": acceess_token,
+//     "client-id": "demas-app-mobile",
+//   };
+
+//   if (isContentType) {
+//     headers["Content-Type"] = "application/json";
+//   }
+
+//   let postData = {
+//     method: request_type,
+//     headers: headers,
+//   };
+
+//   if (formData != null) {
+//     postData.body = formData;
+//   }
+
+//   let response = await fetch(url, postData);
+//   let json_response = await response.json();
+
+//   if (
+//     !json_response.status &&
+//     json_response.error &&
+//     json_response.error["custom_code"] == 403 &&
+//     needAuthorization
+//   ) {
+//     localStorage.setItem("user", JSON.stringify(Constant.guest_user));
+//     // localStorage.setItem("show_login_modal", true);
+//   }
+//   return json_response;
+// }
