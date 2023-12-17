@@ -110,9 +110,10 @@ export default function TransportDetails(props) {
           parseInt(customer_collection_price)
       );
       if (
-        customer_collection_price == "" ||
+        user.role_id != 2 &&
+        (customer_collection_price == "" ||
         parseInt(transportDetail.booking_price) >=
-          parseInt(customer_collection_price)
+          parseInt(customer_collection_price))
       ) {
         updateContextState(
           "Collection price must be greater than booking price",
