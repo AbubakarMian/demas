@@ -48,7 +48,7 @@ export default function AvailableCars() {
   const [carTypeFilter, setCarTypeFilter] = useState(0);
   const [carSeatFilter, setCarSeatFilter] = useState(0);
   const [carLuggageFilter, setCarLuggageFilter] = useState(0);
-  
+
   const navigateToPath = (path, props) => {
     navigate(path, { state: props });
   };
@@ -89,7 +89,7 @@ export default function AvailableCars() {
           "error_msg"
         );
       }
-    } catch (error) {      
+    } catch (error) {
       updateContextState(
         "Transport List unavalible contact admin",
         "error_msg"
@@ -138,15 +138,14 @@ export default function AvailableCars() {
           updateContextState("Please Login and try again", "error_msg");
           // navigateToPath(-1);
         }
-        updateContextState(res.error?.message[0], "error_msg");
-            
-      updateContextState(
-        "Please check your journey destination points or contact admin",
-        "error_msg"
-      );
+        // updateContextState(res.error?.message[0], "error_msg");
+
+        updateContextState(
+          "Transport List unavalible contact admin",
+          "error_msg"
+        );
       }
     } catch (error) {
-          
       updateContextState(
         "Please check your journey destination points or contact admin",
         "error_msg"
@@ -202,7 +201,7 @@ export default function AvailableCars() {
         </Row>
       </Container>
       <div className="cont_type">
-      <Container fluid>
+        <Container fluid>
           <Row className="bar_clr">
             <Col>
               <div className="car-head">{transportlist.length} Cars Ready</div>
@@ -340,8 +339,7 @@ export default function AvailableCars() {
           onClick={() => {
             // navigate("/transport_details");
           }}
-        >
-        </div>
+        ></div>
         <div>
           {/* start map*/}
           {transportlist.map((item) => {

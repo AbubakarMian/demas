@@ -70,10 +70,10 @@ export default function TransportDetails(props) {
     init_state_variables();
   }, [location.state]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const user = contextState.user;
     setUser_obj(user);
-  },[contextState.user.access_token])
+  }, [contextState.user.access_token]);
 
   const init_state_variables = () => {
     let booking_obj = location.state.booking_obj;
@@ -224,7 +224,10 @@ export default function TransportDetails(props) {
                     <span className="nw">NOW </span>
                     {transportDetail.discounted_price} SAR
                   </>
-                ) : transportDetail.booking_price} SAR
+                ) : (
+                  transportDetail.booking_price
+                )}{" "}
+                SAR
               </div>
             </div>
           </Col>
@@ -443,7 +446,7 @@ export default function TransportDetails(props) {
                 </Row>
               </div>
             </div>
-          ):null}
+          ) : null}
         </div>
 
         <Row className="const_padding">
