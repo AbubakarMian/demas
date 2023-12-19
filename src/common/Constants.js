@@ -1,4 +1,4 @@
-const base_url = 'http://localhost/demas_backend/public/api';
+const base_url = "http://localhost/demas_backend/public/api";
 // const base_url = "https://demastransport.com/demas_backend/public/api";
 
 export const Constant = {
@@ -29,4 +29,5 @@ export const Constant = {
   order_pay: `${base_url}/order/pay`,
   create_request_new_agent: `${base_url}/create_request_new_agent`,
   user_update_profile: `${base_url}/update`,
+  create_agent: `${base_url}/create/agent`,
 };
