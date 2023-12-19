@@ -32,8 +32,7 @@ import {
 } from "../common/Common";
 import { ContextApiContext } from "../context/ContextApi";
 import { Constant } from "../common/Constants";
-import PaymentModal from './Components/PaymentOptions';
-
+import PaymentModal from "./Components/PaymentOptions";
 
 export default function Booking_info_pack() {
   const navigate = useNavigate();
@@ -80,8 +79,10 @@ export default function Booking_info_pack() {
       updateContextState("Payment failed", "error_msg");
     }
   };
+  const [cancelmodalShow, setCancelModalShow] = React.useState(false);
 
   return (
+    
     <div>
       <Container fluid>
         <Row>
@@ -298,8 +299,22 @@ export default function Booking_info_pack() {
                 </Row>
                 <Row>
                   <Col>
-                  <PaymentModal />
+                    <PaymentModal />
+                  </Col>
+                  <Col>
                   
+                    <Button
+                      variant="primary"
+                      onClick={() => setCancelModalShow(true)}
+                      className="mange_btn btn btn-primary"
+                    >
+                      Cancel
+                    </Button>
+
+                    <MyVerticallyCenteredModal
+                      show={cancelmodalShow}
+                      onHide={() => setCancelModalShow(false)}
+                    />
                   </Col>
                 </Row>
               </div>
@@ -348,5 +363,32 @@ export default function Booking_info_pack() {
         </Modal.Footer>
       </Modal>
     </div>
+  );
+}
+
+function MyVerticallyCenteredModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+        "Cancel Request"
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {/* <h4>Centered Modal</h4> */}
+        <p>
+        Are you sure you want to cancel?
+        </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button className="btn btn-warning" onClick={props.onHide}>Cancel Booking</Button>
+        <Button onClick={props.onHide}>Go Back</Button>
+      </Modal.Footer>
+    </Modal>
   );
 }
