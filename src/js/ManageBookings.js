@@ -13,7 +13,7 @@ import {
   faSliders,
   faArrowRightArrowLeft,
   faLocationDot,
-  faDoorOpen,
+  faMagnifyingGlass,
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
@@ -27,8 +27,8 @@ import { useNavigate } from "react-router-dom";
 import { Constant } from "../common/Constants";
 import { ContextApiContext } from "../context/ContextApi";
 import { googleTranslate, SendRequest } from "../common/Common";
-import PaymentModal from './Components/PaymentOptions';
-
+import PaymentModal from "./Components/PaymentOptions";
+import Dropdown from "react-bootstrap/Dropdown";
 
 export default function Manage_Bookings() {
   const navigate = useNavigate();
@@ -46,7 +46,6 @@ export default function Manage_Bookings() {
 
   const get_orders = async () => {
     try {
-      
       const res = await SendRequest("GET", Constant.orders, null, true);
       if (res.status) {
         console.log("orders list ", res.response);
@@ -71,7 +70,7 @@ export default function Manage_Bookings() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const [open, setOpen] = useState(false);
   return (
     <div>
       <Container fluid>
@@ -91,6 +90,64 @@ export default function Manage_Bookings() {
           </div>
         </Row>
       </Container>
+      <Container fluid>
+  <Row>
+    <Col>
+      <Button
+        onClick={() => setOpen(!open)}
+        aria-controls="filter-collapse-content"
+        aria-expanded={open}
+        className="sett_btn"
+      >
+        <FontAwesomeIcon icon={faSliders} />
+      </Button>
+    </Col>
+  </Row>
+  <Row>
+    <Col className="">
+      <Collapse in={open}>
+        <div id="filter-collapse-content">
+          <Row>
+          <Col xs={8} md={6}>
+          <InputGroup className="mb-3">
+            <Form.Control
+              placeholder="Search"
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+            />
+            <InputGroup.Text id="basic-addon2">
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </InputGroup.Text>
+          </InputGroup>
+          </Col>
+         
+          <Col xs={4} md={2}>
+          <Dropdown className="ml-2"> {/* Add margin class to create space between the search bar and dropdown */}
+            <Dropdown.Toggle
+              className="dp_btn"
+              variant="success"
+              id="dropdown-basic"
+            >
+              Select
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu className="dp_men">
+              <Dropdown.Item href="#/action-1">Completed</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">Pending</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Bookings</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Processing</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Cancelled</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">On Hold</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Refunded</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          </Col>
+          </Row>
+        </div>
+      </Collapse>
+    </Col>
+  </Row>
+</Container>
       <Container fluid>
         {bookingslist.map((booking) => {
           return (
@@ -114,7 +171,7 @@ export default function Manage_Bookings() {
                   <div className="top_hed_bt flx">
                     {" "}
                     <Button className="hed_btn">
-                      <p className="cd_hd">Status</p>
+                      {/* <p className="cd_hd">Status</p> */}
                       Pending
                     </Button>
                   </div>
@@ -220,26 +277,21 @@ export default function Manage_Bookings() {
 }
 const Payment_modal = () => {
   // const [show, setShow] = useState(false);
-
   // // const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
   // const [activeTab, setActiveTab] = useState("card"); // To track the active tab
-
   // const handleClose = () => {
   //   setShow(false);
   //   setActiveTab("card"); // Reset active tab when closing
   // };
-
   // const handleTabChange = (tab) => {
   //   setActiveTab(tab);
   // };
-
   // return (
   //   <>
   //     <Button className="mange_btn" onClick={handleShow}>
   //       Pay Now
   //     </Button>
-
   //     <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
   //       <Modal.Header closeButton>
   //         <Modal.Title>Payment Options</Modal.Title>
@@ -263,7 +315,6 @@ const Payment_modal = () => {
   //             </button>
   //           </li>
   //         </ul>
-
   //         <div className="tab-content">
   //           {activeTab === "card" && (
   //             <div
@@ -275,12 +326,10 @@ const Payment_modal = () => {
   //                   <Form.Label>Card Number</Form.Label>
   //                   <Form.Control type="text" placeholder="Card Number" />
   //                 </Form.Group>
-
   //                 <Form.Group className="mb-3" controlId="expiryDate">
   //                   <Form.Label>Expiry Date</Form.Label>
   //                   <Form.Control type="text" placeholder="MM/YYYY" />
   //                 </Form.Group>
-
   //                 <Form.Group className="mb-3" controlId="securityCode">
   //                   <Form.Label>Security Code (CVC)</Form.Label>
   //                   <Form.Control type="text" placeholder="CVC" />
@@ -288,7 +337,6 @@ const Payment_modal = () => {
   //               </Form>
   //             </div>
   //           )}
-
   //           {activeTab === "wallet" && (
   //             <div
   //               className={`tab-pane ${activeTab === "wallet" ? "active" : ""}`}
