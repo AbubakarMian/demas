@@ -43,6 +43,7 @@ export default function Booking_info_pack() {
   const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [paymentOrder, setPaymentOrderModal] = useState({});
+  const [cancelmodalShow, setCancelModalShow] = React.useState(false);
   const [paymentOrderType, setPaymentOrderType] = useState({});
 
   const navigateToPath = (path, props) => {
@@ -70,25 +71,6 @@ export default function Booking_info_pack() {
     setPaymentOrderModal(order);
   }
 
-
-  const order_paid = async () => {
-    const res = await SendRequest(
-      "post",
-      Constant.order_pay + "/" + booking.id,
-      null,
-      true
-    );
-
-    if (res.status) {
-      let booking_obj = booking;
-      booking_obj.is_paid = true;
-      setBooking({ ...booking, booking_obj });
-      setShowPaymentConfirmation(false);
-    } else {
-      updateContextState("Payment failed", "error_msg");
-    }
-  };
-  const [cancelmodalShow, setCancelModalShow] = React.useState(false);
   const setPaymentOrderForModal=(order_type,order)=>{
                     
     setPaymentOrder(order);
@@ -319,9 +301,7 @@ export default function Booking_info_pack() {
                   }}>
                       Pay Now 
                     </Button>
-                    <PaymentOptions order={paymentOrder} payObj={paymentOrderType} showPaymentModal={showPaymentModal}
-                      setShowPaymentModal={setShowPaymentModal}
-                    />
+                   
                   </Col>
                   <Col>
                   
@@ -343,6 +323,9 @@ export default function Booking_info_pack() {
             );
           })}
           <Row>
+          <PaymentOptions order={paymentOrder} payObjType={paymentOrderType} showPaymentModal={showPaymentModal}
+                      setShowPaymentModal={setShowPaymentModal}
+                    />
             <Col>
             <Button onClick={() => {
                     setPaymentOrderForModal("order",booking)
