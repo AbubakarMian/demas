@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -17,15 +17,16 @@ import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 
-export default function PaymentModal() {
-  const [show, setShow] = useState(false);
 
-  // const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+const PaymentOptions = (props) =>{
+  // const [show, setShow] = useState(false);
+
+  // const handleShow = () => setShow(true);
   const [activeTab, setActiveTab] = useState("card"); // To track the active tab
 
   const handleClose = () => {
-    setShow(false);
+    // setShow(false);
+    props.setShowPaymentModal(false);
     setActiveTab("card"); // Reset active tab when closing
   };
 
@@ -33,13 +34,22 @@ export default function PaymentModal() {
     setActiveTab(tab);
   };
 
+  useEffect(() => {
+    console.log('props.order_id', props.order);
+    console.log('props.payObj', props.payObj);
+    console.log('props.order_id', props.order);
+    if (props.order_id !== undefined) {
+      console.log('props.order_id', props.order);
+      // Add any logic related to the order_id change here
+    }
+  }, [props.order]);
   return (
     <>
-      <Button className="mange_btn" onClick={handleShow}>
+      {/* <Button className="mange_btn" onClick={()=>props.setShowPaymentModal(true)}>
         Pay Now
-      </Button>
+      </Button> */}
 
-      <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
+      <Modal show={props.showPaymentModal} onHide={handleClose} dialogClassName="custom-modal">
         <Modal.Header closeButton>
           <Modal.Title>Payment Options</Modal.Title>
         </Modal.Header>
@@ -93,20 +103,13 @@ export default function PaymentModal() {
                 className={`tab-pane ${activeTab === "wallet" ? "active" : ""}`}
               >
                 <h4>Cash Payment</h4>
-                {/* <p>Collect SAR 500 from User</p> */}
                 <p>
-                  Subject: Immediate Payment Request:{" "}
-                  <span className="money">SAR 500</span> for Your Recent Trip
+                Collect SAR 500 Cash from User
+                  <span className="money">SAR 500</span> 
                 </p>
                 <Button className="conf_btn" variant="primary" onClick={handleClose}>
-                  Confirm Collection SAR 500
+                  Cash Collected
                 </Button>
-                {/* <Form>
-                    <Form.Group className="mb-3" controlId="walletAmount">
-                      <Form.Label>Enter Amount</Form.Label>
-                      <Form.Control type="text" placeholder="Amount" />
-                    </Form.Group>
-                  </Form> */}
               </div>
             )}
           </div>
@@ -123,3 +126,5 @@ export default function PaymentModal() {
     </>
   );
 }
+
+export default PaymentOptions;
