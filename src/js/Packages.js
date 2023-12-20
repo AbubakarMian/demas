@@ -67,6 +67,7 @@ export default function Packages(props) {
     useState(false);
   const [customer_name, setCustomerName] = useState("");
   const [customer_whatsapp_number, setCustomerWhatsappNumber] = useState("");
+  const [customer_phone_number, setCustomerPhoneNumber] = useState("");
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
@@ -226,7 +227,7 @@ export default function Packages(props) {
     // if (contextState.user.role_id == 4) {
     if ([3, 4].includes(user.role_id)) {
       // 4 is travel agent
-      if (customer_name == "" || customer_whatsapp_number == "") {
+      if (customer_name == "" || customer_whatsapp_number == ""|| customer_phone_number == "") {
         updateContextState("All fields required", "error_msg");
         return;
       }
@@ -241,6 +242,7 @@ export default function Packages(props) {
     let booking_obj = bookingObj;
     booking_obj.customer_name = customer_name;
     booking_obj.customer_whatsapp_number = customer_whatsapp_number;
+    booking_obj.customer_phone_number = customer_phone_number;
     // bookingObj.customer_collection_price = customer_collection_price;
 
     let obj = {
@@ -574,6 +576,20 @@ export default function Packages(props) {
                           placeholder="Whatsapp Number"
                           onChange={(e) =>
                             setCustomerWhatsappNumber(e.target.value)
+                          }
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlInput1"
+                      >
+                        <Form.Control
+                          type="text"
+                          aria-label="With textarea"
+                          className="comnt_tsxt"
+                          placeholder="Phone Number"
+                          onChange={(e) =>
+                            setCustomerPhoneNumber(e.target.value)
                           }
                         />
                       </Form.Group>
