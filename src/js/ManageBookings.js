@@ -225,7 +225,7 @@ export default function Manage_Bookings() {
           );
         })}
         <Col>
-          <PaymentOptions order={paymentOrder} payObj={"order"} showPaymentModal={showPaymentModal}
+          <PaymentOptions order={paymentOrder} payObjType={"order"} showPaymentModal={showPaymentModal}
             setShowPaymentModal={setShowPaymentModal}
           />
         </Col>

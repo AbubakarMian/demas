@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -17,15 +17,21 @@ import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 
+import { ContextApiContext } from "../../context/ContextApi";
+import { SendRequest } from "../../common/Common";
+import { Constant } from "../../common/Constants";
+// import {
+//   SendRequest
+// } from "../common/Common";
 
-const PaymentOptions = (props) =>{
-  // const [show, setShow] = useState(false);
-
-  // const handleShow = () => setShow(true);
+const PaymentOptions = (props) => {
+  
+  const { contextState, updateContextState } = useContext(ContextApiContext);
   const [activeTab, setActiveTab] = useState("card"); // To track the active tab
+  const [order, setOrder] = useState({}); // To track the active tab
+  const [payObjType, setPayObjType] = useState(""); // To track the active tab
 
   const handleClose = () => {
-    // setShow(false);
     props.setShowPaymentModal(false);
     setActiveTab("card"); // Reset active tab when closing
   };
@@ -35,21 +41,45 @@ const PaymentOptions = (props) =>{
   };
 
   useEffect(() => {
-    console.log('props.order_id', props.order);
-    console.log('props.payObj', props.payObj);
-    console.log('props.order_id', props.order);
-    if (props.order_id !== undefined) {
-      console.log('props.order_id', props.order);
-      // Add any logic related to the order_id change here
+    if (props.order !== undefined) {
+      setOrder(props.order);
+      setPayObjType(props.payObjType);
+      console.log("props.order_id", props.order);
+      console.log("props.payObj", props.payObjType);
     }
   }, [props.order]);
+
+  const collect_payment = async () => {
+    
+  let formData = new FormData();
+  formData.append('order_type',payObjType);
+    const res = await SendRequest(
+      "post",
+      Constant.collect_payment + "/" + order.id,
+      formData,
+      true
+    );
+
+    if (res.status) {
+      console.log('paied ',res);
+      updateContextState("show payment success modal", "error_msg");
+      // show payment success modal
+    } else {
+      updateContextState("Payment failed", "error_msg");
+    }
+  };
+
   return (
     <>
       {/* <Button className="mange_btn" onClick={()=>props.setShowPaymentModal(true)}>
         Pay Now
       </Button> */}
 
-      <Modal show={props.showPaymentModal} onHide={handleClose} dialogClassName="custom-modal">
+      <Modal
+        show={props.showPaymentModal}
+        onHide={handleClose}
+        dialogClassName="custom-modal"
+      >
         <Modal.Header closeButton>
           <Modal.Title>Payment Options</Modal.Title>
         </Modal.Header>
@@ -95,6 +125,14 @@ const PaymentOptions = (props) =>{
                     <Form.Control type="text" placeholder="CVC" />
                   </Form.Group>
                 </Form>
+                <Button variant="primary" onClick={()=>{
+                    updateContextState(
+                      "Online payment currently not avalible ",
+                      "error_msg"
+                    );
+                }}>
+                  Pay
+                </Button>
               </div>
             )}
 
@@ -104,27 +142,23 @@ const PaymentOptions = (props) =>{
               >
                 <h4>Cash Payment</h4>
                 <p>
-                Collect SAR 500 Cash from User
-                  <span className="money">SAR 500</span> 
+                  Collect <span className="money">SAR 500</span> Cash from User
                 </p>
-                <Button className="conf_btn" variant="primary" onClick={handleClose}>
+                <Button
+                  className="conf_btn"
+                  variant="primary"
+                  onClick={()=>collect_payment()}
+                >
                   Cash Collected
                 </Button>
               </div>
             )}
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            PROCEED
-          </Button>
-        </Modal.Footer>
+        <Modal.Footer></Modal.Footer>
       </Modal>
     </>
   );
-}
+};
 
 export default PaymentOptions;
