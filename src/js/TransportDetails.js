@@ -49,6 +49,7 @@ export default function TransportDetails(props) {
   const [book, setbookOpen] = useState(false);
   const [customer_name, setCustomerName] = useState("");
   const [customer_whatsapp_number, setCustomerWhatsappNumber] = useState("");
+  const [customer_phone_number, setCustomerPhoneNumber] = useState("");
   const [customer_collection_price, setCustomerCollectionPrice] = useState(0);
 
   // const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -145,7 +146,7 @@ export default function TransportDetails(props) {
     console.log("contextState user", contextState.user);
     if ([3, 4].includes(user.role_id)) {
       // 4 is travel agent
-      if (customer_name == "" || customer_whatsapp_number == "") {
+      if (customer_name == "" || customer_whatsapp_number == ""||customer_phone_number) {
         updateContextState("All fields required", "error_msg");
         return;
       }
@@ -154,6 +155,7 @@ export default function TransportDetails(props) {
     let bookingObj = booking_obj;
     bookingObj.customer_name = customer_name;
     bookingObj.customer_whatsapp_number = customer_whatsapp_number;
+    bookingObj.customer_phone_number = customer_phone_number;
     // this is added in booking details
     // bookingObj.customer_collection_price = customer_collection_price;
 
@@ -420,6 +422,20 @@ export default function TransportDetails(props) {
                                 placeholder="Whatsapp Number"
                                 onChange={(e) =>
                                   setCustomerWhatsappNumber(e.target.value)
+                                }
+                              />
+                            </Form.Group>
+                            <Form.Group
+                              className="mb-3"
+                              controlId="exampleForm.ControlInput1"
+                            >
+                              <Form.Control
+                                type="text"
+                                aria-label="With textarea"
+                                className="comnt_tsxt"
+                                placeholder="Phone Number"
+                                onChange={(e) =>
+                                  setCustomerPhoneNumber(e.target.value)
                                 }
                               />
                             </Form.Group>

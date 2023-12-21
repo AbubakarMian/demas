@@ -32,8 +32,7 @@ import {
 } from "../common/Common";
 import { ContextApiContext } from "../context/ContextApi";
 import { Constant } from "../common/Constants";
-import PaymentModal from './Components/PaymentOptions';
-
+import PaymentOptions from "./Components/PaymentOptions";
 
 export default function Booking_info_pack() {
   const navigate = useNavigate();
@@ -42,6 +41,10 @@ export default function Booking_info_pack() {
 
   const [booking, setBooking] = useState({ user_obj: {}, order_details: [] });
   const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [paymentOrder, setPaymentOrderModal] = useState({});
+  const [cancelmodalShow, setCancelModalShow] = React.useState(false);
+  const [paymentOrderType, setPaymentOrderType] = useState({});
 
   const navigateToPath = (path, props) => {
     navigate(path, props);
@@ -56,32 +59,25 @@ export default function Booking_info_pack() {
   }, [location.state]);
   console.log("booking.order_details", booking);
 
-  const showPaymentModal = () => {
+  const checkshowPaymentModal = () => {
     if (contextState.user.role_id == 5 && !booking.is_paid) {
       //its driver
       setShowPaymentConfirmation(true);
     }
   };
+  
+  const setPaymentOrder = (order)=>{
+    setShowPaymentModal(true);
+    setPaymentOrderModal(order);
+  }
 
-  const order_paid = async () => {
-    const res = await SendRequest(
-      "post",
-      Constant.order_pay + "/" + booking.id,
-      null,
-      true
-    );
-
-    if (res.status) {
-      let booking_obj = booking;
-      booking_obj.is_paid = true;
-      setBooking({ ...booking, booking_obj });
-      setShowPaymentConfirmation(false);
-    } else {
-      updateContextState("Payment failed", "error_msg");
-    }
-  };
-
+  const setPaymentOrderForModal=(order_type,order)=>{
+                    
+    setPaymentOrder(order);
+    setPaymentOrderType(order_type)
+  }
   return (
+    
     <div>
       <Container fluid>
         <Row>
@@ -297,20 +293,50 @@ export default function Booking_info_pack() {
                   </Col>
                 </Row>
                 <Row>
+
                   <Col>
-                  <PaymentModal />
+                  <Button className="mange_btn" onClick={()=>{
+                    setPaymentOrderForModal("order_detail",booking_detail)
                   
+                  }}>
+                      Pay Now 
+                    </Button>
+                   
+                  </Col>
+                  <Col>
+                  
+                    <Button
+                      variant="primary"
+                      onClick={() => setCancelModalShow(true)}
+                      className="mange_btn btn btn-primary"
+                    >
+                      Cancel
+                    </Button>
+
+                    <MyVerticallyCenteredModal
+                      show={cancelmodalShow}
+                      onHide={() => setCancelModalShow(false)}
+                    />
                   </Col>
                 </Row>
               </div>
             );
           })}
           <Row>
+          <PaymentOptions order={paymentOrder} payObjType={paymentOrderType} showPaymentModal={showPaymentModal}
+                      setShowPaymentModal={setShowPaymentModal}
+                    />
             <Col>
+            <Button onClick={() => {
+                    setPaymentOrderForModal("order",booking)
+            }} className="bill_btn">
+                  Pay All
+                </Button>
+
               {booking.is_paid == "1" ? (
                 <Button className="paid">Paid {booking.final_price} SAR</Button>
               ) : (
-                <Button onClick={() => showPaymentModal()} className="bill_btn">
+                <Button onClick={() => checkshowPaymentModal()} className="bill_btn">
                   {contextState.user.role_id == 5 ? "Collect " : "Total Price "}
                   {booking.final_price} SAR
                 </Button>
@@ -343,10 +369,38 @@ export default function Booking_info_pack() {
           </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => order_paid()}>Confirm</Button>
+          {/* <Button onClick={() => order_paid()}>Confirm</Button> */}
+
           {/* <Button>Close</Button> */}
         </Modal.Footer>
       </Modal>
     </div>
+  );
+}
+
+function MyVerticallyCenteredModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+        "Cancel Request"
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {/* <h4>Centered Modal</h4> */}
+        <p>
+        Are you sure you want to cancel?
+        </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button className="btn btn-warning" onClick={props.onHide}>Cancel Booking</Button>
+        <Button onClick={props.onHide}>Go Back</Button>
+      </Modal.Footer>
+    </Modal>
   );
 }

@@ -13,7 +13,7 @@ import {
   faSliders,
   faArrowRightArrowLeft,
   faLocationDot,
-  faDoorOpen,
+  faMagnifyingGlass,
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
@@ -26,9 +26,13 @@ import Nav_bar_area from "./NavBar";
 import { useNavigate } from "react-router-dom";
 import { Constant } from "../common/Constants";
 import { ContextApiContext } from "../context/ContextApi";
-import { googleTranslate, SendRequest } from "../common/Common";
-import PaymentModal from './Components/PaymentOptions';
-
+import {
+  get_formated_dateime,
+  googleTranslate,
+  SendRequest,
+} from "../common/Common";
+import PaymentOptions from "./Components/PaymentOptions";
+import Dropdown from "react-bootstrap/Dropdown";
 
 export default function Manage_Bookings() {
   const navigate = useNavigate();
@@ -43,10 +47,11 @@ export default function Manage_Bookings() {
   }, []);
 
   const [bookingslist, setBookingslist] = useState([]);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [paymentOrder, setPaymentOrderModal] = useState({});
 
   const get_orders = async () => {
     try {
-      
       const res = await SendRequest("GET", Constant.orders, null, true);
       if (res.status) {
         console.log("orders list ", res.response);
@@ -71,6 +76,14 @@ export default function Manage_Bookings() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [openFilter, setOpenFilter] = useState(true);
+
+  const setPaymentOrder = (order)=>{
+    setShowPaymentModal(true);
+    setPaymentOrderModal(order);
+  }
+
+
 
   return (
     <div>
@@ -92,6 +105,52 @@ export default function Manage_Bookings() {
         </Row>
       </Container>
       <Container fluid>
+        <Row>
+          <Col>
+            {/* <Button
+        onClick={() => setOpenFilter(!openFilter)}
+        aria-controls="filter-collapse-content"
+        aria-expanded={openFilter}
+        className="sett_btn"
+      >
+        <FontAwesomeIcon icon={faSliders} />
+      </Button> */}
+          </Col>
+        </Row>
+        {/* <Row>
+    <Col className="">
+      <Collapse in={openFilter}>
+        <div id="filter-collapse-content">
+          <Row>
+          <Col xs={4} md={2}>
+          <Dropdown className="ml-2"> 
+            <Dropdown.Toggle
+              className="dp_btn"
+              variant="success"
+              id="dropdown-basic"
+            >
+              All
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="dp_men">
+              <Dropdown.Item >Completed</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">Pending</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Bookings</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Processing</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Cancelled</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">On Hold</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Refunded</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          </Col>
+         
+          
+          </Row>
+        </div>
+      </Collapse>
+    </Col>
+  </Row> */}
+      </Container>
+      <Container fluid>
         {bookingslist.map((booking) => {
           return (
             <div className="det_area">
@@ -102,21 +161,10 @@ export default function Manage_Bookings() {
                     <h4>DETAILS</h4>
                   </div>
                 </Col>
-                {/* <Col>
-                  <div className="top_hed_bt">
-                    {" "}
-                    <Button className="hed_btn">
-                      <p className="cd_hd">Payment Type</p>Card
-                    </Button>
-                  </div>
-                </Col> */}
                 <Col>
                   <div className="top_hed_bt flx">
                     {" "}
-                    <Button className="hed_btn">
-                      <p className="cd_hd">Status</p>
-                      Pending
-                    </Button>
+                    <Button className="hed_btn">{booking.order_id}</Button>
                   </div>
                 </Col>
               </Row>
@@ -125,7 +173,13 @@ export default function Manage_Bookings() {
                   <Row className="">
                     <Col>
                       {booking.order_details.map((booking_details) => {
-                        return <p>{booking_details.journey.name}</p>;
+                        return (
+                          <p>{`${booking_details.journey.name} ${
+                            get_formated_dateime(
+                              booking_details.pick_up_date_time
+                            ).date
+                          }`}</p>
+                        );
                       })}
                     </Col>
                   </Row>
@@ -161,159 +215,22 @@ export default function Manage_Bookings() {
                         )}
                       </Button>
                     </Col>
-                    <Col>
-                      <PaymentModal />
-                      {/* <Button className="mange_btn">Pay Now</Button> */}
-                    </Col>
+                    <Button className="mange_btn" onClick={()=>setPaymentOrder(booking)}>
+                      Pay Now 
+                    </Button>
                   </Row>
                 </div>
               </div>
             </div>
           );
         })}
-        {/* <Row className="det_box">
-          <Col>
-            <div className="det_area">
-              <h4>DETAIL</h4>
-              <p>Jeddah Airport to Jeddah Airport</p>
-              <Button
-                className="mange_btn"
-                onClick={() => {
-                  navigate("/bookinginfosingle");
-                }}
-              >
-                SINGLE TRIP{" "}
-                <FontAwesomeIcon
-                  className="icon_btn"
-                  icon={faLocationDot}
-                  beat
-                />
-              </Button>
-            </div>
-          </Col>
-        </Row>
-        <Row className="det_box">
-          <Col>
-            <div className="det_area">
-              <div>
-                <h4>DETAIL</h4>
-                <p>Jeddah Airport to Jeddah Airport</p>
-              </div>
-              <Button
-                className="mange_btn"
-                onClick={() => {
-                  navigate("/bookinginfopackages");
-                }}
-              >
-                Packages{" "}
-                <FontAwesomeIcon
-                  className="icon_btn"
-                  icon={faArrowRightArrowLeft}
-                />
-              </Button>
-            </div>
-          </Col>
-        </Row> */}
+        <Col>
+          <PaymentOptions order={paymentOrder} payObjType={"order"} showPaymentModal={showPaymentModal}
+            setShowPaymentModal={setShowPaymentModal}
+          />
+        </Col>
       </Container>
     </div>
   );
 }
-const Payment_modal = () => {
-  // const [show, setShow] = useState(false);
 
-  // // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-  // const [activeTab, setActiveTab] = useState("card"); // To track the active tab
-
-  // const handleClose = () => {
-  //   setShow(false);
-  //   setActiveTab("card"); // Reset active tab when closing
-  // };
-
-  // const handleTabChange = (tab) => {
-  //   setActiveTab(tab);
-  // };
-
-  // return (
-  //   <>
-  //     <Button className="mange_btn" onClick={handleShow}>
-  //       Pay Now
-  //     </Button>
-
-  //     <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
-  //       <Modal.Header closeButton>
-  //         <Modal.Title>Payment Options</Modal.Title>
-  //       </Modal.Header>
-  //       <Modal.Body>
-  //         <ul className="nav nav-tabs">
-  //           <li className="nav-item">
-  //             <button
-  //               className={`nav-link ${activeTab === "card" ? "active" : ""}`}
-  //               onClick={() => handleTabChange("card")}
-  //             >
-  //               Card Payment
-  //             </button>
-  //           </li>
-  //           <li className="nav-item">
-  //             <button
-  //               className={`nav-link ${activeTab === "wallet" ? "active" : ""}`}
-  //               onClick={() => handleTabChange("wallet")}
-  //             >
-  //               Wallet
-  //             </button>
-  //           </li>
-  //         </ul>
-
-  //         <div className="tab-content">
-  //           {activeTab === "card" && (
-  //             <div
-  //               className={`tab-pane ${activeTab === "card" ? "active" : ""}`}
-  //             >
-  //               <h4>Card Payment</h4>
-  //               <Form>
-  //                 <Form.Group className="mb-3" controlId="cardNumber">
-  //                   <Form.Label>Card Number</Form.Label>
-  //                   <Form.Control type="text" placeholder="Card Number" />
-  //                 </Form.Group>
-
-  //                 <Form.Group className="mb-3" controlId="expiryDate">
-  //                   <Form.Label>Expiry Date</Form.Label>
-  //                   <Form.Control type="text" placeholder="MM/YYYY" />
-  //                 </Form.Group>
-
-  //                 <Form.Group className="mb-3" controlId="securityCode">
-  //                   <Form.Label>Security Code (CVC)</Form.Label>
-  //                   <Form.Control type="text" placeholder="CVC" />
-  //                 </Form.Group>
-  //               </Form>
-  //             </div>
-  //           )}
-
-  //           {activeTab === "wallet" && (
-  //             <div
-  //               className={`tab-pane ${activeTab === "wallet" ? "active" : ""}`}
-  //             >
-  //               <h4>Wallet Payment</h4>
-  //               <p>Your available wallet balance: $100</p>
-  //               <Form>
-  //                 <Form.Group className="mb-3" controlId="walletAmount">
-  //                   <Form.Label>Enter Amount</Form.Label>
-  //                   <Form.Control type="text" placeholder="Amount" />
-  //                 </Form.Group>
-  //               </Form>
-  //             </div>
-  //           )}
-  //         </div>
-  //       </Modal.Body>
-  //       <Modal.Footer>
-  //         <Button variant="secondary" onClick={handleClose}>
-  //           Close
-  //         </Button>
-  //         <Button variant="primary" onClick={handleClose}>
-  //           PROCEED
-  //         </Button>
-  //       </Modal.Footer>
-  //     </Modal>
-  //   </>
-  // );
-};
