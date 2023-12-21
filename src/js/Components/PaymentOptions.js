@@ -16,7 +16,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
-
+import {
+  faSliders,
+  faCheck,
+  faSuitcaseRolling,
+  faDoorOpen,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { ContextApiContext } from "../../context/ContextApi";
 import { SendRequest } from "../../common/Common";
 import { Constant } from "../../common/Constants";
@@ -62,12 +68,14 @@ const PaymentOptions = (props) => {
 
     if (res.status) {
       console.log('paied ',res);
-      updateContextState("show payment success modal", "error_msg");
+      updateContextState(setPaymentSuccessModalShow(true));
       // show payment success modal
     } else {
       updateContextState("Payment failed", "error_msg");
     }
   };
+  const [modalPaymentSuccessShow, setPaymentSuccessModalShow] = React.useState(false);
+
 
   return (
     <>
@@ -84,6 +92,16 @@ const PaymentOptions = (props) => {
           <Modal.Title>Payment Options</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+        <>
+      {/* <Button variant="primary" onClick={() => setPaymentSuccessModalShow(true)}>
+       PaymentSuccessModal
+      </Button> */}
+
+      <PaymentSuccessModal
+        show={modalPaymentSuccessShow}
+        onHide={() => setPaymentSuccessModalShow(false)}
+      />
+    </>
           <ul className="nav nav-tabs">
             <li className="nav-item">
               <button
@@ -162,5 +180,44 @@ const PaymentOptions = (props) => {
     </>
   );
 };
+function PaymentSuccessModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      {/* <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+        </Modal.Title>
+      </Modal.Header> */}
+      <Modal.Body>
+      {/* <div class="modal-content"> */}
 
+
+<div class="modal-succ">
+    <div class="icon_tick_area">
+    <FontAwesomeIcon icon={faCheck} class="icon_tick"/>
+    </div>
+    <div class="inite_Succ_hed">
+       Success
+    </div>
+    <div class="inite_Succ_txt">
+       An Invitation Has Been Sent Successfully.
+    </div>
+    <div class="mdl_btn">
+    <Button onClick={props.onHide} className="btn btn-primary succ_mdl" data-dismiss="modal">OK</Button>
+       
+    </div>
+{/* </div> */}
+
+
+
+</div>
+      </Modal.Body>
+      
+    </Modal>
+  );
+}
 export default PaymentOptions;
