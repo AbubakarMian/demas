@@ -94,7 +94,7 @@ export async function SendRequest(
       Accept: "application/json",
       Authorization: acceess_token,
       "Authorization-secure": acceess_token,
-      "client-id": "demas-app-mobile",
+      "client-id": Constant.client_id,
     },
   };
 
@@ -142,7 +142,7 @@ export async function SendRequestContetType(
       Accept: "application/json",
       Authorization: acceess_token,
       "Authorization-secure": acceess_token,
-      "client-id": "demas-app-mobile",
+      "client-id": Constant.client_id,
     },
   };
 

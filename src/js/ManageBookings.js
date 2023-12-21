@@ -162,9 +162,9 @@ export default function Manage_Bookings() {
                   </div>
                 </Col>
                 <Col>
-                  <div className="top_hed_bt flx">
+                  <div className="bx_head">
                     {" "}
-                    <Button className="hed_btn">{booking.order_id}</Button>
+                    <h4 className="bk_id">{booking.order_id}</h4>
                   </div>
                 </Col>
               </Row>
@@ -215,9 +215,12 @@ export default function Manage_Bookings() {
                         )}
                       </Button>
                     </Col>
+                    <Col>
+                    
                     <Button className="mange_btn" onClick={()=>setPaymentOrder(booking)}>
                       Pay Now 
                     </Button>
+                    </Col>
                   </Row>
                 </div>
               </div>

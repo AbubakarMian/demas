@@ -15,11 +15,12 @@ import {
   faSuitcaseRolling,
   faDoorOpen,
   faArrowLeft,
+  // faSquareWhatsapp,
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 // import {  } from "@fortawesome/free-solid-svg-icons";
-import { FaWhatsapp } from "react-icons/fa";
+// import { FaWhatsapp } from "react-icons/fa";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
@@ -160,7 +161,7 @@ export default function Contact_Us() {
                   <Form.Label htmlFor="basic-url">Whatsapp Number</Form.Label>
                   <InputGroup className="mb-3">
                     <InputGroup.Text id="basic-addon1">
-                      <FaWhatsapp className="icons" />
+                    {/* <FontAwesomeIcon icon={faSquareWhatsapp} /> */}
                     </InputGroup.Text>
                     <Form.Control
                       placeholder="Whatsapp Number"
@@ -187,7 +188,6 @@ export default function Contact_Us() {
                       onChange={(e) => setMessage(e.target.value)}
                     />
                   </InputGroup>
-                  
                 </Col>
               </Row>
               <Row className="input_row">

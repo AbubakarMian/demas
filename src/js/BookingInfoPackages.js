@@ -65,19 +65,17 @@ export default function Booking_info_pack() {
       setShowPaymentConfirmation(true);
     }
   };
-  
-  const setPaymentOrder = (order)=>{
+
+  const setPaymentOrder = (order) => {
     setShowPaymentModal(true);
     setPaymentOrderModal(order);
-  }
+  };
 
-  const setPaymentOrderForModal=(order_type,order)=>{
-                    
+  const setPaymentOrderForModal = (order_type, order) => {
     setPaymentOrder(order);
-    setPaymentOrderType(order_type)
-  }
+    setPaymentOrderType(order_type);
+  };
   return (
-    
     <div>
       <Container fluid>
         <Row>
@@ -293,18 +291,17 @@ export default function Booking_info_pack() {
                   </Col>
                 </Row>
                 <Row>
-
                   <Col>
-                  <Button className="mange_btn" onClick={()=>{
-                    setPaymentOrderForModal("order_detail",booking_detail)
-                  
-                  }}>
-                      Pay Now 
+                    <Button
+                      className="mange_btn"
+                      onClick={() => {
+                        setPaymentOrderForModal("order_detail", booking_detail);
+                      }}
+                    >
+                      Pay Now
                     </Button>
-                   
                   </Col>
                   <Col>
-                  
                     <Button
                       variant="primary"
                       onClick={() => setCancelModalShow(true)}
@@ -323,24 +320,31 @@ export default function Booking_info_pack() {
             );
           })}
           <Row>
-          <PaymentOptions order={paymentOrder} payObjType={paymentOrderType} showPaymentModal={showPaymentModal}
-                      setShowPaymentModal={setShowPaymentModal}
-                    />
+            <PaymentOptions
+              order={paymentOrder}
+              payObjType={paymentOrderType}
+              showPaymentModal={showPaymentModal}
+              setShowPaymentModal={setShowPaymentModal}
+            />
             <Col>
-            <Button onClick={() => {
-                    setPaymentOrderForModal("order",booking)
-            }} className="bill_btn">
-                  Pay All
-                </Button>
+              <Button
+                onClick={() => {
+                  setPaymentOrderForModal("order", booking);
+                }}
+                className="bill_btn"
+              >
+                {contextState.user.role_id == 5 ? "Collect " : "Total Price "}
+                {booking.final_price} SAR{" "}
+              </Button>
 
-              {booking.is_paid == "1" ? (
+              {/* {booking.is_paid == "1" ? (
                 <Button className="paid">Paid {booking.final_price} SAR</Button>
               ) : (
-                <Button onClick={() => checkshowPaymentModal()} className="bill_btn">
+               <Button onClick={() => checkshowPaymentModal()} className="bill_btn">
                   {contextState.user.role_id == 5 ? "Collect " : "Total Price "}
                   {booking.final_price} SAR
-                </Button>
-              )}
+                </Button> */}
+              {/* )} */}
             </Col>
           </Row>
         </div>
@@ -388,17 +392,17 @@ function MyVerticallyCenteredModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-        "Cancel Request"
+          "Cancel Request"
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {/* <h4>Centered Modal</h4> */}
-        <p>
-        Are you sure you want to cancel?
-        </p>
+        <p>Are you sure you want to cancel?</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button className="btn btn-warning" onClick={props.onHide}>Cancel Booking</Button>
+        <Button className="btn btn-warning" onClick={props.onHide}>
+          Cancel Booking
+        </Button>
         <Button onClick={props.onHide}>Go Back</Button>
       </Modal.Footer>
     </Modal>

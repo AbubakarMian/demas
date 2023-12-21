@@ -6,7 +6,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
-// import './home.css';
+import "../../styles/paymentoption.css";
 import Carousel from "react-bootstrap/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -125,7 +125,7 @@ const PaymentOptions = (props) => {
                     <Form.Control type="text" placeholder="CVC" />
                   </Form.Group>
                 </Form>
-                <Button variant="primary" onClick={()=>{
+                <Button variant="primary" className="pay_bt" onClick={()=>{
                     updateContextState(
                       "Online payment currently not avalible ",
                       "error_msg"
@@ -141,8 +141,10 @@ const PaymentOptions = (props) => {
                 className={`tab-pane ${activeTab === "wallet" ? "active" : ""}`}
               >
                 <h4>Cash Payment</h4>
-                <p>
-                  Collect <span className="money">SAR 500</span> Cash from User
+                <p className="cash_para">
+                  Collect <br></br>
+                  <span className="money">SAR 500</span><br></br>
+                   Cash from User
                 </p>
                 <Button
                   className="conf_btn"
