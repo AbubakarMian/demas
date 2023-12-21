@@ -1,0 +1,15 @@
+button.pay_bt.btn.btn-primary {
+    width: 100%;
+    background-color: #996418;
+    border: solid transparent;
+}
+p.cash_para {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    border: solid 1px #996418;
+    border-radius: 10px;
+    /* background-color: #fdfdfd; */
+    box-shadow: 2px 2px 8px 0px;
+    margin: 30px 0px;
+}

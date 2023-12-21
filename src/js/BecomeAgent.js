@@ -9,8 +9,9 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import "./../styles/become_agent.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { FaWhatsapp } from "react-icons/fa";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser ,
+  faWhatsapp
+} from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faMobileScreenButton } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
@@ -157,7 +158,7 @@ export default function BecomeAgent() {
                 </InputGroup>{" "}
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon1">
-                    <FaWhatsapp className="icons" />
+                  {/* <FontAwesomeIcon icon={faWhatsapp} /> */}
                   </InputGroup.Text>
                   <Form.Control
                     placeholder="Whatsapp Number"

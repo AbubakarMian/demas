@@ -16,6 +16,7 @@ button.bill_btn.btn.btn-primary {
     margin: 20px 0px;
     height: 40px;
     border: solid 1px #996418;
+    float: right;
 }
 
 button.paid.btn.btn-primary {

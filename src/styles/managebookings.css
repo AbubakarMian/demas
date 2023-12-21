@@ -56,6 +56,7 @@ button.hed_btn.btn.btn-primary {
 span.money {
     color: #a4610d;
     font-weight: bold;
+    font-size: 30px;
 }
 .conf_btn{
     width: 100%;
@@ -67,6 +68,10 @@ button#dropdown-basic {
     background: transparent;
     color: #996418;
     border: #996418 solid 1px;
+}
+
+h4.bk_id {
+    text-align: center;
 }
 
 @media only screen and (max-width : 480px) {
