@@ -217,7 +217,7 @@ function PaymentSuccessModal(props) {
        Success
     </div>
     <div class="inite_Succ_txt">
-       An Invitation Has Been Sent Successfully.
+       Payment Successful.
     </div>
     <div class="mdl_btn">
     <Button onClick={props.onHide} className="btn btn-primary succ_mdl" data-dismiss="modal">OK</Button>
