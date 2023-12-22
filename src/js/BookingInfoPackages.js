@@ -66,14 +66,17 @@ export default function Booking_info_pack() {
     }
   };
 
-  const setPaymentOrder = (order) => {
-    setShowPaymentModal(true);
-    setPaymentOrderModal(order);
-  };
+  // const setPaymentOrder = (order) => {
+   
+  // };
 
   const setPaymentOrderForModal = (order_type, order) => {
-    setPaymentOrder(order);
+    // setPaymentOrder(order);
+    console.log('order_typeorder_typeorder_type',order_type);
+    console.log('orderorderorder',order);
     setPaymentOrderType(order_type);
+    setShowPaymentModal(true);
+    setPaymentOrderModal(order);
   };
   return (
     <div>
@@ -321,6 +324,7 @@ export default function Booking_info_pack() {
           })}
           <Row>
             <PaymentOptions
+              sad={"asdasd"}
               order={paymentOrder}
               payObjType={paymentOrderType}
               showPaymentModal={showPaymentModal}
