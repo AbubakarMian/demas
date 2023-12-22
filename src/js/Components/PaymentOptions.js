@@ -48,12 +48,25 @@ const PaymentOptions = (props) => {
 
   useEffect(() => {
     if (props.order !== undefined) {
-      setOrder(props.order);
-      setPayObjType(props.payObjType);
-      console.log("props.order_id", props.order);
+     
+      console.log("props.sad", props.sad);
+      console.log("props.order", props.order);
       console.log("props.payObj", props.payObjType);
+      initFunction();
     }
   }, [props.order]);
+
+  const initFunction=()=>{
+    let orderobj = props.order;
+    setOrder(props.order);
+    setPayObjType(props.payObjType);
+    console.log('order',props.order);
+    let total = 0;
+    // orderobj.map((item)=>{
+
+    // });
+
+  }
 
   const collect_payment = async () => {
     
@@ -149,7 +162,7 @@ const PaymentOptions = (props) => {
                       "error_msg"
                     );
                 }}>
-                  Pay
+                  Pay SAR {order.customer_collection_price}
                 </Button>
               </div>
             )}
@@ -161,7 +174,7 @@ const PaymentOptions = (props) => {
                 <h4>Cash Payment</h4>
                 <p className="cash_para">
                   Collect <br></br>
-                  <span className="money">SAR 500</span><br></br>
+                  <span className="money">SAR {order.customer_collection_price}</span><br></br>
                    Cash from User
                 </p>
                 <Button
@@ -204,7 +217,7 @@ function PaymentSuccessModal(props) {
        Success
     </div>
     <div class="inite_Succ_txt">
-       An Invitation Has Been Sent Successfully.
+       Payment Successful.
     </div>
     <div class="mdl_btn">
     <Button onClick={props.onHide} className="btn btn-primary succ_mdl" data-dismiss="modal">OK</Button>
