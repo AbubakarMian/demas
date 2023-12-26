@@ -386,7 +386,7 @@ export default function Booking_info_pack() {
                   }}
                   className="bill_btn"
                 >
-                  Pay All ( {booking.orderpayable} SAR{" "}
+                  Pay All ( SAR {booking.orderpayable}{" "}
                                 )              </Button>
               ) : null}
               {/* {booking.is_paid == "1" ? (
