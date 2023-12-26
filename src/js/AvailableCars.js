@@ -129,7 +129,7 @@ export default function AvailableCars() {
       );
 
       if (res.status) {
-        let cars_list = res.response.data;
+        let cars_list = res.response;
         setTransportList(cars_list);
         console.log("get cars list ", cars_list);
       } else {
