@@ -227,7 +227,11 @@ export default function Packages(props) {
     // if (contextState.user.role_id == 4) {
     if ([3, 4].includes(user.role_id)) {
       // 4 is travel agent
-      if (customer_name == "" || customer_whatsapp_number == ""|| customer_phone_number == "") {
+      if (
+        customer_name == "" ||
+        customer_whatsapp_number == "" ||
+        customer_phone_number == ""
+      ) {
         updateContextState("All fields required", "error_msg");
         return;
       }
@@ -419,6 +423,7 @@ export default function Packages(props) {
                           onChange={(e) => {
                             handleDateTimeChange(e.target.value);
                           }}
+                          min={new Date().toISOString().slice(0, 16)}
                         />{" "}
                         {/* <Comment /> */}
                         <Button
