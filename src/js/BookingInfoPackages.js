@@ -305,7 +305,7 @@ export default function Booking_info_pack() {
                               booking_detail.pick_extrainfo ?? ""}
                           </td>
                           <td>
-                            {booking_detail.journey.pickup.name +
+                            {booking_detail.journey.dropoff.name +
                               " " +
                               booking_detail.dropoff_extrainfo ?? ""}
                           </td>
@@ -386,8 +386,8 @@ export default function Booking_info_pack() {
                   }}
                   className="bill_btn"
                 >
-                  Pay {booking.orderpayable} SAR{" "}
-                </Button>
+                  Pay All ( {booking.orderpayable} SAR{" "}
+                                )              </Button>
               ) : null}
               {/* {booking.is_paid == "1" ? (
                 <Button className="paid">Paid {booking.final_price} SAR</Button>

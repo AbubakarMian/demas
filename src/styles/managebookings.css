@@ -30,9 +30,8 @@
 .det_box.row {
     padding: 10px 25%;
 }
-button.mange_btn.btn.btn-primary {
+button.mange_btn_info.btn.btn-primary {
     float: right;
-    width: 190px;
 
 }
 .top_hed_bt {
@@ -53,11 +52,7 @@ button.hed_btn.btn.btn-primary {
     font-weight: 700;
     padding-bottom: 1px;
 }
-span.money {
-    color: #a4610d;
-    font-weight: bold;
-    font-size: 30px;
-}
+
 .conf_btn{
     width: 100%;
     background-color: #996418;
@@ -73,15 +68,22 @@ button#dropdown-basic {
 h4.bk_id {
     text-align: center;
 }
+img.logo_bkkin {
+    width: 50%;
+    margin-left: 41px;
+}
 
 @media only screen and (max-width : 480px) {
     .det_box.row {
         padding: 0;
     }
-    button.mange_btn.btn.btn-primary {
+    button.mange_btn_info.btn.btn-primary {
         width: 100%;
         float: none;
     
+    }
+    .no_dpcl {
+        display: none;
     }
 }
 
