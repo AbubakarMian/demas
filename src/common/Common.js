@@ -66,6 +66,14 @@ export function get_formated_dateime(timestamp) {
     date_time:formattedDate
   };
 }
+export function is_loggedin(){
+  let user =
+    localStorage.getItem("user") === null
+      ? Constant.guest_user
+      : JSON.parse(localStorage.getItem("user"));
+
+      return user.is_loggedin;
+}
 export function is_user(){
   let user =
     localStorage.getItem("user") === null

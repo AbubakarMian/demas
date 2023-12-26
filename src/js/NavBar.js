@@ -24,6 +24,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { is_loggedin, is_user } from "../common/Common";
 
 export default function Nav_bar_area() {
   const user = localStorage.getItem("user");
@@ -70,15 +71,18 @@ export default function Nav_bar_area() {
                     ListCars
                   </Nav.Link>
                 </div>
+                {is_loggedin() ? 
                 <div className="nav_bottom">
-                  <Nav.Link href="managebookings">
-                    <FontAwesomeIcon
-                      icon={faBookBookmark}
-                      className="nav_ico_sp"
-                    />{" "}
-                    Bookings
-                  </Nav.Link>
-                </div>
+                <Nav.Link href="managebookings">
+                  <FontAwesomeIcon
+                    icon={faBookBookmark}
+                    className="nav_ico_sp"
+                  />{" "}
+                  Bookings
+                </Nav.Link>
+              </div>:null
+              }
+                
                 <div className="nav_bottom">
                   <Nav.Link href="contactus">
                     <FontAwesomeIcon
@@ -88,6 +92,8 @@ export default function Nav_bar_area() {
                     ContactUs
                   </Nav.Link>
                 </div>
+                {
+                  is_loggedin()?
                 <div className="nav_bottom">
                   <Nav.Link href="profile">
                     <FontAwesomeIcon
@@ -96,7 +102,8 @@ export default function Nav_bar_area() {
                     />{" "}
                     Profile
                   </Nav.Link>
-                </div>
+              </div>:null
+              }
                 {/* <div className='nav_bottom'><Nav.Link href="profiletravel"><FontAwesomeIcon icon={faBarsProgress} className='nav_ico_sp'  /> TravelAgent</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="profilesale"><FontAwesomeIcon icon={faBarsProgress} className='nav_ico_sp'  /> SaleAgent</Nav.Link></div> */}
                 <div className="nav_bottom">
@@ -132,15 +139,17 @@ export default function Nav_bar_area() {
                       icon={faRightToBracket}
                       className="nav_ico_sp"
                     />
-                    {user_loggedin ? "Logout" : "Login"}
+                    {is_loggedin() ? "Change User" : "Login"}
                   </Nav.Link>
                 </div>
+                {is_user() ?
                 <div className="nav_bottom">
                   <Nav.Link href="agent">
                     <FontAwesomeIcon icon={faUser} className="nav_ico_sp" />{" "}
-                    Agent
+                    Become Agent
                   </Nav.Link>
-                </div>
+              </div>:null
+              }
 
                 {/* <NavDropdown
                   title="Dropdown"

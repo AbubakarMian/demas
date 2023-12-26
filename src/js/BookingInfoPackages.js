@@ -54,9 +54,35 @@ export default function Booking_info_pack() {
     if (location.state == null) {
       return navigateToPath("/home");
     }
-    const booking_obj = location.state.booking_details;
-    setBooking(booking_obj);
+    get_booking_details();
+    // const booking_obj = location.state.booking;
+    // setBooking(booking_obj);
   }, [location.state]);
+
+  const get_booking_details = async () => {
+    try {
+      let booking_id = location.state.booking.id;
+      let url = `${Constant.order_details}/${booking_id}`;
+      let res = await SendRequest("GET", url, null, true);
+      if (res.status) {
+        console.log("orders details ", res.response);
+        setBooking(res.response);
+      } else {
+        console.log("resss", res);
+        if (res.error.custom_code == 403) {
+          updateContextState(true, "show_login_modal");
+          updateContextState("Please Login and try again", "error_msg");
+
+          // navigateToPath(-1);
+        }
+        updateContextState(res.error?.message[0], "error_msg");
+      }
+    } catch (error) {
+      console.error("Error get orders :", error);
+
+      updateContextState("No Bookings avalible.", "error_msg");
+    }
+  };
   console.log("booking.order_details", booking);
 
   const checkshowPaymentModal = () => {
@@ -150,7 +176,9 @@ export default function Booking_info_pack() {
                   placeholder="-"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
-                  value={capitalizeFirstLetter(booking.customer_whatsapp_number)}
+                  value={capitalizeFirstLetter(
+                    booking.customer_whatsapp_number
+                  )}
                   className="inputboxes"
                   readOnly
                 />
@@ -326,16 +354,17 @@ export default function Booking_info_pack() {
                     </>
                   ) : booking_detail.is_paid ? (
                     <Col>
-                    <InputGroup className="mb-3">
-                      <Form.Control
-                        placeholder="Paid"
-                        aria-label="Paid"
-                        aria-describedby="basic-addon1"
-                        value="Paid"
-                        className="inputboxes"
-                        readOnly
-                      />
-                    </InputGroup></Col>
+                      <InputGroup className="mb-3">
+                        <Form.Control
+                          placeholder="Paid"
+                          aria-label="Paid"
+                          aria-describedby="basic-addon1"
+                          value="Paid"
+                          className="inputboxes"
+                          readOnly
+                        />
+                      </InputGroup>
+                    </Col>
                   ) : null}
                 </Row>
               </div>
@@ -347,18 +376,19 @@ export default function Booking_info_pack() {
               payObjType={paymentOrderType}
               showPaymentModal={showPaymentModal}
               setShowPaymentModal={setShowPaymentModal}
+              successFunction={get_booking_details}
             />
             <Col>
-            {booking.ispayable ?
-              <Button
-                onClick={() => {
-                  setPaymentOrderForModal("order", booking);
-                }}
-                className="bill_btn"
-              >
-                Pay {booking.orderpayable} SAR{" "}
-              </Button>:null
-            }
+              {booking.ispayable ? (
+                <Button
+                  onClick={() => {
+                    setPaymentOrderForModal("order", booking);
+                  }}
+                  className="bill_btn"
+                >
+                  Pay {booking.orderpayable} SAR{" "}
+                </Button>
+              ) : null}
               {/* {booking.is_paid == "1" ? (
                 <Button className="paid">Paid {booking.final_price} SAR</Button>
               ) : (
