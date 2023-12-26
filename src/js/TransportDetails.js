@@ -146,7 +146,7 @@ export default function TransportDetails(props) {
     console.log("contextState user", contextState.user);
     if ([3, 4].includes(user.role_id)) {
       // 4 is travel agent
-      if (customer_name == "" || customer_whatsapp_number == ""||customer_phone_number) {
+      if (customer_name == "" || customer_whatsapp_number == ""||customer_phone_number=="") {
         updateContextState("All fields required", "error_msg");
         return;
       }

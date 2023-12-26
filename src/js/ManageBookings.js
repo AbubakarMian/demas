@@ -189,7 +189,8 @@ export default function Manage_Bookings() {
                         </Col>
                       </Row>
                       <Row className="">
-                        <Col>
+                 
+                      <Col>
                           <Button
                             className="mange_btn_info"
                             onClick={() => {
@@ -200,27 +201,8 @@ export default function Manage_Bookings() {
                               });
                             }}
                           >
-                            {booking.trip_type == "single" ? (
-                              <>
-                                {/* SINGLE TRIP{" "}
-                            <FontAwesomeIcon
-                              className="icon_btn"
-                              icon={faLocationDot}
-                              beat
-                            /> */}
-                              </>
-                            ) : (
-                              <>
-                                {/* Package{" "}
-                          <FontAwesomeIcon
-                            className="icon_btn"
-                            icon={faArrowRightArrowLeft}
-                          /> */}
-                                VIEW
-                              </>
-                            )}
-                          </Button>
-                        </Col>
+                                VIEW</Button>
+                        </Col>         
                         {booking.ispayable ? (
                           <Col>
                             <Button

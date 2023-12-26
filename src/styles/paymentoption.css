@@ -46,3 +46,6 @@ span.money {
     font-size: 30px;
     margin: 0px 10px;
 }
+p.cash_para {
+    display: grid;
+}
