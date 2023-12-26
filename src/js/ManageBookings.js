@@ -214,16 +214,16 @@ export default function Manage_Bookings() {
                         )}
                       </Button>
                     </Col>
-                    <Col>
                       {booking.ispayable ? (
+                    <Col>
                         <Button
                           className="mange_btn"
                           onClick={() => setPaymentOrder(booking)}
                         >
                           Pay Now
                         </Button>
-                      ) : null}
                     </Col>
+                      ) : null}
                   </Row>
                 </div>
               </div>
