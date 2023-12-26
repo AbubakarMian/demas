@@ -1,67 +1,65 @@
 .input_row {
-    text-align: left;
-    margin: 1px 10px;
+  text-align: left;
+  margin: 1px 10px;
 }
 .inp_area {
-    padding-top: 45px;
-    text-align: left;
+  padding-top: 45px;
+  text-align: left;
 }
 .input_txt {
-    background-color: #e8e8e8;
-    border: solid 1px #c2bfbf;
+  background-color: #e8e8e8;
+  border: solid 1px #c2bfbf;
 }
 button.sub_btn.btn.btn-primary {
-    width: 30%;
-    background-color: #a4610d;
-    border: solid 1px #a4610d;
-    margin-top: 40px;
-    float: right;
+  width: 30%;
+  background-color: #a4610d;
+  border: solid 1px #a4610d;
+  margin-top: 40px;
+  float: right;
 }
 .cont_pading.container-fluid {
-    padding: 0px 150px;
+  padding: 0px 150px;
 }
 
 .inp_area {
-    padding: 0px 10%;
-    padding-top: 45px;
-    text-align: left;
+  padding: 0px 10%;
+  padding-top: 45px;
+  text-align: left;
 }
-.cont_back{
-    background-image: url(../../public/images/contact_back.jpg);
-    background-size: cover; /* Optional: Adjust how the image is displayed */
-    background-repeat: no-repeat; /* Optional: Prevent image repetition */
-    /* height: 100vh;
+.cont_back {
+  background-image: url(../../public/images/contact_back.jpg);
+  background-size: cover; /* Optional: Adjust how the image is displayed */
+  background-repeat: no-repeat; /* Optional: Prevent image repetition */
+  /* height: 100vh;
     background-position-y: -355px; */
-    padding-bottom: 50px;
+  padding-bottom: 50px;
 }
 .inp_area_back {
+  background-color: rgb(255 255 255 / 54%);
+  border-radius: 10px;
+  padding: 10px;
+}
+@media only screen and (max-width: 480px) {
+  .cont_pading.container-fluid {
+    padding: 0px;
+  }
+  button.sub_btn.btn.btn-primary {
+    width: 100%;
+    float: none;
+  }
+  .inp_area {
+    padding: 25px 25px 50px 25px;
+  }
+  .cont_back {
+    background-image: url(../../public/images/contact_back.jpg);
+    /* background-size: cover; */
+    padding-bottom: 35px;
+    height: 93vh;
+    background-repeat: no-repeat;
+  }
+  .inp_area_back {
     background-color: rgb(255 255 255 / 54%);
     border-radius: 10px;
-    padding: 10px;
-}
-@media only screen and (max-width : 480px) {
-
-    .cont_pading.container-fluid {
-        padding: 0px;
-    }
-    button.sub_btn.btn.btn-primary {
-        width: 100%;
-        float: none;
-    }
-    .inp_area {
-        padding: 25px 25px 50px 25px;
-       
-    }
-    .cont_back {
-        background-image: url(../../public/images/contact_back.jpg);
-        background-size: cover;
-        padding-bottom: 35px;
-        background-repeat: no-repeat;
-    }
-    .inp_area_back {
-        background-color: rgb(255 255 255 / 54%);
-        border-radius: 10px;
-        padding: 30px 10px 30px 10px;
-    }
-    
+    padding: 30px 10px 30px 10px;
+  }
 }
