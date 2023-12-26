@@ -148,86 +148,92 @@ export default function Manage_Bookings() {
     </Col>
   </Row> */}
       </Container>
-      <Container fluid>
+      <Container >
+      <Row>
         {bookingslist.map((booking) => {
           return (
-            <div className="det_area">
-              <Row>
-                <Col>
-                  {" "}
-                  <div className="bx_head">
-                    <h4>DETAILS</h4>
-                  </div>
-                </Col>
-                <Col>
-                  <div className="bx_head">
-                    {" "}
-                    <h4 className="bk_id">{booking.order_id}</h4>
-                  </div>
-                </Col>
-              </Row>
-              <div className="det_box">
+            
+              <Col xs={12} md={6}>
                 <div className="det_area">
-                  <Row className="">
+                  <Row>
                     <Col>
-                      {booking.order_details.map((booking_details) => {
-                        return (
-                          <p>{`${booking_details.journey.name} ${
-                            get_formated_dateime(
-                              booking_details.pick_up_date_time
-                            ).date
-                          }`}</p>
-                        );
-                      })}
+                      {" "}
+                      <div className="bx_head">
+                        <h4>DETAILS</h4>
+                      </div>
+                    </Col>
+                    <Col>
+                      <div className="bx_head">
+                        {" "}
+                        <h4 className="bk_id">{booking.order_id}</h4>
+                      </div>
                     </Col>
                   </Row>
-                  <Row className="">
-                    <Col>
-                      <Button
-                        className="mange_btn"
-                        onClick={() => {
-                          navigateToPath("/bookinginfopackages", {
-                            //bookinginfosingle
-                            state: { booking: booking },
-                            // state: { booking_details: booking },
-                          });
-                        }}
-                      >
-                        {booking.trip_type == "single" ? (
-                          <>
-                            {/* SINGLE TRIP{" "}
+
+                  <div className="det_box">
+                    <div className="det_area">
+                      <Row className="">
+                        <Col>
+                          {booking.order_details.map((booking_details) => {
+                            return (
+                              <p>{`${booking_details.journey.name} ${
+                                get_formated_dateime(
+                                  booking_details.pick_up_date_time
+                                ).date
+                              }`}</p>
+                            );
+                          })}
+                        </Col>
+                      </Row>
+                      <Row className="">
+                        <Col>
+                          <Button
+                            className="mange_btn"
+                            onClick={() => {
+                              navigateToPath("/bookinginfopackages", {
+                                //bookinginfosingle
+                                state: { booking: booking },
+                                // state: { booking_details: booking },
+                              });
+                            }}
+                          >
+                            {booking.trip_type == "single" ? (
+                              <>
+                                {/* SINGLE TRIP{" "}
                             <FontAwesomeIcon
                               className="icon_btn"
                               icon={faLocationDot}
                               beat
                             /> */}
-                          </>
-                        ) : (
-                          <>
-                            {/* Package{" "}
+                              </>
+                            ) : (
+                              <>
+                                {/* Package{" "}
                           <FontAwesomeIcon
                             className="icon_btn"
                             icon={faArrowRightArrowLeft}
                           /> */}
-                            VIEW
-                          </>
-                        )}
-                      </Button>
-                    </Col>
-                      {booking.ispayable ? (
-                    <Col>
-                        <Button
-                          className="mange_btn"
-                          onClick={() => setPaymentOrder(booking)}
-                        >
-                          Pay Now
-                        </Button>
-                    </Col>
-                      ) : null}
-                  </Row>
+                                VIEW
+                              </>
+                            )}
+                          </Button>
+                        </Col>
+                        {booking.ispayable ? (
+                          <Col>
+                            <Button
+                              className="mange_btn"
+                              onClick={() => setPaymentOrder(booking)}
+                            >
+                              Pay Now
+                            </Button>
+                          </Col>
+                        ) : null}
+                      </Row>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </Col>
+           
           );
         })}
         <Col>
@@ -239,6 +245,7 @@ export default function Manage_Bookings() {
             successFunction={get_orders}
           />
         </Col>
+        </Row>
       </Container>
     </div>
   );

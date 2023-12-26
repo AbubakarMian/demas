@@ -182,12 +182,12 @@ const PaymentOptions = (props) => {
               >
                 <h4>Cash Payment</h4>
                 <p className="cash_para">
-                  Collect <br></br>
+                  Collect
                   <span className="money">
                     SAR {order.customer_collection_price}
                   </span>
-                  <br></br>
-                  Cash from User
+                 
+                  Cash 
                 </p>
                 <Button
                   className="conf_btn"

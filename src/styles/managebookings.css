@@ -53,11 +53,7 @@ button.hed_btn.btn.btn-primary {
     font-weight: 700;
     padding-bottom: 1px;
 }
-span.money {
-    color: #a4610d;
-    font-weight: bold;
-    font-size: 30px;
-}
+
 .conf_btn{
     width: 100%;
     background-color: #996418;
