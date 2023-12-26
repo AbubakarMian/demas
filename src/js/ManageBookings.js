@@ -188,7 +188,8 @@ export default function Manage_Bookings() {
                         onClick={() => {
                           navigateToPath("/bookinginfopackages", {
                             //bookinginfosingle
-                            state: { booking_details: booking },
+                            state: { booking: booking },
+                            // state: { booking_details: booking },
                           });
                         }}
                       >

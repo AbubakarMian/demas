@@ -26,6 +26,7 @@ export const Constant = {
   journey_verify: `${base_url}/journey/verify`,
   order_create: `${base_url}/order/create`,
   orders: `${base_url}/order`,
+  order_details: `${base_url}/order`,
   collect_payment: `${base_url}/order/collect_payment`,
   create_request_new_agent: `${base_url}/create_request_new_agent`,
   user_update_profile: `${base_url}/update`,
