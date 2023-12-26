@@ -58,8 +58,7 @@ export function capitalizeFirstLetter(str) {
 export function get_formated_dateime(timestamp) {
   timestamp = timestamp*1000;
   const date = new Date(timestamp);
-  const formattedDate = date.toLocaleString(); 
-  console.log(formattedDate); 
+  const formattedDate = date.toLocaleString();
   const formattedDate_arr = formattedDate.split(" ");
   return {
     date:formattedDate_arr[0],
@@ -67,7 +66,42 @@ export function get_formated_dateime(timestamp) {
     date_time:formattedDate
   };
 }
+export function is_user(){
+  let user =
+    localStorage.getItem("user") === null
+      ? Constant.guest_user
+      : JSON.parse(localStorage.getItem("user"));
 
+      return user.role_id === 2;
+}
+export function is_sale_agent(){
+  let user =
+    localStorage.getItem("user") === null
+      ? Constant.guest_user
+      : JSON.parse(localStorage.getItem("user"));
+
+      return user.role_id === 3;
+}
+export function role_can_collect(){
+  console.log('role_can_collect',is_travel_agent() , is_driver());
+  return is_travel_agent() || is_driver();
+}
+export function is_travel_agent(){
+  let user =
+    localStorage.getItem("user") === null
+      ? Constant.guest_user
+      : JSON.parse(localStorage.getItem("user"));
+
+      return user.role_id === 4;
+}
+export function is_driver(){
+  let user =
+    localStorage.getItem("user") === null
+      ? Constant.guest_user
+      : JSON.parse(localStorage.getItem("user"));
+
+      return user.role_id === 5;
+}
 export async function SendRequest(
   request_type,
   url,

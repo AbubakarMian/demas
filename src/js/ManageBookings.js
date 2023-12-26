@@ -72,18 +72,16 @@ export default function Manage_Bookings() {
       updateContextState("No Bookings avalible.", "error_msg");
     }
   };
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [openFilter, setOpenFilter] = useState(true);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
+  // const [openFilter, setOpenFilter] = useState(true);
 
-  const setPaymentOrder = (order)=>{
+  const setPaymentOrder = (order) => {
     setShowPaymentModal(true);
     setPaymentOrderModal(order);
-  }
-
-
+  };
 
   return (
     <div>
@@ -196,16 +194,16 @@ export default function Manage_Bookings() {
                       >
                         {booking.trip_type == "single" ? (
                           <>
-                            SINGLE TRIP{" "}
+                            {/* SINGLE TRIP{" "}
                             <FontAwesomeIcon
                               className="icon_btn"
                               icon={faLocationDot}
                               beat
-                            />
+                            /> */}
                           </>
                         ) : (
                           <>
-                            {/* Packages{" "}
+                            {/* Package{" "}
                           <FontAwesomeIcon
                             className="icon_btn"
                             icon={faArrowRightArrowLeft}
@@ -216,10 +214,14 @@ export default function Manage_Bookings() {
                       </Button>
                     </Col>
                     <Col>
-                    
-                    <Button className="mange_btn" onClick={()=>setPaymentOrder(booking)}>
-                      Pay Now 
-                    </Button>
+                      {booking.ispayable ? (
+                        <Button
+                          className="mange_btn"
+                          onClick={() => setPaymentOrder(booking)}
+                        >
+                          Pay Now
+                        </Button>
+                      ) : null}
                     </Col>
                   </Row>
                 </div>
@@ -228,12 +230,15 @@ export default function Manage_Bookings() {
           );
         })}
         <Col>
-          <PaymentOptions order={paymentOrder} payObjType={"order"} showPaymentModal={showPaymentModal}
+          <PaymentOptions
+            order={paymentOrder}
+            payObjType={"order"}
+            showPaymentModal={showPaymentModal}
             setShowPaymentModal={setShowPaymentModal}
+            successFunction={get_orders}
           />
         </Col>
       </Container>
     </div>
   );
 }
-
