@@ -67,13 +67,13 @@ export default function Booking_info_pack() {
   };
 
   // const setPaymentOrder = (order) => {
-   
+
   // };
 
   const setPaymentOrderForModal = (order_type, order) => {
     // setPaymentOrder(order);
-    console.log('order_typeorder_typeorder_type',order_type);
-    console.log('orderorderorder',order);
+    console.log("order_typeorder_typeorder_type", order_type);
+    console.log("orderorderorder", order);
     setPaymentOrderType(order_type);
     setShowPaymentModal(true);
     setPaymentOrderModal(order);
@@ -107,7 +107,7 @@ export default function Booking_info_pack() {
                   placeholder="-"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
-                  value={booking.user_obj.name}
+                  value={booking.customer_name}
                   className="inputboxes"
                   readOnly
                 />
@@ -129,13 +129,13 @@ export default function Booking_info_pack() {
               </InputGroup>
             </Col>
             <Col>
-              <Form.Label htmlFor="basic-url">Booking Status</Form.Label>
+              <Form.Label htmlFor="basic-url">Booking Name</Form.Label>
               <InputGroup className="mb-3">
                 <Form.Control
                   placeholder="-"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
-                  value={capitalizeFirstLetter(booking.status)}
+                  value={capitalizeFirstLetter(booking.customer_name)}
                   className="inputboxes"
                   readOnly
                 />
@@ -150,7 +150,7 @@ export default function Booking_info_pack() {
                   placeholder="-"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
-                  value={capitalizeFirstLetter(booking.whatsapp_number)}
+                  value={capitalizeFirstLetter(booking.customer_whatsapp_number)}
                   className="inputboxes"
                   readOnly
                 />
@@ -163,7 +163,7 @@ export default function Booking_info_pack() {
                   placeholder="-"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
-                  value={booking.user_obj.phone_no}
+                  value={booking.customer_number}
                   className="inputboxes"
                   readOnly
                 />
@@ -181,7 +181,7 @@ export default function Booking_info_pack() {
                         placeholder="-"
                         aria-label="Username"
                         aria-describedby="basic-addon1"
-                        value={booking.order_id}
+                        value={booking_detail.sub_order_id}
                         className="inputboxes"
                         readOnly
                       />
@@ -194,7 +194,7 @@ export default function Booking_info_pack() {
                         placeholder="-"
                         aria-label="Username"
                         aria-describedby="basic-addon1"
-                        value={capitalizeFirstLetter(booking.status)}
+                        value={capitalizeFirstLetter(booking_detail.status)}
                         className="inputboxes"
                         readOnly
                       />
@@ -252,7 +252,7 @@ export default function Booking_info_pack() {
                         placeholder="Price"
                         aria-label="Price"
                         aria-describedby="basic-addon1"
-                        value={booking_detail.final_price}
+                        value={booking_detail.customer_collection_price}
                         className="inputboxes"
                         readOnly
                       />
@@ -294,53 +294,71 @@ export default function Booking_info_pack() {
                   </Col>
                 </Row>
                 <Row>
-                  <Col>
-                    <Button
-                      className="mange_btn"
-                      onClick={() => {
-                        setPaymentOrderForModal("order_detail", booking_detail);
-                      }}
-                    >
-                      Pay Now
-                    </Button>
-                  </Col>
-                  <Col>
-                    <Button
-                      variant="primary"
-                      onClick={() => setCancelModalShow(true)}
-                      className="mange_btn btn btn-primary"
-                    >
-                      Cancel
-                    </Button>
+                  {booking_detail.ispayable ? (
+                    <>
+                      <Col>
+                        <Button
+                          className="mange_btn"
+                          onClick={() => {
+                            setPaymentOrderForModal(
+                              "order_detail",
+                              booking_detail
+                            );
+                          }}
+                        >
+                          Pay Now
+                        </Button>
+                      </Col>
+                      <Col>
+                        <Button
+                          variant="primary"
+                          onClick={() => setCancelModalShow(true)}
+                          className="mange_btn btn btn-primary"
+                        >
+                          Cancel
+                        </Button>
 
-                    <MyVerticallyCenteredModal
-                      show={cancelmodalShow}
-                      onHide={() => setCancelModalShow(false)}
-                    />
-                  </Col>
+                        <MyVerticallyCenteredModal
+                          show={cancelmodalShow}
+                          onHide={() => setCancelModalShow(false)}
+                        />
+                      </Col>
+                    </>
+                  ) : booking_detail.is_paid ? (
+                    <Col>
+                    <InputGroup className="mb-3">
+                      <Form.Control
+                        placeholder="Paid"
+                        aria-label="Paid"
+                        aria-describedby="basic-addon1"
+                        value="Paid"
+                        className="inputboxes"
+                        readOnly
+                      />
+                    </InputGroup></Col>
+                  ) : null}
                 </Row>
               </div>
             );
           })}
           <Row>
             <PaymentOptions
-              sad={"asdasd"}
               order={paymentOrder}
               payObjType={paymentOrderType}
               showPaymentModal={showPaymentModal}
               setShowPaymentModal={setShowPaymentModal}
             />
             <Col>
+            {booking.ispayable ?
               <Button
                 onClick={() => {
                   setPaymentOrderForModal("order", booking);
                 }}
                 className="bill_btn"
               >
-                {contextState.user.role_id == 5 ? "Collect " : "Total Price "}
-                {booking.final_price} SAR{" "}
-              </Button>
-
+                Pay {booking.orderpayable} SAR{" "}
+              </Button>:null
+            }
               {/* {booking.is_paid == "1" ? (
                 <Button className="paid">Paid {booking.final_price} SAR</Button>
               ) : (
