@@ -173,7 +173,7 @@ export default function Manage_Bookings() {
                   <div className="det_box">
                     <div className="det_area">
                       <Row className="">
-                        <Col>
+                        <Col xs={12} md={8}>
                           {booking.order_details.map((booking_details) => {
                             return (
                               <p>{`${booking_details.journey.name} ${
@@ -184,11 +184,14 @@ export default function Manage_Bookings() {
                             );
                           })}
                         </Col>
+                        <Col className="no_dpcl" md={4}>
+                        <img className="logo_bkkin" src="./images/12.png"></img>
+                        </Col>
                       </Row>
                       <Row className="">
                         <Col>
                           <Button
-                            className="mange_btn"
+                            className="mange_btn_info"
                             onClick={() => {
                               navigateToPath("/bookinginfopackages", {
                                 //bookinginfosingle
@@ -221,7 +224,7 @@ export default function Manage_Bookings() {
                         {booking.ispayable ? (
                           <Col>
                             <Button
-                              className="mange_btn"
+                              className="mange_btn_info"
                               onClick={() => setPaymentOrder(booking)}
                             >
                               Pay Now

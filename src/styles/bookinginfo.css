@@ -31,7 +31,7 @@ button.paid.btn.btn-primary {
 }
 button.mange_btn.btn.btn-primary {
     float: right;
-    width: 190px;
+    width: 100%;
     background: #a4610d;
     color: white;
     border: solid #b15d00 1px;
