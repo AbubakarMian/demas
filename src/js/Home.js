@@ -397,6 +397,7 @@ export default function Package_style() {
                     onChange={(e) => {
                       handleDateTimeChange(e.target.value);
                     }}
+                    min={new Date().toISOString().slice(0, 16)}
                   />
                 </Col>
                 <Col md={1}></Col>

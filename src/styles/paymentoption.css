@@ -40,3 +40,12 @@ button.btn.btn-primary.succ_mdl {
     width: 75px;
     margin-top: 14px;
 }
+span.money {
+    color: #a4610d;
+    font-weight: bold;
+    font-size: 30px;
+    margin: 0px 10px;
+}
+p.cash_para {
+    display: grid;
+}
