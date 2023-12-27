@@ -83,6 +83,7 @@ export default function TransportDetails(props) {
     setCurrent_booking(current_booking_obj);
     const user = contextState.user;
     setBooking_obj(booking_obj);
+    console.log('user',user);
     setUser_obj(user);
   };
   const set_transport_details = () => {
