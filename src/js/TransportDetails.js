@@ -83,6 +83,7 @@ export default function TransportDetails(props) {
     setCurrent_booking(current_booking_obj);
     const user = contextState.user;
     setBooking_obj(booking_obj);
+    console.log('user',user);
     setUser_obj(user);
   };
   const set_transport_details = () => {
@@ -146,7 +147,7 @@ export default function TransportDetails(props) {
     console.log("contextState user", contextState.user);
     if ([3, 4].includes(user.role_id)) {
       // 4 is travel agent
-      if (customer_name == "" || customer_whatsapp_number == ""||customer_phone_number) {
+      if (customer_name == "" || customer_whatsapp_number == ""||customer_phone_number=="") {
         updateContextState("All fields required", "error_msg");
         return;
       }
