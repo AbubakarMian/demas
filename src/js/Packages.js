@@ -68,6 +68,7 @@ export default function Packages(props) {
   const [customer_name, setCustomerName] = useState("");
   const [customer_whatsapp_number, setCustomerWhatsappNumber] = useState("");
   const [customer_phone_number, setCustomerPhoneNumber] = useState("");
+  const [showPriceInUserInvoice, setShowPriceInUserInvoice] = useState(false);
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
@@ -247,6 +248,8 @@ export default function Packages(props) {
     booking_obj.customer_name = customer_name;
     booking_obj.customer_whatsapp_number = customer_whatsapp_number;
     booking_obj.customer_phone_number = customer_phone_number;
+    bookingObj.show_price_in_user_invoice = showPriceInUserInvoice;
+
     // bookingObj.customer_collection_price = customer_collection_price;
 
     let obj = {
@@ -598,6 +601,19 @@ export default function Packages(props) {
                           }
                         />
                       </Form.Group>
+                      <Form.Group
+                          className="mb-3"
+                          controlId="exampleForm.ControlInput1"
+                        >
+                          <Form.Check // prettier-ignore
+                            type="switch"
+                            id="custom-switch"
+                            label="Show price in user Invoice"
+                            onChange={(e) => {
+                              setShowPriceInUserInvoice(e.target.checked);
+                            }}
+                          />
+                        </Form.Group>
                     </p>
                   </div>
                 </Collapse>

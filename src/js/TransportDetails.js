@@ -51,6 +51,7 @@ export default function TransportDetails(props) {
   const [customer_whatsapp_number, setCustomerWhatsappNumber] = useState("");
   const [customer_phone_number, setCustomerPhoneNumber] = useState("");
   const [customer_collection_price, setCustomerCollectionPrice] = useState(0);
+  const [showPriceInUserInvoice, setShowPriceInUserInvoice] = useState(false);
 
   // const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [open, setOpen] = useState(false);
@@ -83,9 +84,10 @@ export default function TransportDetails(props) {
     setCurrent_booking(current_booking_obj);
     const user = contextState.user;
     setBooking_obj(booking_obj);
-    console.log('user',user);
+    console.log("user", user);
     setUser_obj(user);
   };
+
   const set_transport_details = () => {
     const transport_detail = location.state.transport;
     console.log("transport detail props ", transport_detail);
@@ -114,11 +116,11 @@ export default function TransportDetails(props) {
       if (
         user.role_id != 2 &&
         (customer_collection_price == "" ||
-        parseInt(transportDetail.booking_price) >=
-          parseInt(customer_collection_price))
+          parseInt(transportDetail.booking_price) >
+            parseInt(customer_collection_price))
       ) {
         updateContextState(
-          "Collection price must be greater than booking price",
+          "Collection price cannot be smaller than booking price",
           "error_msg"
         );
         return;
@@ -126,6 +128,7 @@ export default function TransportDetails(props) {
       booking_obj.details[
         booking_obj.details.length - 1
       ].customer_collection_price = customer_collection_price;
+
       // setBookingDetails({ ...location.state.booking_obj, booking_obj });
 
       // console.log('passed');
@@ -147,7 +150,11 @@ export default function TransportDetails(props) {
     console.log("contextState user", contextState.user);
     if ([3, 4].includes(user.role_id)) {
       // 4 is travel agent
-      if (customer_name == "" || customer_whatsapp_number == ""||customer_phone_number=="") {
+      if (
+        customer_name == "" ||
+        customer_whatsapp_number == "" ||
+        customer_phone_number == ""
+      ) {
         updateContextState("All fields required", "error_msg");
         return;
       }
@@ -157,6 +164,7 @@ export default function TransportDetails(props) {
     bookingObj.customer_name = customer_name;
     bookingObj.customer_whatsapp_number = customer_whatsapp_number;
     bookingObj.customer_phone_number = customer_phone_number;
+    bookingObj.show_price_in_user_invoice = showPriceInUserInvoice;
     // this is added in booking details
     // bookingObj.customer_collection_price = customer_collection_price;
 
@@ -455,6 +463,19 @@ export default function TransportDetails(props) {
                             onChange={(e) =>
                               setCustomerCollectionPrice(e.target.value)
                             }
+                          />
+                        </Form.Group>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="exampleForm.ControlInput1"
+                        >
+                          <Form.Check // prettier-ignore
+                            type="switch"
+                            id="custom-switch"
+                            label="Show price in user Invoice"
+                            onChange={(e) => {
+                              setShowPriceInUserInvoice(e.target.checked);
+                            }}
                           />
                         </Form.Group>
                       </p>
