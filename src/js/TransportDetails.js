@@ -114,6 +114,17 @@ export default function TransportDetails(props) {
           parseInt(customer_collection_price)
       );
       if (
+        user.role_id == 5 || user.role_id == 1
+      ) {
+        updateContextState(
+          "Driver can not create order",
+          "error_msg"
+        );
+        navigateToPath('/managebookings');
+        return;
+      }
+      
+      if (
         user.role_id != 2 &&
         (customer_collection_price == "" ||
           parseInt(transportDetail.booking_price) >

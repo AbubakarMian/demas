@@ -21,7 +21,7 @@ import { Constant } from "../common/Constants";
 import { ContextApiContext } from "../context/ContextApi";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Common, { googleTranslate, SendRequest } from "../common/Common";
+import Common, { googleTranslate, is_driver, SendRequest } from "../common/Common";
 
 export default function Login_page_style() {
   const navigate = useNavigate();
@@ -94,7 +94,13 @@ export default function Login_page_style() {
     if (res.status) {
       res.response.is_loggedin = true;
       updateContextState(res.response, "update_user");
-      navigateToPath('/home');
+      if(is_driver()){
+        navigateToPath('/managebookings')            
+      }
+      else{
+        navigateToPath('/home')
+      }
+      // navigateToPath('/home');
     } else {
       if (res.error && res.error.message) {
         updateContextState(res.error.message[0],"error_msg");

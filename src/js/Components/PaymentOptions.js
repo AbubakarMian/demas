@@ -113,7 +113,10 @@ const PaymentOptions = (props) => {
 
             <PaymentSuccessModal
               show={modalPaymentSuccessShow}
-              onHide={() => setPaymentSuccessModalShow(false)}
+              onHide={() => {
+                setPaymentSuccessModalShow(false)
+                handleClose();
+              }}
             />
           </>
           <ul className="nav nav-tabs">
