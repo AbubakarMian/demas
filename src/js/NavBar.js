@@ -24,7 +24,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
-import { is_loggedin, is_user } from "../common/Common";
+import { is_driver, is_loggedin, is_user } from "../common/Common";
 
 export default function Nav_bar_area() {
   const user = localStorage.getItem("user");
@@ -59,30 +59,33 @@ export default function Nav_bar_area() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <div className="nav_bottom">
-                  <Nav.Link href="home">
-                    <FontAwesomeIcon className="nav_ico_sp" icon={faHouse} />{" "}
-                    Home
-                  </Nav.Link>
-                </div>
+                {is_driver() ? null : (
+                  <div className="nav_bottom">
+                    <Nav.Link href="home">
+                      <FontAwesomeIcon className="nav_ico_sp" icon={faHouse} />{" "}
+                      Home
+                    </Nav.Link>
+                  </div>
+                )}
+
                 <div className="nav_bottom">
                   <Nav.Link href="listcars">
                     <FontAwesomeIcon icon={faCar} className="nav_ico_sp" />{" "}
                     ListCars
                   </Nav.Link>
                 </div>
-                {is_loggedin() ? 
-                <div className="nav_bottom">
-                <Nav.Link href="managebookings">
-                  <FontAwesomeIcon
-                    icon={faBookBookmark}
-                    className="nav_ico_sp"
-                  />{" "}
-                  Bookings
-                </Nav.Link>
-              </div>:null
-              }
-                
+                {is_loggedin() ? (
+                  <div className="nav_bottom">
+                    <Nav.Link href="managebookings">
+                      <FontAwesomeIcon
+                        icon={faBookBookmark}
+                        className="nav_ico_sp"
+                      />{" "}
+                      Bookings
+                    </Nav.Link>
+                  </div>
+                ) : null}
+
                 <div className="nav_bottom">
                   <Nav.Link href="contactus">
                     <FontAwesomeIcon
@@ -92,18 +95,17 @@ export default function Nav_bar_area() {
                     ContactUs
                   </Nav.Link>
                 </div>
-                {
-                  is_loggedin()?
-                <div className="nav_bottom">
-                  <Nav.Link href="profile">
-                    <FontAwesomeIcon
-                      icon={faBarsProgress}
-                      className="nav_ico_sp"
-                    />{" "}
-                    Profile
-                  </Nav.Link>
-              </div>:null
-              }
+                {is_loggedin() ? (
+                  <div className="nav_bottom">
+                    <Nav.Link href="profile">
+                      <FontAwesomeIcon
+                        icon={faBarsProgress}
+                        className="nav_ico_sp"
+                      />{" "}
+                      Profile
+                    </Nav.Link>
+                  </div>
+                ) : null}
                 {/* <div className='nav_bottom'><Nav.Link href="profiletravel"><FontAwesomeIcon icon={faBarsProgress} className='nav_ico_sp'  /> TravelAgent</Nav.Link></div>
                 <div className='nav_bottom'><Nav.Link href="profilesale"><FontAwesomeIcon icon={faBarsProgress} className='nav_ico_sp'  /> SaleAgent</Nav.Link></div> */}
                 <div className="nav_bottom">
@@ -142,38 +144,15 @@ export default function Nav_bar_area() {
                     {is_loggedin() ? "Change User" : "Login"}
                   </Nav.Link>
                 </div>
-                {is_user() ?
-                <div className="nav_bottom">
-                  <Nav.Link href="agent">
-                    <FontAwesomeIcon icon={faUser} className="nav_ico_sp" />{" "}
-                    Become Agent
-                  </Nav.Link>
-              </div>:null
-              }
-
-                {/* <NavDropdown
-                  title="Dropdown"
-                  id={`offcanvasNavbarDropdown-expand-lg`}
-                >
-                  <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action5">
-                    Something else here
-                  </NavDropdown.Item>
-                </NavDropdown> */}
+                {is_user() ? (
+                  <div className="nav_bottom">
+                    <Nav.Link href="agent">
+                      <FontAwesomeIcon icon={faUser} className="nav_ico_sp" />{" "}
+                      Become Agent
+                    </Nav.Link>
+                  </div>
+                ) : null}
               </Nav>
-              {/* <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button className='search_btn' variant="outline-success"><FontAwesomeIcon icon={faMagnifyingGlass} /></Button>
-              </Form> */}
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>

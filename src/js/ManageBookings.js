@@ -29,6 +29,7 @@ import { ContextApiContext } from "../context/ContextApi";
 import {
   get_formated_dateime,
   googleTranslate,
+  is_driver,
   SendRequest,
 } from "../common/Common";
 import PaymentOptions from "./Components/PaymentOptions";
@@ -89,14 +90,16 @@ export default function Manage_Bookings() {
         <Row>
           <div className="login_head">
             <div className="backicon">
-              <Button
-                className="bcbtn"
-                onClick={() => {
-                  navigate(-1);
-                }}
-              >
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </Button>
+              {is_driver() ? null : (
+                <Button
+                  className="bcbtn"
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faArrowLeft} />
+                </Button>
+              )}
             </div>{" "}
             <h3 className="top_heading_page">MANAGE BOOKINGS</h3>
           </div>
@@ -148,11 +151,10 @@ export default function Manage_Bookings() {
     </Col>
   </Row> */}
       </Container>
-      <Container >
-      <Row>
-        {bookingslist.map((booking) => {
-          return (
-            
+      <Container>
+        <Row>
+          {bookingslist.map((booking) => {
+            return (
               <Col xs={12} md={6}>
                 <div className="det_area">
                   <Row>
@@ -185,12 +187,14 @@ export default function Manage_Bookings() {
                           })}
                         </Col>
                         <Col className="no_dpcl" md={4}>
-                        <img className="logo_bkkin" src="./images/12.png"></img>
+                          <img
+                            className="logo_bkkin"
+                            src="./images/12.png"
+                          ></img>
                         </Col>
                       </Row>
                       <Row className="">
-                 
-                      <Col>
+                        <Col>
                           <Button
                             className="mange_btn_info"
                             onClick={() => {
@@ -201,8 +205,9 @@ export default function Manage_Bookings() {
                               });
                             }}
                           >
-                                VIEW</Button>
-                        </Col>         
+                            VIEW
+                          </Button>
+                        </Col>
                         {booking.ispayable ? (
                           <Col>
                             <Button
@@ -218,18 +223,17 @@ export default function Manage_Bookings() {
                   </div>
                 </div>
               </Col>
-           
-          );
-        })}
-        <Col>
-          <PaymentOptions
-            order={paymentOrder}
-            payObjType={"order"}
-            showPaymentModal={showPaymentModal}
-            setShowPaymentModal={setShowPaymentModal}
-            successFunction={get_orders}
-          />
-        </Col>
+            );
+          })}
+          <Col>
+            <PaymentOptions
+              order={paymentOrder}
+              payObjType={"order"}
+              showPaymentModal={showPaymentModal}
+              setShowPaymentModal={setShowPaymentModal}
+              successFunction={get_orders}
+            />
+          </Col>
         </Row>
       </Container>
     </div>

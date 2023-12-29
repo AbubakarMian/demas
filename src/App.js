@@ -73,7 +73,6 @@ function App() {
             ></Route> */}
             <Route
               Component={Check_login(BookingInfoPackages)}
-              // Component={user_loggedin ? BookingInfoPackages : Login}
               path="/bookinginfopackages"
             ></Route>
             <Route
