@@ -87,6 +87,7 @@ export const ContexApiProvider = (props) => {
                     else{
                         update_obj.is_loggedin = false;
                     }
+                    update_obj.role_id = parseInt(update_obj.role_id);
                     localStorage.setItem('user', JSON.stringify(update_obj));
                     setContextState({...contextState,objContextState})
                 break;
