@@ -30,6 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { ContextApiContext } from "../context/ContextApi";
 import { Constant } from "../common/Constants";
 import { SendRequest, SendRequestContetType } from "../common/Common";
+import PhoneInput from 'react-phone-number-input';
 
 export default function Profile() {
   const { contextState, updateContextState } = useContext(ContextApiContext);
@@ -69,6 +70,9 @@ export default function Profile() {
   const handleUpdate = async () => {
     try {
       let user_update_profile = Constant.user_update_profile;
+      // let w_num = userwhatsapp_number.replace("+", "");
+      // let p_num = userphone_no.replace("+", "");
+
 
       let obj = {
         name: userName,
@@ -191,7 +195,15 @@ export default function Profile() {
               <Row className="">
                 <Col>
                   <Form.Label htmlFor="basic-url">Mobile</Form.Label>
-                  <InputGroup className="mb-3">
+                  <PhoneInput
+                    placeholder="Phone Number"
+                    value={userphone_no}
+                    // onChange={setValue}
+                    onChange={(txt) =>{
+                      console.log('chk num',txt);
+                      setUserPhone_no(txt)}}
+                  />
+                  {/* <InputGroup className="mb-3">
                     <Form.Control
                       id="basic-url"
                       aria-describedby="basic-addon3"
@@ -199,14 +211,22 @@ export default function Profile() {
                       className="inp_bx"
                       onChange={(e) => setUserPhone_no(e.target.value)}
                     />
-                  </InputGroup>{" "}
+                  </InputGroup>{" "} */}
                 </Col>
               </Row>
 
               <Row className="">
                 <Col>
                   <Form.Label htmlFor="basic-url">Whatsapp</Form.Label>
-                  <InputGroup className="mb-3">
+                  <PhoneInput
+                    placeholder="Whatsapp Number"
+                    value={userwhatsapp_number}
+                    // onChange={setValue}
+                    onChange={(txt) =>{
+                      console.log('chk num',txt);
+                      setUserWhatsapp_number(txt)}}
+                  />
+                  {/* <InputGroup className="mb-3">
                     <Form.Control
                       id="basic-url"
                       aria-describedby="basic-addon3"
@@ -214,7 +234,7 @@ export default function Profile() {
                       value={userwhatsapp_number}
                       onChange={(e) => setUserWhatsapp_number(e.target.value)}
                     />
-                  </InputGroup>{" "}
+                  </InputGroup>{" "} */}
                 </Col>
               </Row>
 
