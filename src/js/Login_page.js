@@ -21,7 +21,12 @@ import { Constant } from "../common/Constants";
 import { ContextApiContext } from "../context/ContextApi";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Common, { googleTranslate, is_driver, SendRequest } from "../common/Common";
+import PhoneInput from 'react-phone-number-input';
+import Common, {
+  googleTranslate,
+  is_driver,
+  SendRequest,
+} from "../common/Common";
 
 export default function Login_page_style() {
   const navigate = useNavigate();
@@ -41,12 +46,15 @@ export default function Login_page_style() {
 
   const attempt_login = async () => {
     try {
+      // console.log("whatsapp_no
+      let w_num = whatsapp_no.replace("+", "");
+      // return;
       // Create the formData and append the email and password
       console.log("test login 111");
       var formData = new FormData();
       formData.append("email", email);
       // formData.append("phone_no", phone_no);
-      formData.append("whatsapp_no", whatsapp_no);
+      formData.append("whatsapp_no", w_num);
       console.log("email", email);
       console.log("phone_no", phone_no);
 
@@ -65,50 +73,45 @@ export default function Login_page_style() {
         // updateContextState(user,'update_user');
         // navigateToPath("/home");
       } else {
-        updateContextState(res.error.message[0],"error_msg");
+        updateContextState(res.error.message[0], "error_msg");
       }
     } catch (error) {
       console.error("Error during login:", error);
-      updateContextState("An error occurred while logging in. Please try again.","error_msg");
+      updateContextState(
+        "An error occurred while logging in. Please try again.",
+        "error_msg"
+      );
     }
   };
   const [open, setOpen] = useState(false);
 
   const validateOtp = async () => {
     if (!otp) {
-      updateContextState("Enter OTP","error_msg");
+      updateContextState("Enter OTP", "error_msg");
 
       return;
     }
     let formData = new FormData();
     formData.append("otp", otp);
-    console.log('otp',otp);
-    console.log('access_token',user.access_token);
+    console.log("otp", otp);
+    console.log("access_token", user.access_token);
     formData.append("access_token", user.access_token);
-    const res = await SendRequest(
-      "post",
-      Constant.validate_otp,
-      formData
-    );
-    
+    const res = await SendRequest("post", Constant.validate_otp, formData);
+
     if (res.status) {
       res.response.is_loggedin = true;
       updateContextState(res.response, "update_user");
-      if(is_driver()){
-        navigateToPath('/managebookings')            
-      }
-      else{
-        navigateToPath('/home')
+      if (is_driver()) {
+        navigateToPath("/managebookings");
+      } else {
+        navigateToPath("/home");
       }
       // navigateToPath('/home');
     } else {
       if (res.error && res.error.message) {
-        updateContextState(res.error.message[0],"error_msg");
+        updateContextState(res.error.message[0], "error_msg");
       } else {
-      updateContextState(
-        "Somthing went wrong contact admin",
-        "error_msg"
-      );
+        updateContextState("Somthing went wrong contact admin", "error_msg");
       }
     }
   };
@@ -158,13 +161,22 @@ export default function Login_page_style() {
                   />
                 </InputGroup>{" "} */}
                 <InputGroup className="mb-3">
-                  <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
-                  <Form.Control
+                  {/* <InputGroup.Text id="basic-addon1">#</InputGroup.Text> */}
+                  {/* <Form.Control
                     placeholder="Whatsapp Number"
                     aria-label="Whatsapp"
                     aria-describedby="basic-addon1"
-                    onChange={(e) => setWhatsapp(e.target.value)}
+                    type="number"
+                     onChange={(e) => setWhatsapp(e.target.value)}
                     value={whatsapp_no} // Bind the password state to the input value
+                  /> */}
+                  <PhoneInput
+                    placeholder="Whatsapp Number"
+                    value={whatsapp_no}
+                    // onChange={setValue}
+                    onChange={(txt) =>{
+                      console.log('chk num',txt);
+                      setWhatsapp(txt)}}
                   />
                 </InputGroup>{" "}
               </div>
@@ -193,7 +205,7 @@ export default function Login_page_style() {
                         aria-label="otp"
                         aria-describedby="basic-addon1"
                         type="number"
-                        onChange={(e)=>setOtp(e.target.value)}
+                        onChange={(e) => setOtp(e.target.value)}
                       />
                     </InputGroup>
                     <Button

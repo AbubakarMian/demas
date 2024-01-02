@@ -34,6 +34,7 @@ import { ContextApiContext } from "../../context/ContextApi";
 import { SendRequest } from "../../common/Common";
 import { Constant } from "../../common/Constants";
 import { Alert } from "react-bootstrap";
+import PhoneInput from 'react-phone-number-input';
 
 export default function LoginModal(props) {
   const { contextState, updateContextState } = useContext(ContextApiContext);
@@ -172,11 +173,17 @@ export default function LoginModal(props) {
                       <img src="./images/saudi-arabia.png" />
                     </div>
                   </InputGroup.Text>
-                  <Form.Control
+                  {/* <Form.Control
                     id="basic-url"
                     aria-describedby="basic-addon3"
                     placeholder="Whatsapp Number"
                     onChange={(e) => setWhatsapp(e.target.value)}
+                  /> */}
+                  <PhoneInput
+                    placeholder="Whatsapp Number"
+                    onChange={(txt) =>{
+                      console.log('chk num',txt);
+                      setWhatsapp(txt)}}
                   />
                 </InputGroup>
                 <Form.Label htmlFor="basic-url">Email</Form.Label>
