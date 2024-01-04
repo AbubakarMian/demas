@@ -180,6 +180,7 @@ export default function LoginModal(props) {
                     onChange={(e) => setWhatsapp(e.target.value)}
                   /> */}
                   <PhoneInput
+                    defaultCountry="SA"
                     placeholder="Whatsapp Number"
                     onChange={(txt) =>{
                       console.log('chk num',txt);

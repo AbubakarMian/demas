@@ -170,14 +170,18 @@ export default function Login_page_style() {
                      onChange={(e) => setWhatsapp(e.target.value)}
                     value={whatsapp_no} // Bind the password state to the input value
                   /> */}
+                  <div className="ip_bxphn">
                   <PhoneInput
                     placeholder="Whatsapp Number"
+                    defaultCountry="SA"
                     value={whatsapp_no}
                     // onChange={setValue}
                     onChange={(txt) =>{
                       console.log('chk num',txt);
                       setWhatsapp(txt)}}
+                      className="inp_bxphn"
                   />
+                  </div>
                 </InputGroup>{" "}
               </div>
             </Row>
