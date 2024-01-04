@@ -172,6 +172,7 @@ export default function Login_page_style() {
                   /> */}
                   <PhoneInput
                     placeholder="Whatsapp Number"
+                    defaultCountry="SA"
                     value={whatsapp_no}
                     // onChange={setValue}
                     onChange={(txt) =>{

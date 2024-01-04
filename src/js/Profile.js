@@ -196,6 +196,7 @@ export default function Profile() {
                 <Col>
                   <Form.Label htmlFor="basic-url">Mobile</Form.Label>
                   <PhoneInput
+                    defaultCountry="SA"
                     placeholder="Phone Number"
                     value={userphone_no}
                     // onChange={setValue}
@@ -219,6 +220,7 @@ export default function Profile() {
                 <Col>
                   <Form.Label htmlFor="basic-url">Whatsapp</Form.Label>
                   <PhoneInput
+                    defaultCountry="SA"
                     placeholder="Whatsapp Number"
                     value={userwhatsapp_number}
                     // onChange={setValue}
