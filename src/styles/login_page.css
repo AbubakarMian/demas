@@ -49,7 +49,12 @@ a.otpbtn.btn.btn-primary:hover {
     height: 100vh;
     /* background-position-y: -355px; */
 }
-
+.react-international-phone-input-container .react-international-phone-input {
+    width: 100% !important;
+}
+.ip_bxphn {
+    width: 100%;
+}
 @media only screen and (max-width : 480px) {
     .otpbtn {
         background-color: #996418;

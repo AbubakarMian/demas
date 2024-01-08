@@ -21,7 +21,8 @@ import { Constant } from "../common/Constants";
 import { ContextApiContext } from "../context/ContextApi";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import PhoneInput from 'react-phone-number-input';
+import { PhoneInput } from 'react-international-phone';
+import 'react-international-phone/style.css';
 import Common, {
   googleTranslate,
   is_driver,
@@ -170,14 +171,18 @@ export default function Login_page_style() {
                      onChange={(e) => setWhatsapp(e.target.value)}
                     value={whatsapp_no} // Bind the password state to the input value
                   /> */}
+                  <div className="ip_bxphn">
                   <PhoneInput
                     placeholder="Whatsapp Number"
+                    defaultCountry="sa"
                     value={whatsapp_no}
                     // onChange={setValue}
                     onChange={(txt) =>{
                       console.log('chk num',txt);
                       setWhatsapp(txt)}}
+                      className="inp_bxphn"
                   />
+                  </div>
                 </InputGroup>{" "}
               </div>
             </Row>

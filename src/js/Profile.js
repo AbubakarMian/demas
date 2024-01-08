@@ -30,8 +30,8 @@ import { useNavigate } from "react-router-dom";
 import { ContextApiContext } from "../context/ContextApi";
 import { Constant } from "../common/Constants";
 import { SendRequest, SendRequestContetType } from "../common/Common";
-import PhoneInput from 'react-phone-number-input';
-
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 export default function Profile() {
   const { contextState, updateContextState } = useContext(ContextApiContext);
   const navigate = useNavigate();
@@ -72,7 +72,6 @@ export default function Profile() {
       let user_update_profile = Constant.user_update_profile;
       // let w_num = userwhatsapp_number.replace("+", "");
       // let p_num = userphone_no.replace("+", "");
-
 
       let obj = {
         name: userName,
@@ -195,14 +194,18 @@ export default function Profile() {
               <Row className="">
                 <Col>
                   <Form.Label htmlFor="basic-url">Mobile</Form.Label>
-                  <PhoneInput
-                    placeholder="Phone Number"
-                    value={userphone_no}
-                    // onChange={setValue}
-                    onChange={(txt) =>{
-                      console.log('chk num',txt);
-                      setUserPhone_no(txt)}}
-                  />
+                  <div className="ip_bxphn">
+                    <PhoneInput
+                      defaultCountry="sa"
+                      placeholder="Phone Number"
+                      value={userphone_no}
+                      // onChange={setValue}
+                      onChange={(txt) => {
+                        console.log("chk num", txt);
+                        setUserPhone_no(txt);
+                      }}
+                    />
+                  </div>
                   {/* <InputGroup className="mb-3">
                     <Form.Control
                       id="basic-url"
@@ -219,12 +222,14 @@ export default function Profile() {
                 <Col>
                   <Form.Label htmlFor="basic-url">Whatsapp</Form.Label>
                   <PhoneInput
+                    defaultCountry="SA"
                     placeholder="Whatsapp Number"
                     value={userwhatsapp_number}
                     // onChange={setValue}
-                    onChange={(txt) =>{
-                      console.log('chk num',txt);
-                      setUserWhatsapp_number(txt)}}
+                    onChange={(txt) => {
+                      console.log("chk num", txt);
+                      setUserWhatsapp_number(txt);
+                    }}
                   />
                   {/* <InputGroup className="mb-3">
                     <Form.Control

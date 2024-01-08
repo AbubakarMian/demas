@@ -34,7 +34,8 @@ import { ContextApiContext } from "../../context/ContextApi";
 import { SendRequest } from "../../common/Common";
 import { Constant } from "../../common/Constants";
 import { Alert } from "react-bootstrap";
-import PhoneInput from 'react-phone-number-input';
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 export default function LoginModal(props) {
   const { contextState, updateContextState } = useContext(ContextApiContext);
@@ -83,7 +84,7 @@ export default function LoginModal(props) {
         user.is_loggedin = true;
         setUser(user);
         setShowSendOtp(false);
-      setshowValidateOtp(true);
+        setshowValidateOtp(true);
         // updateContextState(user,'update_user');
         // updateContextState(res.response,'update_user');
       } else {
@@ -92,7 +93,6 @@ export default function LoginModal(props) {
           "error_msg"
         );
       }
-      
     } catch (error) {
       updateContextState(
         "Login failed. Please check your credentials.",
@@ -168,31 +168,27 @@ export default function LoginModal(props) {
                 </InputGroup> */}
                 <Form.Label htmlFor="basic-url">Whatsapp Number</Form.Label>
                 <InputGroup className="mb-3">
-                  <InputGroup.Text id="basic-addon3">
-                    <div className="img_flag">
-                      <img src="./images/saudi-arabia.png" />
-                    </div>
-                  </InputGroup.Text>
                   {/* <Form.Control
                     id="basic-url"
                     aria-describedby="basic-addon3"
                     placeholder="Whatsapp Number"
                     onChange={(e) => setWhatsapp(e.target.value)}
                   /> */}
-                  <PhoneInput
-                    placeholder="Whatsapp Number"
-                    onChange={(txt) =>{
-                      console.log('chk num',txt);
-                      setWhatsapp(txt)}}
-                  />
+                  <div className="ip_bxphn">
+                    <PhoneInput
+                      defaultCountry="sa"
+                      placeholder="Whatsapp Number"
+                      onChange={(txt) => {
+                        console.log("chk num", txt);
+                        setWhatsapp(txt);
+                      }}
+                    />
+                  </div>
                 </InputGroup>
+
                 <Form.Label htmlFor="basic-url">Email</Form.Label>
                 <InputGroup className="mb-3">
-                  <InputGroup.Text id="basic-addon3">
-                    <div className="img_flag">
-                      <img src="./images/saudi-arabia.png" />
-                    </div>
-                  </InputGroup.Text>
+                  <InputGroup.Text id="basic-addon3">@</InputGroup.Text>
                   <Form.Control
                     id="basic-url"
                     aria-describedby="basic-addon3"

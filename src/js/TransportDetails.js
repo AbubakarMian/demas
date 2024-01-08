@@ -34,6 +34,8 @@ import LoginModal from "./Components/LoginModal";
 import TripCreatedSuccessModal from "./Components/TripCreatedSuccessModal";
 import { Constant } from "../common/Constants";
 import { SendRequest, SendRequestContetType } from "../common/Common";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 export default function TransportDetails(props) {
   const navigate = useNavigate();
@@ -113,17 +115,12 @@ export default function TransportDetails(props) {
         parseInt(transportDetail.booking_price) <
           parseInt(customer_collection_price)
       );
-      if (
-        user.role_id == 5 || user.role_id == 1
-      ) {
-        updateContextState(
-          "Driver can not create order",
-          "error_msg"
-        );
-        navigateToPath('/managebookings');
+      if (user.role_id == 5 || user.role_id == 1) {
+        updateContextState("Driver can not create order", "error_msg");
+        navigateToPath("/managebookings");
         return;
       }
-      
+
       if (
         user.role_id != 2 &&
         (customer_collection_price == "" ||
@@ -435,21 +432,31 @@ export default function TransportDetails(props) {
                               className="mb-3"
                               controlId="exampleForm.ControlInput1"
                             >
-                              <Form.Control
-                                type="text"
-                                aria-label="With textarea"
-                                className="comnt_tsxt"
-                                placeholder="Whatsapp Number"
-                                onChange={(e) =>
-                                  setCustomerWhatsappNumber(e.target.value)
-                                }
-                              />
+                              <div className="ip_bxphn">
+                                <PhoneInput
+                                  placeholder="Whatsapp Number"
+                                  defaultCountry="sa"
+                                  onChange={(txt) => {
+                                    console.log("chk num", txt);
+                                    setCustomerWhatsappNumber(txt);
+                                  }}
+                                />
+                              </div>
                             </Form.Group>
                             <Form.Group
                               className="mb-3"
                               controlId="exampleForm.ControlInput1"
                             >
-                              <Form.Control
+                              <PhoneInput
+                                placeholder="Phone Number"
+                                defaultCountry="SA"
+                                // onChange={setValue}
+                                onChange={(txt) => {
+                                  console.log("chk num", txt);
+                                  setCustomerPhoneNumber(txt);
+                                }}
+                              />
+                              {/* <Form.Control
                                 type="text"
                                 aria-label="With textarea"
                                 className="comnt_tsxt"
@@ -457,7 +464,7 @@ export default function TransportDetails(props) {
                                 onChange={(e) =>
                                   setCustomerPhoneNumber(e.target.value)
                                 }
-                              />
+                              /> */}
                             </Form.Group>
                           </>
                         )}
