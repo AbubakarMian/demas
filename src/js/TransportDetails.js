@@ -34,7 +34,8 @@ import LoginModal from "./Components/LoginModal";
 import TripCreatedSuccessModal from "./Components/TripCreatedSuccessModal";
 import { Constant } from "../common/Constants";
 import { SendRequest, SendRequestContetType } from "../common/Common";
-import PhoneInput from 'react-phone-number-input';
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 export default function TransportDetails(props) {
   const navigate = useNavigate();
@@ -431,14 +432,16 @@ export default function TransportDetails(props) {
                               className="mb-3"
                               controlId="exampleForm.ControlInput1"
                             >
-                              <PhoneInput
-                                placeholder="Whatsapp Number"
-                                defaultCountry="SA"
-                                onChange={(txt) => {
-                                  console.log("chk num", txt);
-                                  setCustomerWhatsappNumber(txt);
-                                }}
-                              />
+                              <div className="ip_bxphn">
+                                <PhoneInput
+                                  placeholder="Whatsapp Number"
+                                  defaultCountry="sa"
+                                  onChange={(txt) => {
+                                    console.log("chk num", txt);
+                                    setCustomerWhatsappNumber(txt);
+                                  }}
+                                />
+                              </div>
                             </Form.Group>
                             <Form.Group
                               className="mb-3"
