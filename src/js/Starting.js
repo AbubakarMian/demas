@@ -15,7 +15,7 @@ export default function Home(){
     };
     useEffect(()=>{
       setTimeout(() => {
-        navigateHome();
+        navigateToPath('/home')      
       }, 1500);
       
     },[])
