@@ -20,11 +20,28 @@ font-family: 'Montserrat', sans-serif;
 .navbar a:hover{
   color: gold;
 }
+nav.cus-nav.center.navbar.navbar-expand.navbar-light.sticky-bottom {
+  background-color: rgba(182, 103, 15, 0.5);
+  height: 60px;
+}
+/* Update this selector to be more specific */
+nav.cus-nav.center.navbar.navbar-expand.navbar-light.sticky-bottom.solid-background {
+  background-color: #996418;
+  height: 60px;
+}
+.trans{
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 2px;
+  border-radius: 8px;
+}
+
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+  
 }
 
 .App-header {
