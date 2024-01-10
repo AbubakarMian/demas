@@ -1,5 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect } from "react";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ErrorAlert from "./js/Components/ErrorAlert";
 import Packages from "./js/Packages";
@@ -24,14 +25,43 @@ import LoginModal from "./js/Components/LoginModal";
 import ListCars from "./js/ListCars";
 
 function App() {
-  let user = localStorage.getItem("user");
-  let user_loggedin = false;
-  if (user == null) {
-    user_loggedin = false;
-  } else {
-    user = JSON.parse(user);
-    user_loggedin = user.is_loggedin;
-  }
+  // let user = localStorage.getItem("user");
+  // let user_loggedin = false;
+  // if (user == null) {
+  //   user_loggedin = false;
+  // } else {
+  //   user = JSON.parse(user);
+  //   user_loggedin = user.is_loggedin;
+  // }
+
+
+  const googleTranslateElementInit = () => {
+    console.log('called');
+    try{
+      if (window.google  && window.google.translate) {
+        new window.google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            autoDisplay: false,
+          },
+          "google_translate_element"
+        );
+      } else {
+        console.error("Google Translate API not available");
+      }
+    }catch(e){
+      console.error("Google Translate API not available");
+    }
+   
+  };
+  useEffect(() => {
+    console.log("Script loaded");
+    console.log("Google object:", window.google);
+    setTimeout(() => {
+    googleTranslateElementInit(); // Check if this function is called
+    }, 3000);
+
+  }, []);
 
   const Check_login = (Component) => {
     let user = localStorage.getItem("user");
@@ -51,6 +81,8 @@ function App() {
   };
   return (
     <div className="App">
+      <div id="google_translate_element"></div>
+
       {/* <Router basename='/demas/build'> */}
       <ContexApiProvider>
         <Router>
@@ -93,6 +125,7 @@ function App() {
           </Routes>
         </Router>
       </ContexApiProvider>
+
     </div>
   );
 }
