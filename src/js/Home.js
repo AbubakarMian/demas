@@ -177,7 +177,8 @@ export default function Package_style() {
     } else {
       // dropoff
       setPlaceholderDropoffExtraInfo(placeholder);
-      setShowDropoffExtraInfo(placeholder.length);
+      // setShowDropoffExtraInfo(placeholder.length);
+      setShowDropoffExtraInfo(placeholder ? placeholder.length : 0);
 
       if (location_type == "Airport") {
         // setShowDropoffExtraInfo(true);

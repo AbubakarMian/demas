@@ -25,6 +25,8 @@ import {
 import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { is_driver, is_loggedin, is_user } from "../common/Common";
+import { useEffect, useState } from "react";
+
 
 export default function Nav_bar_area() {
   const user = localStorage.getItem("user");
@@ -35,14 +37,42 @@ export default function Nav_bar_area() {
     user_loggedin = user.is_loggedin;
   }
 
+const googleTranslateElementInit = () => {
+  console.log("called");
+  try {
+    if (window.google && window.google.translate) {
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: "en",
+          autoDisplay: false,
+        },
+        "google_translate_element"
+      );
+    } else {
+      console.error("Google Translate API not available");
+    }
+  } catch (e) {
+    console.error("Google Translate API not available");
+  }
+};
+useEffect(() => {
+  console.log("Script loaded");
+  console.log("Google object:", window.google);
+  setTimeout(() => {
+    googleTranslateElementInit(); // Check if this function is called
+  }, 3000);
+}, []);
+
   return (
     <>
       {/* {[false, 'sm', 'lg', 'lg', 'xl', 'xxl'].map((expand) => ( */}
       <Navbar key="xl" expand="lg" className="bg-body-tertiary" variant="dark">
         <Container fluid className="nav_back">
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
+          <div className="trans" id="google_translate_element"></div>
           <Navbar.Brand className="brand_tx" href="#">
             <img className="nav_im" src="./images/12.png"></img>
+            
           </Navbar.Brand>
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-lg`}
@@ -152,6 +182,8 @@ export default function Nav_bar_area() {
                     </Nav.Link>
                   </div>
                 ) : null}
+                          <div className="trans" id="google_translate_element"></div>
+
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

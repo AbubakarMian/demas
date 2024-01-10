@@ -1,6 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ErrorAlert from "./js/Components/ErrorAlert";
 import Packages from "./js/Packages";
@@ -23,6 +23,13 @@ import Refund from "./js/Refund";
 import ContexApiProvider from "./context/ContextApi";
 import LoginModal from "./js/Components/LoginModal";
 import ListCars from "./js/ListCars";
+import Container from "react-bootstrap/Container";
+import Navbar from "react-bootstrap/Navbar";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
 
 function App() {
   // let user = localStorage.getItem("user");
@@ -33,36 +40,29 @@ function App() {
   //   user = JSON.parse(user);
   //   user_loggedin = user.is_loggedin;
   // }
+  const [isNavbarAtBottom, setIsNavbarAtBottom] = useState(false);
 
-
-  const googleTranslateElementInit = () => {
-    console.log('called');
-    try{
-      if (window.google  && window.google.translate) {
-        new window.google.translate.TranslateElement(
-          {
-            pageLanguage: "en",
-            autoDisplay: false,
-          },
-          "google_translate_element"
-        );
-      } else {
-        console.error("Google Translate API not available");
-      }
-    }catch(e){
-      console.error("Google Translate API not available");
-    }
-   
-  };
   useEffect(() => {
-    console.log("Script loaded");
-    console.log("Google object:", window.google);
-    setTimeout(() => {
-    googleTranslateElementInit(); // Check if this function is called
-    }, 3000);
+    // ... (your existing code)
 
+    // Check if the navbar is at the bottom when the page is scrolled
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const bodyHeight = document.body.offsetHeight;
+
+      const isAtBottom = scrollPosition + windowHeight >= bodyHeight;
+
+      setIsNavbarAtBottom(isAtBottom);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
-
+  // 
   const Check_login = (Component) => {
     let user = localStorage.getItem("user");
     let user_loggedin = false;
@@ -81,8 +81,6 @@ function App() {
   };
   return (
     <div className="App">
-      <div id="google_translate_element"></div>
-
       {/* <Router basename='/demas/build'> */}
       <ContexApiProvider>
         <Router>
@@ -125,7 +123,19 @@ function App() {
           </Routes>
         </Router>
       </ContexApiProvider>
-
+      {/* <Navbar
+        className={`cus-nav justify-content-end center ${
+          isNavbarAtBottom ? "solid-background" : ""
+        }`}
+        sticky="bottom"
+      >
+        <Container>
+          <Navbar.Brand>
+               
+          </Navbar.Brand>
+          <div className="trans" id="google_translate_element"></div>
+        </Container>
+      </Navbar> */}
     </div>
   );
 }
