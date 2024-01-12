@@ -103,7 +103,7 @@ useEffect(() => {
                 <div className="nav_bottom">
                   <Nav.Link href="listcars">
                     <FontAwesomeIcon icon={faCar} className="nav_ico_sp" />{" "}
-                    ListCars
+                    Transport
                   </Nav.Link>
                 </div>
                 {is_loggedin() ? (
