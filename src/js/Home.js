@@ -159,7 +159,7 @@ export default function Package_style() {
   const changeLocationPoints = (e, point, location) => {
     let new_val = {};
     let location_type = location.location_type.name;
-    let placeholder = location?.location_type?.placeholder;
+    let placeholder = location?.location_type?.placeholder??'';
 
     if (e.target.checked) {
       new_val = location;
@@ -178,7 +178,7 @@ export default function Package_style() {
       // dropoff
       setPlaceholderDropoffExtraInfo(placeholder);
       // setShowDropoffExtraInfo(placeholder.length);
-      setShowDropoffExtraInfo(placeholder ? placeholder.length : 0);
+      setShowDropoffExtraInfo(placeholder.length);
 
       if (location_type == "Airport") {
         // setShowDropoffExtraInfo(true);

@@ -34,6 +34,8 @@ import {
 } from "../common/Common";
 import PaymentOptions from "./Components/PaymentOptions";
 import Dropdown from "react-bootstrap/Dropdown";
+import LanguageTranslator from "./Components/LanguageTranslate";
+
 
 export default function Manage_Bookings() {
   const navigate = useNavigate();
@@ -86,6 +88,7 @@ export default function Manage_Bookings() {
 
   return (
     <div>
+       <Nav_bar_area />
       <Container fluid>
         <Row>
           <div className="login_head">
@@ -105,6 +108,15 @@ export default function Manage_Bookings() {
           </div>
         </Row>
       </Container>
+      {/* <Container>
+          <Row className="cnt">
+            <Col>
+              <div className="lng_bg">
+                <LanguageTranslator />
+              </div>
+            </Col>
+          </Row>
+        </Container> */}
       <Container fluid>
         <Row>
           <Col>

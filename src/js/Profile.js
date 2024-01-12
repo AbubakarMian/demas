@@ -32,6 +32,8 @@ import { Constant } from "../common/Constants";
 import { SendRequest, SendRequestContetType } from "../common/Common";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import LanguageTranslator from "./Components/LanguageTranslate";
+
 export default function Profile() {
   const { contextState, updateContextState } = useContext(ContextApiContext);
   const navigate = useNavigate();
@@ -254,6 +256,15 @@ export default function Profile() {
               ) : null}
             </div>
           </div>
+        </Container>
+        <Container>
+          <Row className="cnt">
+            <Col>
+              <div className="lng_bg">
+                <LanguageTranslator />
+              </div>
+            </Col>
+          </Row>
         </Container>
       </div>
     </div>
