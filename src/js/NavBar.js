@@ -9,6 +9,8 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import LanguageTranslator from "./Components/LanguageTranslate";
+
 
 import {
   faHouse,
@@ -69,7 +71,7 @@ useEffect(() => {
       <Navbar key="xl" expand="lg" className="bg-body-tertiary" variant="dark">
         <Container fluid className="nav_back">
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
-          <div className="trans" id="google_translate_element"></div>
+         <LanguageTranslator/>
           <Navbar.Brand className="brand_tx" href="#">
             <img className="nav_im" src="./images/12.png"></img>
             
@@ -122,7 +124,8 @@ useEffect(() => {
                       icon={faPhoneVolume}
                       className="nav_ico_sp"
                     />{" "}
-                    ContactUs
+                    ContactUs  
+
                   </Nav.Link>
                 </div>
                 {is_loggedin() ? (
@@ -182,8 +185,6 @@ useEffect(() => {
                     </Nav.Link>
                   </div>
                 ) : null}
-                          <div className="trans" id="google_translate_element"></div>
-
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
