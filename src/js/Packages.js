@@ -94,7 +94,6 @@ export default function Packages(props) {
     setBookingObj(booking_obj);
   };
   const getLocations = async () => {
-    console.log("get locations");
     try {
       const res = await SendRequest("GET", Constant.get_locations);
       if (res.status) {
@@ -119,20 +118,15 @@ export default function Packages(props) {
     setUser_obj(contextState.user);
   }, [contextState.user]);
   const handleProceedToNext = async () => {
-    console.log("bookin_obj", bookingObj);
-
     if (!selectPickup.id || !selectDropoff.id || !pickupTime) {
       updateContextState("All fields required", "error_msg");
       return;
     }
-
     try {
       let verify_journey_url = `${Constant.journey_verify}?pickup_id=${selectPickup.id}&dropoff_id=${selectDropoff.id}`;
       const res = await SendRequest("GET", verify_journey_url);
       if (res.status) {
-        let package_details_arr = bookingObj.details;
-        console.log("selectPickup ", selectPickup);
-        package_details_arr.push({
+        let new_trip = {
           pickup_id: selectPickup.id,
           pickup: selectPickup,
           pick_extrainfo: "ticket_number",
@@ -145,11 +139,13 @@ export default function Packages(props) {
           transport_id: 0,
           transport_type_id: 0,
           transport_type: "",
-        });
+        };
+        const package_details_arr = [...bookingObj.details, new_trip];
+        // package_details_arr.push();
         let newBookingObj = bookingObj;
         newBookingObj.details = package_details_arr;
-        setBookingObj({ ...bookingObj, newBookingObj });
-        navigateToPath("/availablecars", { booking_obj: bookingObj });
+        setBookingObj(newBookingObj);
+        navigateToPath("/availablecars", { booking_obj: newBookingObj });
       } else {
         updateContextState(res.error?.message[0], "error_msg");
       }
@@ -161,6 +157,15 @@ export default function Packages(props) {
         "error_msg"
       );
     }
+  };
+
+  
+  const removeTrip = (index) => {
+    let newBookingObj = bookingObj;
+    let details = bookingObj.details.filter((item, i) => i !== index);
+    newBookingObj.details = details;
+    setBookingObj({ ...bookingObj, details });
+    // setBookingObj(newBookingObj);
   };
 
   const changeLocationPoints = (e, point, location) => {
@@ -282,16 +287,6 @@ export default function Packages(props) {
     navigate(path, { state: props });
   };
 
-  const removeTrip = (index) => {
-    let newBookingObj = bookingObj;
-    console.log("remove index ", index);
-    console.log("check remove index ", bookingObj.details);
-    let details = bookingObj.details.filter((item, i) => i !== index);
-    newBookingObj.details = details;
-    console.log("remove index ", index);
-    console.log("check remove index ", newBookingObj);
-    setBookingObj({ ...bookingObj, details });
-  };
 
   return (
     <div>
@@ -602,18 +597,18 @@ export default function Packages(props) {
                         />
                       </Form.Group>
                       <Form.Group
-                          className="mb-3"
-                          controlId="exampleForm.ControlInput1"
-                        >
-                          <Form.Check // prettier-ignore
-                            type="switch"
-                            id="custom-switch"
-                            label="Show price in user Invoice"
-                            onChange={(e) => {
-                              setShowPriceInUserInvoice(e.target.checked);
-                            }}
-                          />
-                        </Form.Group>
+                        className="mb-3"
+                        controlId="exampleForm.ControlInput1"
+                      >
+                        <Form.Check // prettier-ignore
+                          type="switch"
+                          id="custom-switch"
+                          label="Show price in user Invoice"
+                          onChange={(e) => {
+                            setShowPriceInUserInvoice(e.target.checked);
+                          }}
+                        />
+                      </Form.Group>
                     </p>
                   </div>
                 </Collapse>

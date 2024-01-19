@@ -367,10 +367,10 @@ export default function AvailableCars() {
                             </p>
                             <span className="nw">NOW </span>
                             {item.discounted_price} SAR
-
                           </>
-                        ) : null}
-                        {item.booking_price} SAR
+                        ) : (
+                          <>{item.booking_price} SAR</>
+                        )}
                       </div>
                     </div>
                   </Col>
