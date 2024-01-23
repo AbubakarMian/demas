@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ErrorAlert from "./js/Components/ErrorAlert";
+import Loader from "./js/Components/Loader";
 import Packages from "./js/Packages";
 import Login from "./js/Login_page";
 import Home from "./js/Home";
@@ -30,6 +31,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
+// import { ContextApiContext } from "../context/ContextApi";
 
 function App() {
   // let user = localStorage.getItem("user");
@@ -41,6 +43,7 @@ function App() {
   //   user_loggedin = user.is_loggedin;
   // }
   const [isNavbarAtBottom, setIsNavbarAtBottom] = useState(false);
+  // const { contextState, updateContextState } = useContext(ContextApiContext);
 
   useEffect(() => {
     // ... (your existing code)
@@ -85,6 +88,8 @@ function App() {
       <ContexApiProvider>
         <Router>
           <ErrorAlert />
+          <Loader/>
+          {/* <Loader loader={contextState}/> */}
           <LoginModal />
           {/* <Offcanvas_colapsable_nav /> */}
           <Routes>
