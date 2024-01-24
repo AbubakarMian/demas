@@ -1,0 +1,19 @@
+.spinnnn{
+    color: white;
+    margin-right: 3px;
+}
+.spin_btn{
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    background-color: transparent !important;
+    border: transparent;
+}
+.spiner_back.modal-body {
+    border: solid 1px transparent;
+}
+.load_modal .modal-content{
+    background-color: transparent;
+    border: transparent;
+}
