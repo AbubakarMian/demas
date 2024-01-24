@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
-import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {  Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ErrorAlert from "./js/Components/ErrorAlert";
 import Loader from "./js/Components/Loader";
 import Packages from "./js/Packages";
@@ -13,37 +13,17 @@ import AvailableCars from "./js/AvailableCars";
 import TransportDetails from "./js/TransportDetails";
 import ManageBookings from "./js/ManageBookings";
 import BookingInfoPackages from "./js/BookingInfoPackages";
-import BookingInfoSingle from "./js/BookingInfoSingle";
 import ContactUs from "./js/ContactUs";
-// import ProfileSale from "./js/ProfileSale";
 import Profile from "./js/Profile";
-// import ProfileTravel from "./js/ProfileTravel";
 import Privacy from "./js/Privacy";
 import FAQ from "./js/FAQ";
 import Refund from "./js/Refund";
 import ContexApiProvider from "./context/ContextApi";
 import LoginModal from "./js/Components/LoginModal";
 import ListCars from "./js/ListCars";
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Popover from "react-bootstrap/Popover";
-// import { ContextApiContext } from "../context/ContextApi";
 
 function App() {
-  // let user = localStorage.getItem("user");
-  // let user_loggedin = false;
-  // if (user == null) {
-  //   user_loggedin = false;
-  // } else {
-  //   user = JSON.parse(user);
-  //   user_loggedin = user.is_loggedin;
-  // }
   const [isNavbarAtBottom, setIsNavbarAtBottom] = useState(false);
-  // const { contextState, updateContextState } = useContext(ContextApiContext);
 
   useEffect(() => {
     // ... (your existing code)
@@ -89,23 +69,13 @@ function App() {
         <Router>
           <ErrorAlert />
           <Loader/>
-          {/* <Loader loader={contextState}/> */}
           <LoginModal />
-          {/* <Offcanvas_colapsable_nav /> */}
           <Routes>
-            {/* <Route
-              Component={Check_login(ProfileSale)}
-              path="/profilesale"
-            ></Route> */}
             <Route Component={Check_login(Profile)} path="/profile"></Route>
             <Route Component={Privacy} path="/privacy"></Route>
             <Route Component={FAQ} path="/faq"></Route>
             <Route Component={Refund} path="/refund"></Route>
             <Route Component={ContactUs} path="/contactus"></Route>
-            {/* <Route
-              Component={BookingInfoSingle}
-              path="/bookinginfosingle"
-            ></Route> */}
             <Route
               Component={Check_login(BookingInfoPackages)}
               path="/bookinginfopackages"
@@ -128,19 +98,6 @@ function App() {
           </Routes>
         </Router>
       </ContexApiProvider>
-      {/* <Navbar
-        className={`cus-nav justify-content-end center ${
-          isNavbarAtBottom ? "solid-background" : ""
-        }`}
-        sticky="bottom"
-      >
-        <Container>
-          <Navbar.Brand>
-               
-          </Navbar.Brand>
-          <div className="trans" id="google_translate_element"></div>
-        </Container>
-      </Navbar> */}
     </div>
   );
 }
