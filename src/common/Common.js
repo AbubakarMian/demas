@@ -2,36 +2,6 @@
 import { Constant } from "./Constants";
 import Lang from "./Lang";
 
-export async function googleTranslate(text, lang, that) {
-  console.log("googleTranslate", text);
-  console.log("googleTranslate lang", lang);
-  console.log("googleTranslate", Lang[text]);
-  return "googleTranslate";
-
-  if (lang == "_en") {
-    return text;
-  } else {
-    return Lang[text];
-  }
-  // const {Translate} = require('@google-cloud/translate').v2;
-
-  // Instantiates a client
-  // const translate = new Translate({projectId});
-
-  // async function quickStart() {
-  //   // The text to translate
-  //   const text = 'Hello, world!';
-
-  //   // The target language
-  //   const target = 'ru';
-
-  //   // Translates some text into Russian
-  //   const [translation] = await translate.translate(text, target);
-  //   console.log(`Text: ${text}`);
-  //   console.log(`Translation: ${translation}`);
-}
-
-
 export function change_time_stamp(start_time) {
   let date = new Date(start_time * 1000);
   let hours = date.getHours();
@@ -110,12 +80,21 @@ export function is_driver(){
 
       return user.role_id === 5;
 }
+
+export function setLoaderLocalStorage (value){
+  
+  localStorage.setItem("loader", value);
+  window.dispatchEvent(new Event("storage.loader"));
+}
 export async function SendRequest(
   request_type,
   url,
   formData,
   needAuthorization
 ) {
+  try{
+    setLoaderLocalStorage(true);
+
   if (typeof needAuthorization === "undefined") {
     needAuthorization = false; // Set a default value if it's not provided
   }
@@ -156,6 +135,13 @@ export async function SendRequest(
     localStorage.setItem("show_login_modal", true);
   }
   return json_response;
+} catch (error) {
+  console.error("Error during SendRequestContetType:", error);
+  // Handle errors if needed
+  throw error;
+} finally {
+  setLoaderLocalStorage(false);
+}
 }
 
 export async function SendRequestContetType(
@@ -164,6 +150,72 @@ export async function SendRequestContetType(
   formData,
   needAuthorization
 ) {
+  try {
+    setLoaderLocalStorage(true);
+
+    if (typeof needAuthorization === "undefined") {
+      needAuthorization = false; // Set a default value if it's not provided
+    }
+
+    let user =
+      localStorage.getItem("user") === null
+        ? Constant.guest_user
+        : JSON.parse(localStorage.getItem("user"));
+
+    let acceess_token = needAuthorization
+      ? user.access_token
+      : Constant.basic_token;
+
+    let postData = {
+      method: request_type,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: acceess_token,
+        "Authorization-secure": acceess_token,
+        "client-id": Constant.client_id,
+      },
+    };
+
+    if (formData != null) {
+      postData.body = formData;
+    }
+
+    let response = await fetch(url, postData);
+    let json_response = await response.json();
+
+    if (
+      !json_response.status &&
+      json_response.error &&
+      json_response.error["custom_code"] == 403 &&
+      needAuthorization
+    ) {
+      localStorage.setItem("user", JSON.stringify(Constant.guest_user));
+      // localStorage.setItem("show_login_modal", true);
+    }
+
+    return json_response;
+  } catch (error) {
+    console.error("Error during SendRequestContetType:", error);
+    // Handle errors if needed
+    throw error;
+  } finally {
+    console.log('set value loader false');
+    setLoaderLocalStorage(false);
+
+
+  }
+}
+
+
+export async function SendRequestContetType_del(
+  request_type,
+  url,
+  formData,
+  needAuthorization
+) {
+  localStorage.setItem("loader", true);
+
   if (typeof needAuthorization === "undefined") {
     needAuthorization = false; // Set a default value if it's not provided
   }
@@ -204,5 +256,7 @@ export async function SendRequestContetType(
     localStorage.setItem("user", JSON.stringify(Constant.guest_user));
     // localStorage.setItem("show_login_modal", true);
   }
+  localStorage.setItem("loader", false);
+
   return json_response;
 }
