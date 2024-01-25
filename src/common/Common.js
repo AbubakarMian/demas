@@ -83,8 +83,10 @@ export function is_driver(){
 
 export function setLoaderLocalStorage (value){
   
-  localStorage.setItem("loader", value);
-  window.dispatchEvent(new Event("storage.loader",{key:'loader',value}));
+  // localStorage.setItem("loader", value);
+  window.dispatchEvent(new StorageEvent("storage.loader",{key:'loader',newValue:value}));
+  // window.dispatchEvent(new Event("storage.loader",{key:'loader',value}));
+  
 }
 export async function SendRequest(
   request_type,

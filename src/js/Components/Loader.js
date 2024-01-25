@@ -6,23 +6,24 @@ import Modal from "react-bootstrap/Modal";
 import "./../../styles/loader.css";
 
 export default function Loader(props) {
-  const [showLoader, setShowLoader] = useState(
-    localStorage.getItem("loader", false)
-  );
+  const [showLoader, setShowLoader] = useState(false);
+    // localStorage.getItem("loader")
+  // );
 
   useEffect(() => {
     // Define the event handler
     const handleStorageChange = (event) => {
       console.log('eee k',event.key);
-      console.log('eee v',event.value);
+      console.log('eee v',event.newValue);
       if (event.type === "storage.loader") {
         // event.type == storage event.key
-        setShowLoader(localStorage.getItem("loader") === "true" ? true : false); // Parse the new value from localStorage
+        let eventValue = event.newValue === "true"?true:false;
+        setShowLoader(eventValue);
         console.log(
           "Loader value changed in localStorage",
-          localStorage.getItem("loader")
+          eventValue
         );
-        console.log("value is ", localStorage.getItem("loader") ? true : false);
+        console.log("value is ", eventValue);
       }
     };
 
