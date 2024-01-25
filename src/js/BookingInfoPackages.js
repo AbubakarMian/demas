@@ -43,11 +43,30 @@ export default function Booking_info_pack() {
   const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [paymentOrder, setPaymentOrderModal] = useState({});
-  const [cancelmodalShow, setCancelModalShow] = React.useState(false);
+  const [cancelmodalShow, setCancelModalShow] = useState(false);
+  const [cancel_booking_detail, setCancelBookingDetail] = useState(null);
   const [paymentOrderType, setPaymentOrderType] = useState({});
+  const [paymentSuccessModalShow, setPaymentSuccessModalShow] = useState(false);
 
   const navigateToPath = (path, props) => {
     navigate(path, props);
+  };
+
+  const cancel_request = async () => {
+    let formData = new FormData();
+    const res = await SendRequest(
+      "post",
+      Constant.cancel_request + "/" + cancel_booking_detail.id,
+      null,
+      true
+    );
+
+    if (res.status) {
+      console.log("canceled request    asdssdas ", res);
+      setPaymentSuccessModalShow(true);
+    } else {
+      updateContextState("Payment failed", "error_msg");
+    }
   };
 
   useEffect(() => {
@@ -55,8 +74,6 @@ export default function Booking_info_pack() {
       return navigateToPath("/home");
     }
     get_booking_details();
-    // const booking_obj = location.state.booking;
-    // setBooking(booking_obj);
   }, [location.state]);
 
   const get_booking_details = async () => {
@@ -72,38 +89,33 @@ export default function Booking_info_pack() {
         if (res.error.custom_code == 403) {
           updateContextState(true, "show_login_modal");
           updateContextState("Please Login and try again", "error_msg");
-
-          // navigateToPath(-1);
         }
         updateContextState(res.error?.message[0], "error_msg");
       }
     } catch (error) {
       console.error("Error get orders :", error);
-
-      updateContextState("No Bookings avalible.", "error_msg");
+      updateContextState("No Bookings available.", "error_msg");
     }
   };
-  console.log("booking.order_details", booking);
 
   const checkshowPaymentModal = () => {
     if (contextState.user.role_id == 5 && !booking.is_paid) {
-      //its driver
       setShowPaymentConfirmation(true);
     }
   };
 
-  // const setPaymentOrder = (order) => {
-
-  // };
-
   const setPaymentOrderForModal = (order_type, order) => {
-    // setPaymentOrder(order);
-    console.log("order_typeorder_typeorder_type", order_type);
-    console.log("orderorderorder", order);
     setPaymentOrderType(order_type);
     setShowPaymentModal(true);
     setPaymentOrderModal(order);
   };
+
+  const cancelBookingHandler = (booking_detail) => {
+    console.log("asdsadasddasds cancel");
+    setCancelModalShow(true);
+    setCancelBookingDetail(booking_detail);
+  };
+
   return (
     <div>
       <Container fluid>
@@ -200,7 +212,7 @@ export default function Booking_info_pack() {
           </Row>
           {booking.order_details.map((booking_detail) => {
             return (
-              <div className="inpup_box">
+              <div className="inpup_box" key={booking_detail.sub_order_id}>
                 <Row className="">
                   <Col>
                     <Form.Label htmlFor="basic-url">Booking ID</Form.Label>
@@ -321,52 +333,40 @@ export default function Booking_info_pack() {
                     </Table>
                   </Col>
                 </Row>
-                <Row>
-                  {booking_detail.ispayable ? (
-                    <>
+                {booking_detail.status !== "cancelled" ? (
+                  <Row>
+                    {booking_detail.ispayable ? (
+                      <>
+                        <Col>
+                          <Button
+                            className="mange_btn"
+                            onClick={() => {
+                              setPaymentOrderForModal(
+                                "order_detail",
+                                booking_detail
+                              );
+                            }}
+                          >
+                            Pay Now
+                          </Button>
+                        </Col>
+                      </>
+                    ) : booking_detail.is_paid ? (
                       <Col>
-                        <Button
-                          className="mange_btn"
-                          onClick={() => {
-                            setPaymentOrderForModal(
-                              "order_detail",
-                              booking_detail
-                            );
-                          }}
-                        >
-                          Pay Now
-                        </Button>
+                        <InputGroup className="mb-3">
+                          <Form.Control
+                            placeholder="Paid"
+                            aria-label="Paid"
+                            aria-describedby="basic-addon1"
+                            value="Paid"
+                            className="inputboxes"
+                            readOnly
+                          />
+                        </InputGroup>
                       </Col>
-                      <Col>
-                        <Button
-                          variant="primary"
-                          onClick={() => setCancelModalShow(true)}
-                          className="mange_btn btn btn-primary"
-                        >
-                          Cancel
-                        </Button>
-
-                        <MyVerticallyCenteredModal
-                          show={cancelmodalShow}
-                          onHide={() => setCancelModalShow(false)}
-                        />
-                      </Col>
-                    </>
-                  ) : booking_detail.is_paid ? (
-                    <Col>
-                      <InputGroup className="mb-3">
-                        <Form.Control
-                          placeholder="Paid"
-                          aria-label="Paid"
-                          aria-describedby="basic-addon1"
-                          value="Paid"
-                          className="inputboxes"
-                          readOnly
-                        />
-                      </InputGroup>
-                    </Col>
-                  ) : null}
-                </Row>
+                    ) : null}
+                  </Row>
+                ) : null}
               </div>
             );
           })}
@@ -379,15 +379,15 @@ export default function Booking_info_pack() {
               successFunction={get_booking_details}
             />
             <Col>
-              {booking.ispayable ? (
+              {booking.orderpayable ? (
                 <Button
                   onClick={() => {
                     setPaymentOrderForModal("order", booking);
                   }}
                   className="bill_btn"
                 >
-                  Pay All ( SAR {booking.orderpayable}{" "}
-                                )              </Button>
+                  Pay All ( SAR {booking.orderpayable} ){" "}
+                </Button>
               ) : null}
               {/* {booking.is_paid == "1" ? (
                 <Button className="paid">Paid {booking.final_price} SAR</Button>
@@ -434,10 +434,15 @@ export default function Booking_info_pack() {
   );
 }
 
-function MyVerticallyCenteredModal(props) {
+function MyVerticallyCenteredModal({
+  show,
+  onHide,
+  cancelBookingHandler,
+  cancelBookingDetails,
+}) {
   return (
     <Modal
-      {...props}
+      show={show}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -448,14 +453,18 @@ function MyVerticallyCenteredModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* <h4>Centered Modal</h4> */}
         <p>Are you sure you want to cancel?</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button className="btn btn-warning" onClick={props.onHide}>
+        <Button
+          className="btn btn-warning"
+          onClick={() => {
+            cancelBookingHandler(cancelBookingDetails);
+          }}
+        >
           Cancel Booking
         </Button>
-        <Button onClick={props.onHide}>Go Back</Button>
+        <Button onClick={onHide}>Go Back</Button>
       </Modal.Footer>
     </Modal>
   );

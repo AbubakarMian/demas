@@ -31,4 +31,5 @@ export const Constant = {
   create_request_new_agent: `${base_url}/create_request_new_agent`,
   user_update_profile: `${base_url}/update`,
   create_agent: `${base_url}/create/agent`,
+  cancel_request: `${base_url}/order/cancel_booking`,
 };
