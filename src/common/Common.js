@@ -19,6 +19,16 @@ export function change_time_stamp(start_time) {
   };
 }
 
+export function get_time_stamp_from_time(time_string){ // 07:35
+  time_string = time_string || 0;
+  if(!time_string){
+    console.log('return 0');
+    return 0;
+  }
+  const [hours, minutes] = time_string.split(':');
+  return (minutes * 60) + (hours * 3600);
+}
+
 export function capitalizeFirstLetter(str) {
   if(!str){
     return "";

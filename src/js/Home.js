@@ -29,7 +29,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { ContextApiContext } from "../context/ContextApi";
 import { Alert } from "react-bootstrap";
 import { Constant } from "../common/Constants";
-import { SendRequest } from "../common/Common";
+import { SendRequest, get_time_stamp_from_time } from "../common/Common";
 
 export default function Package_style() {
   const [showPickup, setShowPickup] = useState(false);
@@ -55,21 +55,24 @@ export default function Package_style() {
   const [selectDropoff, setselectDropoff] = useState({});
   const [pickupTime, setpickupTime] = useState(0);
   const [comments, setComments] = useState("");
-
+  const [time, setTime] = useState('');
   const [transportTypeList, setTransportTypeList] = useState([]);
 
   useEffect(() => {
     getLocations();
     getCarTypes();
   }, []);
-  
+
   const handleProceedToNext = async () => {
+    
+// console.log(pickupTime,time);
+// console.log(pickupTime,get_time_stamp_from_time(time));
+// return;
     if (!selectPickup.id || !selectDropoff.id || !pickupTime) {
-      updateContextState("All fields required", "error_msg");
+      updateContextState("All fields are required", "error_msg");
 
       return;
     }
-
     try {
       let verify_journey_url = `${Constant.journey_verify}?pickup_id=${selectPickup.id}&dropoff_id=${selectDropoff.id}`;
       const res = await SendRequest("GET", verify_journey_url);
@@ -82,7 +85,8 @@ export default function Package_style() {
               pick_extrainfo: pickExtrainfo,
               dropoff_id: selectDropoff.id,
               dropoff_extrainfo: dropoffExtrainfo,
-              pickupdate_time: pickupTime,
+              pickupdate_time: (pickupTime+get_time_stamp_from_time(time)),
+              is_pickup_time_set:(time === ''?0:1),
               comment: comments,
               transport_id: 0,
               transport_type_id: 0,
@@ -109,8 +113,6 @@ export default function Package_style() {
     slidesToShow: 3, // Number of slides to show at once
     slidesToScroll: 1, // Number of slides to scroll at a time
   };
-
-
 
   const handleTabClick = (index) => {
     setActiveTab(index);
@@ -159,7 +161,7 @@ export default function Package_style() {
   const changeLocationPoints = (e, point, location) => {
     let new_val = {};
     let location_type = location.location_type.name;
-    let placeholder = location?.location_type?.placeholder??'';
+    let placeholder = location?.location_type?.placeholder ?? "";
 
     if (e.target.checked) {
       new_val = location;
@@ -192,7 +194,9 @@ export default function Package_style() {
     setShowPickup(false);
     setShowDropoff(false);
   };
-
+  const handleTimeChange = (e) => {
+    setTime(e.target.value);
+  };
   const handleDateTimeChange = (dateString) => {
     const timestamp = Math.floor(new Date(dateString).getTime() / 1000);
     setpickupTime(timestamp);
@@ -286,7 +290,8 @@ export default function Package_style() {
                         {locations.map((location) => {
                           if (location.id != selectDropoff.id) {
                             return (
-                              <Form.Check className="fomrate mt-3"
+                              <Form.Check
+                                className="fomrate mt-3"
                                 onClick={(e) => {
                                   changeLocationPoints(e, "pickup", location);
                                 }}
@@ -387,10 +392,10 @@ export default function Package_style() {
               </Row>
               <Row>
                 <Col md={1}></Col>
-                <Col md={10}>
+                <Col md={5}>
                   {/* <Input_area_time /> */}
                   <Form.Control
-                    type="datetime-local"
+                    type="date"
                     id="input5"
                     aria-describedby="passwordHelpBlock"
                     placeholder="Select Pickup Date & Time"
@@ -399,6 +404,18 @@ export default function Package_style() {
                       handleDateTimeChange(e.target.value);
                     }}
                     min={new Date().toISOString().slice(0, 16)}
+                    step="any" // Set step to 'any' to make time optional
+                  />
+                  </Col>
+                <Col md={5}>
+
+                    <Form.Control
+                    type="time"
+                    id="input5"
+                    placeholder="Select Pickup Time"
+                    className="input_bx"
+                    value={time}
+                    onChange={handleTimeChange}
                   />
                 </Col>
                 <Col md={1}></Col>
@@ -496,7 +513,10 @@ export default function Package_style() {
                             (transport_detail, index) => {
                               console.log("index", index);
                               return (
-                                <div  className="img-item-box" key={transport_detail.id}>
+                                <div
+                                  className="img-item-box"
+                                  key={transport_detail.id}
+                                >
                                   {/* <div key={transport_detail.id}> */}
                                   <img
                                     style={{ maxWidth: "min-content" }}
