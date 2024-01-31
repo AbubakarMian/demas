@@ -50,6 +50,7 @@ export default function TransportDetails(props) {
   const [car_feature, setcar_featureOpen] = useState(false);
   const [book, setbookOpen] = useState(false);
   const [customer_name, setCustomerName] = useState("");
+  const [ticketImage, setTicketImage] = useState("");
   const [customer_whatsapp_number, setCustomerWhatsappNumber] = useState("");
   const [customer_phone_number, setCustomerPhoneNumber] = useState("");
   const [customer_collection_price, setCustomerCollectionPrice] = useState(0);
@@ -169,6 +170,7 @@ export default function TransportDetails(props) {
     }
 
     let bookingObj = booking_obj;
+    bookingObj.ticketImage = ticketImage;
     bookingObj.customer_name = customer_name;
     bookingObj.customer_whatsapp_number = customer_whatsapp_number;
     bookingObj.customer_phone_number = customer_phone_number;
@@ -392,6 +394,54 @@ export default function TransportDetails(props) {
                 </div>
               </Collapse>
             </Row>
+          </div>
+          <div className="const_paddingw">
+            <div className="car_card ">
+              <Row className="car_c_btn">
+                <Col>
+                  <Button
+                    aria-controls="example-collapse-text"
+                    aria-expanded={true}
+                    className="car_fea"
+                  >
+                    <FontAwesomeIcon className="car_icn1" icon={faCircleInfo} />
+                    Info <FontAwesomeIcon icon={faBars} />
+                  </Button>
+                </Col>
+              </Row>
+              <Row>
+                <Collapse in={true}>
+                  <div id="example-collapse-text" className="coll_2">
+                    <p className="para_sedan">
+                      {booking_obj.type == "package" ? null : (
+                        <>
+                          <Form.Label htmlFor="basic-url">
+                          Upload Ticket (Optional)
+                          </Form.Label>
+                          <InputGroup className="mb-3">
+                            {/* <InputGroup.Text id="basic-addon3">
+                              https://example.com/users/
+                            </InputGroup.Text> */}
+                            <Form.Control
+                            type="file"
+                              id="basic-url"
+                              aria-describedby="basic-addon3"
+                              onChange={(e) => setTicketImage(e.target.value)}
+
+                            />
+                          </InputGroup>
+                          
+                          
+                          
+                        </>
+                      )}
+
+                     
+                    </p>
+                  </div>
+                </Collapse>
+              </Row>
+            </div>
           </div>
           {[3, 4].includes(user.role_id) ? (
             <div className="const_paddingw">

@@ -35,6 +35,7 @@ import {
   SendRequest,
   SendRequestContetType,
   get_formated_dateime,
+  get_time_stamp_from_time,
 } from "../common/Common";
 import TripCreatedSuccessModal from "./Components/TripCreatedSuccessModal";
 
@@ -73,6 +74,7 @@ export default function Packages(props) {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+  const [time, setTime] = useState('');
 
   useEffect(() => {
     getLocations();
@@ -133,7 +135,8 @@ export default function Packages(props) {
           dropoff_id: selectDropoff.id,
           dropoff: selectDropoff,
           dropoff_extrainfo: "ticket_number",
-          pickupdate_time: pickupTime,
+          pickupdate_time: (pickupTime+get_time_stamp_from_time(time)),
+          is_pickup_time_set:(time === ''?0:1),
           formatted_pickupdate_time: get_formated_dateime(pickupTime).date_time,
           comment: comments,
           transport_id: 0,
@@ -159,7 +162,6 @@ export default function Packages(props) {
     }
   };
 
-  
   const removeTrip = (index) => {
     let newBookingObj = bookingObj;
     let details = bookingObj.details.filter((item, i) => i !== index);
@@ -215,7 +217,9 @@ export default function Packages(props) {
     console.log("datetime ", timestamp);
     setpickupTime(timestamp);
   };
-
+  const handleTimeChange = (e) => {
+    setTime(e.target.value);
+  };
   const handleOtpClose = () => {
     setShowOtpModal(false);
   };
@@ -286,7 +290,6 @@ export default function Packages(props) {
   const navigateToPath = (path, props) => {
     navigate(path, { state: props });
   };
-
 
   return (
     <div>
@@ -412,18 +415,33 @@ export default function Packages(props) {
                           </div>
                         </Collapse>
                         <h5 className="md_head">PICKUP DATE & TIME</h5>
-                        <Form.Control
-                          type="datetime-local"
-                          id="input5"
-                          aria-describedby="passwordHelpBlock"
-                          placeholder="Select Pickup Date & Time"
-                          className="input_bx"
-                          onChange={(e) => {
-                            handleDateTimeChange(e.target.value);
-                          }}
-                          min={new Date().toISOString().slice(0, 16)}
-                        />{" "}
-                        {/* <Comment /> */}
+                        <Row>
+                          <Col>
+                            <Form.Control
+                              type="date"
+                              id="input5"
+                              aria-describedby="passwordHelpBlock"
+                              placeholder="Select Pickup Date & Time"
+                              className="input_bx"
+                              onChange={(e) => {
+                                handleDateTimeChange(e.target.value);
+                              }}
+                              min={new Date().toISOString().slice(0, 16)}
+                              step="any" // Set step to 'any' to make time optional
+                            />
+                          </Col>
+                          <Col>
+                            <Form.Control
+                              type="time"
+                              id="input5"
+                              placeholder="Select Pickup Time"
+                              className="input_bx"
+                              value={time}
+                              onChange={handleTimeChange}
+                            />
+                          </Col>
+                        </Row>
+                       
                         <Button
                           onClick={() => setopenComment(!openComment)}
                           aria-controls="example-collapse-text"
