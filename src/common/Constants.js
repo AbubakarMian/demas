@@ -1,5 +1,5 @@
-// const base_url = "http://localhost/demas_backend/public/api";
-const base_url = "https://demastransport.com/demas_backend/public/api";
+const base_url = "http://localhost/demas_backend/public/api";
+// const base_url = "https://demastransport.com/demas_backend/public/api";
 
 export const Constant = {
   basic_token: "Basic ZGVtYXMtYXBwLW1vYmlsZTtaR1Z0WVhNdFlYQndMVzF2WW1sc1pRPT0=",
@@ -15,6 +15,7 @@ export const Constant = {
   },
 
   register_or_login: `${base_url}/register_or_login`,
+  upload_image: `${base_url}/upload_image`,
   // sendotp: `${base_url}/sendotp`,
   validate_otp: `${base_url}/validate_otp`,
   get_cars_for_booking: `${base_url}/cars/get_cars_for_booking`,

@@ -19,7 +19,9 @@ import {
   faDoorOpen,
   faCircleInfo,
   faFingerprint,
+  faCross,
   faCheck,
+  faSitemap,
   faBars,
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
@@ -33,7 +35,11 @@ import { ContextApiContext } from "../context/ContextApi";
 import LoginModal from "./Components/LoginModal";
 import TripCreatedSuccessModal from "./Components/TripCreatedSuccessModal";
 import { Constant } from "../common/Constants";
-import { SendRequest, SendRequestContetType } from "../common/Common";
+import {
+  SendRequest,
+  SendRequestContetType,
+  UploadImage,
+} from "../common/Common";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 
@@ -53,14 +59,27 @@ export default function TransportDetails(props) {
   const [ticketImage, setTicketImage] = useState("");
   const [customer_whatsapp_number, setCustomerWhatsappNumber] = useState("");
   const [customer_phone_number, setCustomerPhoneNumber] = useState("");
+  const [customer_ticket_image, setCustomerTicketImage] = useState("");
   const [customer_collection_price, setCustomerCollectionPrice] = useState(0);
   const [showPriceInUserInvoice, setShowPriceInUserInvoice] = useState(false);
+
+  // const [selectedImage, setSelectedImage] = useState(null);
+  // const [selectedIcon, setSelectedIcon] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [infantPassengers, setInfantPassengers] = useState(0);
+  const [adultPassengers, setAdultPassengers] = useState(0);
+  const [totalPassengers, setTotalPassengers] = useState(0);
 
   // const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [open, setOpen] = useState(false);
   // const [showPaymentOptionsModal, setShowPaymentOptionsModal] = useState(false);
   const [paymentSuccessModalsShow, setPaymentSuccessModalsShow] =
     useState(false);
+
+  // const [showImageUploadSuccessModal, setShowImageUploadSuccessModal] =
+  //   useState(false);
+  // const [imageUploadSuccessMessage, setImageUploadSuccessMessage] =
+  //   useState("");
 
   const navigateToPath = (path, props) => {
     navigate(path, { state: props });
@@ -98,30 +117,11 @@ export default function TransportDetails(props) {
   };
   const handleBookCar = () => {
     if (user.is_loggedin) {
-      // let booking_obj = location.state.booking_obj;
-      console.log("bookin handle", booking_obj);
-      console.log("bookin hantransportDetaille", transportDetail);
-      console.log("bookin current_booking", current_booking);
-      console.log(
-        "bookin current_booking.booking_price",
-        current_booking.booking_price
-      );
-      console.log(
-        "btransportDetail.booking_price",
-        transportDetail.booking_price
-      );
-      console.log("customer_collection_pricece", customer_collection_price);
-      console.log(
-        "chk",
-        parseInt(transportDetail.booking_price) <
-          parseInt(customer_collection_price)
-      );
       if (user.role_id == 5 || user.role_id == 1) {
         updateContextState("Driver can not create order", "error_msg");
         navigateToPath("/managebookings");
         return;
       }
-
       if (
         user.role_id != 2 &&
         (customer_collection_price == "" ||
@@ -134,14 +134,27 @@ export default function TransportDetails(props) {
         );
         return;
       }
-      booking_obj.details[
-        booking_obj.details.length - 1
-      ].customer_collection_price = customer_collection_price;
+      if(totalPassengers < 1){
+        updateContextState(
+          "Enter number of passengers",
+          "error_msg"
+        );
+        return;
+      }
+      let booking_obj_current_details =
+        booking_obj.details[booking_obj.details.length - 1];
+      booking_obj_current_details.customer_collection_price =
+        customer_collection_price;
+      booking_obj_current_details.customer_ticket_image = customer_ticket_image;
+      booking_obj_current_details.adult_passengers = adultPassengers;
+      booking_obj_current_details.infant_passengers = infantPassengers;
+      booking_obj_current_details.total_passengers = totalPassengers;
+
+      booking_obj.details[booking_obj.details.length - 1] =
+        booking_obj_current_details;
 
       // setBookingDetails({ ...location.state.booking_obj, booking_obj });
 
-      // console.log('passed');
-      // return;
       if (booking_obj.type == "package") {
         navigateToPath("/packages", { booking_obj });
       } else {
@@ -149,6 +162,29 @@ export default function TransportDetails(props) {
       }
     } else {
       updateContextState(true, "show_login_modal");
+    }
+  };
+
+  const handleImageSelect = async (event) => {
+    try {
+      const file = event.target.files[0];
+      if (file) {
+        // setSelectedImage(file);
+        const previewURL = await URL.createObjectURL(file);
+        await setImagePreview(previewURL);
+        const image_res = await UploadImage({ file, customer_ticket_image });
+
+        if (image_res.status) {
+          setCustomerTicketImage(image_res.image_url);
+        } else {
+          updateContextState(image_res.error?.message[0], "error_msg");
+        }
+
+        console.log("image_res", image_res);
+        // uploadImage1(file);
+      }
+    } catch (err) {
+      updateContextState("image format not supportedtry again", "error_msg");
     }
   };
 
@@ -162,9 +198,9 @@ export default function TransportDetails(props) {
       if (
         customer_name == "" ||
         customer_whatsapp_number == "" ||
-        customer_phone_number == ""
+        customer_phone_number == "" 
       ) {
-        updateContextState("All fields required", "error_msg");
+        updateContextState("Fill all required fields", "error_msg");
         return;
       }
     }
@@ -336,7 +372,7 @@ export default function TransportDetails(props) {
                   aria-expanded={book}
                   className="car_fea"
                 >
-                  <FontAwesomeIcon className="car_icn2" icon={faCircleInfo} />
+                  <FontAwesomeIcon className="car_icn2" icon={faSitemap} />
                   Booking Includes
                   <FontAwesomeIcon icon={faBars} />
                 </Button>
@@ -409,38 +445,116 @@ export default function TransportDetails(props) {
                   </Button>
                 </Col>
               </Row>
-              <Row>
-                <Collapse in={true}>
-                  <div id="example-collapse-text" className="coll_2">
-                    <p className="para_sedan">
-                      {booking_obj.type == "package" ? null : (
+              <Row className="info_row">
+                <Col>
+                  {" "}
+                  <Collapse in={true}>
+                    <div id="example-collapse-text" className="coll_2">
+                      <p className="para_sedan">
+                        {/* {booking_obj.type === "package" ? null : ( */}
                         <>
-                          <Form.Label htmlFor="basic-url">
-                          Upload Ticket (Optional)
-                          </Form.Label>
+                          {/* <Form.Label htmlFor="basic-url">
+                              Adult Pessengers
+                            </Form.Label> */}
                           <InputGroup className="mb-3">
-                            {/* <InputGroup.Text id="basic-addon3">
-                              https://example.com/users/
-                            </InputGroup.Text> */}
+                            <InputGroup.Text id="basic-addon3">
+                              Adult Pessengers
+                            </InputGroup.Text>
                             <Form.Control
-                            type="file"
-                              id="basic-url"
+                              id="basic-url5"
                               aria-describedby="basic-addon3"
-                              onChange={(e) => setTicketImage(e.target.value)}
-
+                              type="number"
+                              value={adultPassengers}
+                              onChange={(e) => {
+                                setAdultPassengers(parseInt(e.target.value));
+                                setTotalPassengers(
+                                  parseInt(e.target.value) + infantPassengers
+                                );
+                              }}
                             />
                           </InputGroup>
-                          
-                          
-                          
+                          {/* <Form.Label htmlFor="basic-url">
+                              Infant Pessengers
+                            </Form.Label> */}
+                          <InputGroup className="mb-3">
+                            <InputGroup.Text id="basic-addon3">
+                              Infant Pessengers
+                            </InputGroup.Text>
+                            <Form.Control
+                              id="basic-url4"
+                              aria-describedby="basic-addon3"
+                              type="number"
+                              value={infantPassengers}
+                              onChange={(e) => {
+                                setInfantPassengers(parseInt(e.target.value));
+                                setTotalPassengers(
+                                  parseInt(e.target.value) + adultPassengers
+                                );
+                              }}
+                            />
+                          </InputGroup>
+                          {/* <Form.Label htmlFor="basic-url">
+                              Total Pessengers
+                            </Form.Label> */}
+                          <InputGroup className="mb-3">
+                            <InputGroup.Text id="basic-addon3">
+                              Total Pessengers
+                            </InputGroup.Text>
+                            <Form.Control
+                              id="basic-url3"
+                              aria-describedby="basic-addon3"
+                              type="number"
+                              totalPassengers
+                              readOnly
+                              value={totalPassengers}
+                            />
+                          </InputGroup>
                         </>
-                      )}
-
-                     
-                    </p>
+                        {/* )} */}
+                      </p>
+                    </div>
+                  </Collapse>
+                </Col>
+                <Col sm={3} md={3} className="para_sedan">
+                  {imagePreview && (
+                    <div className="img_info_area">
+                      <img src={imagePreview} alt="Selected" />
+                    </div>
+                  )}
+                  <div className="img_area_upl">
+                    <Form.Label htmlFor="basic-url2" className="upl_img">
+                      Upload Ticket (Optional)
+                    </Form.Label>
+                    <InputGroup className="mb-3 upl_btn_al">
+                      {/* <InputGroup.Text id="basic-addon3">
+                                    https://example.com/users/
+                                  </InputGroup.Text> */}
+                      <Form.Control
+                        type="file"
+                        id="basic-url1"
+                        aria-describedby="basic-addon3"
+                        onChange={(e) => handleImageSelect(e)}
+                        style={{ display: "none" }}
+                        accept="image/*"
+                      />
+                      <Button
+                        variant="outline-secondary"
+                        className="upl_bbtt rounded"
+                        onClick={() =>
+                          document.getElementById("basic-url1").click()
+                        }
+                      >
+                        Select File
+                      </Button>
+                    </InputGroup>
                   </div>
-                </Collapse>
+                </Col>
               </Row>
+              {/* <Row>
+                <Col></Col>
+                
+                <Col></Col>
+              </Row> */}
             </div>
           </div>
           {[3, 4].includes(user.role_id) ? (
