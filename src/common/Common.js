@@ -219,56 +219,23 @@ export async function SendRequestContetType(
   }
 }
 
+export async function UploadImage ({file,pre_image}) {
+  try {
+    pre_image = pre_image || '';
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("pre_image", pre_image);
 
-export async function SendRequestContetType_del(
-  request_type,
-  url,
-  formData,
-  needAuthorization
-) {
-  localStorage.setItem("loader", true);
+    const res = await SendRequest(
+      'post',
+      Constant.upload_image,
+      formData,
+      true
+    )
+    return res;
 
-  if (typeof needAuthorization === "undefined") {
-    needAuthorization = false; // Set a default value if it's not provided
+      
+  } catch (error) {    
+    console.error("Error uploading image:", error);
   }
-  // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
-  let user =
-    localStorage.getItem("user") === null
-      ? Constant.guest_user
-      : JSON.parse(localStorage.getItem("user"));
-  let acceess_token = needAuthorization
-    ? user.access_token
-    : Constant.basic_token;
-  // let acceess_token = needAuthorization ? contextState.user.access_token : Constant.basic_token;
-  console.log("access token", acceess_token);
-  let postData = {
-    method: request_type,
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: acceess_token,
-      "Authorization-secure": acceess_token,
-      "client-id": Constant.client_id,
-    },
-  };
-
-  if (formData != null) {
-    postData.body = formData;
-  }
-
-  let response = await fetch(url, postData);
-  let json_response = await response.json();
-
-  if (
-    !json_response.status &&
-    json_response.error &&
-    json_response.error["custom_code"] == 403 &&
-    needAuthorization
-  ) {
-    localStorage.setItem("user", JSON.stringify(Constant.guest_user));
-    // localStorage.setItem("show_login_modal", true);
-  }
-  localStorage.setItem("loader", false);
-
-  return json_response;
-}
+};
