@@ -56,7 +56,6 @@ export default function TransportDetails(props) {
   const [car_feature, setcar_featureOpen] = useState(false);
   const [book, setbookOpen] = useState(false);
   const [customer_name, setCustomerName] = useState("");
-  const [ticketImage, setTicketImage] = useState("");
   const [customer_whatsapp_number, setCustomerWhatsappNumber] = useState("");
   const [customer_phone_number, setCustomerPhoneNumber] = useState("");
   const [customer_ticket_image, setCustomerTicketImage] = useState("");
@@ -175,7 +174,7 @@ export default function TransportDetails(props) {
         const image_res = await UploadImage({ file, customer_ticket_image });
 
         if (image_res.status) {
-          setCustomerTicketImage(image_res.image_url);
+          setCustomerTicketImage(image_res.response.image_url);
         } else {
           updateContextState(image_res.error?.message[0], "error_msg");
         }
@@ -206,10 +205,10 @@ export default function TransportDetails(props) {
     }
 
     let bookingObj = booking_obj;
-    bookingObj.ticketImage = ticketImage;
     bookingObj.customer_name = customer_name;
     bookingObj.customer_whatsapp_number = customer_whatsapp_number;
     bookingObj.customer_phone_number = customer_phone_number;
+    bookingObj.show_price_in_user_invoice = showPriceInUserInvoice;
     bookingObj.show_price_in_user_invoice = showPriceInUserInvoice;
     // this is added in booking details
     // bookingObj.customer_collection_price = customer_collection_price;
