@@ -48,17 +48,17 @@ export default function Login_page_style() {
   const attempt_login = async () => {
     try {
       // console.log("whatsapp_no
-      let w_num = whatsapp_no.replace("+", "");
+      // let w_num = whatsapp_no.replace("+", "");
       // return;
       // Create the formData and append the email and password
       console.log("test login 111");
       var formData = new FormData();
       formData.append("email", email);
       // formData.append("phone_no", phone_no);
-      formData.append("whatsapp_no", w_num);
+      formData.append("whatsapp_no", whatsapp_no);
       console.log("email", email);
       console.log("phone_no", phone_no);
-
+      console.log("w_num", whatsapp_no);
       const res = await SendRequest(
         "POST",
         Constant.register_or_login,
@@ -175,7 +175,7 @@ export default function Login_page_style() {
                   <PhoneInput
                     placeholder="Whatsapp Number"
                     defaultCountry="sa"
-                    value={whatsapp_no}
+                    // value={whatsapp_no}
                     // onChange={setValue}
                     onChange={(txt) =>{
                       console.log('chk num',txt);
