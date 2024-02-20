@@ -69,7 +69,7 @@ export default function Packages(props) {
   const [customer_name, setCustomerName] = useState("");
   const [customer_whatsapp_number, setCustomerWhatsappNumber] = useState("");
   const [customer_phone_number, setCustomerPhoneNumber] = useState("");
-  const [showPriceInUserInvoice, setShowPriceInUserInvoice] = useState(false);
+  const [showPriceInUserInvoice, setShowPriceInUserInvoice] = useState(true);
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
@@ -131,10 +131,10 @@ export default function Packages(props) {
         let new_trip = {
           pickup_id: selectPickup.id,
           pickup: selectPickup,
-          pick_extrainfo: "ticket_number",
+          pick_extrainfo: pickExtrainfo,
           dropoff_id: selectDropoff.id,
           dropoff: selectDropoff,
-          dropoff_extrainfo: "ticket_number",
+          dropoff_extrainfo: dropoffExtrainfo,
           pickupdate_time: (pickupTime+get_time_stamp_from_time(time)),
           is_pickup_time_set:(time === ''?0:1),
           formatted_pickupdate_time: get_formated_dateime(pickupTime).date_time,
@@ -625,6 +625,7 @@ export default function Packages(props) {
                           onChange={(e) => {
                             setShowPriceInUserInvoice(e.target.checked);
                           }}
+                          defaultChecked={true} 
                         />
                       </Form.Group>
                     </p>
