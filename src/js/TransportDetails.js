@@ -60,7 +60,7 @@ export default function TransportDetails(props) {
   const [customer_phone_number, setCustomerPhoneNumber] = useState("");
   const [customer_ticket_image, setCustomerTicketImage] = useState("");
   const [customer_collection_price, setCustomerCollectionPrice] = useState(0);
-  const [showPriceInUserInvoice, setShowPriceInUserInvoice] = useState(false);
+  const [showPriceInUserInvoice, setShowPriceInUserInvoice] = useState(true);
 
   // const [selectedImage, setSelectedImage] = useState(null);
   // const [selectedIcon, setSelectedIcon] = useState(null);
@@ -209,7 +209,7 @@ export default function TransportDetails(props) {
     bookingObj.customer_whatsapp_number = customer_whatsapp_number;
     bookingObj.customer_phone_number = customer_phone_number;
     bookingObj.show_price_in_user_invoice = showPriceInUserInvoice;
-    bookingObj.show_price_in_user_invoice = showPriceInUserInvoice;
+    // bookingObj.show_price_in_user_invoice = showPriceInUserInvoice;
     // this is added in booking details
     // bookingObj.customer_collection_price = customer_collection_price;
 
@@ -657,6 +657,7 @@ export default function TransportDetails(props) {
                             onChange={(e) => {
                               setShowPriceInUserInvoice(e.target.checked);
                             }}
+                            defaultChecked={true} 
                           />
                         </Form.Group>
                       </p>
