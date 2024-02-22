@@ -612,8 +612,7 @@ export default function TransportDetails(props) {
                             >
                               <PhoneInput
                                 placeholder="Phone Number"
-                                defaultCountry="SA"
-                                // onChange={setValue}
+                                defaultCountry="sa"
                                 onChange={(txt) => {
                                   console.log("chk num", txt);
                                   setCustomerPhoneNumber(txt);
